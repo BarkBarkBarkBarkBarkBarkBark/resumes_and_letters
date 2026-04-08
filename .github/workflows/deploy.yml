@@ -38,6 +38,9 @@ jobs:
       - name: Install Python dependencies
         run: pip install -r requirements.txt
 
+      - name: Build cover letter
+        run: python scripts/build_cover_letter.py --company "UC Davis" --role "Research Engineer" --profile neuroengineering --md-only
+
       - name: Build site
         run: python scripts/build_site.py --profile neuroengineering
 

@@ -14,9 +14,9 @@ personal:
     email: marc.delfava@gmail.com
     phone: "707-637-6544"
     location: Sacramento, CA
-    linkedin: ""      # Add: linkedin.com/in/yourhandle
-    github: ""        # Add: github.com/yourhandle
-    website: ""       # Add: yoursite.com
+    linkedin: "www.linkedin.com/in/marc-del-fava"      # Add: linkedin.com/in/yourhandle
+    github: "https://github.com/BarkBarkBarkBarkBarkBarkBark"        # Add: github.com/yourhandle
+    website: "https://transformations.solutions"       # Add: yoursite.com
 
 # Multiple summary variants — the active one is selected by role profile.
 summary:
