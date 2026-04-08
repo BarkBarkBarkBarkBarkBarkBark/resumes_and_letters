@@ -1,0 +1,34 @@
+{#- ============================================================
+    cover_letter.md.j2 — Cover letter template
+    Rendered by build_cover_letter.py via Jinja2.
+
+    Available variables:
+      name, contact, company, role, profile_key
+      opener, research_background, data_systems_background,
+      lab_background, closer
+    ============================================================ -#}
+{{ name }}
+
+{{ contact.email }} | {{ contact.phone }} | {{ contact.location }}
+
+---
+
+{{ opener | trim }}
+
+{% if research_background | trim %}
+{{ research_background | trim }}
+
+{% endif %}
+{% if data_systems_background | trim %}
+{{ data_systems_background | trim }}
+
+{% endif %}
+{% if lab_background | trim %}
+{{ lab_background | trim }}
+
+{% endif %}
+{{ closer | trim }}
+
+Sincerely,
+
+{{ name }}

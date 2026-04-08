@@ -1,0 +1,93 @@
+{#- ============================================================
+    resume.md.j2  — ATS-safe Markdown resume template
+    Rendered by build_resume.py via Jinja2.
+
+    ATS design choices:
+      - Single column, no tables, no text boxes
+      - Standard section names (Summary, Experience, Education, Skills)
+      - Contact info in body, not in header/footer
+      - Plain bullet lists only
+      - Text-based output (not image-based)
+    ============================================================ -#}
+# {{ personal.name }}
+
+{{ personal.contact.email }} | {{ personal.contact.phone }} | {{ personal.contact.location -}}
+{% if personal.contact.linkedin %} | {{ personal.contact.linkedin }}{% endif %}
+{% if personal.contact.github %} | {{ personal.contact.github }}{% endif %}
+{% if personal.contact.website %} | {{ personal.contact.website }}{% endif %}
+
+---
+
+## Summary
+
+{{ summary_text | trim }}
+
+---
+
+## Experience
+
+{% for job in experience %}
+**{{ job.role }} — {{ job.organization }}** | {{ job.location }} | {{ job.start_date | fmt_date }} – {{ job.end_date | fmt_date }}
+
+{% for bullet in job.bullets %}
+- {{ bullet.text | trim }}
+{% endfor %}
+{% if not loop.last %}
+
+{% endif %}
+{% endfor %}
+{% if volunteer %}
+
+---
+
+## Research & Volunteer Experience
+
+{% for entry in volunteer %}
+**{{ entry.role }} — {{ entry.organization }}** | {{ entry.location }} | {{ entry.start_date | fmt_date }} – {{ entry.end_date | fmt_date }}
+
+{% for bullet in entry.bullets %}
+- {{ bullet.text | trim }}
+{% endfor %}
+{% if not loop.last %}
+
+{% endif %}
+{% endfor %}
+{% endif %}
+
+---
+
+## Education
+
+{% for edu in education %}
+**{{ edu.degree }}{% if edu.gpa %} (GPA: {{ edu.gpa }}){% endif %}** | {{ edu.institution }} | {{ edu.graduation_date }}
+
+{% endfor %}
+{% if coursework %}
+
+---
+
+## Relevant Coursework
+
+{% for course in coursework %}
+- {{ course }}
+{% endfor %}
+{% endif %}
+
+---
+
+## Skills
+
+{% for skill_group in skills %}
+**{{ skill_group.category }}:** {{ skill_group['items'] | join(", ") }}
+
+{% endfor %}
+{% if certifications %}
+
+---
+
+## Certifications
+
+{% for cert in certifications %}
+- {{ cert.name }}
+{% endfor %}
+{% endif %}

@@ -1,0 +1,106 @@
+# ============================================================
+# ROLE PROFILES
+# Controls how base_resume.yaml content is filtered and
+# prioritized for each target application type.
+#
+# prefer_tags    — bullets/skills with these tags rank highest
+# deprioritize_tags — bullets with these tags rank lowest
+# max_bullets_per_role — cap bullets shown per job/volunteer entry
+# skill_categories — which skill blocks to include (in order)
+# include_volunteer — whether to render the volunteer section
+# include_coursework — whether to render the coursework section
+# summary_key — which summary variant to use from base_resume.yaml
+# cover_letter_opener — which opener snippet to pull from cover_letter_snippets.yaml
+# ============================================================
+
+neuroengineering:
+  name: "Neuroengineering / BCI / Neuroinformatics"
+  summary_key: neuroengineering
+  include_volunteer: true
+  include_coursework: true
+  prefer_tags:
+    - neuroengineering
+    - research
+    - technical
+    - ml
+    - spike_sorting
+    - cloud
+    - python
+    - data
+  deprioritize_tags:
+    - management
+    - operations
+    - equity
+  max_bullets_per_role: 4
+  skill_categories:
+    - Neural Data & Signal Processing
+    - Machine Learning & Data Science
+    - General Technical
+    - Data Systems & Reporting
+  cover_letter_opener: neuroengineering
+
+data_analytics:
+  name: "Data Analytics / Program Evaluation"
+  summary_key: data_analytics
+  include_volunteer: false
+  include_coursework: false
+  prefer_tags:
+    - analytics
+    - evaluation
+    - management
+    - leadership
+    - python
+    - data
+    - communication
+    - equity
+  deprioritize_tags:
+    - neuroengineering
+    - spike_sorting
+    - cloud
+    - lab
+  max_bullets_per_role: 6
+  skill_categories:
+    - Data Systems & Reporting
+    - Machine Learning & Data Science
+    - General Technical
+  cover_letter_opener: data_analytics
+
+clinical_research:
+  name: "Clinical Research Coordinator"
+  summary_key: default
+  include_volunteer: true
+  include_coursework: true
+  prefer_tags:
+    - clinical
+    - research
+    - data
+    - quality
+    - neuroengineering
+    - analytics
+    - communication
+  deprioritize_tags:
+    - spike_sorting
+    - cloud
+    - it
+    - automation
+  max_bullets_per_role: 4
+  skill_categories:
+    - Neural Data & Signal Processing
+    - Machine Learning & Data Science
+    - Data Systems & Reporting
+  cover_letter_opener: clinical_research
+
+default:
+  name: "General / Default"
+  summary_key: default
+  include_volunteer: true
+  include_coursework: false
+  prefer_tags: []
+  deprioritize_tags: []
+  max_bullets_per_role: 5
+  skill_categories:
+    - Neural Data & Signal Processing
+    - Machine Learning & Data Science
+    - Data Systems & Reporting
+    - General Technical
+  cover_letter_opener: neuroengineering

@@ -1,0 +1,267 @@
+# ============================================================
+# CANONICAL RESUME — Marco Del Fava
+# This file is the single source of truth for all outputs.
+#
+# Edit here only. Run:
+#   python scripts/build_resume.py
+#   python scripts/build_resume.py --profile neuroengineering
+#   python scripts/build_resume.py --profile data_analytics
+# ============================================================
+
+personal:
+  name: Marco Del Fava
+  contact:
+    email: marc.delfava@gmail.com
+    phone: "707-637-6544"
+    location: Sacramento, CA
+    linkedin: ""      # Add: linkedin.com/in/yourhandle
+    github: ""        # Add: github.com/yourhandle
+    website: ""       # Add: yoursite.com
+
+# Multiple summary variants — the active one is selected by role profile.
+summary:
+  neuroengineering: >
+    Neuroscience researcher and data engineer with active experience in spike sorting
+    intracranial recordings from epilepsy patients using Kilosort4, O-Sort, and
+    SpikeInterface. Building GPU-accelerated spike sorting pipelines on AWS EC2.
+    Background in Python, MATLAB, machine learning, and 5 years of applied data
+    systems work. Seeking to contribute to neural signal processing research and
+    BCI development.
+
+  data_analytics: >
+    Evaluation and data systems professional with 5 years supporting 4 shelter sites
+    serving 400+ people/month and their integrated clinical partnerships. Led mixed
+    methods efforts including surveys and focus groups, built reporting workflows, and
+    translated findings into funder-ready narratives and operational decisions.
+    Experienced with Python/SQL, SPSS, dashboards, and Microsoft 365 automation.
+    Committed to equity-centered learning and improving health and housing outcomes.
+
+  default: >
+    Data systems and evaluation professional with 5 years building outcomes measurement
+    infrastructure for homeless services programs. Active neuroscience researcher with
+    hands-on experience in spike sorting, intracranial electrophysiology, and ML-based
+    neural signal processing. Background spans Python/SQL engineering, clinical data
+    coordination, and scientific communication. Pursuing a neuroinformatics career at
+    the intersection of systems neuroscience and BCI engineering.
+
+# Skills are organized into named categories.
+# The active profile controls which categories appear and in what order.
+skills:
+  - category: Neural Data & Signal Processing
+    items:
+      - Spike sorting (Kilosort4, O-Sort, SpikeInterface)
+      - Neural data processing (filtering, PCA, template matching)
+      - MATLAB neurophysiology workflows
+      - Intracranial electrophysiology (LFP, single-unit)
+    tags: [neuroengineering, research, technical]
+
+  - category: Machine Learning & Data Science
+    items:
+      - Python (NumPy, Pandas, scikit-learn, PyTorch)
+      - Statistical analysis (SPSS)
+      - SQL and database engineering (PostgreSQL, PGVector)
+      - Cloud GPU computing (AWS EC2, CUDA, Docker)
+    tags: [neuroengineering, analytics, technical]
+
+  - category: Data Systems & Reporting
+    items:
+      - Dashboards and stakeholder reporting (Looker)
+      - Workflow automation (Microsoft 365, Power Automate)
+      - Survey design and focus group facilitation
+      - Equity-informed outcomes measurement
+    tags: [analytics, evaluation, management]
+
+  - category: General Technical
+    items:
+      - Git and version control
+      - Linux and shell scripting
+      - Web interfaces (Streamlit)
+      - Microsoft 365 administration
+    tags: [technical, it]
+
+# Each bullet has a text field and tags for role-profile filtering.
+# The build script scores bullets by tag overlap with the active profile,
+# sorts them by score, and takes the top N per role.
+experience:
+  - role: Operations Specialist
+    organization: First Step Communities
+    org_type: Homeless Shelter Operator
+    location: Sacramento, CA
+    start_date: "2021-07"
+    end_date: present
+    bullets:
+      - text: >
+          Led performance measurement and outcomes tracking across 4 shelter sites
+          serving 400+ people/month; delivered recurring insights for leadership
+          decision-making and funder reporting.
+        tags: [analytics, evaluation, management, leadership]
+
+      - text: >
+          Analyzed program and partner datasets using Python, SPSS, and Excel to
+          identify predictors of successful exits and service effectiveness.
+        tags: [analytics, evaluation, technical, python]
+
+      - text: >
+          Disaggregated outcomes by demographic characteristics to identify
+          disparities and inform equity-focused program adjustments and reporting.
+        tags: [analytics, evaluation, equity]
+
+      - text: >
+          Identified an association between on-site clinical engagement and permanent
+          housing outcomes; supported leadership in scaling integrated clinical
+          services across sites.
+        tags: [analytics, evaluation, clinical, leadership]
+
+      - text: >
+          Developed 40+ standardized data collection forms and automated reporting
+          workflows using Microsoft Power Automate.
+        tags: [technical, automation, management]
+
+      - text: >
+          Produced executive and funder-ready dashboards, briefs, and presentations;
+          synthesized findings into actionable recommendations for technical and
+          non-technical audiences.
+        tags: [analytics, communication, leadership]
+
+      - text: >
+          Managed Microsoft 365 IT infrastructure across 4 shelter sites, including
+          user provisioning, device management, and systems coordination.
+        tags: [technical, it, management]
+
+      - text: >
+          Coordinated data collection from clinical partners including UC Davis Health
+          and Kaiser Permanente to support integrated care outcome analyses.
+        tags: [data, clinical, management, research]
+
+  - role: Analyst
+    organization: Eurofins Test America
+    org_type: Environmental Chemistry Laboratory
+    location: West Sacramento, CA
+    start_date: "2019-10"
+    end_date: "2021-06"
+    bullets:
+      - text: >
+          Maintained high-accuracy data entry and review in a regulated laboratory
+          environment; supported QA documentation and adherence to standard
+          operating procedures.
+        tags: [data, quality, research]
+
+      - text: >
+          Performed solvent extraction of organic compounds from soil and water
+          samples in a high-throughput production setting.
+        tags: [lab, technical]
+
+      - text: >
+          Coordinated daily scheduling and backlog management to meet turnaround
+          targets across teams.
+        tags: [management, operations]
+
+# Volunteer and research experience — included or excluded per role profile.
+volunteer:
+  - role: Research Volunteer
+    organization: "UC Davis Health — Z-Lab (Dr. Jie Zheng)"
+    location: Sacramento, CA
+    start_date: "2025-07"
+    end_date: present
+    bullets:
+      - text: >
+          Spike sorting on human intracranial recordings from Phase II epilepsy
+          studies using MATLAB (O-Sort) and Python (SpikeInterface).
+        tags: [neuroengineering, research, technical, spike_sorting]
+
+      - text: >
+          Building a GPU-accelerated spike sorting pipeline for dense microelectrode
+          arrays using Kilosort4 on AWS EC2 instances.
+        tags: [neuroengineering, research, technical, cloud, ml]
+
+      - text: >
+          Created a dataset of approximately 2 million hand-labeled waveforms for
+          training a spike classification model.
+        tags: [neuroengineering, research, data, ml]
+
+      - text: >
+          Trained a neural network to classify spikes as putative single units
+          versus noise, improving manual curation efficiency.
+        tags: [neuroengineering, research, ml, technical]
+
+  - role: Research Volunteer
+    organization: "UC Davis Health — Neuroscience Unit E5"
+    location: Sacramento, CA
+    start_date: "2022-12"
+    end_date: "2023-07"
+    bullets:
+      - text: >
+          Prepared headboxes and EEG application kits for the Epilepsy Monitoring
+          Unit.
+        tags: [clinical, research, neuroengineering]
+
+      - text: >
+          Shadowed EEG technologists and observed clinical neurophysiology procedures
+          for patients with epilepsy and traumatic brain injury.
+        tags: [clinical, research, neuroengineering]
+
+  - role: Research Intern
+    organization: California Home Builders Association
+    location: Sacramento, CA
+    start_date: "2023-07"
+    end_date: "2024-02"
+    bullets:
+      - text: >
+          Designed a cost-estimation model for emergency shelter villages with
+          on-site medical facilities to inform California housing policy.
+        tags: [analytics, research, evaluation]
+
+      - text: >
+          Synthesized findings into policy recommendations to support emergency
+          shelter development legislation.
+        tags: [communication, research, evaluation]
+
+education:
+  - degree: Python for Data Science, Professional Concentration
+    institution: UC Davis Continuing and Professional Education
+    location: Davis, CA
+    graduation_date: "2025"
+    gpa: "4.0"
+    notes: ""
+
+  - degree: M.S. Psychology
+    institution: Arizona State University
+    location: Tempe, AZ
+    graduation_date: "2023"
+    gpa: "3.7"
+    notes: ""
+
+  - degree: B.S. Neuroscience, Physiology, and Behavior
+    institution: University of California, Davis
+    location: Davis, CA
+    graduation_date: "2017"
+    gpa: "3.1"
+    notes: ""
+
+# Included when profile sets include_coursework: true
+coursework:
+  - Neurobiology of Behavior — UC Davis
+  - Physiology of Psychology — Arizona State University
+  - Quantitative Analysis — Arizona State University
+  - Research Methods — Arizona State University
+
+certifications:
+  - name: CITI — Biomedical Research
+    issuer: CITI Program
+    date: ""
+
+  - name: CITI — Essentials of Research Administration
+    issuer: CITI Program
+    date: ""
+
+  - name: CITI — GCP Social and Behavioral Research Best Practices
+    issuer: CITI Program
+    date: ""
+
+# Standalone projects separate from work/volunteer roles.
+# Add entries here as the pipeline grows.
+projects: []
+
+# Controls the default profile used when --profile is not passed.
+target_metadata:
+  default_profile: neuroengineering
