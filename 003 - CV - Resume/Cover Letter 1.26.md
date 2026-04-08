@@ -1,0 +1,9 @@
+My academic interest is neural circuitry, especially as related to hallucinations and psychosis. As an undergrad, I wondered "what is a thought?" It\'s amazing to me that a process as ubiquitous as this lacks a descriptive mechanism, and I have become single pointedly motivated to understand and explain how the brain generates percepts in the absence of corresponding external stimuli. Noisy and abhorrent local and hierarchical auto-association must be involved, but the specific pathologies of perceptual disorders are not well described. This leaves limited treatments for those with these types of disorders.
+
+While working in kitchens for many years, I learned to be task and team oriented. Working in a catering environment requires planning days and weeks ahead. I earned a bachelors in neuroscience from UC Davis, and am in my last quarter as a masters student of psychology at ASU. After graduating from Davis I worked in a high throughput environmental lab. Because the backlog of work extended several weeks at any given time, scheduling the day and coordinating with other teams was necessary to stay on top of things. From my psychology masters program I am knowledgeable about mental illnesses from both a behavioral and physiological perspective. From working at the shelter I have been exposed to the reality of a variety of mental illnesses, and have developed a deeper understanding of those struggling with psychosis. I enjoy manipulating data to gain insight into program efficacy. Using SPSS to analyze a county wide database of homeless individuals, I have helped quantify program outcomes for my shelter, and have helped identify demographics and services that correlate with outcomes.
+
+My long term plan is to study the mechanisms involved in hallucinations, but in the meantime I am looking to work as a clinical research coordinator in order to familiarize myself with the people and procedures at UC Davis Health.
+
+Thank you so much,
+
+Marco
