@@ -64,8 +64,12 @@
     .skill-group { font-size: 0.91rem; margin-bottom: 0.42rem; line-height: 1.5; }
     .skill-cat { font-weight: 700; }
     .cert-list { list-style: none; margin: 0; padding: 0; }
-    .cert-list li { font-size: 0.91rem; padding: 0.15rem 0; }
-    .cert-list li::before { content: "\2713\00a0"; color: #777; }
+    .cert-list li { font-size: 0.91rem; padding: 0.22rem 0; display: flex; align-items: center; gap: 0.6rem; }
+    .cert-list li::before { content: ""; }  /* removed — badge replaces checkmark for badged items */
+    .cert-badge { height: 52px; width: 52px; object-fit: contain; flex-shrink: 0; }
+    .cert-text { display: flex; flex-direction: column; }
+    .cert-name { font-weight: 600; }
+    .cert-issuer { font-size: 0.82rem; color: #777; }
     .cover-letter p { font-size: 0.95rem; line-height: 1.75; margin-bottom: 1.1rem; }
     .cl-meta { font-size: 0.88rem; color: #666; margin-bottom: 2rem; border-left: 3px solid #1d4ed8; padding-left: 0.75rem; }
     .cl-sign { margin-top: 2rem; font-size: 0.95rem; }
@@ -238,9 +242,30 @@
     <section>
       <h2>Certifications</h2>
       <ul class="cert-list">
-        <li>CITI — Biomedical Research</li>
-        <li>CITI — Essentials of Research Administration</li>
-        <li>CITI — GCP Social and Behavioral Research Best Practices</li>
+        <li>
+<a href="https://www.credly.com/badges/505ef11c-58b4-48bd-aa9e-5a21f0247d46/public_url" target="_blank" rel="noopener">            <img class="cert-badge" src="assets/ucdavis_python_badge.png" alt="Data Analysis with Matplotlib, Pandas, and Scikit-Learn Python Libraries badge" />
+</a>          <span class="cert-text">
+            <span class="cert-name">Data Analysis with Matplotlib, Pandas, and Scikit-Learn Python Libraries</span>
+<span class="cert-issuer">UC Davis Continuing and Professional Education &middot; 2025-09-18</span>          </span>
+        </li>
+        <li>
+            <span style="color:#777;font-size:1rem;">&#10003;&nbsp;</span>
+          <span class="cert-text">
+            <span class="cert-name">CITI — Biomedical Research</span>
+<span class="cert-issuer">CITI Program</span>          </span>
+        </li>
+        <li>
+            <span style="color:#777;font-size:1rem;">&#10003;&nbsp;</span>
+          <span class="cert-text">
+            <span class="cert-name">CITI — Essentials of Research Administration</span>
+<span class="cert-issuer">CITI Program</span>          </span>
+        </li>
+        <li>
+            <span style="color:#777;font-size:1rem;">&#10003;&nbsp;</span>
+          <span class="cert-text">
+            <span class="cert-name">CITI — GCP Social and Behavioral Research Best Practices</span>
+<span class="cert-issuer">CITI Program</span>          </span>
+        </li>
       </ul>
     </section>
 

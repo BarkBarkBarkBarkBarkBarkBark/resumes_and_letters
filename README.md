@@ -2,6 +2,8 @@
 
 **Live site:** [barkbarkbarkbarkbarkbarkbark.github.io/resumes_and_letters/](https://barkbarkbarkbarkbarkbarkbark.github.io/resumes_and_letters/)
 
+[![UC Davis Python Data Analysis badge](resume/docs/assets/ucdavis_python_badge.png)](https://www.credly.com/badges/505ef11c-58b4-48bd-aa9e-5a21f0247d46/public_url)
+
 A plain-text resume system where all content lives in a single YAML file and
 outputs are generated programmatically. Edit once, publish everywhere.
 

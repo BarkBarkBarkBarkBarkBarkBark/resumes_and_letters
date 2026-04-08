@@ -88,6 +88,10 @@
 ## Certifications
 
 {% for cert in certifications %}
+{% if cert.credly_url %}
+- **{{ cert.name }}** — {{ cert.issuer }}{% if cert.date %} ({{ cert.date }}){% endif %} — [View badge]({{ cert.credly_url }})
+{% else %}
 - {{ cert.name }}
+{% endif %}
 {% endfor %}
 {% endif %}

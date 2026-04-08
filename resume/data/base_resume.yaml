@@ -246,6 +246,12 @@ coursework:
   - Research Methods — Arizona State University
 
 certifications:
+  - name: "Data Analysis with Matplotlib, Pandas, and Scikit-Learn Python Libraries"
+    issuer: UC Davis Continuing and Professional Education
+    date: "2025-09-18"
+    badge_url: assets/ucdavis_python_badge.png
+    credly_url: "https://www.credly.com/badges/505ef11c-58b4-48bd-aa9e-5a21f0247d46/public_url"
+
   - name: CITI — Biomedical Research
     issuer: CITI Program
     date: ""
