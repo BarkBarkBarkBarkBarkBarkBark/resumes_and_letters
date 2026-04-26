@@ -10,12 +10,11 @@
 # One opener per role profile. Selected via profile.cover_letter_opener.
 opener:
   neuroengineering: >
-    I am sharing this note with {company} because I am actively looking for
-    opportunities in neural signal processing, neurotechnology, and interesting
-    build projects. I was recently admitted to the UC Davis M.S. in Biomedical
-    Engineering, and my current work sits at the intersection of human
-    intracranial electrophysiology, single-unit digital signal processing, and
-    practical tooling for neural data acquisition.
+    I am sharing this note with {company} as a concise introduction to my work
+    in neural signal processing and neurotechnology. I was recently admitted to
+    the UC Davis M.S. in Biomedical Engineering, and my current work sits at the
+    intersection of human intracranial electrophysiology, single-unit digital
+    signal processing, and practical tooling for neural data acquisition.
 
   data_analytics: >
     I am writing to apply for the {role} position at {company}. With five years of
@@ -74,7 +73,7 @@ closer:
 
   research: >
     If you are working on neural acquisition, spike sorting, BCI systems, or
-    adjacent neurotech infrastructure, I would love to connect. I am looking for
-    work, collaborators, and fun projects where I can contribute strong
-    Python/MATLAB engineering, experimental rigor, and enthusiasm for making
-    neural data more usable. Thank you for your time.
+    adjacent neurotech infrastructure, I would be glad to connect. I look
+    forward to a career contributing strong Python/MATLAB engineering,
+    experimental rigor, and enthusiasm for making neural data more usable.
+    Thank you for your time.

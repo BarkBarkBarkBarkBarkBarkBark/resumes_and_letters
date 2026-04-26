@@ -28,8 +28,8 @@ summary:
     O-Sort, and SpikeInterface; building GPU-accelerated pipelines on AWS; and
     implementing Dark Horse Neuro / Neuralynx acquisition workflows for replay,
     compression-aware MED recording, and large-scale neural data handling.
-    Seeking neurotech work, collaborators, and fun projects in neural signal
-    processing, acquisition systems, and BCI infrastructure.
+    I look forward to a career in neural signal processing, acquisition systems,
+    and BCI infrastructure.
 
   data_analytics: >
     Evaluation and data systems professional with 5 years supporting 4 shelter sites
@@ -41,12 +41,11 @@ summary:
 
   default: >
     Recently admitted to the UC Davis M.S. in Biomedical Engineering (Fall 2026)
-    with 5 years building applied data systems and a growing research focus in
-    human electrophysiology, single-unit DSP, and neurotechnology engineering.
-    Background spans Python/MATLAB tooling, spike sorting, acquisition workflow
-    automation, clinical data coordination, and scientific communication. Pursuing
-    neuroinformatics work at the intersection of systems neuroscience, neural
-    data infrastructure, and BCI engineering.
+    with a growing research focus in human electrophysiology, single-unit DSP,
+    and neurotechnology engineering. Background spans Python/MATLAB tooling,
+    spike sorting, acquisition workflow automation, clinical data coordination,
+    and scientific communication. I look forward to a career at the intersection
+    of systems neuroscience, neural data infrastructure, and BCI engineering.
 
 # Skills are organized into named categories.
 # The active profile controls which categories appear and in what order.
@@ -345,9 +344,9 @@ site:
     intracranial recordings, acquisition pipelines, real-time spike sorting,
     and open-source neurotechnology tooling.
   seeking: >
-    At this conference, I am looking for neurotech work, research
-    collaborations, thoughtful conversations, and fun projects that involve
-    neural data, acquisition systems, signal processing, or BCI-adjacent tools.
+    I look forward to a career in neural signal processing and to continued work
+    on neural data, acquisition systems, signal processing, and BCI-adjacent
+    tools.
   interests:
     - Single-unit signal processing and spike-vs-noise discrimination
     - Neural acquisition workflows, replay systems, and compression-aware archives
