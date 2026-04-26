@@ -10,7 +10,7 @@
 # One opener per role profile. Selected via profile.cover_letter_opener.
 opener:
   neuroengineering: >
-    I am sharing this note with {company} as a concise introduction to my work
+    I am sharing this note as a concise introduction to my work
     in neural signal processing and neurotechnology. I was recently admitted to
     the UC Davis M.S. in Biomedical Engineering, and my current work sits at the
     intersection of human intracranial electrophysiology, single-unit digital
