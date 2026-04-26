@@ -16,6 +16,7 @@
     .tab-bar {
       max-width: 840px; margin: 0 auto;
       display: flex; gap: 0;
+      flex-wrap: wrap;
     }
     .tab-btn {
       padding: 0.6rem 1.6rem; font-size: 0.82rem; font-weight: 600;
@@ -39,6 +40,21 @@
     .contact { color: #555; font-size: 0.875rem; display: flex; flex-wrap: wrap; align-items: center; }
     .contact a { color: #1d4ed8; text-decoration: none; }
     .contact a:hover { text-decoration: underline; }
+    .hero-links {
+      display: flex; flex-wrap: wrap; gap: 0.65rem;
+      margin-top: 1rem;
+    }
+    .hero-btn {
+      display: inline-flex; align-items: center; justify-content: center;
+      min-width: 9rem; padding: 0.7rem 1rem; border-radius: 999px;
+      font-size: 0.85rem; font-weight: 700; text-decoration: none;
+      border: 1px solid #dbe2f0; color: #1d4ed8; background: #eff6ff;
+    }
+    .hero-btn.primary {
+      background: #1d4ed8; color: #fff; border-color: #1d4ed8;
+      box-shadow: 0 8px 18px rgba(29,78,216,0.18);
+    }
+    .hero-btn:hover { filter: brightness(0.98); }
     .sep { color: #ccc; margin: 0 0.45rem; user-select: none; }
     section { margin-top: 2rem; }
     h2 {
@@ -57,12 +73,31 @@
     .entry-loc { font-size: 0.85rem; color: #555; margin-bottom: 0.35rem; }
     ul { margin: 0.3rem 0 0 1.3rem; padding: 0; }
     li { margin-bottom: 0.32rem; font-size: 0.91rem; line-height: 1.55; }
+    .intro-grid {
+      display: grid; grid-template-columns: 1.3fr 1fr; gap: 1.4rem;
+      align-items: start;
+    }
+    .intro-card {
+      background: #f8fafc; border: 1px solid #e5e7eb; border-radius: 16px;
+      padding: 1.15rem 1.1rem;
+    }
+    .intro-card h3 {
+      margin: 0 0 0.6rem; font-size: 0.82rem; text-transform: uppercase;
+      letter-spacing: 0.08em; color: #334155;
+    }
+    .intro-card p:last-child { margin-bottom: 0; }
+    .intro-list { margin: 0; padding-left: 1.15rem; }
+    .project-summary { margin-top: 0.2rem; }
+    .project-summary p:last-child { margin-bottom: 0; }
     .edu-item { margin-bottom: 0.95rem; }
     .edu-degree { font-weight: 700; font-size: 0.95rem; }
     .edu-gpa { font-weight: 400; color: #555; }
     .edu-detail { font-size: 0.875rem; color: #555; margin-top: 0.1rem; }
     .skill-group { font-size: 0.91rem; margin-bottom: 0.42rem; line-height: 1.5; }
     .skill-cat { font-weight: 700; }
+    .project-links { margin-top: 0.45rem; font-size: 0.84rem; color: #666; }
+    .project-links a { color: #1d4ed8; text-decoration: none; }
+    .project-links a:hover { text-decoration: underline; }
     .cert-list { list-style: none; margin: 0; padding: 0; }
     .cert-list li { font-size: 0.91rem; padding: 0.22rem 0; display: flex; align-items: center; gap: 0.6rem; }
     .cert-list li::before { content: ""; }  /* removed — badge replaces checkmark for badged items */
@@ -92,22 +127,25 @@
       h1 { font-size: 1.65rem; }
       .entry-header { flex-direction: column; gap: 0; }
       .entry-dates { white-space: normal; }
+      .intro-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
 <body>
 
 <div class="tab-bar">
-  <button class="tab-btn active" onclick="showTab('resume', this)">Resume</button>
+  <button class="tab-btn active" onclick="showTab('intro', this)">Intro</button>
+  <button class="tab-btn" onclick="showTab('projects', this)">GitHub Projects</button>
+  <button class="tab-btn" onclick="showTab('resume', this)">CV</button>
   {% if cover_letter %}
-  <button class="tab-btn" onclick="showTab('cover-letter', this)">Cover Letter</button>
+  <button class="tab-btn" onclick="showTab('cover-letter', this)">Letter</button>
   {% endif %}
 </div>
 
 <div class="card">
 
-  <!-- ══ RESUME ══════════════════════════════════════════════════════════════ -->
-  <div id="tab-resume" class="tab-panel active">
+  <!-- ══ INTRO ═══════════════════════════════════════════════════════════════ -->
+  <div id="tab-intro" class="tab-panel active">
 
     <header class="resume-header">
       <h1>{{ personal.name }}</h1>
@@ -116,9 +154,102 @@
         <span>{{ c.email }}</span>
         {% if c.phone %}<span class="sep">·</span><span>{{ c.phone }}</span>{% endif %}
         {% if c.location %}<span class="sep">·</span><span>{{ c.location }}</span>{% endif %}
+        {% if c.github %}<span class="sep">·</span><a href="{{ c.github }}">GitHub portfolio</a>{% endif %}
         {% if c.linkedin %}<span class="sep">·</span><a href="https://{{ c.linkedin }}">{{ c.linkedin }}</a>{% endif %}
-        {% if c.github %}<span class="sep">·</span><a href="{{ c.github }}">GitHub</a>{% endif %}
+      </div>
+      <div class="hero-links">
+        {% if c.github %}<a class="hero-btn primary" href="{{ c.github }}">View GitHub</a>{% endif %}
+        <a class="hero-btn" href="#" onclick="showTab('projects', document.querySelector('[onclick*=&quot;projects&quot;]')); return false;">Browse Projects</a>
+        <a class="hero-btn" href="#" onclick="showTab('resume', document.querySelector('[onclick*=&quot;resume&quot;]')); return false;">Open CV</a>
+      </div>
+    </header>
+
+    <section>
+      <h2>{{ site.intro_title if site and site.intro_title else 'About' }}</h2>
+      <p>{{ site.intro_blurb if site and site.intro_blurb else summary_text | trim }}</p>
+      {% if site and site.seeking %}
+      <p>{{ site.seeking }}</p>
+      {% endif %}
+    </section>
+
+    <section>
+      <div class="intro-grid">
+        <div class="intro-card">
+          <h3>Current interests</h3>
+          <ul class="intro-list">
+            {% if site and site.interests %}
+              {% for item in site.interests %}
+              <li>{{ item }}</li>
+              {% endfor %}
+            {% else %}
+              <li>Neural signal processing</li>
+              <li>Neurotech tooling</li>
+              <li>Spike sorting</li>
+            {% endif %}
+          </ul>
+        </div>
+        <div class="intro-card">
+          <h3>Quick snapshot</h3>
+          <p>Recently admitted to UC Davis Biomedical Engineering.</p>
+          <p>Working on single-unit sorting, neural acquisition tooling, and practical open-source neurotech projects.</p>
+          {% if c.github %}<p><strong>GitHub:</strong> <a href="{{ c.github }}">{{ c.github }}</a></p>{% endif %}
+        </div>
+      </div>
+    </section>
+  </div><!-- /tab-intro -->
+
+  <!-- ══ GITHUB PROJECTS ════════════════════════════════════════════════════ -->
+  <div id="tab-projects" class="tab-panel">
+    <header class="resume-header">
+      <h1>GitHub Projects</h1>
+      {% if site and site.github_projects_intro %}
+      <p>{{ site.github_projects_intro }}</p>
+      {% endif %}
+    </header>
+
+    <section>
+      <h2>Selected repositories</h2>
+      {% for project in projects %}
+      <div class="entry">
+        <div class="entry-header">
+          <span class="entry-title">{{ project.name }}</span>
+          <span class="entry-dates">{{ project.dates }}</span>
+        </div>
+        <div class="project-summary">
+          {% for bullet in project.bullets %}
+          <p>{{ bullet | trim }}</p>
+          {% endfor %}
+        </div>
+        {% if project.links %}
+        <div class="project-links">
+          {% for link in project.links %}
+          <a href="{{ link.url }}">{{ link.label }}</a>{% if not loop.last %} · {% endif %}
+          {% endfor %}
+        </div>
+        {% endif %}
+      </div>
+      {% endfor %}
+    </section>
+  </div><!-- /tab-projects -->
+
+  <!-- ══ RESUME ══════════════════════════════════════════════════════════════ -->
+  <div id="tab-resume" class="tab-panel">
+
+    <header class="resume-header">
+      <h1>{{ personal.name }}</h1>
+      <div class="contact">
+        {% set c = personal.contact %}
+        <span>{{ c.email }}</span>
+        {% if c.phone %}<span class="sep">·</span><span>{{ c.phone }}</span>{% endif %}
+        {% if c.location %}<span class="sep">·</span><span>{{ c.location }}</span>{% endif %}
+        {% if c.github %}<span class="sep">·</span><a href="{{ c.github }}">GitHub portfolio</a>{% endif %}
+        {% if c.linkedin %}<span class="sep">·</span><a href="https://{{ c.linkedin }}">{{ c.linkedin }}</a>{% endif %}
         {% if c.website %}<span class="sep">·</span><a href="{{ c.website }}">{{ c.website }}</a>{% endif %}
+      </div>
+      <div class="hero-links">
+        {% if c.github %}<a class="hero-btn primary" href="{{ c.github }}">View GitHub</a>{% endif %}
+        {% if c.website %}<a class="hero-btn" href="{{ c.website }}">Portfolio Site</a>{% endif %}
+        {% if c.linkedin %}<a class="hero-btn" href="https://{{ c.linkedin }}">LinkedIn</a>{% endif %}
       </div>
     </header>
 
@@ -165,6 +296,32 @@
     </section>
     {% endif %}
 
+    {% if projects %}
+    <section>
+      <h2>Selected Neurotech Projects</h2>
+      {% for project in projects %}
+      <div class="entry">
+        <div class="entry-header">
+          <span class="entry-title">{{ project.name }}</span>
+          <span class="entry-dates">{{ project.dates }}</span>
+        </div>
+        <ul>
+          {% for bullet in project.bullets %}
+          <li>{{ bullet | trim }}</li>
+          {% endfor %}
+        </ul>
+        {% if project.links %}
+        <div class="project-links">
+          {% for link in project.links %}
+          <a href="{{ link.url }}">{{ link.label }}</a>{% if not loop.last %} · {% endif %}
+          {% endfor %}
+        </div>
+        {% endif %}
+      </div>
+      {% endfor %}
+    </section>
+    {% endif %}
+
     <section>
       <h2>Education</h2>
       {% for edu in education %}
@@ -173,7 +330,7 @@
           {{ edu.degree }}
           {% if edu.gpa %}<span class="edu-gpa"> (GPA: {{ edu.gpa }})</span>{% endif %}
         </div>
-        <div class="edu-detail">{{ edu.institution }} · {{ edu.graduation_date }}</div>
+        <div class="edu-detail">{{ edu.institution }} · {{ edu.graduation_date }}{% if edu.notes %} · {{ edu.notes }}{% endif %}</div>
       </div>
       {% endfor %}
     </section>

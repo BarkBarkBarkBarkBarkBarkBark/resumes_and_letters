@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Marco Del Fava — Resume</title>
-  <meta name="description" content="Incoming first-year M.S. student in Biomedical Engineering at UC Davis and neuroscience researcher with active experience in spike sorting intracranial recordings from epilepsy patients using..." />
+  <meta name="description" content="Recently admitted to the UC Davis M.S. in Biomedical Engineering (Fall 2026) and active neuroscience researcher working at the intersection of human intracranial electrophysiology, single-unit..." />
   <style>
     *, *::before, *::after { box-sizing: border-box; }
     body {
@@ -16,6 +16,7 @@
     .tab-bar {
       max-width: 840px; margin: 0 auto;
       display: flex; gap: 0;
+      flex-wrap: wrap;
     }
     .tab-btn {
       padding: 0.6rem 1.6rem; font-size: 0.82rem; font-weight: 600;
@@ -39,6 +40,21 @@
     .contact { color: #555; font-size: 0.875rem; display: flex; flex-wrap: wrap; align-items: center; }
     .contact a { color: #1d4ed8; text-decoration: none; }
     .contact a:hover { text-decoration: underline; }
+    .hero-links {
+      display: flex; flex-wrap: wrap; gap: 0.65rem;
+      margin-top: 1rem;
+    }
+    .hero-btn {
+      display: inline-flex; align-items: center; justify-content: center;
+      min-width: 9rem; padding: 0.7rem 1rem; border-radius: 999px;
+      font-size: 0.85rem; font-weight: 700; text-decoration: none;
+      border: 1px solid #dbe2f0; color: #1d4ed8; background: #eff6ff;
+    }
+    .hero-btn.primary {
+      background: #1d4ed8; color: #fff; border-color: #1d4ed8;
+      box-shadow: 0 8px 18px rgba(29,78,216,0.18);
+    }
+    .hero-btn:hover { filter: brightness(0.98); }
     .sep { color: #ccc; margin: 0 0.45rem; user-select: none; }
     section { margin-top: 2rem; }
     h2 {
@@ -57,12 +73,31 @@
     .entry-loc { font-size: 0.85rem; color: #555; margin-bottom: 0.35rem; }
     ul { margin: 0.3rem 0 0 1.3rem; padding: 0; }
     li { margin-bottom: 0.32rem; font-size: 0.91rem; line-height: 1.55; }
+    .intro-grid {
+      display: grid; grid-template-columns: 1.3fr 1fr; gap: 1.4rem;
+      align-items: start;
+    }
+    .intro-card {
+      background: #f8fafc; border: 1px solid #e5e7eb; border-radius: 16px;
+      padding: 1.15rem 1.1rem;
+    }
+    .intro-card h3 {
+      margin: 0 0 0.6rem; font-size: 0.82rem; text-transform: uppercase;
+      letter-spacing: 0.08em; color: #334155;
+    }
+    .intro-card p:last-child { margin-bottom: 0; }
+    .intro-list { margin: 0; padding-left: 1.15rem; }
+    .project-summary { margin-top: 0.2rem; }
+    .project-summary p:last-child { margin-bottom: 0; }
     .edu-item { margin-bottom: 0.95rem; }
     .edu-degree { font-weight: 700; font-size: 0.95rem; }
     .edu-gpa { font-weight: 400; color: #555; }
     .edu-detail { font-size: 0.875rem; color: #555; margin-top: 0.1rem; }
     .skill-group { font-size: 0.91rem; margin-bottom: 0.42rem; line-height: 1.5; }
     .skill-cat { font-weight: 700; }
+    .project-links { margin-top: 0.45rem; font-size: 0.84rem; color: #666; }
+    .project-links a { color: #1d4ed8; text-decoration: none; }
+    .project-links a:hover { text-decoration: underline; }
     .cert-list { list-style: none; margin: 0; padding: 0; }
     .cert-list li { font-size: 0.91rem; padding: 0.22rem 0; display: flex; align-items: center; gap: 0.6rem; }
     .cert-list li::before { content: ""; }  /* removed — badge replaces checkmark for badged items */
@@ -92,31 +127,129 @@
       h1 { font-size: 1.65rem; }
       .entry-header { flex-direction: column; gap: 0; }
       .entry-dates { white-space: normal; }
+      .intro-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
 <body>
 
 <div class="tab-bar">
-  <button class="tab-btn active" onclick="showTab('resume', this)">Resume</button>
-  <button class="tab-btn" onclick="showTab('cover-letter', this)">Cover Letter</button>
+  <button class="tab-btn active" onclick="showTab('intro', this)">Intro</button>
+  <button class="tab-btn" onclick="showTab('projects', this)">GitHub Projects</button>
+  <button class="tab-btn" onclick="showTab('resume', this)">CV</button>
+  <button class="tab-btn" onclick="showTab('cover-letter', this)">Letter</button>
 </div>
 
 <div class="card">
 
-  <!-- ══ RESUME ══════════════════════════════════════════════════════════════ -->
-  <div id="tab-resume" class="tab-panel active">
+  <!-- ══ INTRO ═══════════════════════════════════════════════════════════════ -->
+  <div id="tab-intro" class="tab-panel active">
 
     <header class="resume-header">
       <h1>Marco Del Fava</h1>
       <div class="contact">
         <span>mdelfava@ucdavis.edu</span>
-<span class="sep">·</span><span>707-637-6544</span><span class="sep">·</span><span>Sacramento, CA</span><span class="sep">·</span><a href="https://www.linkedin.com/in/marc-del-fava">www.linkedin.com/in/marc-del-fava</a><span class="sep">·</span><a href="https://github.com/BarkBarkBarkBarkBarkBarkBark">GitHub</a><span class="sep">·</span><a href="https://transformations.solutions">https://transformations.solutions</a>      </div>
+<span class="sep">·</span><span>707-637-6544</span><span class="sep">·</span><span>Sacramento, CA</span><span class="sep">·</span><a href="https://github.com/BarkBarkBarkBarkBarkBarkBark">GitHub portfolio</a><span class="sep">·</span><a href="https://www.linkedin.com/in/marc-del-fava">www.linkedin.com/in/marc-del-fava</a>      </div>
+      <div class="hero-links">
+<a class="hero-btn primary" href="https://github.com/BarkBarkBarkBarkBarkBarkBark">View GitHub</a>        <a class="hero-btn" href="#" onclick="showTab('projects', document.querySelector('[onclick*=&quot;projects&quot;]')); return false;">Browse Projects</a>
+        <a class="hero-btn" href="#" onclick="showTab('resume', document.querySelector('[onclick*=&quot;resume&quot;]')); return false;">Open CV</a>
+      </div>
+    </header>
+
+    <section>
+      <h2>Building practical neurotech tools</h2>
+      <p>I am a recently admitted UC Davis Biomedical Engineering M.S. student with a background in neuroscience, data systems, and hands-on neural signal processing. I am especially interested in single-unit DSP, human intracranial recordings, acquisition pipelines, real-time spike sorting, and open-source neurotechnology tooling.
+</p>
+      <p>At this conference, I am looking for neurotech work, research collaborations, thoughtful conversations, and fun projects that involve neural data, acquisition systems, signal processing, or BCI-adjacent tools.
+</p>
+    </section>
+
+    <section>
+      <div class="intro-grid">
+        <div class="intro-card">
+          <h3>Current interests</h3>
+          <ul class="intro-list">
+              <li>Single-unit signal processing and spike-vs-noise discrimination</li>
+              <li>Neural acquisition workflows, replay systems, and compression-aware archives</li>
+              <li>Human intracranial electrophysiology and microwire recordings</li>
+              <li>Real-time spike sorting, online decoding, and BCI infrastructure</li>
+              <li>Open-source Python and MATLAB tooling for neuroscience labs</li>
+          </ul>
+        </div>
+        <div class="intro-card">
+          <h3>Quick snapshot</h3>
+          <p>Recently admitted to UC Davis Biomedical Engineering.</p>
+          <p>Working on single-unit sorting, neural acquisition tooling, and practical open-source neurotech projects.</p>
+<p><strong>GitHub:</strong> <a href="https://github.com/BarkBarkBarkBarkBarkBarkBark">https://github.com/BarkBarkBarkBarkBarkBarkBark</a></p>        </div>
+      </div>
+    </section>
+  </div><!-- /tab-intro -->
+
+  <!-- ══ GITHUB PROJECTS ════════════════════════════════════════════════════ -->
+  <div id="tab-projects" class="tab-panel">
+    <header class="resume-header">
+      <h1>GitHub Projects</h1>
+      <p>A few representative repositories are listed below. They reflect the kind of work I enjoy most: building usable tools around neural data acquisition, waveform analysis, and real-time neurotech systems.
+</p>
+    </header>
+
+    <section>
+      <h2>Selected repositories</h2>
+      <div class="entry">
+        <div class="entry-header">
+          <span class="entry-title">Dark Horse Neuro / Neuralynx acquisition pipeline</span>
+          <span class="entry-dates">2026</span>
+        </div>
+        <div class="project-summary">
+          <p>Built a Python orchestration layer to launch DHN-AQ headlessly over SSH, generate RC/CS session files, and coordinate Pegasus / NetCom replay workflows for human intracranial recordings.</p>
+          <p>Implemented an NRD replay bridge that re-broadcasts ATLAS-format UDP packets so archived Neuralynx sessions can be ingested by DHN-AQ as if hardware were live.</p>
+          <p>Automated compression-aware MED recording setup for 512-channel macro / micro configurations, including decimation, lossless/lossy options, and pre-flight network diagnostics.</p>
+        </div>
+        <div class="project-links">
+          <a href="https://github.com/BarkBarkBarkBarkBarkBarkBark/dhn_client">GitHub</a> ·           <a href="https://barkbarkbarkbarkbarkbarkbark.github.io/dhn_client/">Docs</a>        </div>
+      </div>
+      <div class="entry">
+        <div class="entry-header">
+          <span class="entry-title">spike_discrim single-unit DSP workbench</span>
+          <span class="entry-dates">2026</span>
+        </div>
+        <div class="project-summary">
+          <p>Benchmarked low-latency waveform representations for real-time single-unit discrimination using curated OSort snippets, synthetic data, AUC, balanced accuracy, mutual information, and KNN purity.</p>
+          <p>Built a Numba-accelerated WeightBank population code to score spike-likeness and project waveforms into afferent activation space for clustering and unit-separation analysis.</p>
+        </div>
+        <div class="project-links">
+          <a href="https://github.com/BarkBarkBarkBarkBarkBarkBark/spike_discrim">GitHub</a>        </div>
+      </div>
+      <div class="entry">
+        <div class="entry-header">
+          <span class="entry-title">SNN Agent real-time spike sorting</span>
+          <span class="entry-dates">2026</span>
+        </div>
+        <div class="project-summary">
+          <p>Developed a streaming spiking neural network with bandpass filtering, Kalman noise gating, competitive STDP, and browser-based monitoring for live spike detection and sorting.</p>
+          <p>Evaluated 20 kHz real-time pipeline behavior across synthetic, .ncs, UDP, and LSL inputs with online decoding for closed-loop neurotech use cases.</p>
+        </div>
+        <div class="project-links">
+          <a href="https://github.com/BarkBarkBarkBarkBarkBarkBark/SNNeuro">GitHub</a>        </div>
+      </div>
+    </section>
+  </div><!-- /tab-projects -->
+
+  <!-- ══ RESUME ══════════════════════════════════════════════════════════════ -->
+  <div id="tab-resume" class="tab-panel">
+
+    <header class="resume-header">
+      <h1>Marco Del Fava</h1>
+      <div class="contact">
+        <span>mdelfava@ucdavis.edu</span>
+<span class="sep">·</span><span>707-637-6544</span><span class="sep">·</span><span>Sacramento, CA</span><span class="sep">·</span><a href="https://github.com/BarkBarkBarkBarkBarkBarkBark">GitHub portfolio</a><span class="sep">·</span><a href="https://www.linkedin.com/in/marc-del-fava">www.linkedin.com/in/marc-del-fava</a><span class="sep">·</span><a href="https://transformations.solutions">https://transformations.solutions</a>      </div>
+      <div class="hero-links">
+<a class="hero-btn primary" href="https://github.com/BarkBarkBarkBarkBarkBarkBark">View GitHub</a><a class="hero-btn" href="https://transformations.solutions">Portfolio Site</a><a class="hero-btn" href="https://www.linkedin.com/in/marc-del-fava">LinkedIn</a>      </div>
     </header>
 
     <section>
       <h2>Summary</h2>
-      <p>Incoming first-year M.S. student in Biomedical Engineering at UC Davis and neuroscience researcher with active experience in spike sorting intracranial recordings from epilepsy patients using Kilosort4, O-Sort, and SpikeInterface. Building GPU-accelerated spike sorting pipelines on AWS EC2. Background in Python, MATLAB, machine learning, and 5 years of applied data systems work. Seeking to contribute to neural signal processing research and BCI development.</p>
+      <p>Recently admitted to the UC Davis M.S. in Biomedical Engineering (Fall 2026) and active neuroscience researcher working at the intersection of human intracranial electrophysiology, single-unit digital signal processing, and neurotechnology tooling. Experience includes spike sorting with Kilosort4, O-Sort, and SpikeInterface; building GPU-accelerated pipelines on AWS; and implementing Dark Horse Neuro / Neuralynx acquisition workflows for replay, compression-aware MED recording, and large-scale neural data handling. Seeking neurotech work, collaborators, and fun projects in neural signal processing, acquisition systems, and BCI infrastructure.</p>
     </section>
 
     <section>
@@ -157,10 +290,10 @@
         </div>
         <div class="entry-loc">Sacramento, CA</div>
         <ul>
-          <li>Building a GPU-accelerated spike sorting pipeline for dense microelectrode arrays using Kilosort4 on AWS EC2 instances.</li>
-          <li>Spike sorting on human intracranial recordings from Phase II epilepsy studies using MATLAB (O-Sort) and Python (SpikeInterface).</li>
-          <li>Created a dataset of approximately 2 million hand-labeled waveforms for training a spike classification model.</li>
-          <li>Trained a neural network to classify spikes as putative single units versus noise, improving manual curation efficiency.</li>
+          <li>Build a GPU-accelerated spike sorting pipeline for dense microelectrode arrays using Kilosort4 on AWS EC2 instances to support reproducible, high-throughput reprocessing of human intracranial recordings.</li>
+          <li>Sort single-unit activity from human Phase II epilepsy microwire recordings using MATLAB (O-Sort) and Python (SpikeInterface), with an emphasis on preserving unit-specific waveform structure for downstream analysis.</li>
+          <li>Curated a dataset of approximately 2 million hand-labeled waveforms for spike-vs-noise modeling and benchmarking.</li>
+          <li>Trained neural network models to classify putative single units versus noise, improving manual curation efficiency for human recordings.</li>
         </ul>
       </div>
       <div class="entry">
@@ -188,12 +321,53 @@
     </section>
 
     <section>
+      <h2>Selected Neurotech Projects</h2>
+      <div class="entry">
+        <div class="entry-header">
+          <span class="entry-title">Dark Horse Neuro / Neuralynx acquisition pipeline</span>
+          <span class="entry-dates">2026</span>
+        </div>
+        <ul>
+          <li>Built a Python orchestration layer to launch DHN-AQ headlessly over SSH, generate RC/CS session files, and coordinate Pegasus / NetCom replay workflows for human intracranial recordings.</li>
+          <li>Implemented an NRD replay bridge that re-broadcasts ATLAS-format UDP packets so archived Neuralynx sessions can be ingested by DHN-AQ as if hardware were live.</li>
+          <li>Automated compression-aware MED recording setup for 512-channel macro / micro configurations, including decimation, lossless/lossy options, and pre-flight network diagnostics.</li>
+        </ul>
+        <div class="project-links">
+          <a href="https://github.com/BarkBarkBarkBarkBarkBarkBark/dhn_client">GitHub</a> ·           <a href="https://barkbarkbarkbarkbarkbarkbark.github.io/dhn_client/">Docs</a>        </div>
+      </div>
+      <div class="entry">
+        <div class="entry-header">
+          <span class="entry-title">spike_discrim single-unit DSP workbench</span>
+          <span class="entry-dates">2026</span>
+        </div>
+        <ul>
+          <li>Benchmarked low-latency waveform representations for real-time single-unit discrimination using curated OSort snippets, synthetic data, AUC, balanced accuracy, mutual information, and KNN purity.</li>
+          <li>Built a Numba-accelerated WeightBank population code to score spike-likeness and project waveforms into afferent activation space for clustering and unit-separation analysis.</li>
+        </ul>
+        <div class="project-links">
+          <a href="https://github.com/BarkBarkBarkBarkBarkBarkBark/spike_discrim">GitHub</a>        </div>
+      </div>
+      <div class="entry">
+        <div class="entry-header">
+          <span class="entry-title">SNN Agent real-time spike sorting</span>
+          <span class="entry-dates">2026</span>
+        </div>
+        <ul>
+          <li>Developed a streaming spiking neural network with bandpass filtering, Kalman noise gating, competitive STDP, and browser-based monitoring for live spike detection and sorting.</li>
+          <li>Evaluated 20 kHz real-time pipeline behavior across synthetic, .ncs, UDP, and LSL inputs with online decoding for closed-loop neurotech use cases.</li>
+        </ul>
+        <div class="project-links">
+          <a href="https://github.com/BarkBarkBarkBarkBarkBarkBark/SNNeuro">GitHub</a>        </div>
+      </div>
+    </section>
+
+    <section>
       <h2>Education</h2>
       <div class="edu-item">
         <div class="edu-degree">
           M.S. Biomedical Engineering
         </div>
-        <div class="edu-detail">University of California, Davis · Beginning Fall 2026</div>
+        <div class="edu-detail">University of California, Davis · Beginning Fall 2026 · Recently admitted; incoming first-year master's student</div>
       </div>
       <div class="edu-item">
         <div class="edu-degree">
@@ -229,11 +403,15 @@
       <h2>Skills</h2>
       <div class="skill-group">
         <span class="skill-cat">Neural Data & Signal Processing:</span>
-        Spike sorting (Kilosort4, O-Sort, SpikeInterface), Neural data processing (filtering, PCA, template matching), MATLAB neurophysiology workflows, Intracranial electrophysiology (LFP, single-unit)
+        Single-unit DSP and waveform feature extraction, Spike sorting (Kilosort4, O-Sort, SpikeInterface), Neural data processing (filtering, PCA, template matching, clustering), Intracranial electrophysiology (microwire, LFP, iEEG)
+      </div>
+      <div class="skill-group">
+        <span class="skill-cat">Neural Acquisition & Tooling:</span>
+        Neuralynx Pegasus / ATLAS / NetCom workflows, Dark Horse Neuro DHN-AQ RC/CS configuration, NRD replay, UDP relay, and MED archive generation, Linux, SSH automation, xvfb, and acquisition diagnostics
       </div>
       <div class="skill-group">
         <span class="skill-cat">Machine Learning & Data Science:</span>
-        Python (NumPy, Pandas, scikit-learn, PyTorch), Statistical analysis (SPSS), SQL and database engineering (PostgreSQL, PGVector), Cloud GPU computing (AWS EC2, CUDA, Docker)
+        Python (NumPy, Pandas, scikit-learn, PyTorch, Numba), Statistical analysis (SPSS), SQL and database engineering (PostgreSQL, PGVector), Cloud GPU computing (AWS EC2, CUDA, Docker) and MATLAB workflows
       </div>
       <div class="skill-group">
         <span class="skill-cat">General Technical:</span>
@@ -289,15 +467,15 @@
       </header>
 
       <div class="cl-meta">
-        Re: UC Davis — Research Engineer
+        Re: Neural Signal Processing / Neurotech Collaborations — Neurotech Conference Contacts
       </div>
 
-      <p>I am writing to express my interest in the Research Engineer position at UC Davis. As an incoming first-year M.S. student in Biomedical Engineering at UC Davis with a B.S. in Neuroscience and active research experience in human intracranial electrophysiology, I bring a strong foundation in neural systems science, neural data processing, and applied data engineering to your team.</p>
-      <p>My volunteer work in Dr. Jie Zheng's lab at UC Davis Health has grounded my interest in human electrophysiology and neural signal processing. I currently sort single-unit activity from microwire recordings in Phase II epilepsy patients, develop cloud-based GPU-accelerated spike sorting pipelines using Kilosort4 on AWS, and train spike classifier models to reduce manual curation burden. This work has deepened my commitment to building robust, reproducible tools for human neural data analysis.</p>
-      <p>My current neuroengineering projects include implementing DarkHorse Neuro acquisition workflows for long-duration human intracranial EEG (iEEG) recordings and developing a spike sorting interface to streamline review and curation of human neural recordings. Together, these efforts have strengthened my interest in building practical tools for large-scale human neural data.</p>
+      <p>I am sharing this note with Neurotech Conference Contacts because I am actively looking for opportunities in neural signal processing, neurotechnology, and interesting build projects. I was recently admitted to the UC Davis M.S. in Biomedical Engineering, and my current work sits at the intersection of human intracranial electrophysiology, single-unit digital signal processing, and practical tooling for neural data acquisition.</p>
+      <p>In Dr. Jie Zheng's lab at UC Davis Health, I work with human Phase II epilepsy recordings, sorting single-unit activity from microwire data with O-Sort, SpikeInterface, and Kilosort4. I build GPU-enabled pipelines on AWS, curate large waveform datasets, and train classifiers that separate putative single units from noise. This work has made me especially interested in robust single-unit DSP for real human recordings, where signal quality, curation burden, and reproducibility matter as much as raw model performance.</p>
+      <p>In parallel, I have been implementing a Python-based Neuralynx ↔ Dark Horse Neuro acquisition pipeline that launches DHN-AQ headlessly, generates RC/CS configuration files, relays NRD replay data as ATLAS-format UDP, and supports compression-aware MED recording for long-duration sessions. I have also been building open-source tooling to benchmark waveform representations for real-time spike discrimination and to explore streaming spiking neural networks for online sorting and control.</p>
       <p>Earlier work in a high-throughput environmental toxicology laboratory trained me in reproducibility, documentation, and quality control — values I carry into all scientific and analytical work.</p>
       <p>As operations specialist and data analyst for First Step Communities, I built analytical pipelines to evaluate housing and health outcomes across 4 shelter sites serving 400+ people/month. I coordinated data collection from clinical partners, disaggregated outcomes by demographic characteristics to surface equity-relevant findings, and produced evidence that informed partnerships with UC Davis, Kaiser, and other healthcare providers.</p>
-      <p>I am eager to contribute to your laboratory's ongoing work and would welcome the opportunity to discuss how my background in neural signal processing and data engineering aligns with your research priorities. Thank you for your consideration.</p>
+      <p>If you are working on neural acquisition, spike sorting, BCI systems, or adjacent neurotech infrastructure, I would love to connect. I am looking for work, collaborators, and fun projects where I can contribute strong Python/MATLAB engineering, experimental rigor, and enthusiasm for making neural data more usable. Thank you for your time.</p>
 
       <div class="cl-sign">
         Sincerely,<br><br>

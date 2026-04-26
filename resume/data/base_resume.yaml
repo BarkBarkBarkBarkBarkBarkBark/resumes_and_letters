@@ -21,12 +21,15 @@ personal:
 # Multiple summary variants — the active one is selected by role profile.
 summary:
   neuroengineering: >
-    Incoming first-year M.S. student in Biomedical Engineering at UC Davis and
-    neuroscience researcher with active experience in spike sorting intracranial
-    recordings from epilepsy patients using Kilosort4, O-Sort, and SpikeInterface.
-    Building GPU-accelerated spike sorting pipelines on AWS EC2. Background in
-    Python, MATLAB, machine learning, and 5 years of applied data systems work.
-    Seeking to contribute to neural signal processing research and BCI development.
+    Recently admitted to the UC Davis M.S. in Biomedical Engineering (Fall 2026)
+    and active neuroscience researcher working at the intersection of human
+    intracranial electrophysiology, single-unit digital signal processing, and
+    neurotechnology tooling. Experience includes spike sorting with Kilosort4,
+    O-Sort, and SpikeInterface; building GPU-accelerated pipelines on AWS; and
+    implementing Dark Horse Neuro / Neuralynx acquisition workflows for replay,
+    compression-aware MED recording, and large-scale neural data handling.
+    Seeking neurotech work, collaborators, and fun projects in neural signal
+    processing, acquisition systems, and BCI infrastructure.
 
   data_analytics: >
     Evaluation and data systems professional with 5 years supporting 4 shelter sites
@@ -37,31 +40,39 @@ summary:
     Committed to equity-centered learning and improving health and housing outcomes.
 
   default: >
-    Incoming first-year M.S. student in Biomedical Engineering at UC Davis with
-    5 years building outcomes measurement infrastructure for homeless services
-    programs. Active neuroscience researcher with hands-on experience in spike
-    sorting, intracranial electrophysiology, and ML-based neural signal processing.
-    Background spans Python/SQL engineering, clinical data coordination, and
-    scientific communication. Pursuing a neuroinformatics career at the intersection
-    of systems neuroscience and BCI engineering.
+    Recently admitted to the UC Davis M.S. in Biomedical Engineering (Fall 2026)
+    with 5 years building applied data systems and a growing research focus in
+    human electrophysiology, single-unit DSP, and neurotechnology engineering.
+    Background spans Python/MATLAB tooling, spike sorting, acquisition workflow
+    automation, clinical data coordination, and scientific communication. Pursuing
+    neuroinformatics work at the intersection of systems neuroscience, neural
+    data infrastructure, and BCI engineering.
 
 # Skills are organized into named categories.
 # The active profile controls which categories appear and in what order.
 skills:
   - category: Neural Data & Signal Processing
     items:
+      - Single-unit DSP and waveform feature extraction
       - Spike sorting (Kilosort4, O-Sort, SpikeInterface)
-      - Neural data processing (filtering, PCA, template matching)
-      - MATLAB neurophysiology workflows
-      - Intracranial electrophysiology (LFP, single-unit)
+      - Neural data processing (filtering, PCA, template matching, clustering)
+      - Intracranial electrophysiology (microwire, LFP, iEEG)
     tags: [neuroengineering, research, technical]
+
+  - category: Neural Acquisition & Tooling
+    items:
+      - Neuralynx Pegasus / ATLAS / NetCom workflows
+      - Dark Horse Neuro DHN-AQ RC/CS configuration
+      - NRD replay, UDP relay, and MED archive generation
+      - Linux, SSH automation, xvfb, and acquisition diagnostics
+    tags: [neuroengineering, research, technical, data_acquisition, compression]
 
   - category: Machine Learning & Data Science
     items:
-      - Python (NumPy, Pandas, scikit-learn, PyTorch)
+      - Python (NumPy, Pandas, scikit-learn, PyTorch, Numba)
       - Statistical analysis (SPSS)
       - SQL and database engineering (PostgreSQL, PGVector)
-      - Cloud GPU computing (AWS EC2, CUDA, Docker)
+      - Cloud GPU computing (AWS EC2, CUDA, Docker) and MATLAB workflows
     tags: [neuroengineering, analytics, technical]
 
   - category: Data Systems & Reporting
@@ -166,24 +177,27 @@ volunteer:
     end_date: present
     bullets:
       - text: >
-          Spike sorting on human intracranial recordings from Phase II epilepsy
-          studies using MATLAB (O-Sort) and Python (SpikeInterface).
-        tags: [neuroengineering, research, technical, spike_sorting]
+          Sort single-unit activity from human Phase II epilepsy microwire
+          recordings using MATLAB (O-Sort) and Python (SpikeInterface), with an
+          emphasis on preserving unit-specific waveform structure for downstream
+          analysis.
+        tags: [neuroengineering, research, technical, spike_sorting, signal_processing]
 
       - text: >
-          Building a GPU-accelerated spike sorting pipeline for dense microelectrode
-          arrays using Kilosort4 on AWS EC2 instances.
-        tags: [neuroengineering, research, technical, cloud, ml]
+          Build a GPU-accelerated spike sorting pipeline for dense microelectrode
+          arrays using Kilosort4 on AWS EC2 instances to support reproducible,
+          high-throughput reprocessing of human intracranial recordings.
+        tags: [neuroengineering, research, technical, cloud, ml, signal_processing]
 
       - text: >
-          Created a dataset of approximately 2 million hand-labeled waveforms for
-          training a spike classification model.
-        tags: [neuroengineering, research, data, ml]
+          Curated a dataset of approximately 2 million hand-labeled waveforms for
+          spike-vs-noise modeling and benchmarking.
+        tags: [neuroengineering, research, data, ml, signal_processing]
 
       - text: >
-          Trained a neural network to classify spikes as putative single units
-          versus noise, improving manual curation efficiency.
-        tags: [neuroengineering, research, ml, technical]
+          Trained neural network models to classify putative single units versus
+          noise, improving manual curation efficiency for human recordings.
+        tags: [neuroengineering, research, ml, technical, signal_processing]
 
   - role: Research Volunteer
     organization: "UC Davis Health — Neuroscience Unit E5"
@@ -223,7 +237,7 @@ education:
     location: Davis, CA
     graduation_date: "Beginning Fall 2026"
     gpa: ""
-    notes: "Incoming first-year master's student"
+    notes: "Recently admitted; incoming first-year master's student"
 
   - degree: Python for Data Science, Professional Concentration
     institution: UC Davis Continuing and Professional Education
@@ -275,19 +289,75 @@ certifications:
 # Standalone projects separate from work/volunteer roles.
 # Add entries here as the pipeline grows.
 projects:
-  - name: DarkHorse Neuro acquisition pipeline
-    dates: Current
+  - name: Dark Horse Neuro / Neuralynx acquisition pipeline
+    dates: 2026
     bullets:
-      - Implementing DarkHorse Neuro acquisition workflows to support long-duration human intracranial EEG (iEEG) recordings.
-    links: []
-    tags: [neuroengineering, research, technical, data_acquisition]
+      - Built a Python orchestration layer to launch DHN-AQ headlessly over SSH,
+        generate RC/CS session files, and coordinate Pegasus / NetCom replay
+        workflows for human intracranial recordings.
+      - Implemented an NRD replay bridge that re-broadcasts ATLAS-format UDP
+        packets so archived Neuralynx sessions can be ingested by DHN-AQ as if
+        hardware were live.
+      - Automated compression-aware MED recording setup for 512-channel macro /
+        micro configurations, including decimation, lossless/lossy options, and
+        pre-flight network diagnostics.
+    links:
+      - label: GitHub
+        url: https://github.com/BarkBarkBarkBarkBarkBarkBark/dhn_client
+      - label: Docs
+        url: https://barkbarkbarkbarkbarkbarkbark.github.io/dhn_client/
+    tags: [neuroengineering, research, technical, data_acquisition, compression, signal_processing, python]
 
-  - name: Spike sorting interface
-    dates: Current
+  - name: spike_discrim single-unit DSP workbench
+    dates: 2026
     bullets:
-      - Developing a spike sorting interface to streamline review and curation of human neural recordings.
-    links: []
-    tags: [neuroengineering, research, technical, spike_sorting, interface]
+      - Benchmarked low-latency waveform representations for real-time single-unit
+        discrimination using curated OSort snippets, synthetic data, AUC,
+        balanced accuracy, mutual information, and KNN purity.
+      - Built a Numba-accelerated WeightBank population code to score
+        spike-likeness and project waveforms into afferent activation space for
+        clustering and unit-separation analysis.
+    links:
+      - label: GitHub
+        url: https://github.com/BarkBarkBarkBarkBarkBarkBark/spike_discrim
+    tags: [neuroengineering, research, technical, spike_sorting, signal_processing, ml, realtime]
+
+  - name: SNN Agent real-time spike sorting
+    dates: 2026
+    bullets:
+      - Developed a streaming spiking neural network with bandpass filtering,
+        Kalman noise gating, competitive STDP, and browser-based monitoring for
+        live spike detection and sorting.
+      - Evaluated 20 kHz real-time pipeline behavior across synthetic, .ncs,
+        UDP, and LSL inputs with online decoding for closed-loop neurotech use
+        cases.
+    links:
+      - label: GitHub
+        url: https://github.com/BarkBarkBarkBarkBarkBarkBark/SNNeuro
+    tags: [neuroengineering, research, technical, spike_sorting, signal_processing, ml, realtime]
+
+site:
+  intro_title: Building practical neurotech tools
+  intro_blurb: >
+    I am a recently admitted UC Davis Biomedical Engineering M.S. student with a
+    background in neuroscience, data systems, and hands-on neural signal
+    processing. I am especially interested in single-unit DSP, human
+    intracranial recordings, acquisition pipelines, real-time spike sorting,
+    and open-source neurotechnology tooling.
+  seeking: >
+    At this conference, I am looking for neurotech work, research
+    collaborations, thoughtful conversations, and fun projects that involve
+    neural data, acquisition systems, signal processing, or BCI-adjacent tools.
+  interests:
+    - Single-unit signal processing and spike-vs-noise discrimination
+    - Neural acquisition workflows, replay systems, and compression-aware archives
+    - Human intracranial electrophysiology and microwire recordings
+    - Real-time spike sorting, online decoding, and BCI infrastructure
+    - Open-source Python and MATLAB tooling for neuroscience labs
+  github_projects_intro: >
+    A few representative repositories are listed below. They reflect the kind
+    of work I enjoy most: building usable tools around neural data acquisition,
+    waveform analysis, and real-time neurotech systems.
 
 # Controls the default profile used when --profile is not passed.
 target_metadata:

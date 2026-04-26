@@ -9,7 +9,11 @@
     ============================================================ -#}
 {{ name }}
 
-{{ contact.email }} | {{ contact.phone }} | {{ contact.location }}
+{{ contact.email }} | {{ contact.phone }} | {{ contact.location }}{% if contact.github %} | {{ contact.github }}{% endif %}
+
+---
+
+Re: {{ role }} — {{ company }}
 
 ---
 

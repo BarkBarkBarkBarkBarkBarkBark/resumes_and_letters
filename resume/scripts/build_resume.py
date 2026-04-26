@@ -150,6 +150,27 @@ def apply_profile(data: dict, profile: dict) -> dict:
     if not profile.get("include_coursework", False):
         result["coursework"] = []
 
+    # Filter and sort project bullets
+    project_bullets = profile.get("max_bullets_per_project", max_bullets)
+    projects = result.get("projects", [])
+    for project in projects:
+        bullets = project.get("bullets", [])
+        if prefer:
+            bullets = sorted(
+                bullets,
+                key=lambda b: _score_bullet({"tags": project.get("tags", [])}, prefer, deprioritize),
+                reverse=True,
+            )
+        project["bullets"] = bullets[:project_bullets]
+
+    if prefer and projects:
+        projects = sorted(
+            projects,
+            key=lambda p: _score_bullet({"tags": p.get("tags", [])}, prefer, deprioritize),
+            reverse=True,
+        )
+    result["projects"] = projects
+
     return result
 
 

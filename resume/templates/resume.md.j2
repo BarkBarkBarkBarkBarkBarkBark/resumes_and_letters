@@ -12,8 +12,8 @@
 # {{ personal.name }}
 
 {{ personal.contact.email }} | {{ personal.contact.phone }} | {{ personal.contact.location -}}
-{% if personal.contact.linkedin %} | {{ personal.contact.linkedin }}{% endif %}
 {% if personal.contact.github %} | {{ personal.contact.github }}{% endif %}
+{% if personal.contact.linkedin %} | {{ personal.contact.linkedin }}{% endif %}
 {% if personal.contact.website %} | {{ personal.contact.website }}{% endif %}
 
 ---
@@ -54,12 +54,36 @@
 {% endfor %}
 {% endif %}
 
+{% if projects %}
+
+---
+
+## Selected Neurotech Projects
+
+{% for project in projects %}
+**{{ project.name }}** | {{ project.dates }}
+
+{% for bullet in project.bullets %}
+- {{ bullet | trim }}
+{% endfor %}
+{% if project.links %}
+- Links: {% for link in project.links %}[{{ link.label }}]({{ link.url }}){% if not loop.last %} · {% endif %}{% endfor %}
+{% endif %}
+{% if not loop.last %}
+
+{% endif %}
+{% endfor %}
+{% endif %}
+
 ---
 
 ## Education
 
 {% for edu in education %}
 **{{ edu.degree }}{% if edu.gpa %} (GPA: {{ edu.gpa }}){% endif %}** | {{ edu.institution }} | {{ edu.graduation_date }}
+{% if edu.notes %}
+{{ edu.notes }}
+{% endif %}
 
 {% endfor %}
 {% if coursework %}

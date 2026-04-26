@@ -22,6 +22,10 @@ neuroengineering:
     - neuroengineering
     - research
     - technical
+    - signal_processing
+    - data_acquisition
+    - compression
+    - realtime
     - ml
     - spike_sorting
     - cloud
@@ -32,8 +36,10 @@ neuroengineering:
     - operations
     - equity
   max_bullets_per_role: 4
+  max_bullets_per_project: 3
   skill_categories:
     - Neural Data & Signal Processing
+    - Neural Acquisition & Tooling
     - Machine Learning & Data Science
     - General Technical
     - Data Systems & Reporting
@@ -86,6 +92,7 @@ clinical_research:
   max_bullets_per_role: 4
   skill_categories:
     - Neural Data & Signal Processing
+    - Neural Acquisition & Tooling
     - Machine Learning & Data Science
     - Data Systems & Reporting
   cover_letter_opener: clinical_research
@@ -98,8 +105,10 @@ default:
   prefer_tags: []
   deprioritize_tags: []
   max_bullets_per_role: 5
+  max_bullets_per_project: 3
   skill_categories:
     - Neural Data & Signal Processing
+    - Neural Acquisition & Tooling
     - Machine Learning & Data Science
     - Data Systems & Reporting
     - General Technical
