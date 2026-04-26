@@ -258,6 +258,32 @@
       <p>{{ summary_text | trim }}</p>
     </section>
 
+    {% if projects %}
+    <section>
+      <h2>Neuroscience Projects</h2>
+      {% for project in projects %}
+      <div class="entry">
+        <div class="entry-header">
+          <span class="entry-title">{{ project.name }}</span>
+          <span class="entry-dates">{{ project.dates }}</span>
+        </div>
+        <ul>
+          {% for bullet in project.bullets %}
+          <li>{{ bullet | trim }}</li>
+          {% endfor %}
+        </ul>
+        {% if project.links %}
+        <div class="project-links">
+          {% for link in project.links %}
+          <a href="{{ link.url }}">{{ link.label }}</a>{% if not loop.last %} · {% endif %}
+          {% endfor %}
+        </div>
+        {% endif %}
+      </div>
+      {% endfor %}
+    </section>
+    {% endif %}
+
     <section>
       <h2>Experience</h2>
       {% for job in experience %}
@@ -291,32 +317,6 @@
           <li>{{ bullet.text | trim }}</li>
           {% endfor %}
         </ul>
-      </div>
-      {% endfor %}
-    </section>
-    {% endif %}
-
-    {% if projects %}
-    <section>
-      <h2>Selected Neurotech Projects</h2>
-      {% for project in projects %}
-      <div class="entry">
-        <div class="entry-header">
-          <span class="entry-title">{{ project.name }}</span>
-          <span class="entry-dates">{{ project.dates }}</span>
-        </div>
-        <ul>
-          {% for bullet in project.bullets %}
-          <li>{{ bullet | trim }}</li>
-          {% endfor %}
-        </ul>
-        {% if project.links %}
-        <div class="project-links">
-          {% for link in project.links %}
-          <a href="{{ link.url }}">{{ link.label }}</a>{% if not loop.last %} · {% endif %}
-          {% endfor %}
-        </div>
-        {% endif %}
       </div>
       {% endfor %}
     </section>
