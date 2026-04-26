@@ -11,7 +11,7 @@
 personal:
   name: Marco Del Fava
   contact:
-    email: marc.delfava@gmail.com
+    email: mdelfava@ucdavis.edu
     phone: "707-637-6544"
     location: Sacramento, CA
     linkedin: "www.linkedin.com/in/marc-del-fava"      # Add: linkedin.com/in/yourhandle
@@ -21,12 +21,12 @@ personal:
 # Multiple summary variants — the active one is selected by role profile.
 summary:
   neuroengineering: >
-    Neuroscience researcher and data engineer with active experience in spike sorting
-    intracranial recordings from epilepsy patients using Kilosort4, O-Sort, and
-    SpikeInterface. Building GPU-accelerated spike sorting pipelines on AWS EC2.
-    Background in Python, MATLAB, machine learning, and 5 years of applied data
-    systems work. Seeking to contribute to neural signal processing research and
-    BCI development.
+    Incoming first-year M.S. student in Biomedical Engineering at UC Davis and
+    neuroscience researcher with active experience in spike sorting intracranial
+    recordings from epilepsy patients using Kilosort4, O-Sort, and SpikeInterface.
+    Building GPU-accelerated spike sorting pipelines on AWS EC2. Background in
+    Python, MATLAB, machine learning, and 5 years of applied data systems work.
+    Seeking to contribute to neural signal processing research and BCI development.
 
   data_analytics: >
     Evaluation and data systems professional with 5 years supporting 4 shelter sites
@@ -37,12 +37,13 @@ summary:
     Committed to equity-centered learning and improving health and housing outcomes.
 
   default: >
-    Data systems and evaluation professional with 5 years building outcomes measurement
-    infrastructure for homeless services programs. Active neuroscience researcher with
-    hands-on experience in spike sorting, intracranial electrophysiology, and ML-based
-    neural signal processing. Background spans Python/SQL engineering, clinical data
-    coordination, and scientific communication. Pursuing a neuroinformatics career at
-    the intersection of systems neuroscience and BCI engineering.
+    Incoming first-year M.S. student in Biomedical Engineering at UC Davis with
+    5 years building outcomes measurement infrastructure for homeless services
+    programs. Active neuroscience researcher with hands-on experience in spike
+    sorting, intracranial electrophysiology, and ML-based neural signal processing.
+    Background spans Python/SQL engineering, clinical data coordination, and
+    scientific communication. Pursuing a neuroinformatics career at the intersection
+    of systems neuroscience and BCI engineering.
 
 # Skills are organized into named categories.
 # The active profile controls which categories appear and in what order.
@@ -217,6 +218,13 @@ volunteer:
         tags: [communication, research, evaluation]
 
 education:
+  - degree: M.S. Biomedical Engineering
+    institution: University of California, Davis
+    location: Davis, CA
+    graduation_date: "Beginning Fall 2026"
+    gpa: ""
+    notes: "Incoming first-year master's student"
+
   - degree: Python for Data Science, Professional Concentration
     institution: UC Davis Continuing and Professional Education
     location: Davis, CA
