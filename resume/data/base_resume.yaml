@@ -28,8 +28,8 @@ summary:
     O-Sort, and SpikeInterface; building GPU-accelerated pipelines on AWS; and
     implementing Dark Horse Neuro / Neuralynx acquisition workflows for replay,
     compression-aware MED recording, and large-scale neural data handling.
-    I look forward to a career in neural signal processing, acquisition systems,
-    and BCI infrastructure.
+    I look forward to a career in neural signal processing, neural acquisition
+    systems, and BCI-related infrastructure.
 
   data_analytics: >
     Evaluation and data systems professional with 5 years supporting 4 shelter sites
@@ -345,8 +345,7 @@ site:
     and open-source neurotechnology tooling.
   seeking: >
     I look forward to a career in neural signal processing and to continued work
-    on neural data, acquisition systems, signal processing, and BCI-adjacent
-    tools.
+    on neural data, acquisition systems, and BCI-adjacent analytical tools.
   interests:
     - Single-unit signal processing and spike-vs-noise discrimination
     - Neural acquisition workflows, replay systems, and compression-aware archives

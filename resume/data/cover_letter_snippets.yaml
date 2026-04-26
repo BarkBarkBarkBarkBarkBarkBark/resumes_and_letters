@@ -38,9 +38,9 @@ research_background: >
   recordings, sorting single-unit activity from microwire data with O-Sort,
   SpikeInterface, and Kilosort4. I build GPU-enabled pipelines on AWS, curate
   large waveform datasets, and train classifiers that separate putative single
-  units from noise. This work has made me especially interested in robust
-  single-unit DSP for real human recordings, where signal quality, curation
-  burden, and reproducibility matter as much as raw model performance.
+  units from noise. This work has strengthened my interest in robust
+  single-unit DSP for human recordings, where signal quality, curation burden,
+  and reproducibility are central analytical considerations.
 
 projects_background: >
   In parallel, I have been implementing a Python-based Neuralynx ↔ Dark Horse
@@ -74,6 +74,6 @@ closer:
   research: >
     If you are working on neural acquisition, spike sorting, BCI systems, or
     adjacent neurotech infrastructure, I would be glad to connect. I look
-    forward to a career contributing strong Python/MATLAB engineering,
-    experimental rigor, and enthusiasm for making neural data more usable.
+    forward to a career contributing rigorous Python/MATLAB engineering,
+    careful experimental practice, and tools that make neural data more usable.
     Thank you for your time.
