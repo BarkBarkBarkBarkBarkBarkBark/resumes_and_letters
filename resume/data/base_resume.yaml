@@ -274,7 +274,20 @@ certifications:
 
 # Standalone projects separate from work/volunteer roles.
 # Add entries here as the pipeline grows.
-projects: []
+projects:
+  - name: DarkHorse Neuro acquisition pipeline
+    dates: Current
+    bullets:
+      - Implementing DarkHorse Neuro acquisition workflows to support long-duration human intracranial EEG (iEEG) recordings.
+    links: []
+    tags: [neuroengineering, research, technical, data_acquisition]
+
+  - name: Spike sorting interface
+    dates: Current
+    bullets:
+      - Developing a spike sorting interface to streamline review and curation of human neural recordings.
+    links: []
+    tags: [neuroengineering, research, technical, spike_sorting, interface]
 
 # Controls the default profile used when --profile is not passed.
 target_metadata:

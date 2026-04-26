@@ -10,11 +10,11 @@
 # One opener per role profile. Selected via profile.cover_letter_opener.
 opener:
   neuroengineering: >
-    I am writing to express my interest in the {role} position at {company}. With a
-    B.S. in Neuroscience from UC Davis, an M.S. in Psychology from Arizona State
-    University, and active research experience in human intracranial
-    electrophysiology, I bring a strong foundation in neural systems science and
-    applied data engineering to your team.
+    I am writing to express my interest in the {role} position at {company}. As an
+    incoming first-year M.S. student in Biomedical Engineering at UC Davis with a
+    B.S. in Neuroscience and active research experience in human intracranial
+    electrophysiology, I bring a strong foundation in neural systems science,
+    neural data processing, and applied data engineering to your team.
 
   data_analytics: >
     I am writing to apply for the {role} position at {company}. With five years of
@@ -41,6 +41,13 @@ research_background: >
   AWS, and train spike classifier models to reduce manual curation burden. This
   work has deepened my commitment to building robust, reproducible tools for human
   neural data analysis.
+
+projects_background: >
+  My current neuroengineering projects include implementing DarkHorse Neuro
+  acquisition workflows for long-duration human intracranial EEG (iEEG)
+  recordings and developing a spike sorting interface to streamline review and
+  curation of human neural recordings. Together, these efforts have strengthened
+  my interest in building practical tools for large-scale human neural data.
 
 data_systems_background: >
   As operations specialist and data analyst for First Step Communities, I built

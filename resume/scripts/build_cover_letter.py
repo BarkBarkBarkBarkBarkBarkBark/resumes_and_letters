@@ -140,6 +140,7 @@ def main():
         "profile_key": profile_key,
         "opener": opener,
         "research_background": snippets.get("research_background", ""),
+        "projects_background": snippets.get("projects_background", ""),
         "data_systems_background": snippets.get("data_systems_background", ""),
         "lab_background": snippets.get("lab_background", ""),
         "closer": closer,
@@ -148,6 +149,7 @@ def main():
     # For analytics profile, omit the neuro-specific research_background
     if profile_key == "data_analytics":
         ctx["research_background"] = ""
+        ctx["projects_background"] = ""
 
     env = Environment(
         loader=FileSystemLoader(str(TEMPLATES_DIR)),
