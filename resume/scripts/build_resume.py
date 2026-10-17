@@ -364,16 +364,45 @@ def main():
 
     profile = profiles[profile_key]
     name = resume_data["personal"]["name"]
-    md_text = render_resume(resume_data, profile)
+
+    # Produce filtered data for this profile (used for frontmatter and JSON export)
+    filtered = apply_profile(resume_data, profile)
+
+    # Render Markdown using the Jinja2 template and the filtered data
+    env = Environment(
+        loader=FileSystemLoader(str(TEMPLATES_DIR)),
+        trim_blocks=True,
+        lstrip_blocks=True,
+    )
+    env.filters["fmt_date"] = fmt_date
+    template = env.get_template("resume.md.j2")
+    md_body = template.render(**filtered)
 
     OUTPUT_DIR.mkdir(exist_ok=True)
     stem = args.output or get_output_stem(name, profile_key)
     md_path = OUTPUT_DIR / f"{stem}.md"
     docx_path = OUTPUT_DIR / f"{stem}.docx"
     pdf_path = OUTPUT_DIR / f"{stem}.pdf"
+    json_path = OUTPUT_DIR / f"{stem}.json"
 
-    md_path.write_text(md_text, encoding="utf-8")
+    # Write YAML frontmatter (containing the filtered structured data) + the Markdown body
+    try:
+        fm = yaml.safe_dump(filtered, sort_keys=False, allow_unicode=True)
+    except Exception:
+        # Fallback: minimal frontmatter if yaml.dump fails for complex objects
+        fm = yaml.safe_dump({"name": filtered.get("personal", {}).get("name", name)}, sort_keys=False)
+
+    md_full = f"---\n{fm}---\n\n{md_body}"
+    md_path.write_text(md_full, encoding="utf-8")
     print(f"[OK] Markdown  → {md_path.relative_to(ROOT)}")
+
+    # Also write a machine-readable JSON export for programmatic use
+    try:
+        import json
+        json_path.write_text(json.dumps(filtered, indent=2, ensure_ascii=False), encoding="utf-8")
+        print(f"[OK] JSON      → {json_path.relative_to(ROOT)}")
+    except Exception as exc:
+        print(f"  [WARN] JSON export failed: {exc}")
 
     if not args.md_only:
         if to_docx(md_path, docx_path):
