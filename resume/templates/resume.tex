@@ -1,0 +1,48 @@
+\documentclass[11pt]{article}
+% Publication-grade resume template for Pandoc -> LaTeX -> XeLaTeX
+% Uses fontspec for high-quality fonts and microtype for better justification
+
+\usepackage{ifxetex}
+\usepackage{ifluatex}
+\ifnum\ifxetex 1\fi\ifluatex 1\fi=0
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+\else
+  \usepackage{fontspec}
+  \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
+  \setmainfont{TeX Gyre Termes}
+  \setsansfont{TeX Gyre Heros}
+  \setmonofont{TeX Gyre Cursor}
+\fi
+
+\usepackage{microtype}
+\usepackage{geometry}
+\geometry{left=0.9in,right=0.9in,top=0.8in,bottom=0.8in}
+\usepackage{parskip}
+\usepackage[hidelinks]{hyperref}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\setlist[itemize]{noitemsep, topsep=0pt, leftmargin=*, label=\textbullet}
+
+% Header style
+\usepackage{titling}
+\pretitle{\begin{center}\Huge\bfseries}
+\posttitle{\par\end{center}\vskip 0.2em}
+\preauthor{}
+\postauthor{}
+\predate{}
+\postdate{}
+
+% Body
+\begin{document}
+$if(title)$
+\title{$title$}
+\maketitle
+$else$
+% If no title metadata, respect the first-level heading produced by pandoc
+$endif$
+
+% Body content from pandoc (rendered Markdown)
+$body$
+
+\end{document}

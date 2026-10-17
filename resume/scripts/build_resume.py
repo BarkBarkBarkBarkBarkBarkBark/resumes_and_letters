@@ -207,7 +207,7 @@ def get_output_stem(name: str, profile_key: str) -> str:
     return f"{_sanitize(name)}_resume_{_sanitize(profile_key)}"
 
 
-# ── Pandoc helpers ────────────────────────────────────────────────────────────
+# ── Pandoc / LaTeX helpers ───────────────────────────────────────────────────
 
 def _run_pandoc(args: list) -> tuple:
     """Run pandoc with args. Returns (success: bool, error_message: str)."""
@@ -216,7 +216,7 @@ def _run_pandoc(args: list) -> tuple:
             ["pandoc"] + args,
             capture_output=True,
             text=True,
-            timeout=60,
+            timeout=120,
         )
         if result.returncode != 0:
             return False, result.stderr.strip()
@@ -237,22 +237,72 @@ def to_docx(md_path: Path, docx_path: Path) -> bool:
     return ok
 
 
-def to_pdf(md_path: Path, pdf_path: Path) -> bool:
-    """Try PDF engines in preference order. Return True if any succeeds."""
-    engines = ["weasyprint", "wkhtmltopdf", "pdflatex", "xelatex", "lualatex"]
+def to_tex(md_path: Path, tex_path: Path, template_path: Path = None) -> bool:
+    """Render a LaTeX (.tex) file from Markdown using Pandoc and optional LaTeX template."""
+    args = [str(md_path), "-f", "markdown", "-t", "latex", "--standalone", "-o", str(tex_path)]
+    if template_path:
+        args.extend(["--template", str(template_path)])
+    ok, err = _run_pandoc(args)
+    if not ok:
+        print(f"  [WARN] TEX generation failed: {err}")
+    return ok
+
+
+def to_pdf(md_path: Path, pdf_path: Path, tex_path: Path = None, template_path: Path = None) -> bool:
+    """Produce a PDF preferring XeLaTeX with a custom LaTeX template.
+
+    Strategy:
+      1. If a .tex template is provided, render .tex first (to_tex).
+      2. Try running xelatex on the generated .tex (best typographic control).
+      3. If xelatex not available or fails, fall back to pandoc engines (with xelatex first).
+    """
+    # 1) Render .tex if possible
+    if template_path:
+        try:
+            if not tex_path:
+                tex_path = pdf_path.with_suffix('.tex')
+            if to_tex(md_path, tex_path, template_path=template_path):
+                # Try running xelatex directly on the .tex file (twice for references)
+                try:
+                    r1 = subprocess.run([
+                        "xelatex", "-interaction=nonstopmode", "-halt-on-error",
+                        "-output-directory", str(tex_path.parent), str(tex_path)
+                    ], capture_output=True, text=True, timeout=120)
+                    r2 = subprocess.run([
+                        "xelatex", "-interaction=nonstopmode", "-halt-on-error",
+                        "-output-directory", str(tex_path.parent), str(tex_path)
+                    ], capture_output=True, text=True, timeout=120)
+                    if r1.returncode == 0 and r2.returncode == 0:
+                        # Move resulting PDF to desired location if necessary
+                        produced = tex_path.with_suffix('.pdf')
+                        if produced.exists():
+                            produced.replace(pdf_path)
+                            return True
+                except FileNotFoundError:
+                    # xelatex not installed; fall back to pandoc engines below
+                    pass
+                except subprocess.TimeoutExpired:
+                    print("  [WARN] xelatex timed out; falling back to pandoc engines.")
+        except Exception as exc:
+            print(f"  [WARN] .tex/XeLaTeX step failed: {exc}")
+
+    # 2) Fall back to pandoc engines, prefer xelatex
+    engines = ["xelatex", "weasyprint", "wkhtmltopdf", "pdflatex", "lualatex"]
     for engine in engines:
-        ok, _ = _run_pandoc([
-            str(md_path), "-f", "markdown", "--standalone",
-            f"--pdf-engine={engine}", "-o", str(pdf_path),
-        ])
+        args = [str(md_path), "-f", "markdown", "--standalone", f"--pdf-engine={engine}", "-o", str(pdf_path)]
+        if template_path and engine in ("xelatex", "pdflatex", "lualatex"):
+            # Tell pandoc to use the LaTeX template when producing .pdf via a LaTeX engine
+            args.extend(["--template", str(template_path)])
+        ok, _ = _run_pandoc(args)
         if ok:
             return True
+
     print(
         "  [WARN] PDF generation skipped — no supported PDF engine found.\n"
         "         Install one of:\n"
+        "           sudo tlmgr install xetex (or BasicTeX via Homebrew)\n"
         "           pip install weasyprint\n"
         "           brew install wkhtmltopdf\n"
-        "           brew install --cask basictex   (pdflatex)\n"
         "         DOCX output is complete and usable."
     )
     return False
@@ -328,8 +378,14 @@ def main():
     if not args.md_only:
         if to_docx(md_path, docx_path):
             print(f"[OK] DOCX      → {docx_path.relative_to(ROOT)}")
-        if to_pdf(md_path, pdf_path):
+
+        # Prefer producing a .tex using the custom LaTeX template and then PDF via XeLaTeX
+        tex_path = OUTPUT_DIR / f"{stem}.tex"
+        template_path = TEMPLATES_DIR / "resume.tex"
+        if to_pdf(md_path, pdf_path, tex_path=tex_path, template_path=template_path):
             print(f"[OK] PDF       → {pdf_path.relative_to(ROOT)}")
+        else:
+            print("[WARN] PDF not produced (see earlier warnings). DOCX and Markdown are available.")
 
     print(f"\nDone. Profile: {profile.get('name', profile_key)}")
 

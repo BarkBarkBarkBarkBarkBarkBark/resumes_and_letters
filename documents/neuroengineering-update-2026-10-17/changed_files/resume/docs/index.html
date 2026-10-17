@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Marco Del Fava — Resume</title>
+  <meta name="description" content="Biomedical Engineering M.S. student at UC Davis working on human single-unit electrophysiology, neural acquisition, and Python analysis pipelines. Experience spans Intan/DeepArray bench testing,..." />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui,
+                   Helvetica, Arial, sans-serif;
+      font-size: 15px; line-height: 1.65; color: #1c1c1c;
+      background: #e8e8e4; padding: 2.5rem 1rem; margin: 0;
+    }
+    .tab-bar {
+      max-width: 840px; margin: 0 auto;
+      display: flex; gap: 0;
+      flex-wrap: wrap;
+    }
+    .tab-btn {
+      padding: 0.6rem 1.6rem; font-size: 0.82rem; font-weight: 600;
+      letter-spacing: 0.06em; text-transform: uppercase;
+      background: #d4d4cf; color: #555; border: none;
+      border-radius: 4px 4px 0 0; cursor: pointer;
+      transition: background 0.15s, color 0.15s; margin-right: 3px;
+    }
+    .tab-btn:hover { background: #c8c8c3; color: #222; }
+    .tab-btn.active { background: #fff; color: #111; box-shadow: 0 -2px 0 0 #1d4ed8 inset; }
+    .card {
+      max-width: 840px; margin: 0 auto; background: #fff;
+      padding: 3.5rem 4.25rem;
+      box-shadow: 0 4px 40px rgba(0,0,0,0.11);
+      border-radius: 0 3px 3px 3px;
+    }
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+    .resume-header { margin-bottom: 1.75rem; }
+    h1 { font-size: 2.2rem; font-weight: 800; letter-spacing: -0.025em; color: #111; margin: 0 0 0.55rem; }
+    .contact { color: #555; font-size: 0.875rem; display: flex; flex-wrap: wrap; align-items: center; }
+    .contact a { color: #1d4ed8; text-decoration: none; }
+    .contact a:hover { text-decoration: underline; }
+    .hero-links {
+      display: flex; flex-wrap: wrap; gap: 0.65rem;
+      margin-top: 1rem;
+    }
+    .hero-btn {
+      display: inline-flex; align-items: center; justify-content: center;
+      min-width: 9rem; padding: 0.7rem 1rem; border-radius: 999px;
+      font-size: 0.85rem; font-weight: 700; text-decoration: none;
+      border: 1px solid #dbe2f0; color: #1d4ed8; background: #eff6ff;
+    }
+    .hero-btn.primary {
+      background: #1d4ed8; color: #fff; border-color: #1d4ed8;
+      box-shadow: 0 8px 18px rgba(29,78,216,0.18);
+    }
+    .hero-btn:hover { filter: brightness(0.98); }
+    .sep { color: #ccc; margin: 0 0.45rem; user-select: none; }
+    section { margin-top: 2rem; }
+    h2 {
+      font-size: 0.7rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.13em; color: #111;
+      border-bottom: 1.5px solid #d1d1d1; padding-bottom: 0.3rem; margin: 0 0 1.1rem;
+    }
+    p { margin: 0 0 0.75rem; font-size: 0.93rem; }
+    .entry { margin-bottom: 1.4rem; }
+    .entry-header {
+      display: flex; justify-content: space-between; align-items: baseline;
+      flex-wrap: wrap; gap: 0.2rem 0.75rem; margin-bottom: 0.2rem;
+    }
+    .entry-title { font-weight: 700; font-size: 0.96rem; color: #111; }
+    .entry-dates { font-size: 0.84rem; color: #666; white-space: nowrap; }
+    .entry-loc { font-size: 0.85rem; color: #555; margin-bottom: 0.35rem; }
+    ul { margin: 0.3rem 0 0 1.3rem; padding: 0; }
+    li { margin-bottom: 0.32rem; font-size: 0.91rem; line-height: 1.55; }
+    .intro-grid {
+      display: grid; grid-template-columns: 1.3fr 1fr; gap: 1.4rem;
+      align-items: start;
+    }
+    .intro-card {
+      background: #f8fafc; border: 1px solid #e5e7eb; border-radius: 16px;
+      padding: 1.15rem 1.1rem;
+    }
+    .intro-card h3 {
+      margin: 0 0 0.6rem; font-size: 0.82rem; text-transform: uppercase;
+      letter-spacing: 0.08em; color: #334155;
+    }
+    .intro-card p:last-child { margin-bottom: 0; }
+    .intro-list { margin: 0; padding-left: 1.15rem; }
+    .project-summary { margin-top: 0.2rem; }
+    .project-summary p:last-child { margin-bottom: 0; }
+    .edu-item { margin-bottom: 0.95rem; }
+    .edu-degree { font-weight: 700; font-size: 0.95rem; }
+    .edu-gpa { font-weight: 400; color: #555; }
+    .edu-detail { font-size: 0.875rem; color: #555; margin-top: 0.1rem; }
+    .skill-group { font-size: 0.91rem; margin-bottom: 0.42rem; line-height: 1.5; }
+    .skill-cat { font-weight: 700; }
+    .project-links { margin-top: 0.45rem; font-size: 0.84rem; color: #666; }
+    .project-links a { color: #1d4ed8; text-decoration: none; }
+    .project-links a:hover { text-decoration: underline; }
+    .cert-list { list-style: none; margin: 0; padding: 0; }
+    .cert-list li { font-size: 0.91rem; padding: 0.22rem 0; display: flex; align-items: center; gap: 0.6rem; }
+    .cert-list li::before { content: ""; }  /* removed — badge replaces checkmark for badged items */
+    .cert-badge { height: 52px; width: 52px; object-fit: contain; flex-shrink: 0; }
+    .cert-text { display: flex; flex-direction: column; }
+    .cert-name { font-weight: 600; }
+    .cert-issuer { font-size: 0.82rem; color: #777; }
+    .cover-letter p { font-size: 0.95rem; line-height: 1.75; margin-bottom: 1.1rem; }
+    .cl-meta { font-size: 0.88rem; color: #666; margin-bottom: 2rem; border-left: 3px solid #1d4ed8; padding-left: 0.75rem; }
+    .cl-sign { margin-top: 2rem; font-size: 0.95rem; }
+    .page-footer {
+      margin-top: 3rem; padding-top: 1rem;
+      border-top: 1px solid #ebebeb; font-size: 0.78rem; color: #aaa; text-align: center;
+    }
+    .page-footer a { color: #aaa; }
+    .page-footer a:hover { color: #555; }
+    @media print {
+      body { background: white; padding: 0; }
+      .tab-bar { display: none; }
+      .card { box-shadow: none; border-radius: 0; padding: 1rem 1.5rem; }
+      .tab-panel { display: block !important; }
+      .tab-panel + .tab-panel { page-break-before: always; }
+      .page-footer { display: none; }
+    }
+    @media (max-width: 620px) {
+      .card { padding: 2rem 1.25rem; }
+      h1 { font-size: 1.65rem; }
+      .entry-header { flex-direction: column; gap: 0; }
+      .entry-dates { white-space: normal; }
+      .intro-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="tab-bar">
+  <button class="tab-btn active" onclick="showTab('intro', this)">Intro</button>
+  <button class="tab-btn" onclick="showTab('projects', this)">GitHub Projects</button>
+  <button class="tab-btn" onclick="showTab('resume', this)">CV</button>
+  <button class="tab-btn" onclick="showTab('cover-letter', this)">Letter</button>
+</div>
+
+<div class="card">
+
+  <!-- ══ INTRO ═══════════════════════════════════════════════════════════════ -->
+  <div id="tab-intro" class="tab-panel active">
+
+    <header class="resume-header">
+      <h1>Marco Del Fava</h1>
+      <div class="contact">
+        <span>mdelfava@ucdavis.edu</span>
+<span class="sep">·</span><span>707-637-6544</span><span class="sep">·</span><span>Sacramento, CA</span><span class="sep">·</span><a href="https://github.com/BarkBarkBarkBarkBarkBarkBark">GitHub portfolio</a><span class="sep">·</span><a href="https://www.linkedin.com/in/marc-del-fava">www.linkedin.com/in/marc-del-fava</a>      </div>
+      <div class="hero-links">
+<a class="hero-btn primary" href="https://github.com/BarkBarkBarkBarkBarkBarkBark">View GitHub</a>        <a class="hero-btn" href="#" onclick="showTab('projects', document.querySelector('[onclick*=&quot;projects&quot;]')); return false;">Browse Projects</a>
+        <a class="hero-btn" href="#" onclick="showTab('resume', document.querySelector('[onclick*=&quot;resume&quot;]')); return false;">Open CV</a>
+      </div>
+    </header>
+
+    <section>
+      <h2>Neural acquisition and single-unit analysis</h2>
+      <p>I am a UC Davis Biomedical Engineering M.S. student working in Dr. Jie Zheng's lab on human intracranial electrophysiology. My work connects neural acquisition and experiment timing with preprocessing, single-unit analysis, and checks against repeatable recorded responses. I also build NEURON simulations and prototype tools for adaptive semantic experiments.
+</p>
+      <p>I am interested in research engineering, scientific software, and acquisition and validation roles supporting human neurotechnology and BCI research.
+</p>
+    </section>
+
+    <section>
+      <div class="intro-grid">
+        <div class="intro-card">
+          <h3>Current interests</h3>
+          <ul class="intro-list">
+              <li>Neural signal acquisition, channel mapping, and signal quality</li>
+              <li>Experiment synchronization and behavioral-event alignment</li>
+              <li>Single-unit preprocessing, sorting, and response analysis</li>
+              <li>Recorded-data validation of AI-assisted scientific software</li>
+              <li>Adaptive semantic tuning experiments and real-time interpretation research</li>
+          </ul>
+        </div>
+        <div class="intro-card">
+          <h3>Quick snapshot</h3>
+          <p>Recently admitted to UC Davis Biomedical Engineering.</p>
+          <p>Working on single-unit sorting, neural acquisition tooling, and practical open-source neurotech projects.</p>
+<p><strong>GitHub:</strong> <a href="https://github.com/BarkBarkBarkBarkBarkBarkBark">https://github.com/BarkBarkBarkBarkBarkBarkBark</a></p>        </div>
+      </div>
+    </section>
+  </div><!-- /tab-intro -->
+
+  <!-- ══ GITHUB PROJECTS ════════════════════════════════════════════════════ -->
+  <div id="tab-projects" class="tab-panel">
+    <header class="resume-header">
+      <h1>GitHub Projects</h1>
+      <p>These projects span implemented analysis tools, simulation, and acquisition prototypes. Each description distinguishes current functionality from ongoing integration and real-time research goals.
+</p>
+    </header>
+
+    <section>
+      <h2>Selected repositories</h2>
+      <div class="entry">
+        <div class="entry-header">
+          <span class="entry-title">Semantic Neuron simulation</span>
+          <span class="entry-dates">2026</span>
+        </div>
+        <div class="project-summary">
+          <p>Built a NEURON prototype linking sentence-embedding cosine similarity to stochastic synaptic input in a Hodgkin-Huxley compartment with fixed synaptic weights.</p>
+          <p>Implemented seeded trials and outputs for membrane voltage, presynaptic and postsynaptic spike times, and firing rates to explore semantic-tuning hypotheses in simulation.</p>
+        </div>
+        <div class="project-links">
+          <a href="https://github.com/BarkBarkBarkBarkBarkBarkBark/semantic_neuron">GitHub</a>        </div>
+      </div>
+      <div class="entry">
+        <div class="entry-header">
+          <span class="entry-title">Dark Horse Neuro / Neuralynx acquisition pipeline</span>
+          <span class="entry-dates">2026</span>
+        </div>
+        <div class="project-summary">
+          <p>Develop Python orchestration for DHN-AQ configuration, SSH launch, acquisition diagnostics, and Neuralynx Pegasus/NetCom integration.</p>
+          <p>Implemented RC/CS configuration writers and an NRD-to-UDP replay prototype; hardware reception and recording validation remain in progress.</p>
+        </div>
+        <div class="project-links">
+          <a href="https://github.com/BarkBarkBarkBarkBarkBarkBark/dhn_client">GitHub</a> ·           <a href="https://barkbarkbarkbarkbarkbarkbark.github.io/dhn_client/">Docs</a>        </div>
+      </div>
+    </section>
+  </div><!-- /tab-projects -->
+
+  <!-- ══ RESUME ══════════════════════════════════════════════════════════════ -->
+  <div id="tab-resume" class="tab-panel">
+
+    <header class="resume-header">
+      <h1>Marco Del Fava</h1>
+      <div class="contact">
+        <span>mdelfava@ucdavis.edu</span>
+<span class="sep">·</span><span>707-637-6544</span><span class="sep">·</span><span>Sacramento, CA</span><span class="sep">·</span><a href="https://github.com/BarkBarkBarkBarkBarkBarkBark">GitHub portfolio</a><span class="sep">·</span><a href="https://www.linkedin.com/in/marc-del-fava">www.linkedin.com/in/marc-del-fava</a><span class="sep">·</span><a href="https://transformations.solutions">https://transformations.solutions</a>      </div>
+      <div class="hero-links">
+<a class="hero-btn primary" href="https://github.com/BarkBarkBarkBarkBarkBarkBark">View GitHub</a><a class="hero-btn" href="https://transformations.solutions">Portfolio Site</a><a class="hero-btn" href="https://www.linkedin.com/in/marc-del-fava">LinkedIn</a>      </div>
+    </header>
+
+    <section>
+      <h2>Summary</h2>
+      <p>Biomedical Engineering M.S. student at UC Davis working on human single-unit electrophysiology, neural acquisition, and Python analysis pipelines. Experience spans Intan/DeepArray bench testing, Neuralynx and Dark Horse Neuro workflows, spike sorting, experiment synchronization, and event-aligned response analysis. Develops tools with AI coding agents and evaluates outputs against recorded signals, timing measurements, and reproducible neural responses.</p>
+    </section>
+
+        <section>
+      <h2>Research and Volunteer Experience</h2>
+      <div class="entry">
+        <div class="entry-header">
+          <span class="entry-title">Research Volunteer — UC Davis Health — Z-Lab (Dr. Jie Zheng)</span>
+          <span class="entry-dates">Jul 2025 – Present</span>
+        </div>
+        <div class="entry-loc">Sacramento, CA</div>
+        <ul>
+          <li>Process human microwire recordings with SpikeInterface, MountainSort5, Kilosort4, and O-Sort; compare Neuralynx CSC and MED-derived inputs to investigate conversion precision and spike-detection discrepancies.</li>
+          <li>Develop experiment synchronization with PsychoPy, Intan RHX TCP annotations, and Cedrus C-Pod TTL markers; measured clock drift and event-alignment residuals to assess timing limitations.</li>
+          <li>Co-led bench testing of a 128-channel DeepArray/Intan acquisition setup; mapped probe and RHX channels and investigated grounding, filter behavior, shorts, and high-impedance channels. Lab testing identified 121 of 128 channels with clean test-signal recordings.</li>
+          <li>Built a Python workflow combining sorted single-unit data and event markers to generate PSTHs for repeated 30-second stories; reproduced an event-associated response in the same unit across six repetitions.</li>
+        </ul>
+      </div>
+      <div class="entry">
+        <div class="entry-header">
+          <span class="entry-title">Research Volunteer — UC Davis Health — Neuroscience Unit E5</span>
+          <span class="entry-dates">Dec 2022 – Jul 2023</span>
+        </div>
+        <div class="entry-loc">Sacramento, CA</div>
+        <ul>
+          <li>Prepared headboxes and EEG application kits for the Epilepsy Monitoring Unit.</li>
+          <li>Shadowed EEG technologists and observed clinical neurophysiology procedures for patients with epilepsy and traumatic brain injury.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section>
+      <h2>Selected Projects</h2>
+      <div class="entry">
+        <div class="entry-header">
+          <span class="entry-title">Semantic Neuron simulation</span>
+          <span class="entry-dates">2026</span>
+        </div>
+        <ul>
+          <li>Built a NEURON prototype linking sentence-embedding cosine similarity to stochastic synaptic input in a Hodgkin-Huxley compartment with fixed synaptic weights.</li>
+          <li>Implemented seeded trials and outputs for membrane voltage, presynaptic and postsynaptic spike times, and firing rates to explore semantic-tuning hypotheses in simulation.</li>
+        </ul>
+        <div class="project-links">
+          <a href="https://github.com/BarkBarkBarkBarkBarkBarkBark/semantic_neuron">GitHub</a>        </div>
+      </div>
+      <div class="entry">
+        <div class="entry-header">
+          <span class="entry-title">Dark Horse Neuro / Neuralynx acquisition pipeline</span>
+          <span class="entry-dates">2026</span>
+        </div>
+        <ul>
+          <li>Develop Python orchestration for DHN-AQ configuration, SSH launch, acquisition diagnostics, and Neuralynx Pegasus/NetCom integration.</li>
+          <li>Implemented RC/CS configuration writers and an NRD-to-UDP replay prototype; hardware reception and recording validation remain in progress.</li>
+        </ul>
+        <div class="project-links">
+          <a href="https://github.com/BarkBarkBarkBarkBarkBarkBark/dhn_client">GitHub</a> ·           <a href="https://barkbarkbarkbarkbarkbarkbark.github.io/dhn_client/">Docs</a>        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Experience</h2>
+      <div class="entry">
+        <div class="entry-header">
+          <span class="entry-title">Operations Specialist — First Step Communities</span>
+          <span class="entry-dates">Jul 2021 – Present</span>
+        </div>
+        <div class="entry-loc">Sacramento, CA</div>
+        <ul>
+          <li>Analyzed program and partner datasets using Python, SPSS, and Excel to identify predictors of successful exits and service effectiveness.</li>
+          <li>Maintain multi-site IT systems, network segmentation, and camera/NVR integrations; troubleshoot device connectivity and document workflows for nontechnical staff.</li>
+        </ul>
+      </div>
+      <div class="entry">
+        <div class="entry-header">
+          <span class="entry-title">Analyst — Eurofins Test America</span>
+          <span class="entry-dates">Oct 2019 – Jun 2021</span>
+        </div>
+        <div class="entry-loc">West Sacramento, CA</div>
+        <ul>
+          <li>Maintained high-accuracy data entry and review in a regulated laboratory environment; supported QA documentation and adherence to standard operating procedures.</li>
+          <li>Performed solvent extraction of organic compounds from soil and water samples in a high-throughput production setting.</li>
+        </ul>
+      </div>
+    </section>
+
+
+    <section>
+      <h2>Education</h2>
+      <div class="edu-item">
+        <div class="edu-degree">
+          M.S. Biomedical Engineering
+        </div>
+        <div class="edu-detail">University of California, Davis · Sep 2026 - Present · Neuroengineering track; research in Dr. Jie Zheng's Z-Lab</div>
+      </div>
+      <div class="edu-item">
+        <div class="edu-degree">
+          M.S. Psychology
+<span class="edu-gpa"> (GPA: 3.7)</span>        </div>
+        <div class="edu-detail">Arizona State University · 2023</div>
+      </div>
+      <div class="edu-item">
+        <div class="edu-degree">
+          B.S. Neuroscience, Physiology, and Behavior
+        </div>
+        <div class="edu-detail">University of California, Davis · 2017</div>
+      </div>
+    </section>
+
+
+    <section>
+      <h2>Skills</h2>
+      <div class="skill-group">
+        <span class="skill-cat">Neural Data & Signal Processing:</span>
+        Human intracranial recordings and Behnke-Fried microwire data, Spike sorting (SpikeInterface, MountainSort5, Kilosort4, O-Sort), Preprocessing and waveform analysis, Event alignment and peri-stimulus time histograms (PSTHs)
+      </div>
+      <div class="skill-group">
+        <span class="skill-cat">Neural Acquisition & Tooling:</span>
+        Intan RHX and 128-channel DeepArray bench testing, Neuralynx CSC/NEV data and Pegasus/NetCom workflows, Dark Horse Neuro acquisition and MED conversion workflows, PsychoPy/TCP event integration and Cedrus C-Pod TTL markers, Channel mapping, grounding, and signal-quality troubleshooting
+      </div>
+      <div class="skill-group">
+        <span class="skill-cat">Scientific Software & Modeling:</span>
+        Python (NumPy, Pandas, Matplotlib, Neo), MATLAB and AWS GPU sorting workflows, NEURON and semantic embedding prototypes, Git, Linux, and shell scripting
+      </div>
+      <div class="skill-group">
+        <span class="skill-cat">Software Validation & Reproducibility:</span>
+        AI-assisted scientific software development, Recorded-data comparisons and repeatable response checks, Clock-drift and event-timing analysis, Synthetic signal and simulation-based prototyping
+      </div>
+    </section>
+
+    <section>
+      <h2>Certifications</h2>
+      <ul class="cert-list">
+        <li>
+<a href="https://www.credly.com/badges/505ef11c-58b4-48bd-aa9e-5a21f0247d46/public_url" target="_blank" rel="noopener">            <img class="cert-badge" src="assets/ucdavis_python_badge.png" alt="Data Analysis with Matplotlib, Pandas, and Scikit-Learn Python Libraries badge" />
+</a>          <span class="cert-text">
+            <span class="cert-name">Data Analysis with Matplotlib, Pandas, and Scikit-Learn Python Libraries</span>
+<span class="cert-issuer">UC Davis Continuing and Professional Education &middot; 2025-09-18</span>          </span>
+        </li>
+        <li>
+            <span style="color:#777;font-size:1rem;">&#10003;&nbsp;</span>
+          <span class="cert-text">
+            <span class="cert-name">CITI — Biomedical Research</span>
+<span class="cert-issuer">CITI Program</span>          </span>
+        </li>
+        <li>
+            <span style="color:#777;font-size:1rem;">&#10003;&nbsp;</span>
+          <span class="cert-text">
+            <span class="cert-name">CITI — Essentials of Research Administration</span>
+<span class="cert-issuer">CITI Program</span>          </span>
+        </li>
+        <li>
+            <span style="color:#777;font-size:1rem;">&#10003;&nbsp;</span>
+          <span class="cert-text">
+            <span class="cert-name">CITI — GCP Social and Behavioral Research Best Practices</span>
+<span class="cert-issuer">CITI Program</span>          </span>
+        </li>
+      </ul>
+    </section>
+
+  </div><!-- /tab-resume -->
+
+  <!-- ══ COVER LETTER ════════════════════════════════════════════════════════ -->
+  <div id="tab-cover-letter" class="tab-panel">
+    <div class="cover-letter">
+
+      <header class="resume-header">
+        <h1>Marco Del Fava</h1>
+        <div class="contact">
+          <span>mdelfava@ucdavis.edu</span>
+<span class="sep">·</span><span>707-637-6544</span><span class="sep">·</span><span>Sacramento, CA</span>        </div>
+      </header>
+
+      <div class="cl-meta">
+        Re: Research Engineer — Neurotechnology Team
+      </div>
+
+      <p>I am applying for the Research Engineer position at Neurotechnology Team. I am a Biomedical Engineering M.S. student at UC Davis working in Dr. Jie Zheng's lab on human single-unit recordings, neural acquisition, and Python analysis tools. I want to contribute to the engineering that connects a recording system to reliable experimental results.</p>
+      <p>I co-led bench testing of a 128-channel DeepArray/Intan setup, mapping probe and RHX channels and investigating grounding, filter behavior, shorts, and high-impedance channels. Our lab testing identified 121 channels with clean test-signal recordings. I also work on PsychoPy/RHX event synchronization using TCP annotations and Cedrus C-Pod TTL markers, with measurements of clock drift and event-alignment residuals.</p>
+      <p>On the analysis side, I built a Python workflow combining sorted units and event markers to generate PSTHs for repeated stories, reproducing a response in the same unit across six presentations. I also built a NEURON prototype linking semantic similarity to stochastic synaptic input, and I develop Neuralynx/Dark Horse Neuro orchestration and replay tools. Streaming interpretation and adaptive semantic screening are my current development direction.</p>
+      <p>I use AI coding agents to accelerate implementation and check the results against recorded signals, timing measurements, and repeatable responses. This gives me concrete ways to investigate whether a pipeline preserves the experimental information it is intended to measure.</p>
+      <p>Earlier work at Eurofins Test America developed my laboratory documentation and quality-control habits. At First Step Communities, I build data workflows and support technical systems across multiple sites, translating operational requirements into tools colleagues can use.</p>
+      <p>I would welcome a discussion of how my acquisition, analysis, and validation experience could support your team. Thank you for your consideration.</p>
+
+      <div class="cl-sign">
+        Sincerely,<br><br>
+        <strong>Marco Del Fava</strong>
+      </div>
+
+    </div>
+  </div><!-- /tab-cover-letter -->
+
+  <footer class="page-footer">
+    Generated from YAML source · Last updated October 17, 2026
+    · <a href="https://github.com/BarkBarkBarkBarkBarkBarkBark">GitHub</a>
+  </footer>
+
+</div><!-- /card -->
+
+<script>
+  function showTab(name, btn) {
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById('tab-' + name).classList.add('active');
+    btn.classList.add('active');
+  }
+</script>
+</body>
+</html>

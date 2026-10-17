@@ -1,0 +1,438 @@
+# ============================================================
+# CANONICAL RESUME — Marco Del Fava
+# This file is the single source of truth for all outputs.
+#
+# Edit here only. Run:
+#   python scripts/build_resume.py
+#   python scripts/build_resume.py --profile neuroengineering
+#   python scripts/build_resume.py --profile data_analytics
+# ============================================================
+
+personal:
+  name: Marco Del Fava
+  contact:
+    email: mdelfava@ucdavis.edu
+    phone: "707-637-6544"
+    location: Sacramento, CA
+    linkedin: "www.linkedin.com/in/marc-del-fava"      # Add: linkedin.com/in/yourhandle
+    github: "https://github.com/BarkBarkBarkBarkBarkBarkBark"        # Add: github.com/yourhandle
+    website: "https://transformations.solutions"       # Add: yoursite.com
+
+# Multiple summary variants — the active one is selected by role profile.
+summary:
+  neuroengineering: >
+    Biomedical Engineering M.S. student at UC Davis working on human single-unit
+    electrophysiology, neural acquisition, and Python analysis pipelines.
+    Experience spans Intan/DeepArray bench testing, Neuralynx and Dark Horse Neuro
+    workflows, spike sorting, experiment synchronization, and event-aligned
+    response analysis. Develops tools with AI coding agents and evaluates outputs
+    against recorded signals, timing measurements, and reproducible neural responses.
+
+  neural_data: >
+    Scientific software developer and UC Davis Biomedical Engineering M.S. student
+    building Python tools for human intracranial recordings. Works across
+    Neuralynx/MED data handling, SpikeInterface preprocessing and sorting,
+    behavioral-event alignment, and single-unit response analysis. Uses recorded
+    data and repeatable response patterns to evaluate AI-assisted implementations,
+    with ongoing development toward streaming neural interpretation.
+
+  acquisition_validation: >
+    UC Davis Biomedical Engineering M.S. student with hands-on neural acquisition
+    bench testing and a professional background in laboratory quality control
+    and technical operations. Works with Intan/DeepArray, Neuralynx, and Dark Horse
+    Neuro workflows, focusing on channel mapping, signal quality, experiment
+    synchronization, and checking downstream analysis against recorded responses.
+
+  data_analytics: >
+    Evaluation and data systems professional with 5 years supporting 4 shelter sites
+    serving 400+ people/month and their integrated clinical partnerships. Led mixed
+    methods efforts including surveys and focus groups, built reporting workflows, and
+    translated findings into funder-ready narratives and operational decisions.
+    Experienced with Python/SQL, SPSS, dashboards, and Microsoft 365 automation.
+    Committed to equity-centered learning and improving health and housing outcomes.
+
+  default: >
+    UC Davis Biomedical Engineering M.S. student with a neuroscience background
+    and experience in human electrophysiology, Python/MATLAB analysis, laboratory
+    quality control, and clinical data coordination. Builds and evaluates tools
+    for neural acquisition, single-unit analysis, and reproducible research.
+
+# Skills are organized into named categories.
+# The active profile controls which categories appear and in what order.
+skills:
+  - category: Neural Data & Signal Processing
+    items:
+      - Human intracranial recordings and Behnke-Fried microwire data
+      - Spike sorting (SpikeInterface, MountainSort5, Kilosort4, O-Sort)
+      - Preprocessing and waveform analysis
+      - Event alignment and peri-stimulus time histograms (PSTHs)
+    tags: [neuroengineering, research, technical]
+
+  - category: Neural Acquisition & Tooling
+    items:
+      - Intan RHX and 128-channel DeepArray bench testing
+      - Neuralynx CSC/NEV data and Pegasus/NetCom workflows
+      - Dark Horse Neuro acquisition and MED conversion workflows
+      - PsychoPy/TCP event integration and Cedrus C-Pod TTL markers
+      - Channel mapping, grounding, and signal-quality troubleshooting
+    tags: [neuroengineering, research, technical, data_acquisition, compression]
+
+  - category: Machine Learning & Data Science
+    items:
+      - Python (NumPy, Pandas, scikit-learn, PyTorch, Numba)
+      - Statistical analysis (SPSS)
+      - SQL and database engineering (PostgreSQL, PGVector)
+      - Cloud GPU computing (AWS EC2, CUDA, Docker) and MATLAB workflows
+      - NEURON simulation and semantic embedding prototypes
+    tags: [neuroengineering, analytics, technical]
+
+  - category: Data Systems & Reporting
+    items:
+      - Dashboards and stakeholder reporting (Looker)
+      - Workflow automation (Microsoft 365, Power Automate)
+      - Survey design and focus group facilitation
+      - Equity-informed outcomes measurement
+    tags: [analytics, evaluation, management]
+
+  - category: General Technical
+    items:
+      - Git and version control
+      - Linux and shell scripting
+      - Web interfaces (Streamlit)
+      - Microsoft 365 administration
+    tags: [technical, it]
+
+  - category: Software Validation & Reproducibility
+    items:
+      - AI-assisted scientific software development
+      - Recorded-data comparisons and repeatable response checks
+      - Clock-drift and event-timing analysis
+      - Synthetic signal and simulation-based prototyping
+    tags: [technical, python, validation, software]
+
+  - category: Scientific Software & Modeling
+    items:
+      - Python (NumPy, Pandas, Matplotlib, Neo)
+      - MATLAB and AWS GPU sorting workflows
+      - NEURON and semantic embedding prototypes
+      - Git, Linux, and shell scripting
+    tags: [technical, python, software, simulation]
+
+# Each bullet has a text field and tags for role-profile filtering.
+# The build script scores bullets by tag overlap with the active profile,
+# sorts them by score, and takes the top N per role.
+experience:
+  - role: Operations Specialist
+    organization: First Step Communities
+    org_type: Homeless Shelter Operator
+    location: Sacramento, CA
+    start_date: "2021-07"
+    end_date: present
+    bullets:
+      - text: >
+          Maintain multi-site IT systems, network segmentation, and camera/NVR
+          integrations; troubleshoot device connectivity and document workflows
+          for nontechnical staff.
+        tags: [technical, it, instrumentation, quality, communication]
+
+      - text: >
+          Led performance measurement and outcomes tracking across 4 shelter sites
+          serving 400+ people/month; delivered recurring insights for leadership
+          decision-making and funder reporting.
+        tags: [analytics, evaluation, management, leadership]
+
+      - text: >
+          Analyzed program and partner datasets using Python, SPSS, and Excel to
+          identify predictors of successful exits and service effectiveness.
+        tags: [analytics, evaluation, technical, python]
+
+      - text: >
+          Disaggregated outcomes by demographic characteristics to identify
+          disparities and inform equity-focused program adjustments and reporting.
+        tags: [analytics, evaluation, equity]
+
+      - text: >
+          Identified an association between on-site clinical engagement and permanent
+          housing outcomes; supported leadership in scaling integrated clinical
+          services across sites.
+        tags: [analytics, evaluation, clinical, leadership]
+
+      - text: >
+          Developed 40+ standardized data collection forms and automated reporting
+          workflows using Microsoft Power Automate.
+        tags: [technical, automation, management]
+
+      - text: >
+          Produced executive and funder-ready dashboards, briefs, and presentations;
+          synthesized findings into actionable recommendations for technical and
+          non-technical audiences.
+        tags: [analytics, communication, leadership]
+
+      - text: >
+          Managed Microsoft 365 IT infrastructure across 4 shelter sites, including
+          user provisioning, device management, and systems coordination.
+        tags: [technical, it, management]
+
+      - text: >
+          Coordinated data collection from clinical partners including UC Davis Health
+          and Kaiser Permanente to support integrated care outcome analyses.
+        tags: [data, clinical, management, research]
+
+  - role: Analyst
+    organization: Eurofins Test America
+    org_type: Environmental Chemistry Laboratory
+    location: West Sacramento, CA
+    start_date: "2019-10"
+    end_date: "2021-06"
+    bullets:
+      - text: >
+          Maintained high-accuracy data entry and review in a regulated laboratory
+          environment; supported QA documentation and adherence to standard
+          operating procedures.
+        tags: [data, quality, research]
+
+      - text: >
+          Performed solvent extraction of organic compounds from soil and water
+          samples in a high-throughput production setting.
+        tags: [lab, technical]
+
+      - text: >
+          Coordinated daily scheduling and backlog management to meet turnaround
+          targets across teams.
+        tags: [management, operations]
+
+# Volunteer and research experience — included or excluded per role profile.
+volunteer:
+  - role: Research Volunteer
+    organization: "UC Davis Health — Z-Lab (Dr. Jie Zheng)"
+    location: Sacramento, CA
+    start_date: "2025-07"
+    end_date: present
+    bullets:
+      - text: >
+          Co-led bench testing of a 128-channel DeepArray/Intan acquisition setup;
+          mapped probe and RHX channels and investigated grounding, filter
+          behavior, shorts, and high-impedance channels. Lab testing identified
+          121 of 128 channels with clean test-signal recordings.
+        tags: [neuroengineering, research, technical, data_acquisition, signal_processing, validation, instrumentation]
+
+      - text: >
+          Built a Python workflow combining sorted single-unit data and event
+          markers to generate PSTHs for repeated 30-second stories; reproduced
+          an event-associated response in the same unit across six repetitions.
+        tags: [neuroengineering, research, technical, signal_processing, python, validation, semantic, software]
+
+      - text: >
+          Develop experiment synchronization with PsychoPy, Intan RHX TCP
+          annotations, and Cedrus C-Pod TTL markers; measured clock drift and
+          event-alignment residuals to assess timing limitations.
+        tags: [neuroengineering, research, technical, data_acquisition, realtime, timing, validation, python]
+
+      - text: >
+          Process human microwire recordings with SpikeInterface, MountainSort5,
+          Kilosort4, and O-Sort; compare Neuralynx CSC and MED-derived inputs to
+          investigate conversion precision and spike-detection discrepancies.
+        tags: [neuroengineering, research, technical, spike_sorting, signal_processing, python, validation, data]
+
+      - text: >
+          Use AI coding agents to develop neural analysis tools and check
+          results against recorded waveforms, event markers, and repeatable
+          single-unit responses.
+        tags: [neuroengineering, research, technical, python, validation, software]
+
+      - text: >
+          Sort single-unit activity from human Phase II epilepsy microwire
+          recordings using MATLAB (O-Sort) and Python (SpikeInterface), with an
+          emphasis on preserving unit-specific waveform structure for downstream
+          analysis.
+        tags: [neuroengineering, research, technical, spike_sorting, signal_processing]
+
+      - text: >
+          Build a GPU-accelerated spike sorting pipeline for dense microelectrode
+          arrays using Kilosort4 on AWS EC2 instances to support reproducible,
+          high-throughput reprocessing of human intracranial recordings.
+        tags: [neuroengineering, research, technical, cloud, ml, signal_processing]
+
+      - text: >
+          Curated a dataset of approximately 2 million hand-labeled waveforms for
+          spike-vs-noise modeling and benchmarking.
+        tags: [neuroengineering, research, data, ml, signal_processing]
+
+      - text: >
+          Trained neural network models to classify putative single units versus
+          noise to support manual curation of human recordings.
+        tags: [neuroengineering, research, ml, technical, signal_processing]
+
+  - role: Research Volunteer
+    organization: "UC Davis Health — Neuroscience Unit E5"
+    location: Sacramento, CA
+    start_date: "2022-12"
+    end_date: "2023-07"
+    bullets:
+      - text: >
+          Prepared headboxes and EEG application kits for the Epilepsy Monitoring
+          Unit.
+        tags: [clinical, research, neuroengineering]
+
+      - text: >
+          Shadowed EEG technologists and observed clinical neurophysiology procedures
+          for patients with epilepsy and traumatic brain injury.
+        tags: [clinical, research, neuroengineering]
+
+  - role: Research Intern
+    organization: California Home Builders Association
+    location: Sacramento, CA
+    start_date: "2023-07"
+    end_date: "2024-02"
+    bullets:
+      - text: >
+          Designed a cost-estimation model for emergency shelter villages with
+          on-site medical facilities to inform California housing policy.
+        tags: [analytics, research, evaluation]
+
+      - text: >
+          Synthesized findings into policy recommendations to support emergency
+          shelter development legislation.
+        tags: [communication, research, evaluation]
+
+education:
+  - degree: M.S. Biomedical Engineering
+    institution: University of California, Davis
+    location: Davis, CA
+    graduation_date: "Sep 2026 - Present"
+    gpa: ""
+    notes: "Neuroengineering track; research in Dr. Jie Zheng's Z-Lab"
+
+  - degree: M.S. Psychology
+    institution: Arizona State University
+    location: Tempe, AZ
+    graduation_date: "2023"
+    gpa: "3.7"
+    notes: ""
+
+  - degree: B.S. Neuroscience, Physiology, and Behavior
+    institution: University of California, Davis
+    location: Davis, CA
+    graduation_date: "2017"
+    gpa: ""
+    notes: ""
+
+# Included when profile sets include_coursework: true
+coursework:
+  - Neurobiology of Behavior — UC Davis
+  - Physiology of Psychology — Arizona State University
+  - Quantitative Analysis — Arizona State University
+  - Research Methods — Arizona State University
+
+certifications:
+  - name: "Data Analysis with Matplotlib, Pandas, and Scikit-Learn Python Libraries"
+    issuer: UC Davis Continuing and Professional Education
+    date: "2025-09-18"
+    badge_url: assets/ucdavis_python_badge.png
+    credly_url: "https://www.credly.com/badges/505ef11c-58b4-48bd-aa9e-5a21f0247d46/public_url"
+
+  - name: CITI — Biomedical Research
+    issuer: CITI Program
+    date: ""
+
+  - name: CITI — Essentials of Research Administration
+    issuer: CITI Program
+    date: ""
+
+  - name: CITI — GCP Social and Behavioral Research Best Practices
+    issuer: CITI Program
+    date: ""
+
+# Standalone projects separate from work/volunteer roles.
+# Add entries here as the pipeline grows.
+projects:
+  - name: Single-unit response analysis and semantic tuning
+    dates: 2026
+    bullets:
+      - Built event-aligned PSTH analysis for a dataset of 10 participants hearing
+        seven 30-second stories six times each; examined response consistency
+        across repeated presentations.
+      - Use repeat-responsive units as reference cases for pipeline checks while
+        developing adaptive stimulus selection to characterize semantic tuning.
+    tags: [neuroengineering, research, technical, signal_processing, python, validation, semantic, software, data]
+
+  - name: Semantic Neuron simulation
+    dates: 2026
+    bullets:
+      - Built a NEURON prototype linking sentence-embedding cosine similarity to
+        stochastic synaptic input in a Hodgkin-Huxley compartment with fixed
+        synaptic weights.
+      - Implemented seeded trials and outputs for membrane voltage, presynaptic
+        and postsynaptic spike times, and firing rates to explore semantic-tuning
+        hypotheses in simulation.
+    links:
+      - label: GitHub
+        url: https://github.com/BarkBarkBarkBarkBarkBarkBark/semantic_neuron
+    tags: [neuroengineering, research, technical, signal_processing, python, semantic, simulation]
+
+  - name: Dark Horse Neuro / Neuralynx acquisition pipeline
+    dates: 2026
+    bullets:
+      - Develop Python orchestration for DHN-AQ configuration, SSH launch,
+        acquisition diagnostics, and Neuralynx Pegasus/NetCom integration.
+      - Implemented RC/CS configuration writers and an NRD-to-UDP replay
+        prototype; hardware reception and recording validation remain in progress.
+    links:
+      - label: GitHub
+        url: https://github.com/BarkBarkBarkBarkBarkBarkBark/dhn_client
+      - label: Docs
+        url: https://barkbarkbarkbarkbarkbarkbark.github.io/dhn_client/
+    tags: [neuroengineering, research, technical, data_acquisition, compression, signal_processing, python, software, data]
+
+  - name: spike_discrim single-unit DSP workbench
+    dates: 2026
+    bullets:
+      - Prototyped low-latency waveform representations for real-time single-unit
+        discrimination using curated OSort snippets, synthetic data, AUC,
+        balanced accuracy, mutual information, and KNN purity.
+      - Built a Numba-accelerated WeightBank population code to score
+        spike-likeness and project waveforms into afferent activation space for
+        clustering and unit-separation analysis.
+    links:
+      - label: GitHub
+        url: https://github.com/BarkBarkBarkBarkBarkBarkBark/spike_discrim
+    tags: [neuroengineering, research, technical, spike_sorting, signal_processing, ml, realtime]
+
+  - name: SNN Agent real-time spike sorting
+    dates: 2026
+    bullets:
+      - Developed an experimental streaming spiking neural network with bandpass filtering,
+        Kalman noise gating, competitive STDP, and browser-based monitoring for
+        spike detection and sorting.
+      - Explore synthetic and recorded-data inputs for online sorting research;
+        clinical closed-loop performance and latency targets remain unvalidated.
+    links:
+      - label: GitHub
+        url: https://github.com/BarkBarkBarkBarkBarkBarkBark/SNNeuro
+    tags: [neuroengineering, research, technical, spike_sorting, signal_processing, ml, realtime]
+
+site:
+  intro_title: Neural acquisition and single-unit analysis
+  intro_blurb: >
+    I am a UC Davis Biomedical Engineering M.S. student working in Dr. Jie
+    Zheng's lab on human intracranial electrophysiology. My work connects neural
+    acquisition and experiment timing with preprocessing, single-unit analysis,
+    and checks against repeatable recorded responses. I also build NEURON
+    simulations and prototype tools for adaptive semantic experiments.
+  seeking: >
+    I am interested in research engineering, scientific software, and acquisition
+    and validation roles supporting human neurotechnology and BCI research.
+  interests:
+    - Neural signal acquisition, channel mapping, and signal quality
+    - Experiment synchronization and behavioral-event alignment
+    - Single-unit preprocessing, sorting, and response analysis
+    - Recorded-data validation of AI-assisted scientific software
+    - Adaptive semantic tuning experiments and real-time interpretation research
+  github_projects_intro: >
+    These projects span implemented analysis tools, simulation, and acquisition
+    prototypes. Each description distinguishes current functionality from
+    ongoing integration and real-time research goals.
+
+# Controls the default profile used when --profile is not passed.
+target_metadata:
+  default_profile: neuroengineering

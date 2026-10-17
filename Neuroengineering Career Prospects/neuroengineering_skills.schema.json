@@ -1,0 +1,202 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Neuroengineering skill and requirement inventory",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "skills",
+    "categories",
+    "requirements",
+    "evidence",
+    "sources",
+    "resume_rules"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "1.0.0"
+    },
+    "skills": {
+      "type": "object",
+      "additionalProperties": {
+        "$ref": "#/$defs/skill"
+      }
+    },
+    "requirements": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "required": [
+          "label",
+          "status",
+          "value",
+          "evidence_ids"
+        ]
+      }
+    },
+    "categories": {
+      "type": "object"
+    },
+    "evidence": {
+      "type": "object"
+    },
+    "sources": {
+      "type": "object"
+    }
+  },
+  "$defs": {
+    "skill": {
+      "type": "object",
+      "properties": {
+        "label": {
+          "type": "string"
+        },
+        "category": {
+          "type": "string"
+        },
+        "aliases": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "skill": {
+          "type": "string"
+        },
+        "status": {
+          "enum": [
+            "not_documented",
+            "none",
+            "planned",
+            "learning",
+            "reported",
+            "exposure",
+            "in_progress",
+            "prototype",
+            "implemented",
+            "validated",
+            "production"
+          ]
+        },
+        "proficiency": {
+          "type": "string"
+        },
+        "updated_at": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date"
+        },
+        "evidence_ids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "resume_text": {
+          "type": "string"
+        },
+        "resume_include": {
+          "type": "boolean"
+        },
+        "recruiter_visible": {
+          "type": "boolean"
+        },
+        "github": {
+          "type": "object",
+          "properties": {
+            "repository_url": {
+              "type": "string"
+            },
+            "recruiter_url": {
+              "type": "string"
+            },
+            "documents": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/github_document"
+              }
+            }
+          },
+          "required": [
+            "repository_url",
+            "recruiter_url",
+            "documents"
+          ]
+        },
+        "notes": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "label",
+        "category",
+        "aliases",
+        "skill",
+        "status",
+        "proficiency",
+        "updated_at",
+        "evidence_ids",
+        "resume_text",
+        "resume_include",
+        "recruiter_visible",
+        "github",
+        "notes"
+      ]
+    },
+    "github_document": {
+      "type": "object",
+      "properties": {
+        "kind": {
+          "type": "string"
+        },
+        "label": {
+          "type": "string"
+        },
+        "url": {
+          "type": "string"
+        },
+        "repository_url": {
+          "type": "string"
+        },
+        "path": {
+          "type": "string"
+        },
+        "ref": {
+          "type": "string"
+        },
+        "commit_sha": {
+          "type": "string"
+        },
+        "visibility": {
+          "type": "string"
+        },
+        "link_check": {
+          "type": "string"
+        },
+        "link_verified_at": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "supports": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "kind",
+        "label",
+        "url",
+        "repository_url",
+        "path",
+        "ref",
+        "commit_sha",
+        "visibility",
+        "link_check",
+        "link_verified_at",
+        "supports"
+      ]
+    }
+  }
+}
