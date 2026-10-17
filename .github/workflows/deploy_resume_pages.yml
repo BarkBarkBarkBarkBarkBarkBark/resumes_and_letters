@@ -1,0 +1,66 @@
+name: Build and Publish Resume to GitHub Pages
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: Install apt dependencies (pandoc + latexmk)
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y pandoc latexmk lmodern texlive-luatex texlive-fonts-recommended texlive-latex-extra
+
+      - name: Install Python dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install jinja2 pyyaml
+
+      - name: Build resume artifacts
+        run: |
+          # Build the canonical profile (neuroengineering) and produce Markdown + PDF
+          python3 resume/scripts/build_resume.py --profile neuroengineering --doc-type cv
+
+      - name: Select newest output directory
+        id: select
+        run: |
+          set -eux
+          # Find most recently modified directory under resume/output or output/
+          if [ -d resume/output ]; then
+            ROOT=resume/output
+          else
+            ROOT=output
+          fi
+          echo "ROOT=$ROOT"
+          LATEST=$(ls -1t "$ROOT" | head -n1)
+          echo "latest=$LATEST" >> $GITHUB_OUTPUT
+          echo "LATEST_DIR=$ROOT/$LATEST" > latest_dir.txt
+
+      - name: Show selected files (debug)
+        run: |
+          echo "Deploying contents of:" $(cat latest_dir.txt)
+          ls -la $(cat latest_dir.txt)
+
+      - name: Deploy to gh-pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: "$(cat latest_dir.txt)"
+          # optional: set publish_branch if you prefer a dedicated branch name
+          publish_branch: gh-pages
+          # keep a history of deployments
+          keep_files: false

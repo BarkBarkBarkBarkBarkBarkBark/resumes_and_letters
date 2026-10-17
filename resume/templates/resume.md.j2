@@ -11,10 +11,28 @@
     ============================================================ -#}
 # {{ personal.name }}
 
-{{ personal.contact.email }} | {{ personal.contact.phone }} | {{ personal.contact.location -}}
-{% if personal.contact.github %} | {{ personal.contact.github }}{% endif %}
-{% if personal.contact.linkedin %} | {{ personal.contact.linkedin }}{% endif %}
-{% if personal.contact.website %} | {{ personal.contact.website }}{% endif %}
+{# Python emblem near the top (simple emoji placeholder) #}
+{% if personal.contact.python_emblem %}
+{{ personal.contact.python_emblem }}
+{% else %}
+🐍 Python
+{% endif %}
+
+{# Contact block: one link per line, with small emblem placeholders (emoji) #}
+{% if personal.contact.email %}- ✉️ Email: [{{ personal.contact.email }}](mailto:{{ personal.contact.email }})
+{% endif %}
+{% if personal.contact.phone %}- ☎️ Phone: {{ personal.contact.phone }}
+{% endif %}
+{% if personal.contact.location %}- 📍 Location: {{ personal.contact.location }}
+{% endif %}
+{% if personal.contact.github %}- ✨ GitHub: [{{ personal.contact.github }}]({{ personal.contact.github }})
+{% endif %}
+{% if personal.contact.linkedin %}- 🔗 LinkedIn: [{{ personal.contact.linkedin }}]({{ personal.contact.linkedin }})
+{% endif %}
+{% if personal.contact.orcid %}- 🔬 ORCID: [{{ personal.contact.orcid }}]({{ personal.contact.orcid }})
+{% endif %}
+{% if personal.contact.website %}- 🌐 Website: [{{ personal.contact.website }}]({{ personal.contact.website }})
+{% endif %}
 
 ---
 

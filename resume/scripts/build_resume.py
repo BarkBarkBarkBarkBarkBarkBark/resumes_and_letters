@@ -378,12 +378,26 @@ def main():
     template = env.get_template("resume.md.j2")
     md_body = template.render(**filtered)
 
-    OUTPUT_DIR.mkdir(exist_ok=True)
+    # Create per-resume subdirectory for all outputs (one folder per stem)
     stem = args.output or get_output_stem(name, profile_key)
-    md_path = OUTPUT_DIR / f"{stem}.md"
-    docx_path = OUTPUT_DIR / f"{stem}.docx"
-    pdf_path = OUTPUT_DIR / f"{stem}.pdf"
-    json_path = OUTPUT_DIR / f"{stem}.json"
+    stem_dir = OUTPUT_DIR / stem
+    stem_dir.mkdir(parents=True, exist_ok=True)
+
+    md_path = stem_dir / f"{stem}.md"
+    docx_path = stem_dir / f"{stem}.docx"
+    pdf_path = stem_dir / f"{stem}.pdf"
+    json_path = stem_dir / f"{stem}.json"
+
+    # Remove obsolete link 'transformations.solutions' from contact if present
+    try:
+        contact = filtered.get("personal", {}).get("contact", {})
+        website = contact.get("website")
+        if website and "transformations.solutions" in str(website):
+            # delete the website entry so it won't appear in outputs
+            del filtered["personal"]["contact"]["website"]
+    except Exception:
+        # non-fatal; continue with export
+        pass
 
     # Write YAML frontmatter (containing the filtered structured data) + the Markdown body
     try:
@@ -409,7 +423,7 @@ def main():
             print(f"[OK] DOCX      → {docx_path.relative_to(ROOT)}")
 
         # Prefer producing a .tex using the custom LaTeX template and then PDF via XeLaTeX
-        tex_path = OUTPUT_DIR / f"{stem}.tex"
+        tex_path = stem_dir / f"{stem}.tex"
         template_path = TEMPLATES_DIR / "resume.tex"
         if to_pdf(md_path, pdf_path, tex_path=tex_path, template_path=template_path):
             print(f"[OK] PDF       → {pdf_path.relative_to(ROOT)}")
