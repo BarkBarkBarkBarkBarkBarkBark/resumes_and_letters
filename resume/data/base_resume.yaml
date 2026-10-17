@@ -52,7 +52,8 @@ skills:
   - category: Neural Data & Signal Processing
     items:
       - Single-unit DSP and waveform feature extraction
-      - Spike sorting (Kilosort4, O-Sort, SpikeInterface)
+      - text: Spike sorting (Kilosort4, O-Sort, SpikeInterface)
+        evidence: https://github.com/BarkBarkBarkBarkBarkBarkBark/spike_discrim
       - Neural data processing (filtering, PCA, template matching, clustering)
       - Intracranial electrophysiology (microwire, LFP, iEEG)
     tags: [neuroengineering, research, technical]
@@ -60,7 +61,8 @@ skills:
   - category: Neural Acquisition & Tooling
     items:
       - Neuralynx Pegasus / ATLAS / NetCom workflows
-      - Dark Horse Neuro DHN-AQ RC/CS configuration
+      - text: Dark Horse Neuro DHN-AQ RC/CS configuration
+        evidence: https://github.com/BarkBarkBarkBarkBarkBarkBark/dhn_client
       - NRD replay, UDP relay, and MED archive generation
       - Linux, SSH automation, xvfb, and acquisition diagnostics
     tags: [neuroengineering, research, technical, data_acquisition, compression]
@@ -93,7 +95,7 @@ skills:
 # The build script scores bullets by tag overlap with the active profile,
 # sorts them by score, and takes the top N per role.
 experience:
-  - role: Operations Specialist
+  - role: "IT Administrator for First Step Communities"
     organization: First Step Communities
     org_type: Homeless Shelter Operator
     location: Sacramento, CA
