@@ -84,6 +84,7 @@ skills:
 experience:
   - role: IT Administrator
     organization: First Step Communities
+    evidence_ids: [systems-methods]
     org_type: Homeless Shelter Operator
     location: Sacramento, CA
     start_date: "2021-07"
@@ -127,7 +128,10 @@ experience:
           user provisioning, device management, and systems coordination.
         tags: [technical, it]
 
-      - text: Managed IT infrastructure, device provisioning, and reporting automation.
+      - text: >
+          Administer multi-site networks, routing/VLAN segmentation, Microsoft 365/Exchange
+          Online, and camera/recording systems; troubleshoot infrastructure and support
+          longitudinal service-utilization and housing-outcome research.
         tags: [engineering_support]
       - text: >
           Coordinated data collection from clinical partners including UC Davis Health
@@ -167,15 +171,32 @@ volunteer:
     location: Sacramento, CA
     start_date: "2025-07"
     end_date: present
+    evidence_ids: [narrative-methods]
+    case_study:
+      id: narrative
+      name: Human Single-Neuron Stimulus-Response Analysis
+      headline_result: Event-aligned rasters and peri-stimulus firing rates
+      problem: Investigate repeatability of single-unit responses during repeated spoken narratives.
+      tested: Inspected local alignment and rate-analysis code; no protected recordings or response outputs reviewed for publication.
+      bullets:
+        - text: Developed Python workflows aligning Neuralynx events and sorted single-unit timestamps with repeated narratives, generating rasters and peri-stimulus firing-rate analyses.
+        - text: Investigated stimulus-associated responses and recognized that restricted stimulus variation cannot establish graded semantic tuning.
+      maturity: Implemented
+      status: Owner-reported research methods, supported by local source inspection. No public neural observations or significance claims; adaptive stimulus selection remains proposed.
+      evidence_ids: [narrative-methods]
+      links:
+        - label: Methods and publication boundary
+          url: https://barkbarkbarkbarkbarkbarkbark.github.io/resumes_and_letters/evidence.html#narrative-methods
     bullets:
       - text: >
-          Analyze human epilepsy microwire recordings using O-Sort and
-          SpikeInterface, with attention to waveform structure and unit curation.
+          Analyze human intracranial single units with O-Sort/SpikeInterface;
+          develop narrative-aligned rasters and peri-stimulus firing-rate workflows.
         tags: [neuroengineering, research, technical, spike_sorting, signal_processing]
 
       - text: >
-          Develop research workflows connecting acquisition, spike processing,
-          and downstream single-neuron response analysis.
+          Develop acquisition and spike-processing workflows with probe mapping,
+          waveform extraction, quality metrics, and experimental clock alignment;
+          distinguish exploratory stimulus responses from semantic tuning.
         tags: [neuroengineering, research, technical, cloud, ml, signal_processing]
 
   - role: Research Volunteer
@@ -261,7 +282,7 @@ certifications:
 # Add entries here as the pipeline grows.
 projects:
   - id: intan
-    name: Neural Acquisition and Timing
+    name: Neural Acquisition and Synchronization
     headline_result: Intan RHD to waveform QA
     dates: 2026
     problem: Connect acquisition files and behavioral event clocks to neural processing.
@@ -279,7 +300,7 @@ projects:
     tags: [neuroengineering, data_acquisition]
 
   - id: compression
-    name: Neural Compression Validation
+    name: Neural Signal Fidelity and Processing Validation
     headline_result: 0.5 uV max difference across 20 million samples
     dates: 2026
     problem: Evaluate an existing DarkHorse Neuro conversion, not implement its compression algorithm.
@@ -300,7 +321,7 @@ projects:
     tags: [neuroengineering, compression, signal_processing]
 
   - id: sorting
-    name: Spike Sorting and Neural Processing
+    name: Spike Sorting and Waveform Discrimination
     headline_result: 38,145 snippets across 10 putative unit labels
     dates: 2026
     problem: Quantify waveform-feature behavior against reference unit assignments.

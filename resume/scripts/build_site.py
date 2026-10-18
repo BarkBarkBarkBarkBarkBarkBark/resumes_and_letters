@@ -5,6 +5,7 @@ python resume/scripts/build_site.py --profile neuroengineering
 """
 
 import argparse
+import json
 import shutil
 from pathlib import Path
 
@@ -39,6 +40,11 @@ def build_site(data: dict, profile: dict, docs_dir: Path = DOCS_DIR,
     evidence_html = env.get_template("evidence.html.j2").render(
         records=filtered["evidence_records"], source_commit=source_commit,
     )
+    manifest = {
+        "source_commit": source_commit,
+        "reviewed_on": load_yaml(DATA_DIR / "evidence_inventory.yaml")["reviewed_on"],
+        "records": filtered["evidence_records"],
+    }
     docs_dir.mkdir(parents=True, exist_ok=True)
     assets = docs_dir / "assets"
     assets.mkdir(exist_ok=True)
@@ -51,6 +57,9 @@ def build_site(data: dict, profile: dict, docs_dir: Path = DOCS_DIR,
     )
     (docs_dir / "index.html").write_text(html, encoding="utf-8")
     (docs_dir / "evidence.html").write_text(evidence_html, encoding="utf-8")
+    (docs_dir / "evidence_manifest.json").write_text(
+        json.dumps(manifest, indent=2, ensure_ascii=False) + "\n", encoding="utf-8"
+    )
     (docs_dir / ".nojekyll").touch()
     print(f"[OK] Portfolio and matching PDF: {docs_dir}")
     return docs_dir

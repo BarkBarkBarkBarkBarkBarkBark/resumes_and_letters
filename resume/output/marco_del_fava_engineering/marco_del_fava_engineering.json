@@ -65,13 +65,16 @@
     {
       "role": "IT Administrator",
       "organization": "First Step Communities",
+      "evidence_ids": [
+        "systems-methods"
+      ],
       "org_type": "Homeless Shelter Operator",
       "location": "Sacramento, CA",
       "start_date": "2021-07",
       "end_date": "present",
       "bullets": [
         {
-          "text": "Managed IT infrastructure, device provisioning, and reporting automation.",
+          "text": "Administer multi-site networks, routing/VLAN segmentation, Microsoft 365/Exchange Online, and camera/recording systems; troubleshoot infrastructure and support longitudinal service-utilization and housing-outcome research.",
           "tags": [
             "engineering_support"
           ]
@@ -135,7 +138,7 @@
   "projects": [
     {
       "id": "intan",
-      "name": "Neural Acquisition and Timing",
+      "name": "Neural Acquisition and Synchronization",
       "headline_result": "Intan RHD to waveform QA",
       "dates": 2026,
       "problem": "Connect acquisition files and behavioral event clocks to neural processing.",
@@ -167,7 +170,7 @@
     },
     {
       "id": "compression",
-      "name": "Neural Compression Validation",
+      "name": "Neural Signal Fidelity and Processing Validation",
       "headline_result": "0.5 uV max difference across 20 million samples",
       "dates": 2026,
       "problem": "Evaluate an existing DarkHorse Neuro conversion, not implement its compression algorithm.",
@@ -206,7 +209,7 @@
     },
     {
       "id": "sorting",
-      "name": "Spike Sorting and Neural Processing",
+      "name": "Spike Sorting and Waveform Discrimination",
       "headline_result": "38,145 snippets across 10 putative unit labels",
       "dates": 2026,
       "problem": "Quantify waveform-feature behavior against reference unit assignments.",
@@ -261,9 +264,38 @@
       "location": "Sacramento, CA",
       "start_date": "2025-07",
       "end_date": "present",
+      "evidence_ids": [
+        "narrative-methods"
+      ],
+      "case_study": {
+        "id": "narrative",
+        "name": "Human Single-Neuron Stimulus-Response Analysis",
+        "headline_result": "Event-aligned rasters and peri-stimulus firing rates",
+        "problem": "Investigate repeatability of single-unit responses during repeated spoken narratives.",
+        "tested": "Inspected local alignment and rate-analysis code; no protected recordings or response outputs reviewed for publication.",
+        "bullets": [
+          {
+            "text": "Developed Python workflows aligning Neuralynx events and sorted single-unit timestamps with repeated narratives, generating rasters and peri-stimulus firing-rate analyses."
+          },
+          {
+            "text": "Investigated stimulus-associated responses and recognized that restricted stimulus variation cannot establish graded semantic tuning."
+          }
+        ],
+        "maturity": "Implemented",
+        "status": "Owner-reported research methods, supported by local source inspection. No public neural observations or significance claims; adaptive stimulus selection remains proposed.",
+        "evidence_ids": [
+          "narrative-methods"
+        ],
+        "links": [
+          {
+            "label": "Methods and publication boundary",
+            "url": "https://barkbarkbarkbarkbarkbarkbark.github.io/resumes_and_letters/evidence.html#narrative-methods"
+          }
+        ]
+      },
       "bullets": [
         {
-          "text": "Analyze human epilepsy microwire recordings using O-Sort and SpikeInterface, with attention to waveform structure and unit curation.",
+          "text": "Analyze human intracranial single units with O-Sort/SpikeInterface; develop narrative-aligned rasters and peri-stimulus firing-rate workflows.",
           "tags": [
             "neuroengineering",
             "research",
@@ -302,14 +334,18 @@
       "limitations": "Public evidence covers file processing. The timing implementation is private; no public timing logs or bench-quality report were available.",
       "visual": {
         "kind": "flow",
+        "figure_id": "A3",
         "title": "Implemented file-processing path",
         "steps": [
           "Intan RHD",
-          "Probe checks",
-          "Kilosort4",
-          "Waveforms / QA"
+          "Channel / probe mapping",
+          "Filtering",
+          "SpikeInterface / Kilosort4",
+          "Waveform extraction",
+          "Quality metrics"
         ],
-        "caption": "Architecture traced from the public notebook; not a latency measurement."
+        "parallel_branch": "PsychoPy event markers -> queued RHX markers -> exact-label joins -> affine clock alignment",
+        "caption": "Public file-processing schematic, not a latency measurement. Parallel timing software is source-inspected but private; no measured timing figure or completed DeepArray integration is implied."
       }
     },
     "dhn-fidelity": {
@@ -335,27 +371,15 @@
         "duration_seconds": 625,
         "nonzero_before_rounding": 19951989,
         "max_abs_error_uv": 0.5,
+        "max_abs_error_after_rounding_uv": 0,
         "nonzero_after_rounding": 0
       },
       "limitations": "Not bit-exact relative to unrounded source. Mean error, compression ratio, file-size reduction, and encoder lossless/lossy settings are not established by these outputs. Do not generalize to complete sessions or other configurations.",
       "visual": {
-        "kind": "bars",
-        "title": "Sample agreement across the tested slice",
-        "maximum": 20000000,
-        "unit": "matching samples",
-        "bars": [
-          {
-            "label": "Before source rounding",
-            "value": 48011,
-            "display": "48,011 / 20,000,000"
-          },
-          {
-            "label": "After source rounding",
-            "value": 20000000,
-            "display": "20,000,000 / 20,000,000"
-          }
-        ],
-        "caption": "Redrawn from saved aggregate outputs. Before-rounding matches = total samples minus nonzero differences."
+        "kind": "fidelity",
+        "figure_id": "B1",
+        "title": "Sample-level fidelity (archived aggregates only)",
+        "caption": "One channel; 20,000,000 samples at 32,000 samples/s (625 s). Whole-uV rounding removes the observed differences; unrounded conversion is not bit-exact. No trace or error distribution is available."
       }
     },
     "dhn-spike-control": {
@@ -380,7 +404,14 @@
         "exact_matches": 35587,
         "exact_jaccard": 1.0
       },
-      "limitations": "Controlled consistency of equal rounded inputs, not proof of unrounded fidelity, biological unit correctness, all-unit conservation, real-time performance, or algorithm authorship."
+      "limitations": "Controlled consistency of equal rounded inputs, not proof of unrounded fidelity, biological unit correctness, all-unit conservation, real-time performance, or algorithm authorship.",
+      "visual": {
+        "kind": "event-match",
+        "figure_id": "B2",
+        "title": "Exact spike-frame intersection",
+        "secondary": true,
+        "caption": "One compared unit, zero-frame tolerance. Identically rounded input arrays establish controlled sorting consistency, not fidelity of unrounded recordings or all-unit conservation."
+      }
     },
     "waveform-features": {
       "repository": "BarkBarkBarkBarkBarkBarkBark/spike_discrim",
@@ -414,28 +445,78 @@
         "knn_k": 5,
         "knn_purity": 0.9504,
         "matched_accuracy": 0.5426,
-        "ari": 0.3665
+        "ari": 0.3665,
+        "families": [
+          {
+            "name": "event",
+            "knn_purity": 0.9504,
+            "matched_accuracy": 0.5426,
+            "ari": 0.3665
+          },
+          {
+            "name": "scalar",
+            "knn_purity": 0.9123,
+            "matched_accuracy": 0.5406,
+            "ari": 0.3974
+          },
+          {
+            "name": "full",
+            "knn_purity": 0.9572,
+            "matched_accuracy": 0.5365,
+            "ari": 0.4046
+          },
+          {
+            "name": "temporal_mad",
+            "knn_purity": 0.8367,
+            "matched_accuracy": 0.4301,
+            "ari": 0.3125
+          }
+        ]
       },
       "limitations": "Offline label-agreement analysis, not held-out classification accuracy, biological ground truth, or online sorting validation. Class imbalance and curated-snippet selection limit generalization.",
       "visual": {
-        "kind": "bars",
-        "title": "Event-family offline label agreement",
-        "maximum": 100,
-        "unit": "percent",
-        "bars": [
-          {
-            "label": "KNN purity (k=5)",
-            "value": 95.04,
-            "display": "95.04%"
-          },
-          {
-            "label": "Matched KMeans accuracy",
-            "value": 54.26,
-            "display": "54.26%"
-          }
-        ],
-        "caption": "Different metrics on the same curated snippets; neighborhood purity is not sorter accuracy."
+        "kind": "metrics",
+        "figure_id": "C3",
+        "title": "Local separability is not clustering agreement",
+        "caption": "Event-family features; 38,145 curated snippets and 10 putative O-Sort labels. These metric definitions differ; ARI is chance-corrected, not a percentage or biological accuracy.",
+        "comparison_title": "Same-metric comparison across feature families",
+        "evidence_gap": "Assignment counts and permission-safe waveform/features were not available for this publication. C1 waveform/projection and C2 contingency figures are withheld, not reconstructed from aggregate scores."
       }
+    },
+    "narrative-methods": {
+      "source_type": "owner-report",
+      "confirmed_on": "2026-10-18",
+      "public": true,
+      "maturity": "Implemented",
+      "verification": "Owner approved publication of methods only; local alignment, binning, smoothing, and candidate-screening source inspected. No public source revision or recording rerun.",
+      "measurement_definition": "Implementation description only; no participant count, effect size, response significance, or semantic-selectivity measurement.",
+      "test_conditions": "Sorted single-unit timestamps aligned to Neuralynx narrative-onset events; per-presentation rasters, binned/smoothed rates, and preceding-interval comparisons.",
+      "verified_result": "Python methods implement event alignment and peri-stimulus analysis. Repeatable response observations are owner-reported, not publicly verified findings.",
+      "limitations": "Code and recordings are not published. Exploratory interval selection is not held-out inference; preceding-story activity can contaminate baseline intervals. Restricted narrative vocabulary cannot establish semantic tuning. Adaptive human stimulus selection remains proposed.",
+      "visual": {
+        "kind": "flow",
+        "figure_id": "D-methods",
+        "title": "Narrative-response analysis (methods schematic)",
+        "steps": [
+          "Sorted unit timestamps + narrative events",
+          "Align each presentation to onset",
+          "Per-presentation spike rasters",
+          "Binned / smoothed firing rates",
+          "Exploratory response and baseline comparison"
+        ],
+        "caption": "Methods only, not a raster, PSTH, or simulated observation. D1/D2 response figures are withheld pending permission-safe data and independently verified event timing."
+      }
+    },
+    "systems-methods": {
+      "source_type": "owner-report",
+      "confirmed_on": "2026-10-18",
+      "public": true,
+      "maturity": "Implemented",
+      "verification": "Owner approved publication of responsibilities only; organizational records and model results were not supplied.",
+      "measurement_definition": "Professional responsibilities, not a dataset-size, reliability, prediction, or causal-effect measurement.",
+      "test_conditions": "Multi-site production IT and longitudinal service-utilization research support at First Step Communities. Existing candidate-provided title and dates retained, not independently verified.",
+      "verified_result": "Owner reports network routing and VLAN segmentation, Microsoft 365/Exchange Online administration, camera/recording infrastructure, operational troubleshooting, and service-data research support.",
+      "limitations": "No service-record, enrollment, or identifier counts published. Housing-outcome prediction and causal inference remain research development efforts; no trained-model performance or intervention effect claimed."
     }
   },
   "page_break_before_education": false,

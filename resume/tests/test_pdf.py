@@ -51,14 +51,16 @@ def test_pdf_has_required_pages_and_selectable_ordered_sections(publication):
     assert "##" not in text and "{'text':" not in text
     first_page = text.split("\f")[0]
     assert "Neural Signal Processing & Acquisition" in first_page
-    assert "Neural Acquisition and Timing" in first_page
-    assert "Neural Compression Validation" in first_page
+    assert "Neural Acquisition and Synchronization" in first_page
+    assert "Neural Signal Fidelity and Processing Validation" in first_page
     for claim in ("0.5 uV", "35,587", "95.04%", "54.26%"):
         assert claim in text
     if profile == "engineering":
-        assert "Spike Sorting and Neural Processing" in first_page
+        assert "Spike Sorting and Waveform Discrimination" in first_page
         assert "First Step Communities" in first_page and "Eurofins" in first_page
         assert "Fall 2026 - Present" in first_page
+    assert "narrative-aligned rasters" in text
+    assert "routing/VLAN segmentation" in text
 
 
 def test_pdf_body_within_margins(publication):

@@ -348,9 +348,9 @@ def test_engineering_metrics_match_inventory(resume_data, profiles):
     control = inventory["dhn-spike-control"]["values"]
     features = inventory["waveform-features"]["values"]
     assert fidelity["frames"] / fidelity["sample_rate_hz"] == fidelity["duration_seconds"] == 625
-    bars = inventory["dhn-fidelity"]["visual"]["bars"]
-    assert bars[0]["value"] == fidelity["frames"] - fidelity["nonzero_before_rounding"]
-    assert bars[1]["value"] == fidelity["frames"] - fidelity["nonzero_after_rounding"]
+    assert fidelity["frames"] - fidelity["nonzero_before_rounding"] == 48011
+    assert fidelity["frames"] - fidelity["nonzero_after_rounding"] == fidelity["frames"]
+    assert fidelity["max_abs_error_after_rounding_uv"] == 0
     union = control["csc_spikes"] + control["med_spikes"] - control["exact_matches"]
     assert control["exact_matches"] / union == control["exact_jaccard"] == 1.0
     assert control["exact_matches"] == 35587
@@ -358,9 +358,16 @@ def test_engineering_metrics_match_inventory(resume_data, profiles):
     assert fidelity["nonzero_before_rounding"] == 19951989
     assert features["spike_snippets"] == 38145 and features["putative_units"] == 10
     assert features["ari"] == 0.3665
-    feature_bars = inventory["waveform-features"]["visual"]["bars"]
-    assert feature_bars[0]["value"] == pytest.approx(features["knn_purity"] * 100)
-    assert feature_bars[1]["value"] == pytest.approx(features["matched_accuracy"] * 100)
+    assert features["families"][0] == {
+        "name": "event", "knn_purity": features["knn_purity"],
+        "matched_accuracy": features["matched_accuracy"], "ari": features["ari"],
+    }
+    assert [(row["name"], row["knn_purity"], row["matched_accuracy"], row["ari"])
+            for row in features["families"][1:]] == [
+        ("scalar", 0.9123, 0.5406, 0.3974),
+        ("full", 0.9572, 0.5365, 0.4046),
+        ("temporal_mad", 0.8367, 0.4301, 0.3125),
+    ]
     for key in ("engineering", "neuroengineering"):
         md = render_resume(resume_data, profiles[key])
         for metric in ("20 million", "32 kHz", "625 s", "0.5 uV", "35,587", "1.0",
@@ -391,4 +398,27 @@ def test_invalid_public_evidence_fails_explicitly(resume_data, profiles, monkeyp
     inventory["records"]["intan-workflow"][field] = value
     monkeypatch.setattr(builder, "load_yaml", lambda path: inventory)
     with pytest.raises(ValueError, match=message):
+        apply_profile(resume_data, profiles["neuroengineering"])
+
+
+@pytest.mark.parametrize("profile_key", ["engineering", "neuroengineering"])
+def test_approved_methods_propagate_without_private_data(resume_data, profiles, profile_key):
+    md = render_resume(resume_data, profiles[profile_key])
+    assert "narrative-aligned rasters" in md
+    assert "routing/VLAN segmentation" in md
+    assert "housing-outcome research" in md
+    assert "500,000" not in md
+    assert "6,000" not in md
+    records = apply_profile(resume_data, profiles[profile_key])["evidence_records"]
+    for key in ("narrative-methods", "systems-methods"):
+        assert records[key]["source_type"] == "owner-report"
+        assert "revision" not in records[key]
+
+
+def test_owner_report_cannot_masquerade_as_pinned_source(resume_data, profiles, monkeypatch):
+    from scripts import build_resume as builder
+    inventory = load_yaml(DATA_DIR / "evidence_inventory.yaml")
+    inventory["records"]["narrative-methods"]["revision"] = "a" * 40
+    monkeypatch.setattr(builder, "load_yaml", lambda path: inventory)
+    with pytest.raises(ValueError, match="Owner-reported evidence"):
         apply_profile(resume_data, profiles["neuroengineering"])

@@ -1,4 +1,5 @@
 from html.parser import HTMLParser
+import json
 from pathlib import Path
 
 import pytest
@@ -94,10 +95,15 @@ def test_publication_copies_exact_pdf_and_never_discovers_letters(content, tmp_p
     assert calls == [(data, profile, site.CV_STEM), (data, engineering, site.ENGINEERING_STEM)]
     assert (output / f"{site.ENGINEERING_STEM}.pdf").read_bytes() == b"%PDF-engineering\n"
     assert sorted(path.name for path in output.iterdir()) == [
-        ".nojekyll", "assets", "evidence.html", "index.html",
+        ".nojekyll", "assets", "evidence.html", "evidence_manifest.json", "index.html",
         f"{site.CV_STEM}.pdf", f"{site.ENGINEERING_STEM}.pdf",
     ]
     assert sorted(path.name for path in (output / "assets").iterdir()) == ["github.png", "linkedin.png"]
+    manifest = json.loads((output / "evidence_manifest.json").read_text())
+    assert manifest["source_commit"] == "abc123"
+    assert manifest["records"] == apply_profile(data, profile)["evidence_records"]
+    assert "intan-timing-withheld" not in manifest["records"]
+    assert "legacy-professional" not in manifest["records"]
 
 
 def test_failed_pdf_build_does_not_publish(content, tmp_path, monkeypatch):
@@ -125,12 +131,15 @@ def test_featured_projects_precede_affiliation_and_have_four_answers(content):
     html = render_site(content)
     assert html.index('id="selected-projects"') < html.index('id="research-title"')
     assert html.index('id="intan"') < html.index('id="compression"') < html.index('id="sorting"')
-    assert html.count("<dt>Built</dt>") == 3
-    assert html.count("<dt>Tested</dt>") == 3
-    assert html.count("<dt>Result</dt>") == 3
-    assert html.count('class="project-visual"') == 3
-    assert "20,000,000 / 20,000,000" in html
+    assert html.count("<dt>Technical approach</dt>") == 4
+    assert html.count("<dt>Evaluation scope</dt>") == 4
+    assert html.count("<dt>Finding / implementation</dt>") == 4
+    assert html.count('class="project-visual"') == 4
+    assert "19,951,989" in html
     assert "95.04%" in html and "54.26%" in html
+    assert "0.3665" in html
+    assert 'id="figure-B2"' not in html
+    assert html.index('id="sorting"') < html.index('id="narrative"') < html.index('id="skills-title"')
     assert "Neural Signal Processing &amp; Acquisition" in html
     assert "Engineering Resume · 1 page" in html
     assert "not a latency measurement" in html
@@ -153,6 +162,10 @@ def test_evidence_page_exports_only_approved_records(content):
     parser.feed(html)
     for key, record in records.items():
         assert key in parser.ids
+        if record.get("source_type") == "owner-report":
+            assert "revision" not in record and "sources" not in record
+            assert record["confirmed_on"] in html
+            continue
         assert len(record["revision"]) == 40
         for source in record["sources"]:
             assert f"/{record['revision']}/" in source["url"]
@@ -162,6 +175,25 @@ def test_evidence_page_exports_only_approved_records(content):
     for link in main.links:
         if link.get("href", "").startswith("evidence.html#"):
             assert link["href"].split("#")[1] in parser.ids
+
+
+def test_figures_have_provenance_and_detail_page_preserves_scope(content):
+    data, profile = content
+    records = apply_profile(data, profile)["evidence_records"]
+    html = template_environment().get_template("evidence.html.j2").render(records=records)
+    parser = PageLinks()
+    parser.feed(html)
+    for record in records.values():
+        if record.get("visual"):
+            assert f"figure-{record['visual']['figure_id']}" in parser.ids
+            assert record["visual"]["caption"] in html
+    assert len(parser.ids) == len(set(parser.ids))
+    for claim in ("35,587 exact frame matches", "35,587 / 35,587 = 1.0",
+                  "83.67%", "0.4046", "C2 contingency", "Owner-reported",
+                  "No public source commit", "No service-record"):
+        assert claim in html
+    assert "semantic tuning" in html
+    assert "evidence_manifest.json" in html
 
 
 def test_second_pdf_failure_does_not_publish(content, tmp_path, monkeypatch):

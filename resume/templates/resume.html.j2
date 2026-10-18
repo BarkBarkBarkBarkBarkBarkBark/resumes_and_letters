@@ -1,3 +1,4 @@
+{% import 'figures.html.j2' as figures %}
 {% macro evidence(item) -%}
 {% if item.evidence %}<a class="evidence" href="{{ item.evidence }}" aria-label="Source evidence: {{ item.text }}"><img src="assets/github.png" alt="" width="16" height="16"></a>{% endif %}
 {%- endmacro %}
@@ -6,6 +7,7 @@
   <h3>{{ job.role }} <span class="organization">— {{ job.organization }}</span></h3>
   <p class="meta">{{ job.start_date | fmt_date }} – {{ job.end_date | fmt_date }}{% if job.location %} · {{ job.location }}{% endif %}</p>
   <ul>{% for bullet in job.bullets %}<li>{{ bullet.text }} {{ evidence(bullet) }}</li>{% endfor %}</ul>
+  {% for key in job.evidence_ids | default([]) %}<p class="meta"><a href="evidence.html#{{ key }}">Methods &amp; publication boundary</a></p>{% endfor %}
 </article>
 {%- endmacro %}
 {% macro project_card(project, featured=false) -%}
@@ -16,29 +18,15 @@
   <p class="project-purpose">{{ project.problem }}</p>
   {% for key in project.evidence_ids | default([]) %}
   {% set record = resume.evidence_records[key] %}
-  {% if record.visual %}
-  {% set visual = record.visual %}
-  <figure class="project-visual">
-    <figcaption>{{ visual.title }}</figcaption>
-    {% if visual.kind == 'flow' %}
-    <ol class="flow">{% for step in visual.steps %}<li>{{ step }}</li>{% endfor %}</ol>
-    {% elif visual.kind == 'bars' %}
-    <div class="chart" aria-label="{{ visual.title }}; {{ visual.unit }}">
-      {% for bar in visual.bars %}
-      <p class="chart-label">{{ bar.label }} <strong>{{ bar.display }}</strong></p>
-      <div class="track" aria-hidden="true"><div class="bar" style="width:{{ bar.value / visual.maximum * 100 }}%"></div></div>
-      {% endfor %}
-    </div>
-    {% endif %}
-    <p class="visual-caption">{{ visual.caption }}</p>
-  </figure>
+  {% if record.visual and not record.visual.secondary %}
+  {{ figures.figure(record) }}
   {% endif %}
   {% endfor %}
   {% if featured %}
   <dl class="project-facts">
-    <dt>Built</dt><dd>{{ project.bullets[0].text }} {{ evidence(project.bullets[0]) }}</dd>
-    <dt>Tested</dt><dd>{{ project.tested }}</dd>
-    <dt>Result</dt><dd>{{ project.bullets[1].text }} {{ evidence(project.bullets[1]) }}</dd>
+    <dt>Technical approach</dt><dd>{{ project.bullets[0].text }} {{ evidence(project.bullets[0]) }}</dd>
+    <dt>Evaluation scope</dt><dd>{{ project.tested }}</dd>
+    <dt>Finding / implementation</dt><dd>{{ project.bullets[1].text }} {{ evidence(project.bullets[1]) }}</dd>
   </dl>
   {% else %}
   <ul>{% for bullet in project.bullets %}<li>{{ bullet.text }} {{ evidence(bullet) }}</li>{% endfor %}</ul>
@@ -95,15 +83,7 @@
     .project-facts { font-size:.9rem; }
     .project-facts dt, .evidence-label { font-size:.77rem; text-transform:uppercase; letter-spacing:.04em; font-weight:750; margin:1rem 0 .2rem; }
     .project-facts dd { margin:0; }
-    .project-visual { margin:1rem 0; padding:.85rem; background:#f1f6f6; border-radius:4px; }
-    .project-visual figcaption { font-size:.82rem; font-weight:700; line-height:1.4; }
-    .visual-caption { font-size:.75rem; line-height:1.5; color:var(--muted); margin:.65rem 0 0; }
-    .flow { padding-left:1.3rem; margin:.7rem 0; font-size:.85rem; }
-    .flow li { padding:.2rem .4rem; background:white; border-left:2px solid var(--accent); }
-    .chart-label { margin:.6rem 0 .2rem; font-size:.75rem; line-height:1.5; }
-    .chart-label strong { display:block; font-variant-numeric:tabular-nums; }
-    .track { height:8px; background:#d4e1e4; }
-    .bar { height:100%; background:var(--accent); }
+    {{ figures.styles() }}
     .status { font-size:.9rem; color:var(--muted); }
     .project-links { display:flex; flex-wrap:wrap; gap:.4rem 1.2rem; font-size:.9rem; }
     ul { margin:.5rem 0 .8rem; padding-left:1.3rem; }
@@ -191,6 +171,13 @@
       {% for project in resume.projects[:3] %}{{ project_card(project, project.tested is defined) }}{% endfor %}
     </div>
   </section>
+
+  {% for job in resume.research if job.case_study %}
+  <section aria-labelledby="narrative-title">
+    <h2 id="narrative-title">Human Single-Neuron Research</h2>
+    {{ project_card(job.case_study, true) }}
+  </section>
+  {% endfor %}
 
   <section aria-labelledby="skills-title">
     <h2 id="skills-title">Technical Skills</h2>

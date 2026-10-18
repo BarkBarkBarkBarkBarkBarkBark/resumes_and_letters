@@ -1,5 +1,5 @@
 # Fdb version 4
-["pdflatex"] 1792342380.77253 "marco_del_fava_engineering.tex" "marco_del_fava_engineering.pdf" "marco_del_fava_engineering" 1792342381.73208 0
+["pdflatex"] 1792346061.54135 "marco_del_fava_engineering.tex" "marco_del_fava_engineering.pdf" "marco_del_fava_engineering" 1792346062.55059 0
   "/Users/marco/Library/texlive/2026basic/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1792259013 119799 04b4f15a1d9d0dd0fdfd3b538065bdeb ""
   "/Users/marco/Library/texlive/2026basic/texmf-var/luatex-cache/generic/fonts/otl/lmroman10-bold.luc" 1792258932.59442 128415 5e4d3348447bed60e8965a95fcb87dc7 ""
   "/Users/marco/Library/texlive/2026basic/texmf-var/luatex-cache/generic/fonts/otl/lmroman10-regular.luc" 1792258932.40716 127332 ecc3207f80f96778d171df622df463f9 ""
@@ -137,9 +137,9 @@
   "/usr/local/texlive/2026basic/texmf-dist/tex/luatex/luaotfload/luaotfload.lua" 1740687098 13566 16df94dd2de231b2bca0aaa0190941fe ""
   "/usr/local/texlive/2026basic/texmf-var/web2c/luahbtex/lualatex.fmt" 1772405607 5656746 23be887ec5eaad35c6439bcddf1a40c3 ""
   "icons/github.png" 1792271832.87184 5437 4aa14a030498aaa1900006568a1f5163 ""
-  "marco_del_fava_engineering.aux" 1792342381.61597 719 50878bcf84f5034053f2d9530d395931 "pdflatex"
-  "marco_del_fava_engineering.out" 1792342381.54358 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
-  "marco_del_fava_engineering.tex" 1792342380.66772 8833 49b8fcb1f898878990dabf72f4e8a320 ""
+  "marco_del_fava_engineering.aux" 1792346062.43241 753 0e179c9eabedef48faa0531f63c16aee "pdflatex"
+  "marco_del_fava_engineering.out" 1792346062.35769 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
+  "marco_del_fava_engineering.tex" 1792346061.45147 9064 4f43e42346558929c8f78d51f0eeb271 ""
   (generated)
   "marco_del_fava_engineering.aux"
   "marco_del_fava_engineering.log"

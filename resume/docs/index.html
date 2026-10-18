@@ -43,14 +43,18 @@
     .project-facts dt, .evidence-label { font-size:.77rem; text-transform:uppercase; letter-spacing:.04em; font-weight:750; margin:1rem 0 .2rem; }
     .project-facts dd { margin:0; }
     .project-visual { margin:1rem 0; padding:.85rem; background:#f1f6f6; border-radius:4px; }
-    .project-visual figcaption { font-size:.82rem; font-weight:700; line-height:1.4; }
-    .visual-caption { font-size:.75rem; line-height:1.5; color:var(--muted); margin:.65rem 0 0; }
-    .flow { padding-left:1.3rem; margin:.7rem 0; font-size:.85rem; }
-    .flow li { padding:.2rem .4rem; background:white; border-left:2px solid var(--accent); }
-    .chart-label { margin:.6rem 0 .2rem; font-size:.75rem; line-height:1.5; }
-    .chart-label strong { display:block; font-variant-numeric:tabular-nums; }
-    .track { height:8px; background:#d4e1e4; }
-    .bar { height:100%; background:var(--accent); }
+.project-visual figcaption { font-size:.88rem; font-weight:700; line-height:1.4; }
+.visual-caption { font-size:.8rem; line-height:1.5; color:#4b5d68; margin:.65rem 0 0; }
+.flow { padding-left:1.3rem; margin:.7rem 0; font-size:.85rem; }
+.flow li { padding:.2rem .4rem; background:white; border-left:2px solid #14546b; }
+.figure-table { width:100%; border-collapse:collapse; margin:.8rem 0; font-size:.8rem; line-height:1.5; font-variant-numeric:tabular-nums; }
+.figure-table caption { text-align:left; font-weight:650; margin-bottom:.5rem; }
+.figure-table th, .figure-table td { padding:.45rem .25rem; border-bottom:1px solid #ccd8db; text-align:left; overflow-wrap:normal; }
+.figure-table th[scope="row"] { font-weight:550; }
+.figure-table td:nth-child(2) { white-space:nowrap; }
+.event-match { display:grid; gap:.6rem; margin:.8rem 0; text-align:center; font-size:.9rem; }
+.event-match div { padding:.65rem; background:white; border:1px solid #ccd8db; }
+.event-match strong { display:block; color:#14546b; }
     .status { font-size:.9rem; color:var(--muted); }
     .project-links { display:flex; flex-wrap:wrap; gap:.4rem 1.2rem; font-size:.9rem; }
     ul { margin:.5rem 0 .8rem; padding-left:1.3rem; }
@@ -134,17 +138,17 @@
     <div class="project-grid">
 <article class="project featured" id="intan">
   <p class="maturity">Implemented</p>
-  <h3>Neural Acquisition and Timing</h3>
+  <h3>Neural Acquisition and Synchronization</h3>
 <p class="result-key">Intan RHD to waveform QA</p>  <p class="project-purpose">Connect acquisition files and behavioral event clocks to neural processing.</p>
-  <figure class="project-visual">
-    <figcaption>Implemented file-processing path</figcaption>
-    <ol class="flow"><li>Intan RHD</li><li>Probe checks</li><li>Kilosort4</li><li>Waveforms / QA</li></ol>
-    <p class="visual-caption">Architecture traced from the public notebook; not a latency measurement.</p>
-  </figure>
+  <figure class="project-visual" id="figure-A3">
+  <figcaption>A3 &mdash; Implemented file-processing path</figcaption>
+  <ol class="flow"><li>Intan RHD</li><li>Channel / probe mapping</li><li>Filtering</li><li>SpikeInterface / Kilosort4</li><li>Waveform extraction</li><li>Quality metrics</li></ol>
+<p class="visual-caption"><strong>Parallel timing branch (implemented, unbenchmarked):</strong> PsychoPy event markers -&gt; queued RHX markers -&gt; exact-label joins -&gt; affine clock alignment</p>  <p class="visual-caption">Public file-processing schematic, not a latency measurement. Parallel timing software is source-inspected but private; no measured timing figure or completed DeepArray integration is implied.</p>
+</figure>
   <dl class="project-facts">
-    <dt>Built</dt><dd>Built Intan RHD ingestion, probe/channel checks, and SpikeInterface/Kilosort4 processing with waveform and quality-metric extraction. <a class="evidence" href="https://github.com/BarkBarkBarkBarkBarkBarkBark/zlab_sorting_script/blob/3ff216ac593166687ae2260ccb705ea1322cf9f1/notebooks/sort_intan.ipynb" aria-label="Source evidence: Built Intan RHD ingestion, probe/channel checks, and SpikeInterface/Kilosort4 processing with waveform and quality-metric extraction."><img src="assets/github.png" alt="" width="16" height="16"></a></dd>
-    <dt>Tested</dt><dd>Reviewed probe/channel checks and the affine clock-fit implementation; timing logs and bench reports were unavailable.</dd>
-    <dt>Result</dt><dd>Implemented queued PsychoPy/RHX event synchronization, exact-label joins, and affine clock fitting to analyze clock drift and alignment residuals. </dd>
+    <dt>Technical approach</dt><dd>Built Intan RHD ingestion, probe/channel checks, and SpikeInterface/Kilosort4 processing with waveform and quality-metric extraction. <a class="evidence" href="https://github.com/BarkBarkBarkBarkBarkBarkBark/zlab_sorting_script/blob/3ff216ac593166687ae2260ccb705ea1322cf9f1/notebooks/sort_intan.ipynb" aria-label="Source evidence: Built Intan RHD ingestion, probe/channel checks, and SpikeInterface/Kilosort4 processing with waveform and quality-metric extraction."><img src="assets/github.png" alt="" width="16" height="16"></a></dd>
+    <dt>Evaluation scope</dt><dd>Reviewed probe/channel checks and the affine clock-fit implementation; timing logs and bench reports were unavailable.</dd>
+    <dt>Finding / implementation</dt><dd>Implemented queued PsychoPy/RHX event synchronization, exact-label joins, and affine clock fitting to analyze clock drift and alignment residuals. </dd>
   </dl>
   <p class="status">Acquisition workflow and clock-alignment software implemented; timing performance not independently verified.</p>
   <p class="evidence-label">Evidence</p>
@@ -152,22 +156,24 @@
 <a href="https://github.com/BarkBarkBarkBarkBarkBarkBark/zlab_sorting_script/blob/3ff216ac593166687ae2260ccb705ea1322cf9f1/notebooks/sort_intan.ipynb">Intan processing notebook</a><a href="evidence.html#intan-workflow">Methods &amp; limitations</a>  </div>
 </article><article class="project featured" id="compression">
   <p class="maturity">Validated</p>
-  <h3>Neural Compression Validation</h3>
+  <h3>Neural Signal Fidelity and Processing Validation</h3>
 <p class="result-key">0.5 uV max difference across 20 million samples</p>  <p class="project-purpose">Evaluate an existing DarkHorse Neuro conversion, not implement its compression algorithm.</p>
-  <figure class="project-visual">
-    <figcaption>Sample agreement across the tested slice</figcaption>
-    <div class="chart" aria-label="Sample agreement across the tested slice; matching samples">
-      <p class="chart-label">Before source rounding <strong>48,011 / 20,000,000</strong></p>
-      <div class="track" aria-hidden="true"><div class="bar" style="width:0.240055%"></div></div>
-      <p class="chart-label">After source rounding <strong>20,000,000 / 20,000,000</strong></p>
-      <div class="track" aria-hidden="true"><div class="bar" style="width:100.0%"></div></div>
-    </div>
-    <p class="visual-caption">Redrawn from saved aggregate outputs. Before-rounding matches = total samples minus nonzero differences.</p>
-  </figure>
+  <figure class="project-visual" id="figure-B1">
+  <figcaption>B1 &mdash; Sample-level fidelity (archived aggregates only)</figcaption>
+  <table class="figure-table">
+    <caption>CSC versus MED, before and after whole-uV source rounding</caption>
+    <thead><tr><th scope="col">Comparison</th><th scope="col">Nonzero differences</th><th scope="col">Max |error| (uV)</th></tr></thead>
+    <tbody>
+      <tr><th scope="row">Unrounded CSC</th><td>19,951,989</td><td>0.5</td></tr>
+      <tr><th scope="row">Rounded CSC</th><td>0</td><td>0</td></tr>
+    </tbody>
+  </table>
+  <p class="visual-caption">One channel; 20,000,000 samples at 32,000 samples/s (625 s). Whole-uV rounding removes the observed differences; unrounded conversion is not bit-exact. No trace or error distribution is available.</p>
+</figure>
   <dl class="project-facts">
-    <dt>Built</dt><dd>Evaluated DarkHorse Neuro compression on 20 million samples (one channel, 32 kHz; 625 s); maximum source-to-MED difference was 0.5 uV, with zero mismatches after rounding source values to whole microvolts. <a class="evidence" href="https://github.com/BarkBarkBarkBarkBarkBarkBark/DHN_validation/blob/496c2326f000037698f7b92b4b3a4139c3a70d13/sort_med/evidence/8_7_filetype_comparison.ipynb" aria-label="Source evidence: Evaluated DarkHorse Neuro compression on 20 million samples (one channel, 32 kHz; 625 s); maximum source-to-MED difference was 0.5 uV, with zero mismatches after rounding source values to whole microvolts."><img src="assets/github.png" alt="" width="16" height="16"></a></dd>
-    <dt>Tested</dt><dd>Compared source CSC and reconstructed MED in physical units, then controlled for whole-microvolt rounding before identical offline sorting.</dd>
-    <dt>Result</dt><dd>Controlled MountainSort5 comparison of rounded inputs preserved all 35,587 spike frames for the compared unit (exact Jaccard 1.0). <a class="evidence" href="https://github.com/BarkBarkBarkBarkBarkBarkBark/DHN_validation/blob/496c2326f000037698f7b92b4b3a4139c3a70d13/sort_med/evidence/Strict_Comparison_of_Sorted_Spikes.ipynb" aria-label="Source evidence: Controlled MountainSort5 comparison of rounded inputs preserved all 35,587 spike frames for the compared unit (exact Jaccard 1.0)."><img src="assets/github.png" alt="" width="16" height="16"></a></dd>
+    <dt>Technical approach</dt><dd>Evaluated DarkHorse Neuro compression on 20 million samples (one channel, 32 kHz; 625 s); maximum source-to-MED difference was 0.5 uV, with zero mismatches after rounding source values to whole microvolts. <a class="evidence" href="https://github.com/BarkBarkBarkBarkBarkBarkBark/DHN_validation/blob/496c2326f000037698f7b92b4b3a4139c3a70d13/sort_med/evidence/8_7_filetype_comparison.ipynb" aria-label="Source evidence: Evaluated DarkHorse Neuro compression on 20 million samples (one channel, 32 kHz; 625 s); maximum source-to-MED difference was 0.5 uV, with zero mismatches after rounding source values to whole microvolts."><img src="assets/github.png" alt="" width="16" height="16"></a></dd>
+    <dt>Evaluation scope</dt><dd>Compared source CSC and reconstructed MED in physical units, then controlled for whole-microvolt rounding before identical offline sorting.</dd>
+    <dt>Finding / implementation</dt><dd>Controlled MountainSort5 comparison of rounded inputs preserved all 35,587 spike frames for the compared unit (exact Jaccard 1.0). <a class="evidence" href="https://github.com/BarkBarkBarkBarkBarkBarkBark/DHN_validation/blob/496c2326f000037698f7b92b4b3a4139c3a70d13/sort_med/evidence/Strict_Comparison_of_Sorted_Spikes.ipynb" aria-label="Source evidence: Controlled MountainSort5 comparison of rounded inputs preserved all 35,587 spike frames for the compared unit (exact Jaccard 1.0)."><img src="assets/github.png" alt="" width="16" height="16"></a></dd>
   </dl>
   <p class="status">Offline validation on a bounded single-channel slice; archived outputs reviewed, not a new raw-data rerun.</p>
   <p class="evidence-label">Evidence</p>
@@ -175,28 +181,54 @@
 <a href="https://github.com/BarkBarkBarkBarkBarkBarkBark/DHN_validation/blob/496c2326f000037698f7b92b4b3a4139c3a70d13/sort_med/evidence/8_7_filetype_comparison.ipynb">Waveform fidelity evidence</a><a href="https://github.com/BarkBarkBarkBarkBarkBarkBark/DHN_validation/blob/496c2326f000037698f7b92b4b3a4139c3a70d13/sort_med/evidence/Strict_Comparison_of_Sorted_Spikes.ipynb">Controlled spike comparison</a><a href="evidence.html#dhn-fidelity">Methods &amp; limitations</a>  </div>
 </article><article class="project featured" id="sorting">
   <p class="maturity">Validated</p>
-  <h3>Spike Sorting and Neural Processing</h3>
+  <h3>Spike Sorting and Waveform Discrimination</h3>
 <p class="result-key">38,145 snippets across 10 putative unit labels</p>  <p class="project-purpose">Quantify waveform-feature behavior against reference unit assignments.</p>
-  <figure class="project-visual">
-    <figcaption>Event-family offline label agreement</figcaption>
-    <div class="chart" aria-label="Event-family offline label agreement; percent">
-      <p class="chart-label">KNN purity (k=5) <strong>95.04%</strong></p>
-      <div class="track" aria-hidden="true"><div class="bar" style="width:95.04%"></div></div>
-      <p class="chart-label">Matched KMeans accuracy <strong>54.26%</strong></p>
-      <div class="track" aria-hidden="true"><div class="bar" style="width:54.26%"></div></div>
-    </div>
-    <p class="visual-caption">Different metrics on the same curated snippets; neighborhood purity is not sorter accuracy.</p>
-  </figure>
+  <figure class="project-visual" id="figure-C3">
+  <figcaption>C3 &mdash; Local separability is not clustering agreement</figcaption>
+  <table class="figure-table">
+    <caption>Event-family representation: distinct measurement questions</caption>
+    <thead><tr><th scope="col">Metric</th><th scope="col">Result</th><th scope="col">Interpretation</th></tr></thead>
+    <tbody>
+      <tr><th scope="row">KNN purity (k=5)</th><td>95.04%</td><td>Same-label neighbors, excluding self</td></tr>
+      <tr><th scope="row">Matched KMeans accuracy</th><td>54.26%</td><td>Global Hungarian label assignment</td></tr>
+      <tr><th scope="row">Adjusted Rand Index</th><td>0.3665</td><td>Chance-corrected partition agreement</td></tr>
+    </tbody>
+  </table>
+  <p class="visual-caption">Event-family features; 38,145 curated snippets and 10 putative O-Sort labels. These metric definitions differ; ARI is chance-corrected, not a percentage or biological accuracy.</p>
+</figure>
   <dl class="project-facts">
-    <dt>Built</dt><dd>Implemented waveform-feature evaluation across 38,145 spike snippets and 10 putative O-Sort unit labels; event-family KNN purity at k=5 was 95.04%. <a class="evidence" href="https://github.com/BarkBarkBarkBarkBarkBarkBark/spike_discrim/blob/a697e68898c688ccc5dfe23ced78dbc6494ca1c1/docs/clustering_results.md" aria-label="Source evidence: Implemented waveform-feature evaluation across 38,145 spike snippets and 10 putative O-Sort unit labels; event-family KNN purity at k=5 was 95.04%."><img src="assets/github.png" alt="" width="16" height="16"></a></dd>
-    <dt>Tested</dt><dd>Evaluated event-family WeightBank activations with nearest-neighbor purity and KMeans label matching on curated snippets.</dd>
-    <dt>Result</dt><dd>Measured 54.26% Hungarian-matched KMeans accuracy (ARI 0.3665) for that feature family; neighborhood purity is not sorter accuracy or biological ground truth. <a class="evidence" href="https://github.com/BarkBarkBarkBarkBarkBarkBark/spike_discrim/blob/a697e68898c688ccc5dfe23ced78dbc6494ca1c1/src/spike_discrim/benchmarking/afferent_clustering.py" aria-label="Source evidence: Measured 54.26% Hungarian-matched KMeans accuracy (ARI 0.3665) for that feature family; neighborhood purity is not sorter accuracy or biological ground truth."><img src="assets/github.png" alt="" width="16" height="16"></a></dd>
+    <dt>Technical approach</dt><dd>Implemented waveform-feature evaluation across 38,145 spike snippets and 10 putative O-Sort unit labels; event-family KNN purity at k=5 was 95.04%. <a class="evidence" href="https://github.com/BarkBarkBarkBarkBarkBarkBark/spike_discrim/blob/a697e68898c688ccc5dfe23ced78dbc6494ca1c1/docs/clustering_results.md" aria-label="Source evidence: Implemented waveform-feature evaluation across 38,145 spike snippets and 10 putative O-Sort unit labels; event-family KNN purity at k=5 was 95.04%."><img src="assets/github.png" alt="" width="16" height="16"></a></dd>
+    <dt>Evaluation scope</dt><dd>Evaluated event-family WeightBank activations with nearest-neighbor purity and KMeans label matching on curated snippets.</dd>
+    <dt>Finding / implementation</dt><dd>Measured 54.26% Hungarian-matched KMeans accuracy (ARI 0.3665) for that feature family; neighborhood purity is not sorter accuracy or biological ground truth. <a class="evidence" href="https://github.com/BarkBarkBarkBarkBarkBarkBark/spike_discrim/blob/a697e68898c688ccc5dfe23ced78dbc6494ca1c1/src/spike_discrim/benchmarking/afferent_clustering.py" aria-label="Source evidence: Measured 54.26% Hungarian-matched KMeans accuracy (ARI 0.3665) for that feature family; neighborhood purity is not sorter accuracy or biological ground truth."><img src="assets/github.png" alt="" width="16" height="16"></a></dd>
   </dl>
   <p class="status">Offline feature validation; streaming detection and competitive-learning sorting in SNNeuro remain prototypes.</p>
   <p class="evidence-label">Evidence</p>
   <div class="project-links">
 <a href="https://github.com/BarkBarkBarkBarkBarkBarkBark/spike_discrim/blob/a697e68898c688ccc5dfe23ced78dbc6494ca1c1/docs/clustering_results.md">Discrimination results</a><a href="https://github.com/BarkBarkBarkBarkBarkBarkBark/osort_medd_comparison/blob/4d5e94e7c3a637e9efdda8e35d7a8c0494f20a1d/codes/compare_osort_membership.m">O-Sort membership comparison</a><a href="https://github.com/BarkBarkBarkBarkBarkBarkBark/SNNeuro/blob/c2eecb76d4d47ad4966ee117e10fd9585e0f48a8/src/snn_agent/core/pipeline.py">Streaming prototype</a><a href="evidence.html#waveform-features">Methods &amp; limitations</a>  </div>
 </article>    </div>
+  </section>
+
+  <section aria-labelledby="narrative-title">
+    <h2 id="narrative-title">Human Single-Neuron Research</h2>
+    <article class="project featured" id="narrative">
+  <p class="maturity">Implemented</p>
+  <h3>Human Single-Neuron Stimulus-Response Analysis</h3>
+<p class="result-key">Event-aligned rasters and peri-stimulus firing rates</p>  <p class="project-purpose">Investigate repeatability of single-unit responses during repeated spoken narratives.</p>
+  <figure class="project-visual" id="figure-D-methods">
+  <figcaption>D-methods &mdash; Narrative-response analysis (methods schematic)</figcaption>
+  <ol class="flow"><li>Sorted unit timestamps + narrative events</li><li>Align each presentation to onset</li><li>Per-presentation spike rasters</li><li>Binned / smoothed firing rates</li><li>Exploratory response and baseline comparison</li></ol>
+  <p class="visual-caption">Methods only, not a raster, PSTH, or simulated observation. D1/D2 response figures are withheld pending permission-safe data and independently verified event timing.</p>
+</figure>
+  <dl class="project-facts">
+    <dt>Technical approach</dt><dd>Developed Python workflows aligning Neuralynx events and sorted single-unit timestamps with repeated narratives, generating rasters and peri-stimulus firing-rate analyses. </dd>
+    <dt>Evaluation scope</dt><dd>Inspected local alignment and rate-analysis code; no protected recordings or response outputs reviewed for publication.</dd>
+    <dt>Finding / implementation</dt><dd>Investigated stimulus-associated responses and recognized that restricted stimulus variation cannot establish graded semantic tuning. </dd>
+  </dl>
+  <p class="status">Owner-reported research methods, supported by local source inspection. No public neural observations or significance claims; adaptive stimulus selection remains proposed.</p>
+  <p class="evidence-label">Evidence</p>
+  <div class="project-links">
+<a href="https://barkbarkbarkbarkbarkbarkbark.github.io/resumes_and_letters/evidence.html#narrative-methods">Methods and publication boundary</a><a href="evidence.html#narrative-methods">Methods &amp; limitations</a>  </div>
+</article>
   </section>
 
   <section aria-labelledby="skills-title">
@@ -222,8 +254,8 @@
 <article class="entry">
   <h3>Research Volunteer <span class="organization">— UC Davis Health — Z-Lab (Dr. Jie Zheng)</span></h3>
   <p class="meta">Jul 2025 – Present · Sacramento, CA</p>
-  <ul><li>Develop research workflows connecting acquisition, spike processing, and downstream single-neuron response analysis. </li><li>Analyze human epilepsy microwire recordings using O-Sort and SpikeInterface, with attention to waveform structure and unit curation. </li></ul>
-</article>  </section>
+  <ul><li>Develop acquisition and spike-processing workflows with probe mapping, waveform extraction, quality metrics, and experimental clock alignment; distinguish exploratory stimulus responses from semantic tuning. </li><li>Analyze human intracranial single units with O-Sort/SpikeInterface; develop narrative-aligned rasters and peri-stimulus firing-rate workflows. </li></ul>
+<p class="meta"><a href="evidence.html#narrative-methods">Methods &amp; publication boundary</a></p></article>  </section>
 
   <section aria-labelledby="supporting-title">
     <h2 id="supporting-title">Supporting Software &amp; Prototypes</h2>
@@ -274,8 +306,8 @@
 <article class="entry">
   <h3>IT Administrator <span class="organization">— First Step Communities</span></h3>
   <p class="meta">Jul 2021 – Present · Sacramento, CA</p>
-  <ul><li>Managed IT infrastructure, device provisioning, and reporting automation. </li></ul>
-</article><article class="entry">
+  <ul><li>Administer multi-site networks, routing/VLAN segmentation, Microsoft 365/Exchange Online, and camera/recording systems; troubleshoot infrastructure and support longitudinal service-utilization and housing-outcome research. </li></ul>
+<p class="meta"><a href="evidence.html#systems-methods">Methods &amp; publication boundary</a></p></article><article class="entry">
   <h3>Analyst <span class="organization">— Eurofins Test America</span></h3>
   <p class="meta">Oct 2019 – Jun 2021 · West Sacramento, CA</p>
   <ul><li>Supported analytical laboratory QA, data review, and standard operating procedures. </li></ul>
@@ -285,7 +317,7 @@
     <h2 id="certifications-title">Certifications</h2>
     <ul><li><a href="https://www.credly.com/badges/505ef11c-58b4-48bd-aa9e-5a21f0247d46/public_url">Data Analysis with Matplotlib, Pandas, and Scikit-Learn Python Libraries</a> — UC Davis Continuing and Professional Education (2025-09-18)</li><li>Biomedical Research; Research Administration; GCP Social and Behavioral Research — CITI Program</li></ul>
   </section>
-  <footer>Portfolio and CV generated from the same canonical content. Source revision: working-tree.</footer>
+  <footer>Portfolio and CV generated from the same canonical content.</footer>
 </main>
 </body>
 </html>

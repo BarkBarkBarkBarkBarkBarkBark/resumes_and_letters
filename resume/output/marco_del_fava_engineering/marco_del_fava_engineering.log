@@ -1,4 +1,4 @@
-This is LuaHBTeX, Version 1.24.0 (TeX Live 2026)  (format=lualatex 2026.3.1)  18 OCT 2026 09:53
+This is LuaHBTeX, Version 1.24.0 (TeX Live 2026)  (format=lualatex 2026.3.1)  18 OCT 2026 10:54
  restricted system commands enabled.
 **marco_del_fava_engineering.tex
 (./marco_del_fava_engineering.tex
@@ -846,8 +846,8 @@ Here is how much of LuaTeX's memory you used:
  555 words of node memory still in use:
    4 hlist, 1 vlist, 1 rule, 1 local_par, 4 glue, 3 kern, 1 penalty, 3 glyph, 6 
 attribute, 67 glue_spec, 6 attribute_list, 1 write nodes
-   avail lists: 2:550,3:392,4:114,5:893,6:112,7:10690,8:1,9:526,10:21,11:1031,12
-:1
+   avail lists: 1:1,2:550,3:395,4:114,5:929,6:112,7:11338,8:1,9:529,10:21,11:109
+1,12:1
  36517 multiletter control sequences out of 65536+600000
  58 fonts using 8194495 bytes
  73i,5n,116p,1022b,348s stack positions out of 10000i,1000n,20000p,200000b,200000s
@@ -855,7 +855,7 @@ attribute, 67 glue_spec, 6 attribute_list, 1 write nodes
 f></Users/marco/Library/texmf/fonts/opentype/public/tex-gyre/texgyretermes-regul
 ar.otf></Users/marco/Library/texmf/fonts/opentype/public/tex-gyre/texgyreheros-b
 old.otf>
-Output written on marco_del_fava_engineering.pdf (1 page, 27236 bytes).
+Output written on marco_del_fava_engineering.pdf (1 page, 27551 bytes).
 
 PDF statistics: 47 PDF objects out of 1000 (max. 8388607)
  32 compressed objects within 1 object stream

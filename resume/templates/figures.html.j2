@@ -1,0 +1,65 @@
+{% macro styles() -%}
+.project-visual { margin:1rem 0; padding:.85rem; background:#f1f6f6; border-radius:4px; }
+.project-visual figcaption { font-size:.88rem; font-weight:700; line-height:1.4; }
+.visual-caption { font-size:.8rem; line-height:1.5; color:#4b5d68; margin:.65rem 0 0; }
+.flow { padding-left:1.3rem; margin:.7rem 0; font-size:.85rem; }
+.flow li { padding:.2rem .4rem; background:white; border-left:2px solid #14546b; }
+.figure-table { width:100%; border-collapse:collapse; margin:.8rem 0; font-size:.8rem; line-height:1.5; font-variant-numeric:tabular-nums; }
+.figure-table caption { text-align:left; font-weight:650; margin-bottom:.5rem; }
+.figure-table th, .figure-table td { padding:.45rem .25rem; border-bottom:1px solid #ccd8db; text-align:left; overflow-wrap:normal; }
+.figure-table th[scope="row"] { font-weight:550; }
+.figure-table td:nth-child(2) { white-space:nowrap; }
+.event-match { display:grid; gap:.6rem; margin:.8rem 0; text-align:center; font-size:.9rem; }
+.event-match div { padding:.65rem; background:white; border:1px solid #ccd8db; }
+.event-match strong { display:block; color:#14546b; }
+{%- endmacro %}
+
+{% macro figure(record, details=false) -%}
+{% set visual = record.visual %}
+{% set v = record.get('values', {}) %}
+<figure class="project-visual" id="figure-{{ visual.figure_id }}">
+  <figcaption>{{ visual.figure_id }} &mdash; {{ visual.title }}</figcaption>
+  {% if visual.kind == 'flow' %}
+  <ol class="flow">{% for step in visual.steps %}<li>{{ step }}</li>{% endfor %}</ol>
+  {% if visual.parallel_branch %}<p class="visual-caption"><strong>Parallel timing branch (implemented, unbenchmarked):</strong> {{ visual.parallel_branch }}</p>{% endif %}
+  {% elif visual.kind == 'fidelity' %}
+  <table class="figure-table">
+    <caption>CSC versus MED, before and after whole-uV source rounding</caption>
+    <thead><tr><th scope="col">Comparison</th><th scope="col">Nonzero differences</th><th scope="col">Max |error| (uV)</th></tr></thead>
+    <tbody>
+      <tr><th scope="row">Unrounded CSC</th><td>{{ '{:,}'.format(v.nonzero_before_rounding) }}</td><td>{{ v.max_abs_error_uv }}</td></tr>
+      <tr><th scope="row">Rounded CSC</th><td>{{ v.nonzero_after_rounding }}</td><td>{{ v.max_abs_error_after_rounding_uv }}</td></tr>
+    </tbody>
+  </table>
+  {% elif visual.kind == 'event-match' %}
+  <div class="event-match" aria-label="Exact spike-frame intersection and set differences">
+    <div>CSC only<strong>{{ '{:,}'.format(v.csc_spikes - v.exact_matches) }}</strong></div>
+    <div>CSC &#8745; MED<strong>{{ '{:,}'.format(v.exact_matches) }} exact frame matches</strong></div>
+    <div>MED only<strong>{{ '{:,}'.format(v.med_spikes - v.exact_matches) }}</strong></div>
+  </div>
+  <p class="visual-caption">Jaccard = intersection / union = {{ '{:,}'.format(v.exact_matches) }} / {{ '{:,}'.format(v.csc_spikes + v.med_spikes - v.exact_matches) }} = {{ v.exact_jaccard }}.</p>
+  {% elif visual.kind == 'metrics' %}
+  <table class="figure-table">
+    <caption>Event-family representation: distinct measurement questions</caption>
+    <thead><tr><th scope="col">Metric</th><th scope="col">Result</th><th scope="col">Interpretation</th></tr></thead>
+    <tbody>
+      <tr><th scope="row">KNN purity (k={{ v.knn_k }})</th><td>{{ '%.2f%%' | format(v.knn_purity * 100) }}</td><td>Same-label neighbors, excluding self</td></tr>
+      <tr><th scope="row">Matched KMeans accuracy</th><td>{{ '%.2f%%' | format(v.matched_accuracy * 100) }}</td><td>Global Hungarian label assignment</td></tr>
+      <tr><th scope="row">Adjusted Rand Index</th><td>{{ '%.4f' | format(v.ari) }}</td><td>Chance-corrected partition agreement</td></tr>
+    </tbody>
+  </table>
+  {% if details %}
+  <table class="figure-table">
+    <caption>{{ visual.comparison_title }}</caption>
+    <thead><tr><th scope="col">Family</th><th scope="col">KNN-k5 purity</th><th scope="col">Matched accuracy</th><th scope="col">ARI</th></tr></thead>
+    <tbody>{% for family in v.families %}
+      <tr><th scope="row">{% for part in family.name.split('_') %}{{ part }}{% if not loop.last %}_<wbr>{% endif %}{% endfor %}</th><td>{{ '%.2f%%' | format(family.knn_purity * 100) }}</td><td>{{ '%.2f%%' | format(family.matched_accuracy * 100) }}</td><td>{{ '%.4f' | format(family.ari) }}</td></tr>
+    {% endfor %}</tbody>
+  </table>
+  <p class="visual-caption">Compare within columns, not between unlike metrics. Event features have the highest matched accuracy here, but full features have higher neighborhood purity and ARI; there is no universal winning family.</p>
+  {% endif %}
+  {% endif %}
+  <p class="visual-caption">{{ visual.caption }}</p>
+  {% if details and visual.evidence_gap %}<p class="visual-caption"><strong>Evidence gap:</strong> {{ visual.evidence_gap }}</p>{% endif %}
+</figure>
+{%- endmacro %}

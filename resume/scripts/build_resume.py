@@ -97,11 +97,15 @@ def public_evidence(projects: list) -> dict:
             if key not in inventory or inventory[key].get("public") is not True:
                 raise ValueError(f"Project {project['id']} references unpublished evidence: {key}")
             record = copy.deepcopy(inventory[key])
-            revision = record.get("revision")
-            if not isinstance(revision, str) or not re.fullmatch(r"[0-9a-f]{40}", revision):
-                raise ValueError(f"Public evidence requires a full commit SHA: {key}")
-            if not record.get("sources"):
-                raise ValueError(f"Public evidence requires exact sources: {key}")
+            if record.get("source_type") == "owner-report":
+                if not record.get("confirmed_on") or record.get("revision") or record.get("sources"):
+                    raise ValueError(f"Owner-reported evidence requires confirmation and no repository provenance: {key}")
+            else:
+                revision = record.get("revision")
+                if not isinstance(revision, str) or not re.fullmatch(r"[0-9a-f]{40}", revision):
+                    raise ValueError(f"Public evidence requires a full commit SHA: {key}")
+                if not record.get("sources"):
+                    raise ValueError(f"Public evidence requires exact sources: {key}")
             if record.get("maturity") not in ("Implemented", "Validated", "Prototype"):
                 raise ValueError(f"Public evidence has an invalid maturity: {key}")
             for field in (
@@ -110,7 +114,7 @@ def public_evidence(projects: list) -> dict:
             ):
                 if not record.get(field):
                     raise ValueError(f"Evidence {key} is missing {field}")
-            for source in record["sources"]:
+            for source in record.get("sources", []):
                 source["url"] = https_url(
                     f"https://github.com/{record['repository']}/"
                     f"{source.get('kind', 'blob')}/{record['revision']}/{source['path']}"
@@ -192,7 +196,12 @@ def apply_profile(data: dict, profile: dict) -> dict:
         result["projects"] = [projects[key] for key in order]
     result["compact"] = profile.get("compact", False)
     result["engineering_focus"] = profile.get("engineering_focus", False)
-    result["evidence_records"] = public_evidence(result.get("projects", []))
+    result["evidence_records"] = public_evidence(
+        result.get("projects", []) + [
+            {"id": entry["organization"], "evidence_ids": entry.get("evidence_ids", [])}
+            for entry in result["research"] + result.get("experience", [])
+        ]
+    )
     result["page_break_before_education"] = profile.get("page_break_before_education", False)
     result["page_break_before_project"] = profile.get("page_break_before_project")
     return result

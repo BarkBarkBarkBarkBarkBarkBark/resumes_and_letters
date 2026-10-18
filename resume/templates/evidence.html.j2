@@ -1,3 +1,4 @@
+{% import 'figures.html.j2' as figures %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Engineering evidence &mdash; Marco Del Fava</title>
   <style>
-    body { margin:0 auto; max-width:850px; padding:2rem 1.25rem; color:#182833; background:#fff; font:16px/1.65 system-ui,sans-serif; }
+    body { margin:0 auto; max-width:850px; padding:2rem 1.25rem; color:#182833; background:#fff; font:16px/1.65 system-ui,sans-serif; overflow-wrap:anywhere; }
     a { color:#14546b; overflow-wrap:anywhere; text-underline-offset:.2em; }
     a:focus-visible { outline:3px solid #9b4d16; outline-offset:3px; }
     h1, h2 { line-height:1.25; }
@@ -13,30 +14,44 @@
     dt { font-weight:700; margin-top:.8rem; }
     dd { margin:0; }
     code { overflow-wrap:anywhere; }
+    {{ figures.styles() }}
   </style>
 </head>
 <body>
 <main>
   <a href="index.html">Back to portfolio</a>
   <h1>Engineering evidence &amp; measurement definitions</h1>
+  <p><a href="evidence_manifest.json" download>Download public evidence manifest (JSON)</a></p>
   <p>Implementation and archived-result review, not a new experiment or independent raw-data rerun.
     Only approved public implementation references and aggregate results are included.
     No raw recordings, waveform snippets, patient identifiers, or private lab artifacts are hosted here.</p>
   <p><strong>Validated</strong> denotes an evaluation with inspectable saved results;
     <strong>Implemented</strong> denotes source-inspected software;
-    <strong>Prototype</strong> does not imply validated acquisition or real-time performance.</p>
+    <strong>Prototype</strong> does not imply validated acquisition or real-time performance.
+    Owner-reported methods are explicitly distinguished from commit-pinned public evidence.</p>
+  <p><strong>Withheld figures:</strong> A1/A2 require matched event logs, a documented clock fit, and interruption records.
+    D1/D2 require permission-safe spikes and verified stimulus events. No physical onset accuracy,
+    validated 128-channel quality, or closed-loop latency is established here.
+    Offline sorting is evaluated retrospectively; streaming detection remains a prototype and
+    identity estimation or closed-loop control is not validated.</p>
   {% for key, record in records.items() %}
   <article id="{{ key }}">
     <h2>{{ key | replace('-', ' ') | title }}</h2>
+    {% if record.source_type == 'owner-report' %}
+    <p><strong>{{ record.maturity }} methods &middot; Owner-reported</strong><br>Publication approved: {{ record.confirmed_on }}. No public source commit.</p>
+    {% else %}
     <p><strong>{{ record.maturity }}</strong> &middot; {{ record.repository }}<br>Revision: <code>{{ record.revision }}</code></p>
+    {% endif %}
+    {% if record.visual %}{{ figures.figure(record, true) }}{% endif %}
     <dl>
       <dt>What was verified</dt><dd>{{ record.verification }}</dd>
       <dt>Measurement definition</dt><dd>{{ record.measurement_definition }}</dd>
       <dt>Test conditions</dt><dd>{{ record.test_conditions }}</dd>
       <dt>Result</dt><dd>{{ record.verified_result }}</dd>
       <dt>Limitations &amp; applicability</dt><dd>{{ record.limitations }}</dd>
-      <dt>Exact sources</dt>
+      {% if record.sources %}<dt>Exact sources</dt>
       <dd><ul>{% for source in record.sources %}<li><a href="{{ source.url }}">{{ source.path }}</a> &mdash; {{ source.location }}</li>{% endfor %}</ul></dd>
+      {% endif %}
     </dl>
   </article>
   {% endfor %}
