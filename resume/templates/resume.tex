@@ -57,6 +57,13 @@
 \newcommand{\EvidenceLink}[1]{%
   \href{#1}{\raisebox{-0.12\height}{\includegraphics[height=8pt]{icons/github.png}}}\hspace{0.2em}%
 }
+\newcommand{\CompactResume}{%
+  \fontsize{10.5pt}{12pt}\selectfont
+  \setlength{\parskip}{2pt}%
+  \setlist[itemize]{topsep=1pt,parsep=0pt,itemsep=1pt}%
+  \renewcommand{\section}[1]{\par\Needspace{3\baselineskip}\vspace{4pt}\noindent{\sffamily\bfseries\fontsize{11pt}{13pt}\selectfont ##1}\par}%
+  \renewcommand{\subsection}[1]{\par\Needspace{3\baselineskip}\vspace{2pt}\noindent{\sffamily\bfseries\fontsize{10.5pt}{12pt}\selectfont ##1}\par}%
+}
 
 % Section heading (avoid sectsty dependency; use simple unnumbered section formatting)
 \renewcommand{\section}[1]{\par\Needspace{4\baselineskip}\vspace{7pt}\noindent{\sffamily\bfseries\fontsize{\sectionfontsize}{14pt}\selectfont #1}\par\smallskip}

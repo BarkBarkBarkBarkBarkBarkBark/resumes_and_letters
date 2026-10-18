@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Marco Del Fava — Neural acquisition and analysis</title>
-  <meta name="description" content="I&#39;m a biomedical engineering master&#39;s student at UC Davis working with Dr. Jie Zheng&#39;s lab on human single-unit electrophysiology. I build research software for neural acquisition and spike analysis. My current interests center on Intan acquisition, real-time spike sorting, and investigating semantic selectivity in single-neuron responses.">
+  <title>Marco Del Fava — Neural Signal Processing &amp; Acquisition</title>
+  <meta name="description" content="I develop neural acquisition and signal-processing software, characterize system behavior, and validate processing against recorded electrophysiology. Selected work spans Intan acquisition, experimental synchronization, compression fidelity, and spike sorting.">
   <style>
     :root { color-scheme: light; --ink:#182833; --muted:#4b5d68; --accent:#14546b; --rule:#ccd8db; }
     * { box-sizing:border-box; }
@@ -15,26 +15,42 @@
     a:focus-visible { outline:3px solid #9b4d16; outline-offset:4px; border-radius:2px; }
     .skip-link { position:absolute; top:-5rem; left:1rem; background:white; padding:.5rem; }
     .skip-link:focus { top:1rem; }
-    .sheet { max-width:1040px; margin:2.5rem auto; background:#fff; border:1px solid var(--rule); padding:3rem 3.5rem; }
+    .sheet { max-width:1240px; margin:2.5rem auto; background:#fff; border:1px solid var(--rule); padding:2.5rem; }
     .eyebrow { font-size:.85rem; font-weight:650; color:var(--muted); letter-spacing:.06em; text-transform:uppercase; margin:0 0 .5rem; }
-    h1 { margin:0 0 1rem; font-size:2.3rem; letter-spacing:-.035em; line-height:1.18; }
+    h1 { margin:0 0 .65rem; font-size:clamp(1.85rem,4vw,3rem); letter-spacing:-.035em; line-height:1.18; }
     h2 { font-size:1.4rem; line-height:1.3; margin:0 0 1.2rem; padding-bottom:.5rem; border-bottom:1px solid var(--rule); }
     h3 { font-size:1.06rem; line-height:1.4; margin:0 0 .35rem; }
     p { margin:0 0 .8rem; }
     .intro { max-width:75ch; font-size:1.05rem; }
+    .supporting-line { font-weight:600; color:var(--accent); margin-bottom:.8rem; }
     .print-only { display:none; }
     .actions { display:flex; flex-wrap:wrap; gap:.65rem; margin:1.5rem 0; }
     .actions a { display:inline-flex; min-height:44px; align-items:center; padding:.55rem 1rem; border:1px solid var(--accent); border-radius:4px; text-decoration:none; font-weight:650; }
     .actions a:first-child { background:var(--accent); color:white; }
-    .profiles { display:flex; flex-direction:column; gap:.25rem; font-size:.88rem; }
+    .profiles { display:flex; flex-wrap:wrap; gap:.35rem 1.2rem; font-size:.88rem; }
     .profiles a { display:flex; align-items:baseline; gap:.5rem; width:fit-content; max-width:100%; }
     .profiles img { width:19px; height:19px; object-fit:contain; align-self:center; flex-shrink:0; }
     .profiles span { min-width:0; overflow-wrap:anywhere; }
     section { margin-top:2.6rem; }
-    .project { padding:1.25rem 0; border-bottom:1px solid var(--rule); break-inside:avoid; }
-    .project:first-of-type { padding-top:0; }
-    .project:last-child { border-bottom:0; }
+    .project-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:1rem; }
+    .project { padding:1.25rem; border:1px solid var(--rule); border-radius:6px; break-inside:avoid; }
+    .supporting-projects { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:1rem; }
+    .maturity { display:inline-block; margin:0 0 .65rem; padding:.15rem .55rem; background:#e7f1ed; color:#18503c; font-size:.75rem; font-weight:750; letter-spacing:.05em; text-transform:uppercase; }
     .project h3 { font-size:1.18rem; }
+    .project-purpose { font-size:.9rem; color:var(--muted); }
+    .result-key { font-size:.95rem; font-weight:750; color:var(--accent); line-height:1.5; margin:.65rem 0; }
+    .project-facts { font-size:.9rem; }
+    .project-facts dt, .evidence-label { font-size:.77rem; text-transform:uppercase; letter-spacing:.04em; font-weight:750; margin:1rem 0 .2rem; }
+    .project-facts dd { margin:0; }
+    .project-visual { margin:1rem 0; padding:.85rem; background:#f1f6f6; border-radius:4px; }
+    .project-visual figcaption { font-size:.82rem; font-weight:700; line-height:1.4; }
+    .visual-caption { font-size:.75rem; line-height:1.5; color:var(--muted); margin:.65rem 0 0; }
+    .flow { padding-left:1.3rem; margin:.7rem 0; font-size:.85rem; }
+    .flow li { padding:.2rem .4rem; background:white; border-left:2px solid var(--accent); }
+    .chart-label { margin:.6rem 0 .2rem; font-size:.75rem; line-height:1.5; }
+    .chart-label strong { display:block; font-variant-numeric:tabular-nums; }
+    .track { height:8px; background:#d4e1e4; }
+    .bar { height:100%; background:var(--accent); }
     .status { font-size:.9rem; color:var(--muted); }
     .project-links { display:flex; flex-wrap:wrap; gap:.4rem 1.2rem; font-size:.9rem; }
     ul { margin:.5rem 0 .8rem; padding-left:1.3rem; }
@@ -48,6 +64,9 @@
     .skills { display:grid; grid-template-columns:1fr 1fr; gap:.5rem 1.8rem; }
     .skills h3 { font-size:1rem; }
     footer { font-size:.8rem; color:var(--muted); margin-top:2rem; border-top:1px solid var(--rule); padding-top:1rem; }
+    @media (max-width:960px) {
+      .project-grid, .supporting-projects { grid-template-columns:1fr; }
+    }
     @media (max-width:640px) {
       .sheet { margin:0; border:0; padding:1.7rem 1.2rem; }
       h1 { font-size:1.85rem; }
@@ -68,6 +87,8 @@
       p { margin:0 0 4pt; }
       section, .cv-section { margin-top:9pt; }
       .project { padding:6pt 0; border:0; }
+      .project-grid, .supporting-projects { display:block; }
+      .project-visual { display:none; }
       .entry { margin-bottom:7pt; }
       ul { margin:3pt 0 5pt; }
       li { margin:2pt 0; }
@@ -88,12 +109,14 @@
 <main class="sheet">
   <header>
     <p class="eyebrow screen-only">Marco Del Fava</p>
-    <h1 class="screen-only">Neural acquisition, spike processing, and single-neuron response analysis</h1>
+    <h1 class="screen-only">Neural Signal Processing &amp; Acquisition</h1>
     <h1 class="print-only">Marco Del Fava</h1>
-    <p class="intro screen-only">I&#39;m a biomedical engineering master&#39;s student at UC Davis working with Dr. Jie Zheng&#39;s lab on human single-unit electrophysiology. I build research software for neural acquisition and spike analysis. My current interests center on Intan acquisition, real-time spike sorting, and investigating semantic selectivity in single-neuron responses.</p>
+    <p class="supporting-line">Biomedical Engineering M.S. | UC Davis | Human Intracranial Electrophysiology</p>
+    <p class="intro screen-only">I develop neural acquisition and signal-processing software, characterize system behavior, and validate processing against recorded electrophysiology. Selected work spans Intan acquisition, experimental synchronization, compression fidelity, and spike sorting.</p>
     <nav class="actions screen-only" aria-label="Primary actions">
-      <a href="#selected-projects">Selected Projects</a>
-      <a href="marco_del_fava_cv.pdf" download>Download CV (PDF)</a>
+      <a href="marco_del_fava_engineering.pdf" download>Engineering Resume · 1 page</a>
+      <a href="marco_del_fava_cv.pdf" download>Full Research CV (PDF)</a>
+      <a href="#selected-projects">Engineering Projects</a>
       <a href="mailto:mdelfava@ucdavis.edu">Email</a>
     </nav>
     <div class="profiles">
@@ -102,8 +125,96 @@
 
   <section class="print-only" aria-labelledby="profile-title">
     <h2 id="profile-title">Research Profile</h2>
-    <p>Biomedical Engineering M.S. student at UC Davis and research volunteer in Dr. Jie Zheng&#39;s lab, working on human single-unit electrophysiology. Builds research software for neural acquisition and spike analysis, with interests in Intan acquisition, real-time spike sorting, and semantic selectivity in single-neuron responses.</p>
+    <p>Developing and validating software for human intracranial electrophysiology, including multichannel neural acquisition, signal processing, spike sorting, and experimental synchronization. Experienced in Python-based neural data pipelines, acquisition hardware integration, and quantitative evaluation against recorded data.</p>
     <p class="meta">Sacramento, CA · <a href="mailto:mdelfava@ucdavis.edu">mdelfava@ucdavis.edu</a> · 707-637-6544</p>
+  </section>
+
+  <section id="selected-projects" aria-labelledby="projects-title">
+    <h2 id="projects-title">Selected Engineering Projects</h2>
+    <div class="project-grid">
+<article class="project featured" id="intan">
+  <p class="maturity">Implemented</p>
+  <h3>Neural Acquisition and Timing</h3>
+<p class="result-key">Intan RHD to waveform QA</p>  <p class="project-purpose">Connect acquisition files and behavioral event clocks to neural processing.</p>
+  <figure class="project-visual">
+    <figcaption>Implemented file-processing path</figcaption>
+    <ol class="flow"><li>Intan RHD</li><li>Probe checks</li><li>Kilosort4</li><li>Waveforms / QA</li></ol>
+    <p class="visual-caption">Architecture traced from the public notebook; not a latency measurement.</p>
+  </figure>
+  <dl class="project-facts">
+    <dt>Built</dt><dd>Built Intan RHD ingestion, probe/channel checks, and SpikeInterface/Kilosort4 processing with waveform and quality-metric extraction. <a class="evidence" href="https://github.com/BarkBarkBarkBarkBarkBarkBark/zlab_sorting_script/blob/3ff216ac593166687ae2260ccb705ea1322cf9f1/notebooks/sort_intan.ipynb" aria-label="Source evidence: Built Intan RHD ingestion, probe/channel checks, and SpikeInterface/Kilosort4 processing with waveform and quality-metric extraction."><img src="assets/github.png" alt="" width="16" height="16"></a></dd>
+    <dt>Tested</dt><dd>Reviewed probe/channel checks and the affine clock-fit implementation; timing logs and bench reports were unavailable.</dd>
+    <dt>Result</dt><dd>Implemented queued PsychoPy/RHX event synchronization, exact-label joins, and affine clock fitting to analyze clock drift and alignment residuals. </dd>
+  </dl>
+  <p class="status">Acquisition workflow and clock-alignment software implemented; timing performance not independently verified.</p>
+  <p class="evidence-label">Evidence</p>
+  <div class="project-links">
+<a href="https://github.com/BarkBarkBarkBarkBarkBarkBark/zlab_sorting_script/blob/3ff216ac593166687ae2260ccb705ea1322cf9f1/notebooks/sort_intan.ipynb">Intan processing notebook</a><a href="evidence.html#intan-workflow">Methods &amp; limitations</a>  </div>
+</article><article class="project featured" id="compression">
+  <p class="maturity">Validated</p>
+  <h3>Neural Compression Validation</h3>
+<p class="result-key">0.5 uV max difference across 20 million samples</p>  <p class="project-purpose">Evaluate an existing DarkHorse Neuro conversion, not implement its compression algorithm.</p>
+  <figure class="project-visual">
+    <figcaption>Sample agreement across the tested slice</figcaption>
+    <div class="chart" aria-label="Sample agreement across the tested slice; matching samples">
+      <p class="chart-label">Before source rounding <strong>48,011 / 20,000,000</strong></p>
+      <div class="track" aria-hidden="true"><div class="bar" style="width:0.240055%"></div></div>
+      <p class="chart-label">After source rounding <strong>20,000,000 / 20,000,000</strong></p>
+      <div class="track" aria-hidden="true"><div class="bar" style="width:100.0%"></div></div>
+    </div>
+    <p class="visual-caption">Redrawn from saved aggregate outputs. Before-rounding matches = total samples minus nonzero differences.</p>
+  </figure>
+  <dl class="project-facts">
+    <dt>Built</dt><dd>Evaluated DarkHorse Neuro compression on 20 million samples (one channel, 32 kHz; 625 s); maximum source-to-MED difference was 0.5 uV, with zero mismatches after rounding source values to whole microvolts. <a class="evidence" href="https://github.com/BarkBarkBarkBarkBarkBarkBark/DHN_validation/blob/496c2326f000037698f7b92b4b3a4139c3a70d13/sort_med/evidence/8_7_filetype_comparison.ipynb" aria-label="Source evidence: Evaluated DarkHorse Neuro compression on 20 million samples (one channel, 32 kHz; 625 s); maximum source-to-MED difference was 0.5 uV, with zero mismatches after rounding source values to whole microvolts."><img src="assets/github.png" alt="" width="16" height="16"></a></dd>
+    <dt>Tested</dt><dd>Compared source CSC and reconstructed MED in physical units, then controlled for whole-microvolt rounding before identical offline sorting.</dd>
+    <dt>Result</dt><dd>Controlled MountainSort5 comparison of rounded inputs preserved all 35,587 spike frames for the compared unit (exact Jaccard 1.0). <a class="evidence" href="https://github.com/BarkBarkBarkBarkBarkBarkBark/DHN_validation/blob/496c2326f000037698f7b92b4b3a4139c3a70d13/sort_med/evidence/Strict_Comparison_of_Sorted_Spikes.ipynb" aria-label="Source evidence: Controlled MountainSort5 comparison of rounded inputs preserved all 35,587 spike frames for the compared unit (exact Jaccard 1.0)."><img src="assets/github.png" alt="" width="16" height="16"></a></dd>
+  </dl>
+  <p class="status">Offline validation on a bounded single-channel slice; archived outputs reviewed, not a new raw-data rerun.</p>
+  <p class="evidence-label">Evidence</p>
+  <div class="project-links">
+<a href="https://github.com/BarkBarkBarkBarkBarkBarkBark/DHN_validation/blob/496c2326f000037698f7b92b4b3a4139c3a70d13/sort_med/evidence/8_7_filetype_comparison.ipynb">Waveform fidelity evidence</a><a href="https://github.com/BarkBarkBarkBarkBarkBarkBark/DHN_validation/blob/496c2326f000037698f7b92b4b3a4139c3a70d13/sort_med/evidence/Strict_Comparison_of_Sorted_Spikes.ipynb">Controlled spike comparison</a><a href="evidence.html#dhn-fidelity">Methods &amp; limitations</a>  </div>
+</article><article class="project featured" id="sorting">
+  <p class="maturity">Validated</p>
+  <h3>Spike Sorting and Neural Processing</h3>
+<p class="result-key">38,145 snippets across 10 putative unit labels</p>  <p class="project-purpose">Quantify waveform-feature behavior against reference unit assignments.</p>
+  <figure class="project-visual">
+    <figcaption>Event-family offline label agreement</figcaption>
+    <div class="chart" aria-label="Event-family offline label agreement; percent">
+      <p class="chart-label">KNN purity (k=5) <strong>95.04%</strong></p>
+      <div class="track" aria-hidden="true"><div class="bar" style="width:95.04%"></div></div>
+      <p class="chart-label">Matched KMeans accuracy <strong>54.26%</strong></p>
+      <div class="track" aria-hidden="true"><div class="bar" style="width:54.26%"></div></div>
+    </div>
+    <p class="visual-caption">Different metrics on the same curated snippets; neighborhood purity is not sorter accuracy.</p>
+  </figure>
+  <dl class="project-facts">
+    <dt>Built</dt><dd>Implemented waveform-feature evaluation across 38,145 spike snippets and 10 putative O-Sort unit labels; event-family KNN purity at k=5 was 95.04%. <a class="evidence" href="https://github.com/BarkBarkBarkBarkBarkBarkBark/spike_discrim/blob/a697e68898c688ccc5dfe23ced78dbc6494ca1c1/docs/clustering_results.md" aria-label="Source evidence: Implemented waveform-feature evaluation across 38,145 spike snippets and 10 putative O-Sort unit labels; event-family KNN purity at k=5 was 95.04%."><img src="assets/github.png" alt="" width="16" height="16"></a></dd>
+    <dt>Tested</dt><dd>Evaluated event-family WeightBank activations with nearest-neighbor purity and KMeans label matching on curated snippets.</dd>
+    <dt>Result</dt><dd>Measured 54.26% Hungarian-matched KMeans accuracy (ARI 0.3665) for that feature family; neighborhood purity is not sorter accuracy or biological ground truth. <a class="evidence" href="https://github.com/BarkBarkBarkBarkBarkBarkBark/spike_discrim/blob/a697e68898c688ccc5dfe23ced78dbc6494ca1c1/src/spike_discrim/benchmarking/afferent_clustering.py" aria-label="Source evidence: Measured 54.26% Hungarian-matched KMeans accuracy (ARI 0.3665) for that feature family; neighborhood purity is not sorter accuracy or biological ground truth."><img src="assets/github.png" alt="" width="16" height="16"></a></dd>
+  </dl>
+  <p class="status">Offline feature validation; streaming detection and competitive-learning sorting in SNNeuro remain prototypes.</p>
+  <p class="evidence-label">Evidence</p>
+  <div class="project-links">
+<a href="https://github.com/BarkBarkBarkBarkBarkBarkBark/spike_discrim/blob/a697e68898c688ccc5dfe23ced78dbc6494ca1c1/docs/clustering_results.md">Discrimination results</a><a href="https://github.com/BarkBarkBarkBarkBarkBarkBark/osort_medd_comparison/blob/4d5e94e7c3a637e9efdda8e35d7a8c0494f20a1d/codes/compare_osort_membership.m">O-Sort membership comparison</a><a href="https://github.com/BarkBarkBarkBarkBarkBarkBark/SNNeuro/blob/c2eecb76d4d47ad4966ee117e10fd9585e0f48a8/src/snn_agent/core/pipeline.py">Streaming prototype</a><a href="evidence.html#waveform-features">Methods &amp; limitations</a>  </div>
+</article>    </div>
+  </section>
+
+  <section aria-labelledby="skills-title">
+    <h2 id="skills-title">Technical Skills</h2>
+    <div class="skills">
+    <div><h3>Neural Data &amp; Signal Processing</h3>
+      <ul><li>SpikeInterface, Kilosort4, MountainSort5; waveform features and unit matching <a class="evidence" href="https://github.com/BarkBarkBarkBarkBarkBarkBark/DHN_validation/blob/496c2326f000037698f7b92b4b3a4139c3a70d13/sort_med/evidence/Strict_Comparison_of_Sorted_Spikes.ipynb" aria-label="Source evidence: SpikeInterface, Kilosort4, MountainSort5; waveform features and unit matching"><img src="assets/github.png" alt="" width="16" height="16"></a></li><li>Offline waveform discrimination and afferent clustering <a class="evidence" href="https://github.com/BarkBarkBarkBarkBarkBarkBark/spike_discrim/blob/a697e68898c688ccc5dfe23ced78dbc6494ca1c1/docs/clustering_results.md" aria-label="Source evidence: Offline waveform discrimination and afferent clustering"><img src="assets/github.png" alt="" width="16" height="16"></a></li></ul>
+    </div>
+    <div><h3>Neural Acquisition &amp; Tooling</h3>
+      <ul><li>Intan RHD, Neuralynx CSC, MED; probe mapping and acquisition configuration <a class="evidence" href="https://github.com/BarkBarkBarkBarkBarkBarkBark/zlab_sorting_script/blob/3ff216ac593166687ae2260ccb705ea1322cf9f1/notebooks/sort_intan.ipynb" aria-label="Source evidence: Intan RHD, Neuralynx CSC, MED; probe mapping and acquisition configuration"><img src="assets/github.png" alt="" width="16" height="16"></a></li><li>DHN-AQ RC/CS configuration, SSH orchestration, and NRD replay prototypes <a class="evidence" href="https://github.com/BarkBarkBarkBarkBarkBarkBark/dhn_client/tree/c4b0420a2f43aaca2367a7034a5deef7019528ee/src/darkhorse_neuralynx" aria-label="Source evidence: DHN-AQ RC/CS configuration, SSH orchestration, and NRD replay prototypes"><img src="assets/github.png" alt="" width="16" height="16"></a></li></ul>
+    </div>
+    <div><h3>Machine Learning &amp; Data Science</h3>
+      <ul><li>Python (NumPy, Pandas, scikit-learn, PyTorch, Numba); MATLAB </li><li>Sentence embeddings and seeded NEURON simulation prototypes <a class="evidence" href="https://github.com/BarkBarkBarkBarkBarkBarkBark/semantic_neuron/blob/349fe4be084a5b49b4b2037995a137ee6f83994b/neuronlib.py" aria-label="Source evidence: Sentence embeddings and seeded NEURON simulation prototypes"><img src="assets/github.png" alt="" width="16" height="16"></a></li></ul>
+    </div>
+    <div><h3>General Technical</h3>
+      <ul><li>Git, Linux, SSH, shell scripting, Docker, and AWS GPU workflows </li><li>Microsoft 365 administration; SQL and PostgreSQL </li></ul>
+    </div>
+    </div>
   </section>
 
   <section aria-labelledby="research-title">
@@ -114,36 +225,28 @@
   <ul><li>Develop research workflows connecting acquisition, spike processing, and downstream single-neuron response analysis. </li><li>Analyze human epilepsy microwire recordings using O-Sort and SpikeInterface, with attention to waveform structure and unit curation. </li></ul>
 </article>  </section>
 
-  <section id="selected-projects" aria-labelledby="projects-title">
-    <h2 id="projects-title">Selected Projects</h2>
-    <article class="project" id="intan">
-      <h3>Intan acquisition and experiment synchronization</h3>
-      <p>Connect neural recordings to reproducible processing and experiment timing.</p>
-      <ul><li>Implemented Intan RHD loading, probe configuration, and SpikeInterface/Kilosort4 processing in zlab_sorting_script. <a class="evidence" href="https://github.com/BarkBarkBarkBarkBarkBarkBark/zlab_sorting_script/blob/main/notebooks/sort_intan.ipynb" aria-label="Source evidence: Implemented Intan RHD loading, probe configuration, and SpikeInterface/Kilosort4 processing in zlab_sorting_script."><img src="assets/github.png" alt="" width="16" height="16"></a></li><li>Developing Intan RHX/DeepArray acquisition and event-synchronization integration; hardware bench validation remains pending. </li></ul>
-      <p class="status"><strong>Status:</strong> File-processing workflow implemented; live acquisition and timing integration in progress.</p>
-      <div class="project-links"><a href="https://github.com/BarkBarkBarkBarkBarkBarkBark/zlab_sorting_script/blob/main/readme.md">Intan workflow</a></div>
-    </article>
-    <article class="project" id="sorting">
-      <h3>Waveform discrimination and online sorting research</h3>
-      <p>Preserve unit-specific waveform information while investigating streaming analysis.</p>
-      <ul><li>Implemented WeightBank waveform representations in spike_discrim; evaluated post-hoc clustering against putative O-Sort unit labels. <a class="evidence" href="https://github.com/BarkBarkBarkBarkBarkBarkBark/spike_discrim/blob/main/docs/clustering_results.md" aria-label="Source evidence: Implemented WeightBank waveform representations in spike_discrim; evaluated post-hoc clustering against putative O-Sort unit labels."><img src="assets/github.png" alt="" width="16" height="16"></a></li><li>Developed synthetic streaming/detection infrastructure in realtime-sorter-mvp and experimental competitive-learning sorting in SNNeuro. <a class="evidence" href="https://github.com/BarkBarkBarkBarkBarkBarkBark/SNNeuro/blob/main/src/snn_agent/core/pipeline.py" aria-label="Source evidence: Developed synthetic streaming/detection infrastructure in realtime-sorter-mvp and experimental competitive-learning sorting in SNNeuro."><img src="assets/github.png" alt="" width="16" height="16"></a></li></ul>
-      <p class="status"><strong>Status:</strong> Discrimination evaluated offline; online unit sorting remains experimental, without validated end-to-end latency.</p>
-      <div class="project-links"><a href="https://github.com/BarkBarkBarkBarkBarkBarkBark/spike_discrim/blob/main/docs/clustering_results.md">Discrimination results</a><a href="https://github.com/BarkBarkBarkBarkBarkBarkBark/realtime-sorter-mvp">Streaming, not unit sorting</a><a href="https://github.com/BarkBarkBarkBarkBarkBarkBark/SNNeuro/blob/main/src/snn_agent/core/dec_layer.py">Experimental sorter</a></div>
-    </article>
-    <article class="project" id="semantic">
-      <h3>Single-neuron response analysis and semantic tuning</h3>
-      <p>Investigate relationships between stimulus meaning and single-neuron responses.</p>
-      <ul><li>Implemented a seeded NEURON prototype mapping sentence similarity to stochastic input rates, with fixed synaptic weights. <a class="evidence" href="https://github.com/BarkBarkBarkBarkBarkBarkBark/semantic_neuron/blob/main/neuronlib.py" aria-label="Source evidence: Implemented a seeded NEURON prototype mapping sentence similarity to stochastic input rates, with fixed synaptic weights."><img src="assets/github.png" alt="" width="16" height="16"></a></li><li>Developed semantic-trajectory tooling in ZEmbeddings; exploring stimulus-aligned response analysis and adaptive stimulus selection. <a class="evidence" href="https://github.com/BarkBarkBarkBarkBarkBarkBark/ZEmbeddings/tree/main/src/zembeddings" aria-label="Source evidence: Developed semantic-trajectory tooling in ZEmbeddings; exploring stimulus-aligned response analysis and adaptive stimulus selection."><img src="assets/github.png" alt="" width="16" height="16"></a></li></ul>
-      <p class="status"><strong>Status:</strong> Simulation and text analysis implemented; adaptive experiments proposed, not demonstrated human concept selectivity or causality.</p>
-      <div class="project-links"><a href="https://github.com/BarkBarkBarkBarkBarkBarkBark/semantic_neuron#limitations">Simulation and limitations</a><a href="https://github.com/BarkBarkBarkBarkBarkBarkBark/ZEmbeddings">Semantic text analysis</a></div>
-    </article>
-    <article class="project" id="neuralynx">
-      <h3>Supporting acquisition work - Neuralynx / Dark Horse Neuro</h3>
-      <p>Configure acquisition sessions and replay archived Neuralynx recordings.</p>
-      <ul><li>Implemented DHN-AQ RC/CS configuration writers and SSH launch orchestration. <a class="evidence" href="https://github.com/BarkBarkBarkBarkBarkBarkBark/dhn_client/tree/main/src/darkhorse_neuralynx/dhn_client" aria-label="Source evidence: Implemented DHN-AQ RC/CS configuration writers and SSH launch orchestration."><img src="assets/github.png" alt="" width="16" height="16"></a></li><li>Developed an NRD-to-UDP replay prototype for DHN-AQ ingestion. <a class="evidence" href="https://github.com/BarkBarkBarkBarkBarkBarkBark/dhn_client/blob/main/src/darkhorse_neuralynx/pegasus_bridge/nrd_stream.py" aria-label="Source evidence: Developed an NRD-to-UDP replay prototype for DHN-AQ ingestion."><img src="assets/github.png" alt="" width="16" height="16"></a></li></ul>
-      <p class="status"><strong>Status:</strong> Prototype implemented; hardware reception and recording validation remain in progress.</p>
-      <div class="project-links"><a href="https://github.com/BarkBarkBarkBarkBarkBarkBark/dhn_client">Acquisition implementation</a></div>
-    </article>
+  <section aria-labelledby="supporting-title">
+    <h2 id="supporting-title">Supporting Software &amp; Prototypes</h2>
+    <div class="supporting-projects">
+<article class="project" id="semantic">
+  <p class="maturity">Prototype</p>
+  <h3>Single-neuron analysis and adaptive-search development</h3>
+  <p class="project-purpose">Develop reproducible stimulus-response software before adaptive experiments.</p>
+  <ul><li>Implemented a seeded NEURON prototype mapping sentence similarity to stochastic input rates, with fixed synaptic weights. <a class="evidence" href="https://github.com/BarkBarkBarkBarkBarkBarkBark/semantic_neuron/blob/349fe4be084a5b49b4b2037995a137ee6f83994b/neuronlib.py" aria-label="Source evidence: Implemented a seeded NEURON prototype mapping sentence similarity to stochastic input rates, with fixed synaptic weights."><img src="assets/github.png" alt="" width="16" height="16"></a></li><li>Added seeded stimulus windows, presynaptic event recording, voltage traces, and output spike times for reproducible simulated response analysis. <a class="evidence" href="https://github.com/BarkBarkBarkBarkBarkBarkBark/semantic_neuron/blob/349fe4be084a5b49b4b2037995a137ee6f83994b/neuronlib.py" aria-label="Source evidence: Added seeded stimulus windows, presynaptic event recording, voltage traces, and output spike times for reproducible simulated response analysis."><img src="assets/github.png" alt="" width="16" height="16"></a></li></ul>
+  <p class="status">Simulation implemented; adaptive human stimulus selection and semantic selectivity are not validated.</p>
+  <p class="evidence-label">Evidence</p>
+  <div class="project-links">
+<a href="https://github.com/BarkBarkBarkBarkBarkBarkBark/semantic_neuron/blob/349fe4be084a5b49b4b2037995a137ee6f83994b/neuronlib.py">Simulation implementation</a><a href="evidence.html#semantic-simulation">Methods &amp; limitations</a>  </div>
+</article><article class="project" id="neuralynx">
+  <p class="maturity">Prototype</p>
+  <h3>Supporting acquisition work - Neuralynx / Dark Horse Neuro</h3>
+  <p class="project-purpose">Configure acquisition sessions and replay archived Neuralynx recordings.</p>
+  <ul><li>Implemented DHN-AQ RC/CS configuration writers and SSH launch orchestration. <a class="evidence" href="https://github.com/BarkBarkBarkBarkBarkBarkBark/dhn_client/tree/c4b0420a2f43aaca2367a7034a5deef7019528ee/src/darkhorse_neuralynx/dhn_client" aria-label="Source evidence: Implemented DHN-AQ RC/CS configuration writers and SSH launch orchestration."><img src="assets/github.png" alt="" width="16" height="16"></a></li><li>Developed an NRD-to-UDP replay prototype for DHN-AQ ingestion. <a class="evidence" href="https://github.com/BarkBarkBarkBarkBarkBarkBark/dhn_client/blob/c4b0420a2f43aaca2367a7034a5deef7019528ee/src/darkhorse_neuralynx/pegasus_bridge/nrd_stream.py" aria-label="Source evidence: Developed an NRD-to-UDP replay prototype for DHN-AQ ingestion."><img src="assets/github.png" alt="" width="16" height="16"></a></li></ul>
+  <p class="status">Prototype implemented; hardware reception and recording validation remain in progress.</p>
+  <p class="evidence-label">Evidence</p>
+  <div class="project-links">
+<a href="https://github.com/BarkBarkBarkBarkBarkBarkBark/dhn_client/tree/c4b0420a2f43aaca2367a7034a5deef7019528ee/src/darkhorse_neuralynx">Acquisition implementation</a><a href="evidence.html#dhn-acquisition">Methods &amp; limitations</a>  </div>
+</article>    </div>
   </section>
 
   <section class="education" aria-labelledby="education-title">
@@ -166,41 +269,23 @@
     </article>
   </section>
 
-  <section aria-labelledby="skills-title">
-    <h2 id="skills-title">Technical Skills</h2>
-    <div class="skills">
-    <div><h3>Neural Data &amp; Signal Processing</h3>
-      <ul><li>Waveform features, spike-vs-noise evaluation, and afferent clustering <a class="evidence" href="https://github.com/BarkBarkBarkBarkBarkBarkBark/spike_discrim/blob/main/docs/clustering_results.md" aria-label="Source evidence: Waveform features, spike-vs-noise evaluation, and afferent clustering"><img src="assets/github.png" alt="" width="16" height="16"></a></li><li>SpikeInterface preprocessing, Kilosort4, and manual unit curation workflows <a class="evidence" href="https://github.com/BarkBarkBarkBarkBarkBarkBark/zlab_sorting_script/blob/main/readme.md" aria-label="Source evidence: SpikeInterface preprocessing, Kilosort4, and manual unit curation workflows"><img src="assets/github.png" alt="" width="16" height="16"></a></li></ul>
-    </div>
-    <div><h3>Neural Acquisition &amp; Tooling</h3>
-      <ul><li>Intan RHD loading and probe-aware sorting workflows <a class="evidence" href="https://github.com/BarkBarkBarkBarkBarkBarkBark/zlab_sorting_script/blob/main/notebooks/sort_intan.ipynb" aria-label="Source evidence: Intan RHD loading and probe-aware sorting workflows"><img src="assets/github.png" alt="" width="16" height="16"></a></li><li>DHN-AQ RC/CS configuration, SSH orchestration, and NRD replay prototypes <a class="evidence" href="https://github.com/BarkBarkBarkBarkBarkBarkBark/dhn_client/tree/main/src/darkhorse_neuralynx" aria-label="Source evidence: DHN-AQ RC/CS configuration, SSH orchestration, and NRD replay prototypes"><img src="assets/github.png" alt="" width="16" height="16"></a></li></ul>
-    </div>
-    <div><h3>Machine Learning &amp; Data Science</h3>
-      <ul><li>Python (NumPy, Pandas, scikit-learn, PyTorch, Numba); MATLAB </li><li>Sentence embeddings and seeded NEURON simulation prototypes <a class="evidence" href="https://github.com/BarkBarkBarkBarkBarkBarkBark/semantic_neuron/blob/main/neuronlib.py" aria-label="Source evidence: Sentence embeddings and seeded NEURON simulation prototypes"><img src="assets/github.png" alt="" width="16" height="16"></a></li></ul>
-    </div>
-    <div><h3>General Technical</h3>
-      <ul><li>Git, Linux, SSH, shell scripting, Docker, and AWS GPU workflows </li><li>Microsoft 365 administration; SQL and PostgreSQL </li></ul>
-    </div>
-    </div>
-  </section>
-
   <section aria-labelledby="professional-title">
     <h2 id="professional-title">Additional Professional Experience</h2>
 <article class="entry">
   <h3>IT Administrator <span class="organization">— First Step Communities</span></h3>
   <p class="meta">Jul 2021 – Present · Sacramento, CA</p>
-  <ul><li>Managed Microsoft 365 IT infrastructure across 4 shelter sites, including user provisioning, device management, and systems coordination. </li></ul>
+  <ul><li>Managed IT infrastructure, device provisioning, and reporting automation. </li></ul>
 </article><article class="entry">
   <h3>Analyst <span class="organization">— Eurofins Test America</span></h3>
   <p class="meta">Oct 2019 – Jun 2021 · West Sacramento, CA</p>
-  <ul><li>Maintained high-accuracy data entry and review in a regulated laboratory environment; supported QA documentation and adherence to standard operating procedures. </li></ul>
+  <ul><li>Supported analytical laboratory QA, data review, and standard operating procedures. </li></ul>
 </article>  </section>
 
   <section aria-labelledby="certifications-title">
     <h2 id="certifications-title">Certifications</h2>
     <ul><li><a href="https://www.credly.com/badges/505ef11c-58b4-48bd-aa9e-5a21f0247d46/public_url">Data Analysis with Matplotlib, Pandas, and Scikit-Learn Python Libraries</a> — UC Davis Continuing and Professional Education (2025-09-18)</li><li>Biomedical Research; Research Administration; GCP Social and Behavioral Research — CITI Program</li></ul>
   </section>
-  <footer>Portfolio and CV generated from the same canonical content.</footer>
+  <footer>Portfolio and CV generated from the same canonical content. Source revision: working-tree.</footer>
 </main>
 </body>
 </html>

@@ -1,32 +1,88 @@
+{% macro skills() %}
+## Technical Skills
+
+{% for group in resume.skills %}
+{% if resume.compact %}
+**{{ group.category }}:** {% for item in group['items'] %}{{ item.text }}{% if item.evidence %}{% if output_format == 'latex' %} \EvidenceLink{ {{- item.evidence -}} }{% else %} [Evidence]({{ item.evidence }}){% endif %}{% endif %}{% if not loop.last %}; {% endif %}{% endfor %}
+{{ '\n\n' }}
+{% else %}
+**{{ group.category }}**
+
+{% for item in group['items'] %}
+- {% if item.evidence and output_format == 'latex' %}\EvidenceLink{ {{- item.evidence -}} } {% endif %}{{ item.text }}{% if item.evidence and output_format != 'latex' %} [Evidence]({{ item.evidence }}){% endif %}
+{{ '\n' }}
+{% endfor %}
+{{ '\n' }}
+{% endif %}
+{% endfor %}
+{% endmacro %}
 {% set c = resume.personal.contact %}
 {% if output_format == 'latex' %}
-\ResumeName{ {{- resume.personal.name | latex_escape -}} }
-\ContactLine{ {{- c.email | latex_escape }} | {{ c.phone | default('') | latex_escape }} | {{ c.location | default('') | latex_escape -}} }
-{% if c.github %}
-\HeaderProfileLink{github.png}{ {{- c.github -}} }
+{% if resume.compact %}\CompactResume
 {% endif %}
-{% if c.linkedin %}
-\HeaderProfileLink{linkedin.png}{ {{- c.linkedin -}} }
+\ResumeName{ {{- resume.personal.name | latex_escape -}} }
+{% if resume.engineering_focus %}
+\ContactLine{ {{- resume.personal.headline | latex_escape -}} }
+\ContactLine{ {{- resume.personal.supporting_line | latex_escape -}} }
+{% endif %}
+\ContactLine{ {{- c.email | latex_escape }} | {{ c.phone | default('') | latex_escape }} | {{ c.location | default('') | latex_escape -}} }
+{% if resume.compact %}
+[GitHub]({{ c.github }}) · [LinkedIn]({{ c.linkedin }}) · [Portfolio](https://barkbarkbarkbarkbarkbarkbark.github.io/resumes_and_letters/)
+{% else %}
+{% if c.github %}\HeaderProfileLink{github.png}{ {{- c.github -}} }
+{% endif %}
+{% if c.linkedin %}\HeaderProfileLink{linkedin.png}{ {{- c.linkedin -}} }
+{% endif %}
 {% endif %}
 {% else %}
 # {{ resume.personal.name }}
 
+{% if resume.engineering_focus %}
+**{{ resume.personal.headline }}**
+
+{{ resume.personal.supporting_line }}
+
+{% endif %}
 {{ c.email }} | {{ c.phone }} | {{ c.location }}
 
-{% if c.github %}
-[{{ c.github }}]({{ c.github }})
-
+{% if c.github %}[GitHub]({{ c.github }})
 {% endif %}
-{% if c.linkedin %}
-[{{ c.linkedin }}]({{ c.linkedin }})
-
+{% if c.linkedin %}[LinkedIn]({{ c.linkedin }})
 {% endif %}
 {% endif %}
 
-## Research Profile
-
+## {% if resume.compact %}Engineering Summary{% else %}Research Profile{% endif %}
+{{ '\n' }}
 {{ resume.summary_text | trim }}
 
+{{ skills() }}
+{% if resume.projects %}
+## Selected Engineering Projects
+
+{% for project in resume.projects %}
+{% if output_format == 'latex' and resume.page_break_before_project == project.id %}
+\newpage
+
+## Selected Engineering Projects (continued)
+
+{% endif %}
+### {{ project.name }}{% if project.maturity %} — {{ project.maturity }}{% endif %}
+{{ '\n' }}
+{% for bullet in project.bullets %}
+- {{ bullet.text }}{% if bullet.evidence %} {% if output_format == 'latex' %}\EvidenceLink{ {{- bullet.evidence -}} }{% else %}[Evidence]({{ bullet.evidence }}){% endif %}{% endif %}
+{{ '\n' }}
+{% endfor %}
+{{ '\n' }}
+{% if not resume.compact %}
+*{{ project.status | default('Work in progress.') }}*
+
+{% for link in project.links %}
+[{{ link.label }}]({{ link.url }}){% if not loop.last %} · {% endif %}
+{% endfor %}
+{{ '\n' }}
+{% endif %}
+{% endfor %}
+{% endif %}
 {% if resume.research %}
 ## Research Experience
 
@@ -39,33 +95,6 @@
 
 {% endfor %}
 {% endif %}
-{% if resume.projects %}
-## Selected Projects
-
-{% for project in resume.projects %}
-{% if output_format == 'latex' and resume.page_break_before_project == project.id %}
-\newpage
-
-## Selected Projects (continued)
-
-{% endif %}
-### {{ project.name }}
-
-{{ project.problem | default('') }}
-
-{% for bullet in project.bullets %}
-- {{ bullet.text }}{% if bullet.evidence %} {% if output_format == 'latex' %}\EvidenceLink{ {{- bullet.evidence -}} }{% else %}[Evidence]({{ bullet.evidence }}){% endif %}{% endif %}
-{{ '\n' }}
-{% endfor %}
-{{ '\n' }}
-*Status: {{ project.status | default('Work in progress.') }}*
-
-{% for link in project.links %}
-[{{ link.label }}]({{ link.url }}){% if not loop.last %} · {% endif %}
-{% endfor %}
-{{ '\n' }}
-{% endfor %}
-{% endif %}
 {% if output_format == 'latex' and resume.page_break_before_education %}
 \newpage
 {% endif %}
@@ -75,22 +104,10 @@
 {% for edu in resume.education %}
 **{{ edu.degree }}**, {{ edu.institution }} — {{ edu.graduation_date }}
 
-{% if edu.notes %}{{ edu.notes }}
+{% if edu.notes and not resume.compact %}{{ edu.notes }}
 
 {% endif %}
 {% endfor %}
-## Technical Skills
-
-{% for group in resume.skills %}
-**{{ group.category }}**
-
-{% for item in group['items'] %}
-- {% if item.evidence and output_format == 'latex' %}\EvidenceLink{ {{- item.evidence -}} } {% endif %}{{ item.text }}{% if item.evidence and output_format != 'latex' %} [Evidence]({{ item.evidence }}){% endif %}
-{{ '\n' }}
-{% endfor %}
-{{ '\n' }}
-{% endfor %}
-{{ '\n' }}
 ## Additional Professional Experience
 
 {% for job in resume.experience + resume.volunteer %}

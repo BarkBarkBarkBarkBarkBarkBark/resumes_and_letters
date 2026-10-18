@@ -21,23 +21,36 @@ else:
 
 DOCS_DIR = ROOT / "docs"
 CV_STEM = "marco_del_fava_cv"
+ENGINEERING_STEM = "marco_del_fava_engineering"
 
 
 def build_site(data: dict, profile: dict, docs_dir: Path = DOCS_DIR,
                source_commit: str = "") -> Path:
     # Publish only explicitly generated artifacts, never files selected by mtime.
     folder = build_resume(data, profile, CV_STEM)
+    engineering = load_yaml(DATA_DIR / "role_profiles.yaml")["engineering"]
+    engineering_folder = build_resume(data, engineering, ENGINEERING_STEM)
+    filtered = apply_profile(data, profile)
+    env = template_environment()
+    html = env.get_template("resume.html.j2").render(
+        resume=filtered, pdf_url=f"{CV_STEM}.pdf",
+        engineering_pdf_url=f"{ENGINEERING_STEM}.pdf", source_commit=source_commit,
+    )
+    evidence_html = env.get_template("evidence.html.j2").render(
+        records=filtered["evidence_records"], source_commit=source_commit,
+    )
     docs_dir.mkdir(parents=True, exist_ok=True)
     assets = docs_dir / "assets"
     assets.mkdir(exist_ok=True)
     for name in ("github.png", "linkedin.png"):
         shutil.copy2(TEMPLATES_DIR / "icons" / name, assets / name)
     shutil.copy2(folder / f"{CV_STEM}.pdf", docs_dir / f"{CV_STEM}.pdf")
-    html = template_environment().get_template("resume.html.j2").render(
-        resume=apply_profile(data, profile),
-        pdf_url=f"{CV_STEM}.pdf", source_commit=source_commit,
+    shutil.copy2(
+        engineering_folder / f"{ENGINEERING_STEM}.pdf",
+        docs_dir / f"{ENGINEERING_STEM}.pdf",
     )
     (docs_dir / "index.html").write_text(html, encoding="utf-8")
+    (docs_dir / "evidence.html").write_text(evidence_html, encoding="utf-8")
     (docs_dir / ".nojekyll").touch()
     print(f"[OK] Portfolio and matching PDF: {docs_dir}")
     return docs_dir

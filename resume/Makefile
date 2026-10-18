@@ -1,4 +1,4 @@
-.PHONY: all install resume resume-neuro resume-analytics resume-clinical \
+.PHONY: all install resume resume-neuro resume-engineering resume-analytics resume-clinical \
         cover-letter all-resumes site site-neuro site-analytics test clean profiles
 
 PYTHON := python3
@@ -17,6 +17,9 @@ resume:
 resume-neuro:
 	$(PYTHON) scripts/build_resume.py --profile neuroengineering
 
+resume-engineering:
+	$(PYTHON) scripts/build_resume.py --profile engineering
+
 resume-analytics:
 	$(PYTHON) scripts/build_resume.py --profile data_analytics
 
@@ -26,6 +29,7 @@ resume-clinical:
 # Build all profile variants at once
 all-resumes:
 	$(PYTHON) scripts/build_resume.py --profile neuroengineering
+	$(PYTHON) scripts/build_resume.py --profile engineering
 	$(PYTHON) scripts/build_resume.py --profile data_analytics
 	$(PYTHON) scripts/build_resume.py --profile clinical_research
 

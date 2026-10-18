@@ -6,108 +6,34 @@ lang: en
 
 # Marco Del Fava
 
+**Neural Signal Processing & Acquisition**
+
+Biomedical Engineering M.S. | UC Davis | Human Intracranial Electrophysiology
+
 mdelfava@ucdavis.edu | 707-637-6544 | Sacramento, CA
 
-[https://github.com/BarkBarkBarkBarkBarkBarkBark](https://github.com/BarkBarkBarkBarkBarkBarkBark)
-
-[https://www.linkedin.com/in/marc-del-fava](https://www.linkedin.com/in/marc-del-fava)
-
+[GitHub](https://github.com/BarkBarkBarkBarkBarkBarkBark)
+[LinkedIn](https://www.linkedin.com/in/marc-del-fava)
 
 ## Research Profile
 
-Biomedical Engineering M.S. student at UC Davis and research volunteer in Dr. Jie Zheng's lab, working on human single-unit electrophysiology. Builds research software for neural acquisition and spike analysis, with interests in Intan acquisition, real-time spike sorting, and semantic selectivity in single-neuron responses.
-
-## Research Experience
-
-**Research Volunteer**, UC Davis Health — Z-Lab (Dr. Jie Zheng) — Jul 2025 - Present
-
-- Develop research workflows connecting acquisition, spike processing, and downstream single-neuron response analysis.
-- Analyze human epilepsy microwire recordings using O-Sort and SpikeInterface, with attention to waveform structure and unit curation.
-
-## Selected Projects
-
-### Intan acquisition and experiment synchronization
-
-Connect neural recordings to reproducible processing and experiment timing.
-
-- Implemented Intan RHD loading, probe configuration, and SpikeInterface/Kilosort4 processing in zlab_sorting_script. [Evidence](https://github.com/BarkBarkBarkBarkBarkBarkBark/zlab_sorting_script/blob/main/notebooks/sort_intan.ipynb)
-
-- Developing Intan RHX/DeepArray acquisition and event-synchronization integration; hardware bench validation remains pending.
-
-
-
-*Status: File-processing workflow implemented; live acquisition and timing integration in progress.*
-
-[Intan workflow](https://github.com/BarkBarkBarkBarkBarkBarkBark/zlab_sorting_script/blob/main/readme.md)
-
-### Waveform discrimination and online sorting research
-
-Preserve unit-specific waveform information while investigating streaming analysis.
-
-- Implemented WeightBank waveform representations in spike_discrim; evaluated post-hoc clustering against putative O-Sort unit labels. [Evidence](https://github.com/BarkBarkBarkBarkBarkBarkBark/spike_discrim/blob/main/docs/clustering_results.md)
-
-- Developed synthetic streaming/detection infrastructure in realtime-sorter-mvp and experimental competitive-learning sorting in SNNeuro. [Evidence](https://github.com/BarkBarkBarkBarkBarkBarkBark/SNNeuro/blob/main/src/snn_agent/core/pipeline.py)
-
-
-
-*Status: Discrimination evaluated offline; online unit sorting remains experimental, without validated end-to-end latency.*
-
-[Discrimination results](https://github.com/BarkBarkBarkBarkBarkBarkBark/spike_discrim/blob/main/docs/clustering_results.md) · [Streaming, not unit sorting](https://github.com/BarkBarkBarkBarkBarkBarkBark/realtime-sorter-mvp) · [Experimental sorter](https://github.com/BarkBarkBarkBarkBarkBarkBark/SNNeuro/blob/main/src/snn_agent/core/dec_layer.py)
-
-### Single-neuron response analysis and semantic tuning
-
-Investigate relationships between stimulus meaning and single-neuron responses.
-
-- Implemented a seeded NEURON prototype mapping sentence similarity to stochastic input rates, with fixed synaptic weights. [Evidence](https://github.com/BarkBarkBarkBarkBarkBarkBark/semantic_neuron/blob/main/neuronlib.py)
-
-- Developed semantic-trajectory tooling in ZEmbeddings; exploring stimulus-aligned response analysis and adaptive stimulus selection. [Evidence](https://github.com/BarkBarkBarkBarkBarkBarkBark/ZEmbeddings/tree/main/src/zembeddings)
-
-
-
-*Status: Simulation and text analysis implemented; adaptive experiments proposed, not demonstrated human concept selectivity or causality.*
-
-[Simulation and limitations](https://github.com/BarkBarkBarkBarkBarkBarkBark/semantic_neuron#limitations) · [Semantic text analysis](https://github.com/BarkBarkBarkBarkBarkBarkBark/ZEmbeddings)
-
-### Supporting acquisition work - Neuralynx / Dark Horse Neuro
-
-Configure acquisition sessions and replay archived Neuralynx recordings.
-
-- Implemented DHN-AQ RC/CS configuration writers and SSH launch orchestration. [Evidence](https://github.com/BarkBarkBarkBarkBarkBarkBark/dhn_client/tree/main/src/darkhorse_neuralynx/dhn_client)
-
-- Developed an NRD-to-UDP replay prototype for DHN-AQ ingestion. [Evidence](https://github.com/BarkBarkBarkBarkBarkBarkBark/dhn_client/blob/main/src/darkhorse_neuralynx/pegasus_bridge/nrd_stream.py)
-
-
-
-*Status: Prototype implemented; hardware reception and recording validation remain in progress.*
-
-[Acquisition implementation](https://github.com/BarkBarkBarkBarkBarkBarkBark/dhn_client)
-
-
-## Education
-
-**M.S. Biomedical Engineering**, University of California, Davis — Fall 2026 - Present
-
-**Python for Data Science, Professional Concentration**, UC Davis Continuing and Professional Education — 2025
-
-**M.S. Psychology**, Arizona State University — 2023
-
-**B.S. Neuroscience, Physiology, and Behavior**, University of California, Davis — 2017
+Developing and validating software for human intracranial electrophysiology, including multichannel neural acquisition, signal processing, spike sorting, and experimental synchronization. Experienced in Python-based neural data pipelines, acquisition hardware integration, and quantitative evaluation against recorded data.
 
 ## Technical Skills
 
 **Neural Data & Signal Processing**
 
-- Waveform features, spike-vs-noise evaluation, and afferent clustering [Evidence](https://github.com/BarkBarkBarkBarkBarkBarkBark/spike_discrim/blob/main/docs/clustering_results.md)
+- SpikeInterface, Kilosort4, MountainSort5; waveform features and unit matching [Evidence](https://github.com/BarkBarkBarkBarkBarkBarkBark/DHN_validation/blob/496c2326f000037698f7b92b4b3a4139c3a70d13/sort_med/evidence/Strict_Comparison_of_Sorted_Spikes.ipynb)
 
-- SpikeInterface preprocessing, Kilosort4, and manual unit curation workflows [Evidence](https://github.com/BarkBarkBarkBarkBarkBarkBark/zlab_sorting_script/blob/main/readme.md)
+- Offline waveform discrimination and afferent clustering [Evidence](https://github.com/BarkBarkBarkBarkBarkBarkBark/spike_discrim/blob/a697e68898c688ccc5dfe23ced78dbc6494ca1c1/docs/clustering_results.md)
 
 
 
 **Neural Acquisition & Tooling**
 
-- Intan RHD loading and probe-aware sorting workflows [Evidence](https://github.com/BarkBarkBarkBarkBarkBarkBark/zlab_sorting_script/blob/main/notebooks/sort_intan.ipynb)
+- Intan RHD, Neuralynx CSC, MED; probe mapping and acquisition configuration [Evidence](https://github.com/BarkBarkBarkBarkBarkBarkBark/zlab_sorting_script/blob/3ff216ac593166687ae2260ccb705ea1322cf9f1/notebooks/sort_intan.ipynb)
 
-- DHN-AQ RC/CS configuration, SSH orchestration, and NRD replay prototypes [Evidence](https://github.com/BarkBarkBarkBarkBarkBarkBark/dhn_client/tree/main/src/darkhorse_neuralynx)
+- DHN-AQ RC/CS configuration, SSH orchestration, and NRD replay prototypes [Evidence](https://github.com/BarkBarkBarkBarkBarkBarkBark/dhn_client/tree/c4b0420a2f43aaca2367a7034a5deef7019528ee/src/darkhorse_neuralynx)
 
 
 
@@ -115,7 +41,7 @@ Configure acquisition sessions and replay archived Neuralynx recordings.
 
 - Python (NumPy, Pandas, scikit-learn, PyTorch, Numba); MATLAB
 
-- Sentence embeddings and seeded NEURON simulation prototypes [Evidence](https://github.com/BarkBarkBarkBarkBarkBarkBark/semantic_neuron/blob/main/neuronlib.py)
+- Sentence embeddings and seeded NEURON simulation prototypes [Evidence](https://github.com/BarkBarkBarkBarkBarkBarkBark/semantic_neuron/blob/349fe4be084a5b49b4b2037995a137ee6f83994b/neuronlib.py)
 
 
 
@@ -128,16 +54,95 @@ Configure acquisition sessions and replay archived Neuralynx recordings.
 
 
 
+## Selected Engineering Projects
+
+### Neural Acquisition and Timing — Implemented
+
+- Built Intan RHD ingestion, probe/channel checks, and SpikeInterface/Kilosort4 processing with waveform and quality-metric extraction. [Evidence](https://github.com/BarkBarkBarkBarkBarkBarkBark/zlab_sorting_script/blob/3ff216ac593166687ae2260ccb705ea1322cf9f1/notebooks/sort_intan.ipynb)
+
+- Implemented queued PsychoPy/RHX event synchronization, exact-label joins, and affine clock fitting to analyze clock drift and alignment residuals.
+
+
+
+*Acquisition workflow and clock-alignment software implemented; timing performance not independently verified.*
+
+[Intan processing notebook](https://github.com/BarkBarkBarkBarkBarkBarkBark/zlab_sorting_script/blob/3ff216ac593166687ae2260ccb705ea1322cf9f1/notebooks/sort_intan.ipynb)
+
+### Neural Compression Validation — Validated
+
+- Evaluated DarkHorse Neuro compression on 20 million samples (one channel, 32 kHz; 625 s); maximum source-to-MED difference was 0.5 uV, with zero mismatches after rounding source values to whole microvolts. [Evidence](https://github.com/BarkBarkBarkBarkBarkBarkBark/DHN_validation/blob/496c2326f000037698f7b92b4b3a4139c3a70d13/sort_med/evidence/8_7_filetype_comparison.ipynb)
+
+- Controlled MountainSort5 comparison of rounded inputs preserved all 35,587 spike frames for the compared unit (exact Jaccard 1.0). [Evidence](https://github.com/BarkBarkBarkBarkBarkBarkBark/DHN_validation/blob/496c2326f000037698f7b92b4b3a4139c3a70d13/sort_med/evidence/Strict_Comparison_of_Sorted_Spikes.ipynb)
+
+
+
+*Offline validation on a bounded single-channel slice; archived outputs reviewed, not a new raw-data rerun.*
+
+[Waveform fidelity evidence](https://github.com/BarkBarkBarkBarkBarkBarkBark/DHN_validation/blob/496c2326f000037698f7b92b4b3a4139c3a70d13/sort_med/evidence/8_7_filetype_comparison.ipynb) · [Controlled spike comparison](https://github.com/BarkBarkBarkBarkBarkBarkBark/DHN_validation/blob/496c2326f000037698f7b92b4b3a4139c3a70d13/sort_med/evidence/Strict_Comparison_of_Sorted_Spikes.ipynb)
+
+### Spike Sorting and Neural Processing — Validated
+
+- Implemented waveform-feature evaluation across 38,145 spike snippets and 10 putative O-Sort unit labels; event-family KNN purity at k=5 was 95.04%. [Evidence](https://github.com/BarkBarkBarkBarkBarkBarkBark/spike_discrim/blob/a697e68898c688ccc5dfe23ced78dbc6494ca1c1/docs/clustering_results.md)
+
+- Measured 54.26% Hungarian-matched KMeans accuracy (ARI 0.3665) for that feature family; neighborhood purity is not sorter accuracy or biological ground truth. [Evidence](https://github.com/BarkBarkBarkBarkBarkBarkBark/spike_discrim/blob/a697e68898c688ccc5dfe23ced78dbc6494ca1c1/src/spike_discrim/benchmarking/afferent_clustering.py)
+
+
+
+*Offline feature validation; streaming detection and competitive-learning sorting in SNNeuro remain prototypes.*
+
+[Discrimination results](https://github.com/BarkBarkBarkBarkBarkBarkBark/spike_discrim/blob/a697e68898c688ccc5dfe23ced78dbc6494ca1c1/docs/clustering_results.md) · [O-Sort membership comparison](https://github.com/BarkBarkBarkBarkBarkBarkBark/osort_medd_comparison/blob/4d5e94e7c3a637e9efdda8e35d7a8c0494f20a1d/codes/compare_osort_membership.m) · [Streaming prototype](https://github.com/BarkBarkBarkBarkBarkBarkBark/SNNeuro/blob/c2eecb76d4d47ad4966ee117e10fd9585e0f48a8/src/snn_agent/core/pipeline.py)
+
+### Single-neuron analysis and adaptive-search development — Prototype
+
+- Implemented a seeded NEURON prototype mapping sentence similarity to stochastic input rates, with fixed synaptic weights. [Evidence](https://github.com/BarkBarkBarkBarkBarkBarkBark/semantic_neuron/blob/349fe4be084a5b49b4b2037995a137ee6f83994b/neuronlib.py)
+
+- Added seeded stimulus windows, presynaptic event recording, voltage traces, and output spike times for reproducible simulated response analysis. [Evidence](https://github.com/BarkBarkBarkBarkBarkBarkBark/semantic_neuron/blob/349fe4be084a5b49b4b2037995a137ee6f83994b/neuronlib.py)
+
+
+
+*Simulation implemented; adaptive human stimulus selection and semantic selectivity are not validated.*
+
+[Simulation implementation](https://github.com/BarkBarkBarkBarkBarkBarkBark/semantic_neuron/blob/349fe4be084a5b49b4b2037995a137ee6f83994b/neuronlib.py)
+
+### Supporting acquisition work - Neuralynx / Dark Horse Neuro — Prototype
+
+- Implemented DHN-AQ RC/CS configuration writers and SSH launch orchestration. [Evidence](https://github.com/BarkBarkBarkBarkBarkBarkBark/dhn_client/tree/c4b0420a2f43aaca2367a7034a5deef7019528ee/src/darkhorse_neuralynx/dhn_client)
+
+- Developed an NRD-to-UDP replay prototype for DHN-AQ ingestion. [Evidence](https://github.com/BarkBarkBarkBarkBarkBarkBark/dhn_client/blob/c4b0420a2f43aaca2367a7034a5deef7019528ee/src/darkhorse_neuralynx/pegasus_bridge/nrd_stream.py)
+
+
+
+*Prototype implemented; hardware reception and recording validation remain in progress.*
+
+[Acquisition implementation](https://github.com/BarkBarkBarkBarkBarkBarkBark/dhn_client/tree/c4b0420a2f43aaca2367a7034a5deef7019528ee/src/darkhorse_neuralynx)
+
+## Research Experience
+
+**Research Volunteer**, UC Davis Health — Z-Lab (Dr. Jie Zheng) — Jul 2025 - Present
+
+- Develop research workflows connecting acquisition, spike processing, and downstream single-neuron response analysis.
+- Analyze human epilepsy microwire recordings using O-Sort and SpikeInterface, with attention to waveform structure and unit curation.
+
+
+## Education
+
+**M.S. Biomedical Engineering**, University of California, Davis — Fall 2026 - Present
+
+**Python for Data Science, Professional Concentration**, UC Davis Continuing and Professional Education — 2025
+
+**M.S. Psychology**, Arizona State University — 2023
+
+**B.S. Neuroscience, Physiology, and Behavior**, University of California, Davis — 2017
 
 ## Additional Professional Experience
 
 **IT Administrator**, First Step Communities — Jul 2021 - Present
 
-- Managed Microsoft 365 IT infrastructure across 4 shelter sites, including user provisioning, device management, and systems coordination.
+- Managed IT infrastructure, device provisioning, and reporting automation.
 
 **Analyst**, Eurofins Test America — Oct 2019 - Jun 2021
 
-- Maintained high-accuracy data entry and review in a regulated laboratory environment; supported QA documentation and adherence to standard operating procedures.
+- Supported analytical laboratory QA, data review, and standard operating procedures.
 
 ## Certifications
 

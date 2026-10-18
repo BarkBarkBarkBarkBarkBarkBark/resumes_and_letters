@@ -40,12 +40,12 @@ jobs:
           sudo apt-get install -y pandoc latexmk texlive-luatex texlive-fonts-recommended texlive-latex-extra poppler-utils
 
       - name: Test generator
-        run: python -m pytest resume/tests -q
+        run: python -m pytest resume/tests --ignore=resume/tests/test_pdf.py -q
 
       - name: Build portfolio and matching PDF from this commit
         run: python resume/scripts/build_site.py --profile neuroengineering --output-dir _site --source-commit "$GITHUB_SHA"
 
-      - name: Verify two-page PDF, margins, reading order, and evidence links
+      - name: Verify one-page resume, full CV, margins, reading order, and evidence links
         env:
           PORTFOLIO_DIR: _site
         run: python -m pytest resume/tests/test_pdf.py -q

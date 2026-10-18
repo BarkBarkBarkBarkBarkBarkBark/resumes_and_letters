@@ -165,8 +165,10 @@ INPUT ./icons/github.png
 INPUT ./icons/github.png
 INPUT ./icons/github.png
 INPUT ./icons/github.png
-INPUT /Users/marco/Library/texlive/2026basic/texmf-var/fonts/map/pdftex/updmap/pdftex.map
 INPUT ./icons/github.png
+INPUT ./icons/github.png
+INPUT ./icons/github.png
+INPUT /Users/marco/Library/texlive/2026basic/texmf-var/fonts/map/pdftex/updmap/pdftex.map
 INPUT ./icons/github.png
 INPUT ./icons/github.png
 INPUT ./icons/github.png

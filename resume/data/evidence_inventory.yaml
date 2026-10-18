@@ -1,0 +1,159 @@
+# Internal generator input. Only explicitly public records are rendered to evidence.html.
+# No source recordings, patient identifiers, local lab paths, or credentials belong here.
+reviewed_on: "2026-10-18"
+records:
+  intan-workflow:
+    repository: BarkBarkBarkBarkBarkBarkBark/zlab_sorting_script
+    revision: 3ff216ac593166687ae2260ccb705ea1322cf9f1
+    sources:
+      - path: notebooks/sort_intan.ipynb
+        location: Code cells 6, 7, 10, 11 (zero-based)
+      - path: readme.md
+        location: Acquisition-to-curation workflow
+    public: true
+    maturity: Implemented
+    verification: Source inspected; acquisition hardware and source recordings not rerun.
+    measurement_definition: Implementation evidence, not a timing or channel-yield measurement.
+    test_conditions: Intan RHD input; explicit probe/contact-count guard; SpikeInterface and Kilosort4.
+    verified_result: Reader, probe mapping, filtering, sorting, waveform extraction, and quality-metric computation are implemented.
+    limitations: Public evidence covers file processing. The timing implementation is private; no public timing logs or bench-quality report were available.
+    visual:
+      kind: flow
+      title: Implemented file-processing path
+      steps: [Intan RHD, Probe checks, Kilosort4, Waveforms / QA]
+      caption: Architecture traced from the public notebook; not a latency measurement.
+
+  dhn-fidelity:
+    repository: BarkBarkBarkBarkBarkBarkBark/DHN_validation
+    revision: 496c2326f000037698f7b92b4b3a4139c3a70d13
+    sources:
+      - path: sort_med/evidence/8_7_filetype_comparison.ipynb
+        location: Code cells 0-2 (zero-based), including saved stdout and execute_result
+    public: true
+    maturity: Validated
+    verification: Code and archived outputs cross-checked; raw source data unavailable for an independent rerun.
+    measurement_definition: Elementwise CSC-minus-MED difference in microvolts; maximum absolute difference and nonzero count, before and after numpy.round of CSC.
+    test_conditions: First 20,000,000 frames of one channel at 32,000 samples/s; MED contigua concatenated; physical-unit scaling.
+    verified_result: "19,951,989 nonzero differences; maximum absolute error 0.5 uV. After whole-microvolt source rounding: zero mismatches. Compared duration is 625 s, derived as frames / sample rate."
+    values:
+      frames: 20000000
+      channels: 1
+      sample_rate_hz: 32000
+      duration_seconds: 625
+      nonzero_before_rounding: 19951989
+      max_abs_error_uv: 0.5
+      nonzero_after_rounding: 0
+    limitations: Not bit-exact relative to unrounded source. Mean error, compression ratio, file-size reduction, and encoder lossless/lossy settings are not established by these outputs. Do not generalize to complete sessions or other configurations.
+    visual:
+      kind: bars
+      title: Sample agreement across the tested slice
+      maximum: 20000000
+      unit: matching samples
+      bars:
+        - {label: Before source rounding, value: 48011, display: "48,011 / 20,000,000"}
+        - {label: After source rounding, value: 20000000, display: "20,000,000 / 20,000,000"}
+      caption: Redrawn from saved aggregate outputs. Before-rounding matches = total samples minus nonzero differences.
+
+  dhn-spike-control:
+    repository: BarkBarkBarkBarkBarkBarkBark/DHN_validation
+    revision: 496c2326f000037698f7b92b4b3a4139c3a70d13
+    sources:
+      - path: sort_med/evidence/Strict_Comparison_of_Sorted_Spikes.ipynb
+        location: Code cells 0-5 (zero-based), especially saved cell 5 output
+    public: true
+    maturity: Validated
+    verification: Archived code/output agreement inspected; no raw-data rerun or new sorting performed.
+    measurement_definition: Exact intersection of the first sorted unit's spike-frame arrays; Jaccard = intersection / union with zero frame tolerance.
+    test_conditions: Same 20-million-frame single-channel slice; both inputs scaled to uV and rounded to int32; canonical arrays asserted equal. Bandpass 300-6000 Hz; local whitening seed 0; MountainSort5 scheme 2 with internal filter/whiten disabled.
+    verified_result: "35,587 CSC spikes and 35,587 MED spikes; 35,587 exact frame matches; no source-only events; exact Jaccard 1.0."
+    values: {csc_spikes: 35587, med_spikes: 35587, exact_matches: 35587, exact_jaccard: 1.0}
+    limitations: Controlled consistency of equal rounded inputs, not proof of unrounded fidelity, biological unit correctness, all-unit conservation, real-time performance, or algorithm authorship.
+
+  waveform-features:
+    repository: BarkBarkBarkBarkBarkBarkBark/spike_discrim
+    revision: a697e68898c688ccc5dfe23ced78dbc6494ca1c1
+    sources:
+      - path: docs/clustering_results.md
+        location: Dataset description, metric definitions, event-family result row
+      - path: src/spike_discrim/benchmarking/afferent_clustering.py
+        location: _cluster_match_accuracy and run_afferent_clustering_benchmark
+      - path: src/spike_discrim/metrics/evaluation.py
+        location: Nearest-neighbor purity implementation
+    public: true
+    maturity: Validated
+    verification: Report checked against metric implementation; source waveform snippets not downloaded or reprocessed.
+    measurement_definition: KNN-k5 purity is mean same-label neighbor fraction, excluding self. Matched accuracy uses Hungarian cluster-to-label assignment. ARI is chance-corrected clustering agreement.
+    test_conditions: 38,145 spike snippets; 10 putative O-Sort labels; tier-3 features; event-family WeightBank with 10 bins, sigma_scale 1.0, threshold 0.5; KMeans 10 clusters, n_init 10, seed 42.
+    verified_result: "Event family: KNN-k5 purity 0.9504; matched clustering accuracy 0.5426; ARI 0.3665."
+    values: {spike_snippets: 38145, putative_units: 10, knn_k: 5, knn_purity: 0.9504, matched_accuracy: 0.5426, ari: 0.3665}
+    limitations: Offline label-agreement analysis, not held-out classification accuracy, biological ground truth, or online sorting validation. Class imbalance and curated-snippet selection limit generalization.
+    visual:
+      kind: bars
+      title: Event-family offline label agreement
+      maximum: 100
+      unit: percent
+      bars:
+        - {label: KNN purity (k=5), value: 95.04, display: "95.04%"}
+        - {label: Matched KMeans accuracy, value: 54.26, display: "54.26%"}
+      caption: Different metrics on the same curated snippets; neighborhood purity is not sorter accuracy.
+
+  semantic-simulation:
+    repository: BarkBarkBarkBarkBarkBarkBark/semantic_neuron
+    revision: 349fe4be084a5b49b4b2037995a137ee6f83994b
+    sources:
+      - path: neuronlib.py
+        location: NeuronSimulator.input_rate, _make_inputs, simulate, plot_response
+    public: true
+    maturity: Prototype
+    verification: Source and limitations inspected; NEURON simulation not rerun.
+    measurement_definition: Software capability only; no measured human-neuron or adaptive-experiment outcome.
+    test_conditions: Seeded stochastic presynaptic inputs, sentence embeddings, single-compartment NEURON simulation, fixed synaptic weights.
+    verified_result: Stimulus-bounded simulation returns presynaptic events, voltage traces, spike times, similarity, and firing rates.
+    limitations: Adaptive semantic search and stimulus-aligned human analysis are development directions, not validated capabilities of this repository.
+
+  dhn-acquisition:
+    repository: BarkBarkBarkBarkBarkBarkBark/dhn_client
+    revision: c4b0420a2f43aaca2367a7034a5deef7019528ee
+    sources:
+      - path: src/darkhorse_neuralynx/dhn_client
+        kind: tree
+        location: Configuration and orchestration implementation
+      - path: src/darkhorse_neuralynx/pegasus_bridge/nrd_stream.py
+        location: NRD replay implementation
+    public: true
+    maturity: Prototype
+    verification: Source inspected; no hardware reception or replay benchmark rerun.
+    measurement_definition: Implementation evidence only.
+    test_conditions: DHN-AQ configuration files, SSH orchestration, and archived NRD-to-UDP replay.
+    verified_result: Configuration and replay software implemented.
+    limitations: Does not implement the DHN compression algorithm or establish live acquisition performance.
+
+  intan-timing-withheld:
+    repository: ZLab2024/intan_aquisition
+    revision: 9b31592d0281826644d3b13e76ce22b2b69ec94e
+    sources:
+      - path: validate_timing.py
+        location: analyze, linear_fit, percentile
+      - path: experiment_w_livenote.py
+        location: PsychoPy callback and queued RHX LiveNote sender
+    public: false
+    maturity: Implemented
+    verification: Private source inspected; user chose to omit numerical results without original records.
+    measurement_definition: Ordinary least-squares affine fit of relative RHX sample indices against monotonic flip-callback time. Signed residual = (observed sample - fitted sample) / fitted slope * 1000. P95 and maximum operate on absolute residuals; P95 uses linear interpolation.
+    test_conditions: Nominal sample rate passed as an argument; fitted slope used for residual conversion; exact trial-name joins.
+    verified_result: Clock-alignment implementation verified by inspection; supplied recording-level measurements not independently verified.
+    limitations: No event logs, timestamp records, saved plots, or bench-test channel-quality report in the inspected revision. No timing or channel-yield numbers approved for publication in this update. Not physical onset jitter, TTL validation, or closed-loop latency.
+
+  legacy-professional:
+    repository: BarkBarkBarkBarkBarkBarkBark/resumes_and_letters
+    revision: f98d69e5f38f80ad83a700143c02d837b9832652
+    sources:
+      - path: resume/data/base_resume.yaml
+        location: Analytics summary and First Step Communities bullets
+    public: false
+    maturity: Self-reported
+    verification: Pre-existing candidate-provided claims; organizational records not supplied.
+    measurement_definition: Shelter-site count, monthly service volume, tenure, and standardized-form count.
+    test_conditions: Historical professional experience, outside the neural engineering evaluation.
+    verified_result: No independent verification; legacy text reports 4 sites, 400+ people/month, 5 years, and 40+ forms.
+    limitations: Retained for existing non-engineering profiles only. Engineering and research-CV profiles select nonquantitative supporting bullets.

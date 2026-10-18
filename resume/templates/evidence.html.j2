@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Engineering evidence &mdash; Marco Del Fava</title>
+  <style>
+    body { margin:0 auto; max-width:850px; padding:2rem 1.25rem; color:#182833; background:#fff; font:16px/1.65 system-ui,sans-serif; }
+    a { color:#14546b; overflow-wrap:anywhere; text-underline-offset:.2em; }
+    a:focus-visible { outline:3px solid #9b4d16; outline-offset:3px; }
+    h1, h2 { line-height:1.25; }
+    article { margin-top:2rem; border-top:1px solid #ccd8db; padding-top:1rem; }
+    dt { font-weight:700; margin-top:.8rem; }
+    dd { margin:0; }
+    code { overflow-wrap:anywhere; }
+  </style>
+</head>
+<body>
+<main>
+  <a href="index.html">Back to portfolio</a>
+  <h1>Engineering evidence &amp; measurement definitions</h1>
+  <p>Implementation and archived-result review, not a new experiment or independent raw-data rerun.
+    Only approved public implementation references and aggregate results are included.
+    No raw recordings, waveform snippets, patient identifiers, or private lab artifacts are hosted here.</p>
+  <p><strong>Validated</strong> denotes an evaluation with inspectable saved results;
+    <strong>Implemented</strong> denotes source-inspected software;
+    <strong>Prototype</strong> does not imply validated acquisition or real-time performance.</p>
+  {% for key, record in records.items() %}
+  <article id="{{ key }}">
+    <h2>{{ key | replace('-', ' ') | title }}</h2>
+    <p><strong>{{ record.maturity }}</strong> &middot; {{ record.repository }}<br>Revision: <code>{{ record.revision }}</code></p>
+    <dl>
+      <dt>What was verified</dt><dd>{{ record.verification }}</dd>
+      <dt>Measurement definition</dt><dd>{{ record.measurement_definition }}</dd>
+      <dt>Test conditions</dt><dd>{{ record.test_conditions }}</dd>
+      <dt>Result</dt><dd>{{ record.verified_result }}</dd>
+      <dt>Limitations &amp; applicability</dt><dd>{{ record.limitations }}</dd>
+      <dt>Exact sources</dt>
+      <dd><ul>{% for source in record.sources %}<li><a href="{{ source.url }}">{{ source.path }}</a> &mdash; {{ source.location }}</li>{% endfor %}</ul></dd>
+    </dl>
+  </article>
+  {% endfor %}
+  {% if source_commit %}<footer>Portfolio source revision: {{ source_commit }}</footer>{% endif %}
+</main>
+</body>
+</html>

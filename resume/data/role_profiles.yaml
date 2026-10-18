@@ -20,15 +20,15 @@
 
 neuroengineering:
   name: "Neuroengineering Research CV"
+  engineering_focus: true
   summary_key: neuroengineering
   include_volunteer: true
   include_coursework: false
   include_supporting_volunteer: false
   max_bullets_per_additional_role: 1
-  additional_prefer_tags: [it, quality]
+  additional_prefer_tags: [engineering_support]
   max_bullets_per_research_role: 2
-  project_order: [intan, sorting, semantic, neuralynx]
-  page_break_before_project: neuralynx
+  project_order: [intan, compression, sorting, semantic, neuralynx]
   prefer_tags:
     - neuroengineering
     - research
@@ -53,6 +53,27 @@ neuroengineering:
     - Neural Acquisition & Tooling
     - Machine Learning & Data Science
     - General Technical
+  cover_letter_opener: neuroengineering
+
+engineering:
+  name: "Neural Engineering Resume (one page)"
+  engineering_focus: true
+  summary_key: neuroengineering
+  compact: true
+  include_volunteer: true
+  include_supporting_volunteer: false
+  include_coursework: false
+  include_certifications: false
+  max_bullets_per_additional_role: 1
+  additional_prefer_tags: [engineering_support]
+  max_bullets_per_research_role: 1
+  max_bullets_per_project: 2
+  project_order: [intan, compression, sorting]
+  max_skills_per_category: 1
+  skill_categories:
+    - Neural Data & Signal Processing
+    - Neural Acquisition & Tooling
+    - Machine Learning & Data Science
   cover_letter_opener: neuroengineering
 
 data_analytics:

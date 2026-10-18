@@ -7,6 +7,7 @@ python resume/scripts/build_resume.py --profile neuroengineering --output marco_
 import argparse
 import copy
 import json
+import re
 import shutil
 import subprocess
 from datetime import datetime
@@ -88,6 +89,43 @@ def _score_bullet(bullet: dict, prefer: list, deprioritize: list) -> int:
     return sum(tag in prefer for tag in tags) - sum(tag in deprioritize for tag in tags)
 
 
+def public_evidence(projects: list) -> dict:
+    inventory = load_yaml(DATA_DIR / "evidence_inventory.yaml")["records"]
+    selected = {}
+    for project in projects:
+        for key in project.get("evidence_ids", []):
+            if key not in inventory or inventory[key].get("public") is not True:
+                raise ValueError(f"Project {project['id']} references unpublished evidence: {key}")
+            record = copy.deepcopy(inventory[key])
+            revision = record.get("revision")
+            if not isinstance(revision, str) or not re.fullmatch(r"[0-9a-f]{40}", revision):
+                raise ValueError(f"Public evidence requires a full commit SHA: {key}")
+            if not record.get("sources"):
+                raise ValueError(f"Public evidence requires exact sources: {key}")
+            if record.get("maturity") not in ("Implemented", "Validated", "Prototype"):
+                raise ValueError(f"Public evidence has an invalid maturity: {key}")
+            for field in (
+                "measurement_definition", "test_conditions", "verified_result",
+                "limitations", "verification",
+            ):
+                if not record.get(field):
+                    raise ValueError(f"Evidence {key} is missing {field}")
+            for source in record["sources"]:
+                source["url"] = https_url(
+                    f"https://github.com/{record['repository']}/"
+                    f"{source.get('kind', 'blob')}/{record['revision']}/{source['path']}"
+                )
+            visual = record.get("visual", {})
+            if visual.get("kind") == "bars":
+                maximum = visual["maximum"]
+                if maximum <= 0 or any(
+                    not 0 <= bar["value"] <= maximum for bar in visual["bars"]
+                ):
+                    raise ValueError(f"Evidence chart values are out of range: {key}")
+            selected[key] = record
+    return selected
+
+
 def apply_profile(data: dict, profile: dict) -> dict:
     result = copy.deepcopy(data)
     prefer = profile.get("prefer_tags", [])
@@ -135,8 +173,12 @@ def apply_profile(data: dict, profile: dict) -> dict:
     if categories:
         groups = {group["category"]: group for group in result["skills"]}
         result["skills"] = [groups[category] for category in categories if category in groups]
+    for group in result.get("skills", []):
+        group["items"] = group["items"][:profile.get("max_skills_per_category", 99)]
     if not profile.get("include_coursework", False):
         result["coursework"] = []
+    if not profile.get("include_certifications", True):
+        result["certifications"] = []
 
     for project in result.get("projects", []):
         project["bullets"] = bullets(
@@ -148,6 +190,9 @@ def apply_profile(data: dict, profile: dict) -> dict:
     if order:
         projects = {project["id"]: project for project in result.get("projects", [])}
         result["projects"] = [projects[key] for key in order]
+    result["compact"] = profile.get("compact", False)
+    result["engineering_focus"] = profile.get("engineering_focus", False)
+    result["evidence_records"] = public_evidence(result.get("projects", []))
     result["page_break_before_education"] = profile.get("page_break_before_education", False)
     result["page_break_before_project"] = profile.get("page_break_before_project")
     return result

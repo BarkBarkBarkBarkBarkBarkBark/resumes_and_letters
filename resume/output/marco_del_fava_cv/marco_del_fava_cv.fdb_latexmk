@@ -1,5 +1,5 @@
 # Fdb version 4
-["pdflatex"] 1792272039.05728 "marco_del_fava_cv.tex" "marco_del_fava_cv.pdf" "marco_del_fava_cv" 1792272040.28665 0
+["pdflatex"] 1792342379.28335 "marco_del_fava_cv.tex" "marco_del_fava_cv.pdf" "marco_del_fava_cv" 1792342380.49411 0
   "/Users/marco/Library/texlive/2026basic/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1792259013 119799 04b4f15a1d9d0dd0fdfd3b538065bdeb ""
   "/Users/marco/Library/texlive/2026basic/texmf-var/luatex-cache/generic/fonts/otl/lmroman10-bold.luc" 1792258932.59442 128415 5e4d3348447bed60e8965a95fcb87dc7 ""
   "/Users/marco/Library/texlive/2026basic/texmf-var/luatex-cache/generic/fonts/otl/lmroman10-regular.luc" 1792258932.40716 127332 ecc3207f80f96778d171df622df463f9 ""
@@ -15,7 +15,7 @@
   "/Users/marco/Library/texlive/2026basic/texmf-var/luatex-cache/generic/fonts/otl/texgyretermes-bolditalic.luc" 1792259030.18252 200756 1fc2dee048e3924852c0b815b1abd886 ""
   "/Users/marco/Library/texlive/2026basic/texmf-var/luatex-cache/generic/fonts/otl/texgyretermes-italic.luc" 1792259030.31425 207921 4952ce3a9afde30ab4e02cc6a08995e2 ""
   "/Users/marco/Library/texlive/2026basic/texmf-var/luatex-cache/generic/fonts/otl/texgyretermes-regular.luc" 1792259030.11355 207332 5a183a6fa94cf5c5820bf12f6cb14bdf ""
-  "/Users/marco/Library/texlive/2026basic/texmf-var/luatex-cache/generic/names/luaotfload-lookup-cache.luc" 1792271563.69412 5898 e423e4d0590858dc626dfd9098e6cd06 ""
+  "/Users/marco/Library/texlive/2026basic/texmf-var/luatex-cache/generic/names/luaotfload-lookup-cache.luc" 1792339359.15398 6272 904d953cfc0a1dbb59828e87f0f88fb3 ""
   "/Users/marco/Library/texlive/2026basic/texmf-var/luatex-cache/generic/names/luaotfload-names.luc.gz" 1792259030.04357 104159 4383e6153849061017f17bc5e24506b7 ""
   "/Users/marco/Library/texmf/fonts/opentype/public/tex-gyre/texgyreheros-bold.otf" 1257299502 135204 f5f20609880fff666e17267854df804d ""
   "/Users/marco/Library/texmf/fonts/opentype/public/tex-gyre/texgyretermes-bold.otf" 1255129411 139480 b2ce0a0c2079aa232706b5a8b31d2a88 ""
@@ -150,9 +150,9 @@
   "/usr/local/texlive/2026basic/texmf-var/web2c/luahbtex/lualatex.fmt" 1772405607 5656746 23be887ec5eaad35c6439bcddf1a40c3 ""
   "icons/github.png" 1792271832.87184 5437 4aa14a030498aaa1900006568a1f5163 ""
   "icons/linkedin.png" 1792271304.76705 11287 42a13514a8673bfb80295805659f979e ""
-  "marco_del_fava_cv.aux" 1792272040.15492 928 c0674fea12c43285d680028de50a4f04 "pdflatex"
-  "marco_del_fava_cv.out" 1792272039.98141 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
-  "marco_del_fava_cv.tex" 1792272038.9242 11408 6b38316d429a200923b14f7c4a0f34aa ""
+  "marco_del_fava_cv.aux" 1792342380.3559 962 003d519cce6e8c783578f14f55825eeb "pdflatex"
+  "marco_del_fava_cv.out" 1792342380.17593 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
+  "marco_del_fava_cv.tex" 1792342379.15248 13689 1376f3a98fb110b020fc703bc8d0978a ""
   (generated)
   "marco_del_fava_cv.aux"
   "marco_del_fava_cv.log"
