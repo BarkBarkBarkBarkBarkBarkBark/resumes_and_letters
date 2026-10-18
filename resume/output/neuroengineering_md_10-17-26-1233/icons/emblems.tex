@@ -1,0 +1,15 @@
+% emblems.tex — simple TikZ-based emblem placeholders
+% Defines \icongithub, \iconlinkedin, \iconorcid, \iconpython for inclusion in resume.tex
+\usepackage{tikz}
+\newcommand{\icongithub}{%
+  \tikz[baseline=-0.5ex]\node[draw=black,fill=black,text=white,rounded corners=2pt,inner sep=2pt]{\small GH};%
+}
+\newcommand{\iconlinkedin}{%
+  \tikz[baseline=-0.5ex]\node[draw=black,fill=blue!75,text=white,rounded corners=2pt,inner sep=2pt]{\small LI};%
+}
+\newcommand{\iconorcid}{%
+  \tikz[baseline=-0.5ex]\node[draw=black,fill=green!70!black,text=white,rounded corners=2pt,inner sep=2pt]{\small OR};%
+}
+\newcommand{\iconpython}{%
+  \tikz[baseline=-0.5ex]\node[draw=black,fill=blue!60!black,text=white,rounded corners=2pt,inner sep=2pt]{\small Py};%
+}

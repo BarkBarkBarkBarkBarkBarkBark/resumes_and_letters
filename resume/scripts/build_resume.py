@@ -1,436 +1,321 @@
 #!/usr/bin/env python3
-"""
-build_resume.py — Generate resume Markdown, DOCX, and PDF from base_resume.yaml.
+"""Build a CV from canonical YAML. Run from the repository root.
 
-Usage:
-    python scripts/build_resume.py
-    python scripts/build_resume.py --profile neuroengineering
-    python scripts/build_resume.py --profile data_analytics
-    python scripts/build_resume.py --profile neuroengineering --output my_resume
-    python scripts/build_resume.py --list-profiles
-    python scripts/build_resume.py --md-only
+python resume/scripts/build_resume.py --profile neuroengineering --output marco_del_fava_cv
 """
 
 import argparse
 import copy
+import json
+import shutil
 import subprocess
-import sys
+from datetime import datetime
 from pathlib import Path
+from typing import Optional
+from urllib.parse import urlsplit
 
 import yaml
-from jinja2 import Environment, FileSystemLoader
+from jinja2 import Environment, FileSystemLoader, select_autoescape
 
-# ── Path constants ────────────────────────────────────────────────────────────
 ROOT = Path(__file__).resolve().parent.parent
 DATA_DIR = ROOT / "data"
 TEMPLATES_DIR = ROOT / "templates"
 OUTPUT_DIR = ROOT / "output"
+REQUIRED_TOP_LEVEL = ["personal", "summary", "skills", "experience", "education"]
+_MONTH_ABBR = dict(zip(
+    [f"{month:02d}" for month in range(1, 13)],
+    ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+))
 
-
-# ── YAML loading ──────────────────────────────────────────────────────────────
 
 def load_yaml(path: Path) -> dict:
-    with open(path, encoding="utf-8") as f:
-        return yaml.safe_load(f)
-
-
-# ── Validation ────────────────────────────────────────────────────────────────
-
-REQUIRED_TOP_LEVEL = ["personal", "summary", "skills", "experience", "education"]
+    with path.open(encoding="utf-8") as source:
+        return yaml.safe_load(source)
 
 
 def validate_resume(data: dict) -> None:
-    """Raise ValueError if required fields are missing."""
     for field in REQUIRED_TOP_LEVEL:
         if field not in data:
             raise ValueError(f"Missing required top-level field: '{field}'")
-    personal = data["personal"]
-    if not personal.get("name"):
+    if not data["personal"].get("name"):
         raise ValueError("personal.name is required")
-    contact = personal.get("contact", {})
-    if not contact.get("email"):
+    if not data["personal"].get("contact", {}).get("email"):
         raise ValueError("personal.contact.email is required")
 
 
-# ── Date formatting ───────────────────────────────────────────────────────────
-
-_MONTH_ABBR = {
-    "01": "Jan", "02": "Feb", "03": "Mar", "04": "Apr",
-    "05": "May", "06": "Jun", "07": "Jul", "08": "Aug",
-    "09": "Sep", "10": "Oct", "11": "Nov", "12": "Dec",
-}
-
-
 def fmt_date(value) -> str:
-    """Convert YYYY-MM or YYYY date strings to readable form (e.g. 'Jul 2021')."""
     if value is None:
         return ""
-    val = str(value).strip()
-    if val.lower() == "present":
+    value = str(value).strip()
+    if value.lower() == "present":
         return "Present"
-    # Year only
-    if val.isdigit() and len(val) == 4:
-        return val
-    parts = val.split("-")
+    parts = value.split("-")
     if len(parts) == 2:
         year, month = parts
         return f"{_MONTH_ABBR.get(month.zfill(2), month)} {year}"
-    return val
+    return value
 
 
-# ── Role profile filtering ────────────────────────────────────────────────────
+def https_url(value: str) -> str:
+    value = value.strip()
+    if urlsplit(value).scheme not in ("", "https"):
+        raise ValueError(f"Expected an HTTPS evidence/profile URL, got: {value!r}")
+    if not value.startswith(("http://", "https://")):
+        value = "https://" + value
+    parsed = urlsplit(value)
+    if parsed.scheme != "https" or not parsed.hostname or parsed.username or parsed.password or any(
+        char.isspace() or char in '{}\\' for char in value
+    ):
+        raise ValueError(f"Expected an HTTPS evidence/profile URL, got: {value!r}")
+    return value
+
+
+def normalize_item(item) -> dict:
+    """Accept legacy strings at the boundary; templates always receive text/evidence."""
+    if isinstance(item, str):
+        item = {"text": item}
+    if not isinstance(item, dict) or not isinstance(item.get("text"), str) or not item["text"].strip():
+        raise ValueError(f"Expected a nonempty text item, got: {item!r}")
+    result = dict(item)
+    result["text"] = result["text"].strip()
+    if result.get("evidence"):
+        result["evidence"] = https_url(result["evidence"])
+    return result
+
 
 def _score_bullet(bullet: dict, prefer: list, deprioritize: list) -> int:
-    """Return a priority score for a bullet based on tag overlap with profile."""
     tags = bullet.get("tags", [])
-    score = sum(1 for t in tags if t in prefer)
-    score -= sum(1 for t in tags if t in deprioritize)
-    return score
+    return sum(tag in prefer for tag in tags) - sum(tag in deprioritize for tag in tags)
 
 
 def apply_profile(data: dict, profile: dict) -> dict:
-    """
-    Return a deep copy of data with content filtered per the active role profile:
-      - summary_text added (selected variant)
-      - experience bullets sorted by tag score, capped at max_bullets_per_role
-      - volunteer bullets similarly filtered (or section cleared)
-      - skills filtered to profile's skill_categories
-      - coursework cleared if include_coursework is False
-    """
     result = copy.deepcopy(data)
-
     prefer = profile.get("prefer_tags", [])
     deprioritize = profile.get("deprioritize_tags", [])
     max_bullets = profile.get("max_bullets_per_role", 99)
 
-    # Select summary variant
+    def bullets(items: list, limit: int, priorities: Optional[list] = None) -> list:
+        normalized = [normalize_item(item) for item in items]
+        priorities = prefer if priorities is None else priorities
+        if priorities:
+            normalized.sort(key=lambda item: _score_bullet(item, priorities, deprioritize), reverse=True)
+        return normalized[:limit]
+
     summaries = result.get("summary", {})
-    summary_key = profile.get("summary_key", "default")
-    if isinstance(summaries, dict):
-        result["summary_text"] = summaries.get(summary_key) or summaries.get("default", "")
-    else:
-        result["summary_text"] = str(summaries)
+    result["summary_text"] = (
+        summaries.get(profile.get("summary_key", "default")) or summaries.get("default", "")
+        if isinstance(summaries, dict) else str(summaries)
+    )
+    contact = result["personal"]["contact"]
+    for key in ("github", "linkedin"):
+        if contact.get(key):
+            contact[key] = https_url(contact[key])
 
-    # Filter and sort experience bullets
     for job in result.get("experience", []):
-        bullets = job.get("bullets", [])
-        if prefer:
-            bullets = sorted(
-                bullets,
-                key=lambda b: _score_bullet(b, prefer, deprioritize),
-                reverse=True,
-            )
-        job["bullets"] = bullets[:max_bullets]
+        job["bullets"] = bullets(
+            job.get("bullets", []), profile.get("max_bullets_per_additional_role", max_bullets),
+            profile.get("additional_prefer_tags", prefer),
+        )
+    volunteers = result.get("volunteer", []) if profile.get("include_volunteer", True) else []
+    for entry in volunteers:
+        limit = profile.get(
+            "max_bullets_per_research_role" if entry.get("section") == "research"
+            else "max_bullets_per_additional_role", max_bullets
+        )
+        entry["bullets"] = bullets(entry.get("bullets", []), limit)
+    result["research"] = [entry for entry in volunteers if entry.get("section") == "research"]
+    result["volunteer"] = [
+        entry for entry in volunteers
+        if entry.get("section") != "research" and profile.get("include_supporting_volunteer", True)
+    ]
 
-    # Filter volunteer section
-    if not profile.get("include_volunteer", True):
-        result["volunteer"] = []
-    else:
-        for entry in result.get("volunteer", []):
-            bullets = entry.get("bullets", [])
-            if prefer:
-                bullets = sorted(
-                    bullets,
-                    key=lambda b: _score_bullet(b, prefer, deprioritize),
-                    reverse=True,
-                )
-            entry["bullets"] = bullets[:max_bullets]
-
-    # Filter skill categories
-    skill_categories = profile.get("skill_categories", [])
-    if skill_categories:
-        # Preserve the order defined in the profile
-        ordered = {cat: None for cat in skill_categories}
-        for s in result.get("skills", []):
-            if s.get("category") in ordered:
-                ordered[s["category"]] = s
-        result["skills"] = [v for v in ordered.values() if v is not None]
-
-    # Optionally clear coursework
+    for group in result.get("skills", []):
+        group["items"] = [normalize_item(item) for item in group["items"]]
+    categories = profile.get("skill_categories", [])
+    if categories:
+        groups = {group["category"]: group for group in result["skills"]}
+        result["skills"] = [groups[category] for category in categories if category in groups]
     if not profile.get("include_coursework", False):
         result["coursework"] = []
 
-    # Filter and sort project bullets
-    project_bullets = profile.get("max_bullets_per_project", max_bullets)
-    projects = result.get("projects", [])
-    for project in projects:
-        bullets = project.get("bullets", [])
-        if prefer:
-            bullets = sorted(
-                bullets,
-                key=lambda b: _score_bullet({"tags": project.get("tags", [])}, prefer, deprioritize),
-                reverse=True,
-            )
-        project["bullets"] = bullets[:project_bullets]
-
-    if prefer and projects:
-        projects = sorted(
-            projects,
-            key=lambda p: _score_bullet({"tags": p.get("tags", [])}, prefer, deprioritize),
-            reverse=True,
+    for project in result.get("projects", []):
+        project["bullets"] = bullets(
+            project.get("bullets", []), profile.get("max_bullets_per_project", max_bullets)
         )
-    result["projects"] = projects
-
+        for link in project.get("links", []):
+            link["url"] = https_url(link["url"])
+    order = profile.get("project_order", [])
+    if order:
+        projects = {project["id"]: project for project in result.get("projects", [])}
+        result["projects"] = [projects[key] for key in order]
+    result["page_break_before_education"] = profile.get("page_break_before_education", False)
+    result["page_break_before_project"] = profile.get("page_break_before_project")
     return result
 
 
-# ── Rendering ────────────────────────────────────────────────────────────────
+def latex_escape(value: str) -> str:
+    substitutions = {
+        "\\": r"\textbackslash{}", "&": r"\&", "%": r"\%", "$": r"\$",
+        "#": r"\#", "_": r"\_", "{": r"\{", "}": r"\}",
+        "~": r"\textasciitilde{}", "^": r"\textasciicircum{}",
+    }
+    return "".join(substitutions.get(char, char) for char in value)
 
-def render_resume(data: dict, profile: dict, template_name: str = "resume.md.j2") -> str:
-    """Render the resume to a Markdown string using Jinja2."""
-    filtered = apply_profile(data, profile)
+
+def template_environment() -> Environment:
     env = Environment(
         loader=FileSystemLoader(str(TEMPLATES_DIR)),
-        trim_blocks=True,
-        lstrip_blocks=True,
+        trim_blocks=True, lstrip_blocks=True,
+        autoescape=select_autoescape(enabled_extensions=("html.j2",)),
     )
     env.filters["fmt_date"] = fmt_date
-    template = env.get_template(template_name)
-    return template.render(**filtered)
+    env.filters["latex_escape"] = latex_escape
+    return env
 
 
-# ── Output helpers ────────────────────────────────────────────────────────────
-
-def _sanitize(s: str) -> str:
-    """Convert a string to a safe filename component."""
-    return (
-        s.lower()
-        .replace(" ", "_")
-        .replace("-", "_")
-        .replace("/", "_")
-        .replace(",", "")
-        .replace(".", "")
+def render_resume(data: dict, profile: dict, template_name: str = "resume.md.j2",
+                  output_format: str = "markdown") -> str:
+    return template_environment().get_template(template_name).render(
+        resume=apply_profile(data, profile), output_format=output_format
     )
 
 
-def get_output_stem(name: str, profile_key: str) -> str:
-    return f"{_sanitize(name)}_resume_{_sanitize(profile_key)}"
+def _sanitize(value: str) -> str:
+    return value.lower().replace(" ", "_").replace("-", "_").replace("/", "_").replace(",", "").replace(".", "")
 
 
-# ── Pandoc / LaTeX helpers ───────────────────────────────────────────────────
+def get_output_stem(name: str, profile_key: str, doc_type: str = "cv") -> str:
+    now = datetime.now()
+    return f"{_sanitize(profile_key)}_{_sanitize(doc_type)}_{now.month}-{now.day}-{now:%y-%H%M}"
+
 
 def _run_pandoc(args: list) -> tuple:
-    """Run pandoc with args. Returns (success: bool, error_message: str)."""
     try:
-        result = subprocess.run(
-            ["pandoc"] + args,
-            capture_output=True,
-            text=True,
-            timeout=120,
-        )
-        if result.returncode != 0:
-            return False, result.stderr.strip()
-        return True, ""
+        proc = subprocess.run(["pandoc"] + args, capture_output=True, text=True, timeout=120)
     except FileNotFoundError:
-        return False, "pandoc not found. Install with: brew install pandoc"
+        return False, "pandoc not found. Install Pandoc before building."
     except subprocess.TimeoutExpired:
         return False, "pandoc timed out."
+    return proc.returncode == 0, proc.stderr.strip()
 
 
 def to_docx(md_path: Path, docx_path: Path) -> bool:
-    ok, err = _run_pandoc([
-        str(md_path), "-f", "markdown", "-t", "docx",
-        "--standalone", "-o", str(docx_path),
+    ok, error = _run_pandoc([str(md_path), "--standalone", "-o", str(docx_path)])
+    if not ok:
+        print(f"[ERROR] DOCX generation failed: {error}")
+    return ok
+
+
+def to_tex(md_path: Path, tex_path: Path, template_path: Path) -> bool:
+    ok, error = _run_pandoc([
+        str(md_path), "--standalone", "-t", "latex", "--shift-heading-level-by=-1",
+        "--template", str(template_path),
+        "-o", str(tex_path),
     ])
     if not ok:
-        print(f"  [WARN] DOCX failed: {err}")
+        print(f"[ERROR] TEX generation failed: {error}")
     return ok
 
 
-def to_tex(md_path: Path, tex_path: Path, template_path: Path = None) -> bool:
-    """Render a LaTeX (.tex) file from Markdown using Pandoc and optional LaTeX template."""
-    args = [str(md_path), "-f", "markdown", "-t", "latex", "--standalone", "-o", str(tex_path)]
-    if template_path:
-        args.extend(["--template", str(template_path)])
-    ok, err = _run_pandoc(args)
-    if not ok:
-        print(f"  [WARN] TEX generation failed: {err}")
-    return ok
+def _tex_executable(name: str) -> str:
+    executable = shutil.which(name)
+    if executable:
+        return executable
+    candidate = Path("/Library/TeX/texbin") / name
+    if candidate.is_file():
+        return str(candidate)
+    raise FileNotFoundError(f"{name} not found. Install TeX Live/MacTeX with LuaLaTeX and latexmk.")
 
 
-def to_pdf(md_path: Path, pdf_path: Path, tex_path: Path = None, template_path: Path = None) -> bool:
-    """Produce a PDF preferring XeLaTeX with a custom LaTeX template.
+def to_pdf(md_path: Path, pdf_path: Path, tex_path: Optional[Path] = None,
+           template_path: Optional[Path] = None) -> bool:
+    tex_path = tex_path or pdf_path.with_suffix(".tex")
+    template_path = template_path or TEMPLATES_DIR / "resume.tex"
+    if not to_tex(md_path, tex_path, template_path):
+        return False
+    try:
+        latexmk = _tex_executable("latexmk")
+        lualatex = _tex_executable("lualatex")
+        proc = subprocess.run(
+            [latexmk, "-g", "-pdf", f"-pdflatex={lualatex} -interaction=nonstopmode -halt-on-error %O %S",
+             tex_path.name],
+            cwd=tex_path.parent, capture_output=True, text=True, timeout=300,
+        )
+    except (FileNotFoundError, subprocess.TimeoutExpired) as error:
+        print(f"[ERROR] PDF build failed: {error}")
+        return False
+    if proc.returncode != 0:
+        print(f"[ERROR] LuaLaTeX compilation failed:\n{proc.stdout[-2500:]}\n{proc.stderr[-1000:]}")
+        return False
+    produced = tex_path.with_suffix(".pdf")
+    if not produced.is_file():
+        print("[ERROR] LuaLaTeX did not produce a PDF.")
+        return False
+    if produced != pdf_path:
+        produced.replace(pdf_path)
+    return True
 
-    Strategy:
-      1. If a .tex template is provided, render .tex first (to_tex).
-      2. Try running xelatex on the generated .tex (best typographic control).
-      3. If xelatex not available or fails, fall back to pandoc engines (with xelatex first).
-    """
-    # 1) Render .tex if possible
-    if template_path:
-        try:
-            if not tex_path:
-                tex_path = pdf_path.with_suffix('.tex')
-            if to_tex(md_path, tex_path, template_path=template_path):
-                # Try running xelatex directly on the .tex file (twice for references)
-                try:
-                    r1 = subprocess.run([
-                        "xelatex", "-interaction=nonstopmode", "-halt-on-error",
-                        "-output-directory", str(tex_path.parent), str(tex_path)
-                    ], capture_output=True, text=True, timeout=120)
-                    r2 = subprocess.run([
-                        "xelatex", "-interaction=nonstopmode", "-halt-on-error",
-                        "-output-directory", str(tex_path.parent), str(tex_path)
-                    ], capture_output=True, text=True, timeout=120)
-                    if r1.returncode == 0 and r2.returncode == 0:
-                        # Move resulting PDF to desired location if necessary
-                        produced = tex_path.with_suffix('.pdf')
-                        if produced.exists():
-                            produced.replace(pdf_path)
-                            return True
-                except FileNotFoundError:
-                    # xelatex not installed; fall back to pandoc engines below
-                    pass
-                except subprocess.TimeoutExpired:
-                    print("  [WARN] xelatex timed out; falling back to pandoc engines.")
-        except Exception as exc:
-            print(f"  [WARN] .tex/XeLaTeX step failed: {exc}")
 
-    # 2) Fall back to pandoc engines, prefer xelatex
-    engines = ["xelatex", "weasyprint", "wkhtmltopdf", "pdflatex", "lualatex"]
-    for engine in engines:
-        args = [str(md_path), "-f", "markdown", "--standalone", f"--pdf-engine={engine}", "-o", str(pdf_path)]
-        if template_path and engine in ("xelatex", "pdflatex", "lualatex"):
-            # Tell pandoc to use the LaTeX template when producing .pdf via a LaTeX engine
-            args.extend(["--template", str(template_path)])
-        ok, _ = _run_pandoc(args)
-        if ok:
-            return True
-
-    print(
-        "  [WARN] PDF generation skipped — no supported PDF engine found.\n"
-        "         Install one of:\n"
-        "           sudo tlmgr install xetex (or BasicTeX via Homebrew)\n"
-        "           pip install weasyprint\n"
-        "           brew install wkhtmltopdf\n"
-        "         DOCX output is complete and usable."
+def build_resume(data: dict, profile: dict, stem: str, output_dir: Path = OUTPUT_DIR,
+                 md_only: bool = False) -> Path:
+    validate_resume(data)
+    filtered = apply_profile(data, profile)
+    folder = output_dir / stem
+    folder.mkdir(parents=True, exist_ok=True)
+    metadata = yaml.safe_dump({
+        "title": data["personal"]["name"], "author": data["personal"]["name"], "lang": "en",
+    }, sort_keys=False, allow_unicode=True)
+    frontmatter = f"---\n{metadata}---\n\n"
+    md_path = folder / f"{stem}.md"
+    md_path.write_text(frontmatter + render_resume(data, profile), encoding="utf-8")
+    (folder / f"{stem}.json").write_text(
+        json.dumps(filtered, indent=2, ensure_ascii=False) + "\n", encoding="utf-8"
     )
-    return False
+    if not md_only:
+        icons = folder / "icons"
+        icons.mkdir(exist_ok=True)
+        for name in ("github.png", "linkedin.png"):
+            shutil.copy2(TEMPLATES_DIR / "icons" / name, icons / name)
+        if not to_docx(md_path, folder / f"{stem}.docx"):
+            raise RuntimeError("DOCX build failed.")
+        pdf_source = folder / f"{stem}.pdf.md"
+        pdf_source.write_text(
+            frontmatter + render_resume(data, profile, output_format="latex"), encoding="utf-8"
+        )
+        try:
+            if not to_pdf(pdf_source, folder / f"{stem}.pdf"):
+                raise RuntimeError("PDF build failed; no publishable CV was produced.")
+        finally:
+            pdf_source.unlink()
+    print(f"[OK] CV artifacts: {folder}")
+    return folder
 
-
-# ── CLI ───────────────────────────────────────────────────────────────────────
 
 def main():
-    parser = argparse.ArgumentParser(
-        description="Build resume from YAML source.",
-        formatter_class=argparse.RawDescriptionHelpFormatter,
-        epilog=__doc__,
-    )
-    parser.add_argument(
-        "--profile", default=None,
-        help="Role profile key (see data/role_profiles.yaml). Default: target_metadata.default_profile",
-    )
-    parser.add_argument(
-        "--output", default=None,
-        help="Output filename stem without extension (default: auto-generated from name + profile)",
-    )
-    parser.add_argument(
-        "--data", default=None,
-        help="Path to resume YAML (default: data/base_resume.yaml)",
-    )
-    parser.add_argument(
-        "--list-profiles", action="store_true",
-        help="Print available profiles and exit",
-    )
-    parser.add_argument(
-        "--md-only", action="store_true",
-        help="Render Markdown only; skip DOCX and PDF generation",
-    )
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--profile")
+    parser.add_argument("--data", type=Path, default=DATA_DIR / "base_resume.yaml")
+    parser.add_argument("--output", help="Exact output stem; no timestamp is appended.")
+    parser.add_argument("--doc-type", default="cv")
+    parser.add_argument("--md-only", action="store_true")
+    parser.add_argument("--list-profiles", action="store_true")
     args = parser.parse_args()
-
     profiles = load_yaml(DATA_DIR / "role_profiles.yaml")
-
     if args.list_profiles:
-        print("Available profiles:")
-        for key, val in profiles.items():
-            print(f"  {key:<22} {val.get('name', '')}")
-        sys.exit(0)
-
-    data_path = Path(args.data) if args.data else DATA_DIR / "base_resume.yaml"
-    resume_data = load_yaml(data_path)
-
+        for key, profile in profiles.items():
+            print(f"{key}: {profile['name']}")
+        return
+    data = load_yaml(args.data)
+    key = args.profile or data.get("target_metadata", {}).get("default_profile", "default")
+    if key not in profiles:
+        parser.error(f"Unknown profile: {key}. Available: {', '.join(profiles)}")
+    stem = _sanitize(args.output) if args.output else get_output_stem(data["personal"]["name"], key, args.doc_type)
+    if not stem:
+        parser.error("--output must contain a filename stem.")
     try:
-        validate_resume(resume_data)
-    except ValueError as exc:
-        print(f"[ERROR] Validation failed: {exc}")
-        sys.exit(1)
-
-    meta = resume_data.get("target_metadata", {})
-    profile_key = args.profile or meta.get("default_profile", "default")
-
-    if profile_key not in profiles:
-        print(f"[ERROR] Profile '{profile_key}' not found. Run --list-profiles to see options.")
-        sys.exit(1)
-
-    profile = profiles[profile_key]
-    name = resume_data["personal"]["name"]
-
-    # Produce filtered data for this profile (used for frontmatter and JSON export)
-    filtered = apply_profile(resume_data, profile)
-
-    # Render Markdown using the Jinja2 template and the filtered data
-    env = Environment(
-        loader=FileSystemLoader(str(TEMPLATES_DIR)),
-        trim_blocks=True,
-        lstrip_blocks=True,
-    )
-    env.filters["fmt_date"] = fmt_date
-    template = env.get_template("resume.md.j2")
-    md_body = template.render(**filtered)
-
-    # Create per-resume subdirectory for all outputs (one folder per stem)
-    stem = args.output or get_output_stem(name, profile_key)
-    stem_dir = OUTPUT_DIR / stem
-    stem_dir.mkdir(parents=True, exist_ok=True)
-
-    md_path = stem_dir / f"{stem}.md"
-    docx_path = stem_dir / f"{stem}.docx"
-    pdf_path = stem_dir / f"{stem}.pdf"
-    json_path = stem_dir / f"{stem}.json"
-
-    # Remove obsolete link 'transformations.solutions' from contact if present
-    try:
-        contact = filtered.get("personal", {}).get("contact", {})
-        website = contact.get("website")
-        if website and "transformations.solutions" in str(website):
-            # delete the website entry so it won't appear in outputs
-            del filtered["personal"]["contact"]["website"]
-    except Exception:
-        # non-fatal; continue with export
-        pass
-
-    # Write YAML frontmatter (containing the filtered structured data) + the Markdown body
-    try:
-        fm = yaml.safe_dump(filtered, sort_keys=False, allow_unicode=True)
-    except Exception:
-        # Fallback: minimal frontmatter if yaml.dump fails for complex objects
-        fm = yaml.safe_dump({"name": filtered.get("personal", {}).get("name", name)}, sort_keys=False)
-
-    md_full = f"---\n{fm}---\n\n{md_body}"
-    md_path.write_text(md_full, encoding="utf-8")
-    print(f"[OK] Markdown  → {md_path.relative_to(ROOT)}")
-
-    # Also write a machine-readable JSON export for programmatic use
-    try:
-        import json
-        json_path.write_text(json.dumps(filtered, indent=2, ensure_ascii=False), encoding="utf-8")
-        print(f"[OK] JSON      → {json_path.relative_to(ROOT)}")
-    except Exception as exc:
-        print(f"  [WARN] JSON export failed: {exc}")
-
-    if not args.md_only:
-        if to_docx(md_path, docx_path):
-            print(f"[OK] DOCX      → {docx_path.relative_to(ROOT)}")
-
-        # Prefer producing a .tex using the custom LaTeX template and then PDF via XeLaTeX
-        tex_path = stem_dir / f"{stem}.tex"
-        template_path = TEMPLATES_DIR / "resume.tex"
-        if to_pdf(md_path, pdf_path, tex_path=tex_path, template_path=template_path):
-            print(f"[OK] PDF       → {pdf_path.relative_to(ROOT)}")
-        else:
-            print("[WARN] PDF not produced (see earlier warnings). DOCX and Markdown are available.")
-
-    print(f"\nDone. Profile: {profile.get('name', profile_key)}")
+        build_resume(data, profiles[key], stem, md_only=args.md_only)
+    except (ValueError, RuntimeError) as error:
+        parser.exit(1, f"[ERROR] {error}\n")
 
 
 if __name__ == "__main__":

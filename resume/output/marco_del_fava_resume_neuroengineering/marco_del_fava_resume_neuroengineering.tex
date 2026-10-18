@@ -1,0 +1,447 @@
+\documentclass[11pt]{article}
+% Publication-quality resume template (LuaLaTeX + latexmk recommended)
+% US Letter, single-column, restrained typography
+
+\usepackage{ifxetex}
+\usepackage{ifluatex}
+\ifnum\ifxetex 1\fi\ifluatex 1\fi=0
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+\else
+  \usepackage{fontspec}
+  \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
+  % Prefer TeX Gyre fonts when available; fall back to Latin Modern when not installed
+  \IfFontExistsTF{TeX Gyre Termes}{\setmainfont{TeX Gyre Termes}}{\setmainfont{Latin Modern Roman}}
+  \IfFontExistsTF{TeX Gyre Heros}{\setsansfont{TeX Gyre Heros}}{\setsansfont{Latin Modern Sans}}
+  \IfFontExistsTF{TeX Gyre Cursor}{\setmonofont{TeX Gyre Cursor}}{\setmonofont{Latin Modern Mono}}
+\fi
+
+\usepackage{microtype}
+\usepackage[letterpaper,margin=0.7in]{geometry}
+\usepackage{parskip}
+\usepackage[hidelinks]{hyperref}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\setlist[itemize]{noitemsep, topsep=2pt, parsep=0pt, itemsep=2pt, leftmargin=*, label=\textbullet}
+\usepackage{ragged2e}
+% Optional TikZ emblems (kept minimal; not used for core text)
+\usepackage{tikz}
+\IfFileExists{icons/emblems.tex}{\input{icons/emblems.tex}}{}
+
+% Centralized typographic sizes
+\newcommand{\namefontsize}{25pt}
+\newcommand{\bodyfontsize}{11pt}
+\newcommand{\sectionfontsize}{12pt}
+\newcommand{\contactfontsize}{10pt}
+\renewcommand{\baselinestretch}{1.18} % roughly 13pt leading for 11pt body
+\makeatletter
+\ifx\@setfontsize\undefined\else\fi
+\makeatother
+
+% Pandoc macro definitions
+\providecommand{\tightlist}{\setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+
+% Header layout commands
+\newcommand{\ResumeName}[1]{\vspace*{-0.5em}\noindent{\sffamily\bfseries\fontsize{\namefontsize}{0}\selectfont #1}\vspace{0.2em}\\}
+\newcommand{\ContactLine}[1]{\noindent{\small\normalfont #1}\vspace{0.1em}\\}
+
+% Section heading (avoid sectsty dependency; use simple unnumbered section formatting)
+\renewcommand{\section}[1]{\par\bigskip\noindent{\sffamily\bfseries\fontsize{\sectionfontsize}{0}\selectfont #1}\par\smallskip}
+\renewcommand{\subsection}[1]{\par\medskip\noindent{\sffamily\bfseries\fontsize{11pt}{0}\selectfont #1}\par\smallskip}
+
+% Ensure hyphenation and ragged-right for better extraction
+\raggedright
+
+\begin{document}
+\pagestyle{plain}
+
+% Title block from metadata: use Pandoc's Marco Del Fava, Marco Del
+Fava, and custom true metadata
+  \ResumeName{Marco Del Fava}
+      \noindent\small\texttt{mdelfava@ucdavis.edu} \quad 707-637-6544 \\
+    \href{https://github.com/BarkBarkBarkBarkBarkBarkBark}{GitHub}\quad 
+    \href{www.linkedin.com/in/marc-del-fava}{LinkedIn}\quad 
+  
+% Main body from pandoc
+\subsection{Summary}\label{summary}
+
+Recently admitted to the UC Davis M.S. in Biomedical Engineering (Fall
+2026) and active neuroscience researcher working at the intersection of
+human intracranial electrophysiology, single-unit digital signal
+processing, and neurotechnology tooling. Experience includes spike
+sorting with Kilosort4, O-Sort, and SpikeInterface; building
+GPU-accelerated pipelines on AWS; and implementing Dark Horse Neuro /
+Neuralynx acquisition workflows for replay, compression-aware MED
+recording, and large-scale neural data handling. I look forward to a
+career in neural signal processing, neural acquisition systems, and
+BCI-related infrastructure.
+
+\subsection{Selected Projects}\label{selected-projects}
+
+\subsubsection{Dark Horse Neuro / Neuralynx acquisition pipeline ---
+2026}\label{dark-horse-neuro-neuralynx-acquisition-pipeline-2026}
+
+Links:
+\href{https://github.com/BarkBarkBarkBarkBarkBarkBark/dhn_client}{GitHub}
+·
+\href{https://barkbarkbarkbarkbarkbarkbark.github.io/dhn_client/}{Docs}
+- Built a Python orchestration layer to launch DHN-AQ headlessly over
+SSH, generate RC/CS session files, and coordinate Pegasus / NetCom
+replay workflows for human intracranial recordings. - Implemented an NRD
+replay bridge that re-broadcasts ATLAS-format UDP packets so archived
+Neuralynx sessions can be ingested by DHN-AQ as if hardware were live. -
+Automated compression-aware MED recording setup for 512-channel macro /
+micro configurations, including decimation, lossless/lossy options, and
+pre-flight network diagnostics.
+
+\subsubsection{spike\_discrim single-unit DSP workbench ---
+2026}\label{spike_discrim-single-unit-dsp-workbench-2026}
+
+Links:
+\href{https://github.com/BarkBarkBarkBarkBarkBarkBark/spike_discrim}{GitHub}
+- Benchmarked low-latency waveform representations for real-time
+single-unit discrimination using curated OSort snippets, synthetic data,
+AUC, balanced accuracy, mutual information, and KNN purity. - Built a
+Numba-accelerated WeightBank population code to score spike-likeness and
+project waveforms into afferent activation space for clustering and
+unit-separation analysis.
+
+\subsubsection{SNN Agent real-time spike sorting ---
+2026}\label{snn-agent-real-time-spike-sorting-2026}
+
+Links:
+\href{https://github.com/BarkBarkBarkBarkBarkBarkBark/SNNeuro}{GitHub} -
+Developed a streaming spiking neural network with bandpass filtering,
+Kalman noise gating, competitive STDP, and browser-based monitoring for
+live spike detection and sorting. - Evaluated 20 kHz real-time pipeline
+behavior across synthetic, .ncs, UDP, and LSL inputs with online
+decoding for closed-loop neurotech use cases.
+
+\subsection{Experience}\label{experience}
+
+\textbf{Operations Specialist} --- \emph{First Step Communities} ---
+Sacramento, CA Jul 2021 --- Present
+
+\begin{itemize}
+\tightlist
+\item
+  Analyzed program and partner datasets using Python, SPSS, and Excel to
+  identify predictors of successful exits and service effectiveness.
+\item
+  Coordinated data collection from clinical partners including UC Davis
+  Health and Kaiser Permanente to support integrated care outcome
+  analyses.
+\item
+  Identified an association between on-site clinical engagement and
+  permanent housing outcomes; supported leadership in scaling integrated
+  clinical services across sites.
+\item
+  Developed 40+ standardized data collection forms and automated
+  reporting workflows using Microsoft Power Automate.
+\end{itemize}
+
+\textbf{Analyst} --- \emph{Eurofins Test America} --- West Sacramento,
+CA Oct 2019 --- Jun 2021
+
+\begin{itemize}
+\tightlist
+\item
+  Maintained high-accuracy data entry and review in a regulated
+  laboratory environment; supported QA documentation and adherence to
+  standard operating procedures.
+\item
+  Performed solvent extraction of organic compounds from soil and water
+  samples in a high-throughput production setting.
+\item
+  Coordinated daily scheduling and backlog management to meet turnaround
+  targets across teams.
+\end{itemize}
+
+\subsection{Education}\label{education}
+
+\textbf{M.S. Biomedical Engineering}, University of California, Davis,
+Davis, CA --- Beginning Fall 2026 Recently admitted; incoming first-year
+master's student
+
+\textbf{Python for Data Science, Professional Concentration}, UC Davis
+Continuing and Professional Education, Davis, CA --- 2025
+
+\textbf{M.S. Psychology}, Arizona State University, Tempe, AZ --- 2023
+
+\textbf{B.S. Neuroscience, Physiology, and Behavior}, University of
+California, Davis, Davis, CA --- 2017
+
+\subsection{Skills}\label{skills}
+
+\textbf{Neural Data \& Signal Processing:} Single-unit DSP and waveform
+feature extraction, Spike sorting (Kilosort4, O-Sort, SpikeInterface),
+Neural data processing (filtering, PCA, template matching, clustering),
+Intracranial electrophysiology (microwire, LFP, iEEG)
+
+\textbf{Neural Acquisition \& Tooling:} Neuralynx Pegasus / ATLAS /
+NetCom workflows, Dark Horse Neuro DHN-AQ RC/CS configuration, NRD
+replay, UDP relay, and MED archive generation, Linux, SSH automation,
+xvfb, and acquisition diagnostics
+
+\textbf{Machine Learning \& Data Science:} Python (NumPy, Pandas,
+scikit-learn, PyTorch, Numba), Statistical analysis (SPSS), SQL and
+database engineering (PostgreSQL, PGVector), Cloud GPU computing (AWS
+EC2, CUDA, Docker) and MATLAB workflows
+
+\textbf{General Technical:} Git and version control, Linux and shell
+scripting, Web interfaces (Streamlit), Microsoft 365 administration
+
+\textbf{Data Systems \& Reporting:} Dashboards and stakeholder reporting
+(Looker), Workflow automation (Microsoft 365, Power Automate), Survey
+design and focus group facilitation, Equity-informed outcomes
+measurement
+
+\subsection{Certifications}\label{certifications}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Data Analysis with Matplotlib, Pandas, and Scikit-Learn Python
+  Libraries} --- UC Davis Continuing and Professional Education
+  (2025-09-18) ---
+  \href{https://www.credly.com/badges/505ef11c-58b4-48bd-aa9e-5a21f0247d46/public_url}{Badge}-
+  \textbf{CITI --- Biomedical Research} --- CITI Program- \textbf{CITI
+  --- Essentials of Research Administration} --- CITI Program-
+  \textbf{CITI --- GCP Social and Behavioral Research Best Practices}
+  --- CITI Program Recently admitted to the UC Davis M.S. in Biomedical
+  Engineering (Fall 2026) and active neuroscience researcher working at
+  the intersection of human intracranial electrophysiology, single-unit
+  digital signal processing, and neurotechnology tooling. Experience
+  includes spike sorting with Kilosort4, O-Sort, and SpikeInterface;
+  building GPU-accelerated pipelines on AWS; and implementing Dark Horse
+  Neuro / Neuralynx acquisition workflows for replay, compression-aware
+  MED recording, and large-scale neural data handling. I look forward to
+  a career in neural signal processing, neural acquisition systems, and
+  BCI-related infrastructure.
+\end{itemize}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{Neuroscience Projects}\label{neuroscience-projects}
+
+\textbf{Dark Horse Neuro / Neuralynx acquisition pipeline} \textbar{}
+2026
+
+\begin{itemize}
+\item
+  Built a Python orchestration layer to launch DHN-AQ headlessly over
+  SSH, generate RC/CS session files, and coordinate Pegasus / NetCom
+  replay workflows for human intracranial recordings.
+\item
+  Implemented an NRD replay bridge that re-broadcasts ATLAS-format UDP
+  packets so archived Neuralynx sessions can be ingested by DHN-AQ as if
+  hardware were live.
+\item
+  Automated compression-aware MED recording setup for 512-channel macro
+  / micro configurations, including decimation, lossless/lossy options,
+  and pre-flight network diagnostics.
+\item
+  Links:
+  \href{https://github.com/BarkBarkBarkBarkBarkBarkBark/dhn_client}{GitHub}
+  ·
+  \href{https://barkbarkbarkbarkbarkbarkbark.github.io/dhn_client/}{Docs}
+  \textbf{spike\_discrim single-unit DSP workbench} \textbar{} 2026
+\item
+  Benchmarked low-latency waveform representations for real-time
+  single-unit discrimination using curated OSort snippets, synthetic
+  data, AUC, balanced accuracy, mutual information, and KNN purity.
+\item
+  Built a Numba-accelerated WeightBank population code to score
+  spike-likeness and project waveforms into afferent activation space
+  for clustering and unit-separation analysis.
+\item
+  Links:
+  \href{https://github.com/BarkBarkBarkBarkBarkBarkBark/spike_discrim}{GitHub}
+  \textbf{SNN Agent real-time spike sorting} \textbar{} 2026
+\item
+  Developed a streaming spiking neural network with bandpass filtering,
+  Kalman noise gating, competitive STDP, and browser-based monitoring
+  for live spike detection and sorting.
+\item
+  Evaluated 20 kHz real-time pipeline behavior across synthetic, .ncs,
+  UDP, and LSL inputs with online decoding for closed-loop neurotech use
+  cases.
+\item ~
+  \subsection{\texorpdfstring{Links:
+  \href{https://github.com/BarkBarkBarkBarkBarkBarkBark/SNNeuro}{GitHub}}{Links: GitHub}}\label{links-github}
+\end{itemize}
+
+\subsection{Experience}\label{experience-1}
+
+\textbf{Operations Specialist --- First Step Communities} \textbar{}
+Sacramento, CA \textbar{} Jul 2021 -- Present
+
+\begin{itemize}
+\tightlist
+\item
+  Analyzed program and partner datasets using Python, SPSS, and Excel to
+  identify predictors of successful exits and service effectiveness.
+\item
+  Coordinated data collection from clinical partners including UC Davis
+  Health and Kaiser Permanente to support integrated care outcome
+  analyses.
+\item
+  Identified an association between on-site clinical engagement and
+  permanent housing outcomes; supported leadership in scaling integrated
+  clinical services across sites.
+\item
+  Developed 40+ standardized data collection forms and automated
+  reporting workflows using Microsoft Power Automate.
+\end{itemize}
+
+\textbf{Analyst --- Eurofins Test America} \textbar{} West Sacramento,
+CA \textbar{} Oct 2019 -- Jun 2021
+
+\begin{itemize}
+\tightlist
+\item
+  Maintained high-accuracy data entry and review in a regulated
+  laboratory environment; supported QA documentation and adherence to
+  standard operating procedures.
+\item
+  Performed solvent extraction of organic compounds from soil and water
+  samples in a high-throughput production setting.
+\item
+  Coordinated daily scheduling and backlog management to meet turnaround
+  targets across teams.
+\end{itemize}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{Research \& Volunteer
+Experience}\label{research-volunteer-experience}
+
+\textbf{Research Volunteer --- UC Davis Health --- Z-Lab (Dr.~Jie
+Zheng)} \textbar{} Sacramento, CA \textbar{} Jul 2025 -- Present
+
+\begin{itemize}
+\tightlist
+\item
+  Build a GPU-accelerated spike sorting pipeline for dense
+  microelectrode arrays using Kilosort4 on AWS EC2 instances to support
+  reproducible, high-throughput reprocessing of human intracranial
+  recordings.
+\item
+  Sort single-unit activity from human Phase II epilepsy microwire
+  recordings using MATLAB (O-Sort) and Python (SpikeInterface), with an
+  emphasis on preserving unit-specific waveform structure for downstream
+  analysis.
+\item
+  Curated a dataset of approximately 2 million hand-labeled waveforms
+  for spike-vs-noise modeling and benchmarking.
+\item
+  Trained neural network models to classify putative single units versus
+  noise, improving manual curation efficiency for human recordings.
+\end{itemize}
+
+\textbf{Research Volunteer --- UC Davis Health --- Neuroscience Unit E5}
+\textbar{} Sacramento, CA \textbar{} Dec 2022 -- Jul 2023
+
+\begin{itemize}
+\tightlist
+\item
+  Prepared headboxes and EEG application kits for the Epilepsy
+  Monitoring Unit.
+\item
+  Shadowed EEG technologists and observed clinical neurophysiology
+  procedures for patients with epilepsy and traumatic brain injury.
+\end{itemize}
+
+\textbf{Research Intern --- California Home Builders Association}
+\textbar{} Sacramento, CA \textbar{} Jul 2023 -- Feb 2024
+
+\begin{itemize}
+\tightlist
+\item
+  Designed a cost-estimation model for emergency shelter villages with
+  on-site medical facilities to inform California housing policy.
+\item
+  Synthesized findings into policy recommendations to support emergency
+  shelter development legislation.
+\end{itemize}
+
+\subsection{Education}\label{education-1}
+
+\textbf{M.S. Biomedical Engineering} \textbar{} University of
+California, Davis \textbar{} Beginning Fall 2026 Recently admitted;
+incoming first-year master's student
+
+\textbf{Python for Data Science, Professional Concentration (GPA: 4.0)}
+\textbar{} UC Davis Continuing and Professional Education \textbar{}
+2025
+
+\textbf{M.S. Psychology (GPA: 3.7)} \textbar{} Arizona State University
+\textbar{} 2023
+
+\textbf{B.S. Neuroscience, Physiology, and Behavior (GPA: 3.1)}
+\textbar{} University of California, Davis \textbar{} 2017
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{Relevant Coursework}\label{relevant-coursework}
+
+\begin{itemize}
+\tightlist
+\item
+  Neurobiology of Behavior --- UC Davis
+\item
+  Physiology of Psychology --- Arizona State University
+\item
+  Quantitative Analysis --- Arizona State University
+\item
+  Research Methods --- Arizona State University
+\end{itemize}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{Skills}\label{skills-1}
+
+\textbf{Neural Data \& Signal Processing:} Single-unit DSP and waveform
+feature extraction, Spike sorting (Kilosort4, O-Sort, SpikeInterface),
+Neural data processing (filtering, PCA, template matching, clustering),
+Intracranial electrophysiology (microwire, LFP, iEEG)
+
+\textbf{Neural Acquisition \& Tooling:} Neuralynx Pegasus / ATLAS /
+NetCom workflows, Dark Horse Neuro DHN-AQ RC/CS configuration, NRD
+replay, UDP relay, and MED archive generation, Linux, SSH automation,
+xvfb, and acquisition diagnostics
+
+\textbf{Machine Learning \& Data Science:} Python (NumPy, Pandas,
+scikit-learn, PyTorch, Numba), Statistical analysis (SPSS), SQL and
+database engineering (PostgreSQL, PGVector), Cloud GPU computing (AWS
+EC2, CUDA, Docker) and MATLAB workflows
+
+\textbf{General Technical:} Git and version control, Linux and shell
+scripting, Web interfaces (Streamlit), Microsoft 365 administration
+
+\textbf{Data Systems \& Reporting:} Dashboards and stakeholder reporting
+(Looker), Workflow automation (Microsoft 365, Power Automate), Survey
+design and focus group facilitation, Equity-informed outcomes
+measurement
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{Certifications}\label{certifications-1}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Data Analysis with Matplotlib, Pandas, and Scikit-Learn Python
+  Libraries} --- UC Davis Continuing and Professional Education
+  (2025-09-18) ---
+  \href{https://www.credly.com/badges/505ef11c-58b4-48bd-aa9e-5a21f0247d46/public_url}{View
+  badge}
+\item
+  CITI --- Biomedical Research
+\item
+  CITI --- Essentials of Research Administration
+\item
+  CITI --- GCP Social and Behavioral Research Best Practices
+\end{itemize}
+
+\end{document}

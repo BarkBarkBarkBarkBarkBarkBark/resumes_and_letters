@@ -1,137 +1,115 @@
-{#- ============================================================
-    resume.md.j2  — ATS-safe Markdown resume template
-    Rendered by build_resume.py via Jinja2.
-
-    ATS design choices:
-      - Single column, no tables, no text boxes
-      - Standard section names (Summary, Experience, Education, Skills)
-      - Contact info in body, not in header/footer
-      - Plain bullet lists only
-      - Text-based output (not image-based)
-    ============================================================ -#}
-# {{ personal.name }}
-
-{# Python emblem near the top (simple emoji placeholder) #}
-{% if personal.contact.python_emblem %}
-{{ personal.contact.python_emblem }}
+{% set c = resume.personal.contact %}
+{% if output_format == 'latex' %}
+\ResumeName{ {{- resume.personal.name | latex_escape -}} }
+\ContactLine{ {{- c.email | latex_escape }} | {{ c.phone | default('') | latex_escape }} | {{ c.location | default('') | latex_escape -}} }
+{% if c.github %}
+\HeaderProfileLink{github.png}{ {{- c.github -}} }
+{% endif %}
+{% if c.linkedin %}
+\HeaderProfileLink{linkedin.png}{ {{- c.linkedin -}} }
+{% endif %}
 {% else %}
-🐍 Python
-{% endif %}
+# {{ resume.personal.name }}
 
-{# Contact block: one link per line, with small emblem placeholders (emoji) #}
-{% if personal.contact.email %}- ✉️ Email: [{{ personal.contact.email }}](mailto:{{ personal.contact.email }})
-{% endif %}
-{% if personal.contact.phone %}- ☎️ Phone: {{ personal.contact.phone }}
-{% endif %}
-{% if personal.contact.location %}- 📍 Location: {{ personal.contact.location }}
-{% endif %}
-{% if personal.contact.github %}- ✨ GitHub: [{{ personal.contact.github }}]({{ personal.contact.github }})
-{% endif %}
-{% if personal.contact.linkedin %}- 🔗 LinkedIn: [{{ personal.contact.linkedin }}]({{ personal.contact.linkedin }})
-{% endif %}
-{% if personal.contact.orcid %}- 🔬 ORCID: [{{ personal.contact.orcid }}]({{ personal.contact.orcid }})
-{% endif %}
-{% if personal.contact.website %}- 🌐 Website: [{{ personal.contact.website }}]({{ personal.contact.website }})
-{% endif %}
+{{ c.email }} | {{ c.phone }} | {{ c.location }}
 
----
-
-## Summary
-
-{{ summary_text | trim }}
-
-{% if projects %}
-
----
-
-## Neuroscience Projects
-
-{% for project in projects %}
-**{{ project.name }}** | {{ project.dates }}
-
-{% for bullet in project.bullets %}
-- {{ bullet | trim }}
-{% endfor %}
-{% if project.links %}
-- Links: {% for link in project.links %}[{{ link.label }}]({{ link.url }}){% if not loop.last %} · {% endif %}{% endfor %}
-{% endif %}
-{% if not loop.last %}
+{% if c.github %}
+[{{ c.github }}]({{ c.github }})
 
 {% endif %}
-{% endfor %}
-{% endif %}
-
----
-
-## Experience
-
-{% for job in experience %}
-**{{ job.role }} — {{ job.organization }}** | {{ job.location }} | {{ job.start_date | fmt_date }} – {{ job.end_date | fmt_date }}
-
-{% for bullet in job.bullets %}
-- {{ bullet.text | trim }}
-{% endfor %}
-{% if not loop.last %}
+{% if c.linkedin %}
+[{{ c.linkedin }}]({{ c.linkedin }})
 
 {% endif %}
-{% endfor %}
-{% if volunteer %}
+{% endif %}
 
----
+## Research Profile
 
-## Research & Volunteer Experience
+{{ resume.summary_text | trim }}
 
-{% for entry in volunteer %}
-**{{ entry.role }} — {{ entry.organization }}** | {{ entry.location }} | {{ entry.start_date | fmt_date }} – {{ entry.end_date | fmt_date }}
+{% if resume.research %}
+## Research Experience
+
+{% for entry in resume.research %}
+**{{ entry.role }}**, {{ entry.organization }} — {{ entry.start_date | fmt_date }} - {{ entry.end_date | fmt_date }}
 
 {% for bullet in entry.bullets %}
-- {{ bullet.text | trim }}
+- {{ bullet.text }}
 {% endfor %}
-{% if not loop.last %}
+
+{% endfor %}
+{% endif %}
+{% if resume.projects %}
+## Selected Projects
+
+{% for project in resume.projects %}
+{% if output_format == 'latex' and resume.page_break_before_project == project.id %}
+\newpage
+
+## Selected Projects (continued)
 
 {% endif %}
+### {{ project.name }}
+
+{{ project.problem | default('') }}
+
+{% for bullet in project.bullets %}
+- {{ bullet.text }}{% if bullet.evidence %} {% if output_format == 'latex' %}\EvidenceLink{ {{- bullet.evidence -}} }{% else %}[Evidence]({{ bullet.evidence }}){% endif %}{% endif %}
+{{ '\n' }}
 {% endfor %}
+{{ '\n' }}
+*Status: {{ project.status | default('Work in progress.') }}*
+
+{% for link in project.links %}
+[{{ link.label }}]({{ link.url }}){% if not loop.last %} · {% endif %}
+{% endfor %}
+{{ '\n' }}
+{% endfor %}
+{% endif %}
+{% if output_format == 'latex' and resume.page_break_before_education %}
+\newpage
 {% endif %}
 
 ## Education
 
-{% for edu in education %}
-**{{ edu.degree }}{% if edu.gpa %} (GPA: {{ edu.gpa }}){% endif %}** | {{ edu.institution }} | {{ edu.graduation_date }}
-{% if edu.notes %}
-{{ edu.notes }}
+{% for edu in resume.education %}
+**{{ edu.degree }}**, {{ edu.institution }} — {{ edu.graduation_date }}
+
+{% if edu.notes %}{{ edu.notes }}
+
 {% endif %}
+{% endfor %}
+## Technical Skills
+
+{% for group in resume.skills %}
+**{{ group.category }}**
+
+{% for item in group['items'] %}
+- {% if item.evidence and output_format == 'latex' %}\EvidenceLink{ {{- item.evidence -}} } {% endif %}{{ item.text }}{% if item.evidence and output_format != 'latex' %} [Evidence]({{ item.evidence }}){% endif %}
+{{ '\n' }}
+{% endfor %}
+{{ '\n' }}
+{% endfor %}
+{{ '\n' }}
+## Additional Professional Experience
+
+{% for job in resume.experience + resume.volunteer %}
+**{{ job.role }}**, {{ job.organization }} — {{ job.start_date | fmt_date }} - {{ job.end_date | fmt_date }}
+
+{% for bullet in job.bullets %}
+- {{ bullet.text }}
+{% endfor %}
 
 {% endfor %}
-{% if coursework %}
+{% if resume.coursework %}
+**Selected coursework:** {{ resume.coursework | join('; ') }}
 
----
-
-## Relevant Coursework
-
-{% for course in coursework %}
-- {{ course }}
-{% endfor %}
 {% endif %}
-
----
-
-## Skills
-
-{% for skill_group in skills %}
-**{{ skill_group.category }}:** {{ skill_group['items'] | join(", ") }}
-
-{% endfor %}
-{% if certifications %}
-
----
-
+{% if resume.certifications %}
 ## Certifications
 
-{% for cert in certifications %}
-{% if cert.credly_url %}
-- **{{ cert.name }}** — {{ cert.issuer }}{% if cert.date %} ({{ cert.date }}){% endif %} — [View badge]({{ cert.credly_url }})
-{% else %}
-- {{ cert.name }}
-{% endif %}
+{% for cert in resume.certifications %}
+- {% if cert.credly_url %}[{{ cert.name }}]({{ cert.credly_url }}){% else %}{{ cert.name }}{% endif %} — {{ cert.issuer }}{% if cert.date %} ({{ cert.date | fmt_date }}){% endif %}
+
 {% endfor %}
 {% endif %}

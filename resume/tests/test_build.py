@@ -52,6 +52,11 @@ def test_profiles_yaml_loads(profiles):
     assert "data_analytics" in profiles
 
 
+def test_canonical_skills_have_migrated_to_text_mappings(resume_data):
+    for group in resume_data["skills"]:
+        assert all(isinstance(item, dict) and item.get("text") for item in group["items"])
+
+
 def test_snippets_yaml_loads():
     snippets = load_yaml(DATA_DIR / "cover_letter_snippets.yaml")
     assert isinstance(snippets, dict)
@@ -116,13 +121,13 @@ def test_fmt_date_none():
 # ── Output naming ─────────────────────────────────────────────────────────────
 
 def test_output_stem_sanitized():
-    stem = get_output_stem("Marco Del Fava", "neuroengineering")
+    stem = get_output_stem("Marco Del Fava", "neuroengineering", "cv")
     assert " " not in stem
-    assert stem == "marco_del_fava_resume_neuroengineering"
+    assert stem.startswith("neuroengineering_cv_")
 
 
 def test_output_stem_handles_spaces():
-    stem = get_output_stem("Marco Del Fava", "data analytics")
+    stem = get_output_stem("Marco Del Fava", "data analytics", "resume")
     assert "data_analytics" in stem
 
 
@@ -135,15 +140,15 @@ def test_render_contains_name(resume_data, profiles):
 
 def test_render_contains_standard_sections(resume_data, profiles):
     md = render_resume(resume_data, profiles["neuroengineering"])
-    assert "## Summary" in md
-    assert "## Experience" in md
+    assert "## Research Profile" in md
+    assert "## Research Experience" in md
     assert "## Education" in md
-    assert "## Skills" in md
+    assert "## Technical Skills" in md
 
 
 def test_render_contains_contact_info(resume_data, profiles):
     md = render_resume(resume_data, profiles["neuroengineering"])
-    assert "marc.delfava@gmail.com" in md
+    assert "mdelfava@ucdavis.edu" in md
     assert "Sacramento" in md
 
 
@@ -200,4 +205,112 @@ def test_output_markdown_readable(resume_data, profiles, tmp_path):
     out.write_text(md, encoding="utf-8")
     contents = out.read_text(encoding="utf-8")
     assert "Marco Del Fava" in contents
-    assert "## Experience" in contents
+    assert "## Additional Professional Experience" in contents
+
+
+def test_section_order_and_research_not_duplicated(resume_data, profiles):
+    md = render_resume(resume_data, profiles["neuroengineering"])
+    headings = [
+        "# Marco Del Fava", "## Research Profile", "## Research Experience",
+        "## Selected Projects", "## Education", "## Technical Skills",
+        "## Additional Professional Experience", "## Certifications",
+    ]
+    positions = [md.index(heading) for heading in headings]
+    assert positions == sorted(positions)
+    assert md.count("Z-Lab") == 1
+    assert "IT Administrator**, First Step Communities" in md
+    assert "IT Administrator for First Step" not in md
+
+
+@pytest.mark.parametrize("profile_key", [
+    "neuroengineering", "data_analytics", "clinical_research", "default",
+])
+def test_all_profiles_render_normalized_content(resume_data, profiles, profile_key):
+    md = render_resume(resume_data, profiles[profile_key])
+    assert "{'text':" not in md
+    assert "'evidence':" not in md
+    assert "\\HeaderTwoColumn" not in md
+    assert "https://https://" not in md
+    assert "ucd_python_badge" not in md
+
+
+def test_legacy_skill_and_project_items_normalized(resume_data, profiles):
+    resume_data["skills"][0]["items"] = [
+        "Legacy skill", {"text": "Current skill"}, {
+            "text": "Evidenced skill", "evidence": "github.com/owner/repo",
+        },
+    ]
+    resume_data["projects"][0]["bullets"] = ["Legacy contribution"]
+    filtered = apply_profile(resume_data, profiles["neuroengineering"])
+    assert filtered["skills"][0]["items"][0] == {"text": "Legacy skill"}
+    assert filtered["skills"][0]["items"][2]["evidence"] == "https://github.com/owner/repo"
+    md = render_resume(resume_data, profiles["neuroengineering"])
+    assert "Legacy skill" in md and "Current skill" in md and "Legacy contribution" in md
+    assert "{'text':" not in md
+
+
+def test_profile_does_not_mutate_canonical_data(resume_data, profiles):
+    import copy
+    original = copy.deepcopy(resume_data)
+    apply_profile(resume_data, profiles["neuroengineering"])
+    assert resume_data == original
+
+
+@pytest.mark.parametrize("item", [
+    {"text": ""}, {"evidence": "https://github.com/owner/repo"}, 12,
+    {"text": "Bad URL", "evidence": "javascript:alert(1)"},
+    {"text": "Bad URL", "evidence": "http://github.com/owner/repo"},
+])
+def test_invalid_skill_items_raise(resume_data, profiles, item):
+    resume_data["skills"][0]["items"] = [item]
+    with pytest.raises(ValueError):
+        apply_profile(resume_data, profiles["neuroengineering"])
+
+
+def test_confirmed_dates_and_defensible_claims(resume_data, profiles):
+    filtered = apply_profile(resume_data, profiles["neuroengineering"])
+    assert filtered["education"][0]["graduation_date"] == "Fall 2026 - Present"
+    assert filtered["research"][0]["start_date"] == "2025-07"
+    md = render_resume(resume_data, profiles["neuroengineering"])
+    for unsupported in [
+        "recently admitted", "incoming", "I look forward", "BCI-adjacent",
+        "2 million", "improving manual curation", "sub-millisecond",
+    ]:
+        assert unsupported.lower() not in md.lower()
+    assert "putative O-Sort unit labels" in md
+    assert "hardware bench validation remains pending" in md
+    assert "not demonstrated human concept selectivity or causality" in md
+
+
+def test_projects_have_problem_two_bullets_status_and_sources(resume_data, profiles):
+    filtered = apply_profile(resume_data, profiles["neuroengineering"])
+    assert [project["id"] for project in filtered["projects"]] == [
+        "intan", "sorting", "semantic", "neuralynx",
+    ]
+    for project in filtered["projects"]:
+        assert project["problem"] and project["status"] and project["links"]
+        assert len(project["bullets"]) == 2
+
+
+def test_latex_preserves_header_typography_and_evidence(resume_data, profiles):
+    md = render_resume(resume_data, profiles["neuroengineering"], output_format="latex")
+    assert r"\ResumeName{Marco Del Fava}" in md
+    assert r"\HeaderProfileLink{linkedin.png}{https://www.linkedin.com/in/marc-del-fava}" in md
+    assert r"\EvidenceLink{https://github.com/" in md
+    assert md.count(r"\newpage") == 1
+    assert r"\newpage" not in render_resume(resume_data, profiles["neuroengineering"])
+    tex = (ROOT / "templates/resume.tex").read_text()
+    assert r"\fontsize{11pt}{13pt}" in tex
+    assert "margin=0.7in" in tex and r"\usepackage{microtype}" in tex
+
+
+def test_explicit_output_name_stable_and_failure_not_success(resume_data, profiles, tmp_path, monkeypatch):
+    from scripts import build_resume as builder
+    monkeypatch.setattr(builder, "to_docx", lambda *args: True)
+    monkeypatch.setattr(builder, "to_pdf", lambda *args: False)
+    with pytest.raises(RuntimeError, match="PDF build failed"):
+        builder.build_resume(
+            resume_data, profiles["neuroengineering"], "fixed_cv", tmp_path,
+        )
+    assert (tmp_path / "fixed_cv/fixed_cv.md").is_file()
+    assert not (tmp_path / "fixed_cv/fixed_cv.pdf.md").exists()

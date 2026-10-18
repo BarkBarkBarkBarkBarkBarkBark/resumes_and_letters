@@ -1,0 +1,340 @@
+{
+  "personal": {
+    "name": "Marco Del Fava",
+    "contact": {
+      "email": "mdelfava@ucdavis.edu",
+      "phone": "707-637-6544",
+      "location": "Sacramento, CA",
+      "linkedin": "https://www.linkedin.com/in/marc-del-fava",
+      "github": "https://github.com/BarkBarkBarkBarkBarkBarkBark"
+    }
+  },
+  "summary": {
+    "neuroengineering": "Biomedical Engineering M.S. student at UC Davis and research volunteer in Dr. Jie Zheng's lab, working on human single-unit electrophysiology. Builds research software for neural acquisition and spike analysis, with interests in Intan acquisition, real-time spike sorting, and semantic selectivity in single-neuron responses.\n",
+    "data_analytics": "Evaluation and data systems professional with 5 years supporting 4 shelter sites serving 400+ people/month and their integrated clinical partnerships. Led mixed methods efforts including surveys and focus groups, built reporting workflows, and translated findings into funder-ready narratives and operational decisions. Experienced with Python/SQL, SPSS, dashboards, and Microsoft 365 automation. Committed to equity-centered learning and improving health and housing outcomes.\n",
+    "default": "Biomedical Engineering M.S. student at UC Davis and research volunteer in Dr. Jie Zheng's lab. Background spans human electrophysiology, Python/MATLAB analysis, acquisition tooling, laboratory quality control, and data systems.\n"
+  },
+  "skills": [
+    {
+      "category": "Neural Data & Signal Processing",
+      "items": [
+        {
+          "text": "Waveform features, spike-vs-noise evaluation, and afferent clustering",
+          "evidence": "https://github.com/BarkBarkBarkBarkBarkBarkBark/spike_discrim/blob/main/docs/clustering_results.md"
+        },
+        {
+          "text": "SpikeInterface preprocessing, Kilosort4, and manual unit curation workflows",
+          "evidence": "https://github.com/BarkBarkBarkBarkBarkBarkBark/zlab_sorting_script/blob/main/readme.md"
+        }
+      ],
+      "tags": [
+        "neuroengineering",
+        "research",
+        "technical"
+      ]
+    },
+    {
+      "category": "Neural Acquisition & Tooling",
+      "items": [
+        {
+          "text": "Intan RHD loading and probe-aware sorting workflows",
+          "evidence": "https://github.com/BarkBarkBarkBarkBarkBarkBark/zlab_sorting_script/blob/main/notebooks/sort_intan.ipynb"
+        },
+        {
+          "text": "DHN-AQ RC/CS configuration, SSH orchestration, and NRD replay prototypes",
+          "evidence": "https://github.com/BarkBarkBarkBarkBarkBarkBark/dhn_client/tree/main/src/darkhorse_neuralynx"
+        }
+      ],
+      "tags": [
+        "neuroengineering",
+        "research",
+        "technical",
+        "data_acquisition",
+        "compression"
+      ]
+    },
+    {
+      "category": "Machine Learning & Data Science",
+      "items": [
+        {
+          "text": "Python (NumPy, Pandas, scikit-learn, PyTorch, Numba); MATLAB"
+        },
+        {
+          "text": "Sentence embeddings and seeded NEURON simulation prototypes",
+          "evidence": "https://github.com/BarkBarkBarkBarkBarkBarkBark/semantic_neuron/blob/main/neuronlib.py"
+        }
+      ],
+      "tags": [
+        "neuroengineering",
+        "analytics",
+        "technical"
+      ]
+    },
+    {
+      "category": "General Technical",
+      "items": [
+        {
+          "text": "Git, Linux, SSH, shell scripting, Docker, and AWS GPU workflows"
+        },
+        {
+          "text": "Microsoft 365 administration; SQL and PostgreSQL"
+        }
+      ],
+      "tags": [
+        "technical",
+        "it"
+      ]
+    }
+  ],
+  "experience": [
+    {
+      "role": "IT Administrator",
+      "organization": "First Step Communities",
+      "org_type": "Homeless Shelter Operator",
+      "location": "Sacramento, CA",
+      "start_date": "2021-07",
+      "end_date": "present",
+      "bullets": [
+        {
+          "text": "Managed Microsoft 365 IT infrastructure across 4 shelter sites, including user provisioning, device management, and systems coordination.",
+          "tags": [
+            "technical",
+            "it"
+          ]
+        }
+      ]
+    },
+    {
+      "role": "Analyst",
+      "organization": "Eurofins Test America",
+      "org_type": "Environmental Chemistry Laboratory",
+      "location": "West Sacramento, CA",
+      "start_date": "2019-10",
+      "end_date": "2021-06",
+      "bullets": [
+        {
+          "text": "Maintained high-accuracy data entry and review in a regulated laboratory environment; supported QA documentation and adherence to standard operating procedures.",
+          "tags": [
+            "data",
+            "quality",
+            "research"
+          ]
+        }
+      ]
+    }
+  ],
+  "volunteer": [],
+  "education": [
+    {
+      "degree": "M.S. Biomedical Engineering",
+      "institution": "University of California, Davis",
+      "location": "Davis, CA",
+      "graduation_date": "Fall 2026 - Present",
+      "gpa": "",
+      "notes": ""
+    },
+    {
+      "degree": "Python for Data Science, Professional Concentration",
+      "institution": "UC Davis Continuing and Professional Education",
+      "location": "Davis, CA",
+      "graduation_date": "2025",
+      "gpa": "4.0",
+      "notes": ""
+    },
+    {
+      "degree": "M.S. Psychology",
+      "institution": "Arizona State University",
+      "location": "Tempe, AZ",
+      "graduation_date": "2023",
+      "gpa": "3.7",
+      "notes": ""
+    },
+    {
+      "degree": "B.S. Neuroscience, Physiology, and Behavior",
+      "institution": "University of California, Davis",
+      "location": "Davis, CA",
+      "graduation_date": "2017",
+      "gpa": "3.1",
+      "notes": ""
+    }
+  ],
+  "coursework": [],
+  "certifications": [
+    {
+      "name": "Data Analysis with Matplotlib, Pandas, and Scikit-Learn Python Libraries",
+      "issuer": "UC Davis Continuing and Professional Education",
+      "date": "2025-09-18",
+      "badge_url": "assets/ucdavis_python_badge.png",
+      "credly_url": "https://www.credly.com/badges/505ef11c-58b4-48bd-aa9e-5a21f0247d46/public_url"
+    },
+    {
+      "name": "Biomedical Research; Research Administration; GCP Social and Behavioral Research",
+      "issuer": "CITI Program",
+      "date": ""
+    }
+  ],
+  "projects": [
+    {
+      "id": "intan",
+      "name": "Intan acquisition and experiment synchronization",
+      "dates": 2026,
+      "problem": "Connect neural recordings to reproducible processing and experiment timing.",
+      "bullets": [
+        {
+          "text": "Implemented Intan RHD loading, probe configuration, and SpikeInterface/Kilosort4 processing in zlab_sorting_script.",
+          "evidence": "https://github.com/BarkBarkBarkBarkBarkBarkBark/zlab_sorting_script/blob/main/notebooks/sort_intan.ipynb"
+        },
+        {
+          "text": "Developing Intan RHX/DeepArray acquisition and event-synchronization integration; hardware bench validation remains pending."
+        }
+      ],
+      "status": "File-processing workflow implemented; live acquisition and timing integration in progress.",
+      "links": [
+        {
+          "label": "Intan workflow",
+          "url": "https://github.com/BarkBarkBarkBarkBarkBarkBark/zlab_sorting_script/blob/main/readme.md"
+        }
+      ],
+      "tags": [
+        "neuroengineering",
+        "data_acquisition"
+      ]
+    },
+    {
+      "id": "sorting",
+      "name": "Waveform discrimination and online sorting research",
+      "dates": 2026,
+      "problem": "Preserve unit-specific waveform information while investigating streaming analysis.",
+      "bullets": [
+        {
+          "text": "Implemented WeightBank waveform representations in spike_discrim; evaluated post-hoc clustering against putative O-Sort unit labels.",
+          "evidence": "https://github.com/BarkBarkBarkBarkBarkBarkBark/spike_discrim/blob/main/docs/clustering_results.md"
+        },
+        {
+          "text": "Developed synthetic streaming/detection infrastructure in realtime-sorter-mvp and experimental competitive-learning sorting in SNNeuro.",
+          "evidence": "https://github.com/BarkBarkBarkBarkBarkBarkBark/SNNeuro/blob/main/src/snn_agent/core/pipeline.py"
+        }
+      ],
+      "status": "Discrimination evaluated offline; online unit sorting remains experimental, without validated end-to-end latency.",
+      "links": [
+        {
+          "label": "Discrimination results",
+          "url": "https://github.com/BarkBarkBarkBarkBarkBarkBark/spike_discrim/blob/main/docs/clustering_results.md"
+        },
+        {
+          "label": "Streaming, not unit sorting",
+          "url": "https://github.com/BarkBarkBarkBarkBarkBarkBark/realtime-sorter-mvp"
+        },
+        {
+          "label": "Experimental sorter",
+          "url": "https://github.com/BarkBarkBarkBarkBarkBarkBark/SNNeuro/blob/main/src/snn_agent/core/dec_layer.py"
+        }
+      ],
+      "tags": [
+        "neuroengineering",
+        "spike_sorting"
+      ]
+    },
+    {
+      "id": "semantic",
+      "name": "Single-neuron response analysis and semantic tuning",
+      "dates": 2026,
+      "problem": "Investigate relationships between stimulus meaning and single-neuron responses.",
+      "bullets": [
+        {
+          "text": "Implemented a seeded NEURON prototype mapping sentence similarity to stochastic input rates, with fixed synaptic weights.",
+          "evidence": "https://github.com/BarkBarkBarkBarkBarkBarkBark/semantic_neuron/blob/main/neuronlib.py"
+        },
+        {
+          "text": "Developed semantic-trajectory tooling in ZEmbeddings; exploring stimulus-aligned response analysis and adaptive stimulus selection.",
+          "evidence": "https://github.com/BarkBarkBarkBarkBarkBarkBark/ZEmbeddings/tree/main/src/zembeddings"
+        }
+      ],
+      "status": "Simulation and text analysis implemented; adaptive experiments proposed, not demonstrated human concept selectivity or causality.",
+      "links": [
+        {
+          "label": "Simulation and limitations",
+          "url": "https://github.com/BarkBarkBarkBarkBarkBarkBark/semantic_neuron#limitations"
+        },
+        {
+          "label": "Semantic text analysis",
+          "url": "https://github.com/BarkBarkBarkBarkBarkBarkBark/ZEmbeddings"
+        }
+      ],
+      "tags": [
+        "neuroengineering",
+        "semantic"
+      ]
+    },
+    {
+      "id": "neuralynx",
+      "name": "Supporting acquisition work - Neuralynx / Dark Horse Neuro",
+      "dates": 2026,
+      "problem": "Configure acquisition sessions and replay archived Neuralynx recordings.",
+      "bullets": [
+        {
+          "text": "Implemented DHN-AQ RC/CS configuration writers and SSH launch orchestration.",
+          "evidence": "https://github.com/BarkBarkBarkBarkBarkBarkBark/dhn_client/tree/main/src/darkhorse_neuralynx/dhn_client"
+        },
+        {
+          "text": "Developed an NRD-to-UDP replay prototype for DHN-AQ ingestion.",
+          "evidence": "https://github.com/BarkBarkBarkBarkBarkBarkBark/dhn_client/blob/main/src/darkhorse_neuralynx/pegasus_bridge/nrd_stream.py"
+        }
+      ],
+      "status": "Prototype implemented; hardware reception and recording validation remain in progress.",
+      "links": [
+        {
+          "label": "Acquisition implementation",
+          "url": "https://github.com/BarkBarkBarkBarkBarkBarkBark/dhn_client"
+        }
+      ],
+      "tags": [
+        "neuroengineering",
+        "data_acquisition"
+      ]
+    }
+  ],
+  "site": {
+    "intro_title": "Neural acquisition, spike processing, and single-neuron response analysis",
+    "intro_blurb": "I'm a biomedical engineering master's student at UC Davis working with Dr. Jie Zheng's lab on human single-unit electrophysiology. I build research software for neural acquisition and spike analysis. My current interests center on Intan acquisition, real-time spike sorting, and investigating semantic selectivity in single-neuron responses.\n"
+  },
+  "target_metadata": {
+    "default_profile": "neuroengineering"
+  },
+  "summary_text": "Biomedical Engineering M.S. student at UC Davis and research volunteer in Dr. Jie Zheng's lab, working on human single-unit electrophysiology. Builds research software for neural acquisition and spike analysis, with interests in Intan acquisition, real-time spike sorting, and semantic selectivity in single-neuron responses.\n",
+  "research": [
+    {
+      "role": "Research Volunteer",
+      "organization": "UC Davis Health — Z-Lab (Dr. Jie Zheng)",
+      "section": "research",
+      "location": "Sacramento, CA",
+      "start_date": "2025-07",
+      "end_date": "present",
+      "bullets": [
+        {
+          "text": "Develop research workflows connecting acquisition, spike processing, and downstream single-neuron response analysis.",
+          "tags": [
+            "neuroengineering",
+            "research",
+            "technical",
+            "cloud",
+            "ml",
+            "signal_processing"
+          ]
+        },
+        {
+          "text": "Analyze human epilepsy microwire recordings using O-Sort and SpikeInterface, with attention to waveform structure and unit curation.",
+          "tags": [
+            "neuroengineering",
+            "research",
+            "technical",
+            "spike_sorting",
+            "signal_processing"
+          ]
+        }
+      ]
+    }
+  ],
+  "page_break_before_education": false,
+  "page_break_before_project": "neuralynx"
+}

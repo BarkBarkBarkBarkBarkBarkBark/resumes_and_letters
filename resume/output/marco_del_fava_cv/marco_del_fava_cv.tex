@@ -1,0 +1,309 @@
+\documentclass[11pt]{article}
+% Publication-quality resume template (LuaLaTeX + latexmk recommended)
+% US Letter, single-column, restrained typography
+
+\usepackage{ifxetex}
+\usepackage{ifluatex}
+\ifnum\ifxetex 1\fi\ifluatex 1\fi=0
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+\else
+  \usepackage{fontspec}
+  \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
+  % Prefer TeX Gyre fonts when available; fall back to Latin Modern when not installed
+  \IfFontExistsTF{TeX Gyre Termes}{\setmainfont{TeX Gyre Termes}}{\setmainfont{Latin Modern Roman}}
+  \IfFontExistsTF{TeX Gyre Heros}{\setsansfont{TeX Gyre Heros}}{\setsansfont{Latin Modern Sans}}
+  \IfFontExistsTF{TeX Gyre Cursor}{\setmonofont{TeX Gyre Cursor}}{\setmonofont{Latin Modern Mono}}
+\fi
+
+\usepackage{microtype}
+\usepackage[letterpaper,margin=0.7in]{geometry}
+\setcounter{secnumdepth}{0} % disable section numbering
+\usepackage{parskip}
+\usepackage[hidelinks]{hyperref}
+\usepackage{xurl}
+\urlstyle{same}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\setlist[itemize]{topsep=2pt, parsep=0pt, itemsep=2pt, leftmargin=*, label=\textbullet}
+\usepackage{ragged2e}
+\usepackage{graphicx}
+\usepackage{needspace}
+\setlength{\parskip}{4pt}
+
+% Centralized typographic sizes
+\newcommand{\namefontsize}{25pt}
+\newcommand{\bodyfontsize}{11pt}
+\newcommand{\sectionfontsize}{12pt}
+\newcommand{\contactfontsize}{10pt}
+\renewcommand{\baselinestretch}{1} % explicit 13pt leading is set below
+\makeatletter
+\ifx\@setfontsize\undefined\else\fi
+\makeatother
+
+% Pandoc macro definitions
+\providecommand{\tightlist}{\setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+
+% Header layout commands
+\newcommand{\ResumeName}[1]{\vspace*{-0.5em}\noindent{\sffamily\bfseries\fontsize{23pt}{27pt}\selectfont #1}\vspace{0.2em}\\}
+\newcommand{\ContactLine}[1]{\noindent{\normalfont\fontsize{10pt}{12pt}\selectfont #1}\vspace{0.1em}\\}
+% Header profile link: small logo at left, proportional escaped display text at right, both clickable
+\renewcommand{\ContactLine}[1]{\par\noindent{\normalfont\fontsize{10pt}{12pt}\selectfont #1}\par}
+\providecommand{\HeaderProfileLink}[2]{%
+  \par\noindent{\fontsize{10pt}{12pt}\selectfont
+  \href{#2}{\raisebox{-0.15\height}{\includegraphics[height=10pt]{icons/#1}}}\,
+  \href{#2}{\nolinkurl{#2}}}\par
+}
+\newcommand{\EvidenceLink}[1]{%
+  \href{#1}{\raisebox{-0.12\height}{\includegraphics[height=8pt]{icons/github.png}}}\hspace{0.2em}%
+}
+
+% Section heading (avoid sectsty dependency; use simple unnumbered section formatting)
+\renewcommand{\section}[1]{\par\Needspace{4\baselineskip}\vspace{7pt}\noindent{\sffamily\bfseries\fontsize{\sectionfontsize}{14pt}\selectfont #1}\par\smallskip}
+\renewcommand{\subsection}[1]{\par\Needspace{5\baselineskip}\vspace{4pt}\noindent{\sffamily\bfseries\fontsize{11pt}{13pt}\selectfont #1}\par\smallskip}
+
+% Ensure hyphenation and ragged-right for better extraction
+\raggedright
+
+\begin{document}
+\pagestyle{plain}
+
+% PDF metadata (from Pandoc top-level title/author set by the build script)
+\hypersetup{
+  pdftitle={Marco Del Fava},
+  pdfauthor={Marco Del Fava},
+  pdfcreator={LuaLaTeX + latexmk}
+}
+
+% Set consistent body font size
+\fontsize{11pt}{13pt}\selectfont
+
+% Main body from pandoc
+\ResumeName{Marco Del Fava}
+\ContactLine{mdelfava@ucdavis.edu | 707-637-6544 | Sacramento, CA}
+\HeaderProfileLink{github.png}{https://github.com/BarkBarkBarkBarkBarkBarkBark}
+\HeaderProfileLink{linkedin.png}{https://www.linkedin.com/in/marc-del-fava}
+
+\section{Research Profile}\label{research-profile}
+
+Biomedical Engineering M.S. student at UC Davis and research volunteer
+in Dr.~Jie Zheng's lab, working on human single-unit electrophysiology.
+Builds research software for neural acquisition and spike analysis, with
+interests in Intan acquisition, real-time spike sorting, and semantic
+selectivity in single-neuron responses.
+
+\section{Research Experience}\label{research-experience}
+
+\textbf{Research Volunteer}, UC Davis Health --- Z-Lab (Dr.~Jie Zheng)
+--- Jul 2025 - Present
+
+\begin{itemize}
+\tightlist
+\item
+  Develop research workflows connecting acquisition, spike processing,
+  and downstream single-neuron response analysis.
+\item
+  Analyze human epilepsy microwire recordings using O-Sort and
+  SpikeInterface, with attention to waveform structure and unit
+  curation.
+\end{itemize}
+
+\section{Selected Projects}\label{selected-projects}
+
+\subsection{Intan acquisition and experiment
+synchronization}\label{intan-acquisition-and-experiment-synchronization}
+
+Connect neural recordings to reproducible processing and experiment
+timing.
+
+\begin{itemize}
+\item
+  Implemented Intan RHD loading, probe configuration, and
+  SpikeInterface/Kilosort4 processing in zlab\_sorting\_script.
+  \EvidenceLink{https://github.com/BarkBarkBarkBarkBarkBarkBark/zlab_sorting_script/blob/main/notebooks/sort_intan.ipynb}
+\item
+  Developing Intan RHX/DeepArray acquisition and event-synchronization
+  integration; hardware bench validation remains pending.
+\end{itemize}
+
+\emph{Status: File-processing workflow implemented; live acquisition and
+timing integration in progress.}
+
+\href{https://github.com/BarkBarkBarkBarkBarkBarkBark/zlab_sorting_script/blob/main/readme.md}{Intan
+workflow}
+
+\subsection{Waveform discrimination and online sorting
+research}\label{waveform-discrimination-and-online-sorting-research}
+
+Preserve unit-specific waveform information while investigating
+streaming analysis.
+
+\begin{itemize}
+\item
+  Implemented WeightBank waveform representations in spike\_discrim;
+  evaluated post-hoc clustering against putative O-Sort unit labels.
+  \EvidenceLink{https://github.com/BarkBarkBarkBarkBarkBarkBark/spike_discrim/blob/main/docs/clustering_results.md}
+\item
+  Developed synthetic streaming/detection infrastructure in
+  realtime-sorter-mvp and experimental competitive-learning sorting in
+  SNNeuro.
+  \EvidenceLink{https://github.com/BarkBarkBarkBarkBarkBarkBark/SNNeuro/blob/main/src/snn_agent/core/pipeline.py}
+\end{itemize}
+
+\emph{Status: Discrimination evaluated offline; online unit sorting
+remains experimental, without validated end-to-end latency.}
+
+\href{https://github.com/BarkBarkBarkBarkBarkBarkBark/spike_discrim/blob/main/docs/clustering_results.md}{Discrimination
+results} ·
+\href{https://github.com/BarkBarkBarkBarkBarkBarkBark/realtime-sorter-mvp}{Streaming,
+not unit sorting} ·
+\href{https://github.com/BarkBarkBarkBarkBarkBarkBark/SNNeuro/blob/main/src/snn_agent/core/dec_layer.py}{Experimental
+sorter}
+
+\subsection{Single-neuron response analysis and semantic
+tuning}\label{single-neuron-response-analysis-and-semantic-tuning}
+
+Investigate relationships between stimulus meaning and single-neuron
+responses.
+
+\begin{itemize}
+\item
+  Implemented a seeded NEURON prototype mapping sentence similarity to
+  stochastic input rates, with fixed synaptic weights.
+  \EvidenceLink{https://github.com/BarkBarkBarkBarkBarkBarkBark/semantic_neuron/blob/main/neuronlib.py}
+\item
+  Developed semantic-trajectory tooling in ZEmbeddings; exploring
+  stimulus-aligned response analysis and adaptive stimulus selection.
+  \EvidenceLink{https://github.com/BarkBarkBarkBarkBarkBarkBark/ZEmbeddings/tree/main/src/zembeddings}
+\end{itemize}
+
+\emph{Status: Simulation and text analysis implemented; adaptive
+experiments proposed, not demonstrated human concept selectivity or
+causality.}
+
+\href{https://github.com/BarkBarkBarkBarkBarkBarkBark/semantic_neuron\#limitations}{Simulation
+and limitations} ·
+\href{https://github.com/BarkBarkBarkBarkBarkBarkBark/ZEmbeddings}{Semantic
+text analysis}
+
+\newpage
+
+\section{Selected Projects
+(continued)}\label{selected-projects-continued}
+
+\subsection{Supporting acquisition work - Neuralynx / Dark Horse
+Neuro}\label{supporting-acquisition-work---neuralynx-dark-horse-neuro}
+
+Configure acquisition sessions and replay archived Neuralynx recordings.
+
+\begin{itemize}
+\item
+  Implemented DHN-AQ RC/CS configuration writers and SSH launch
+  orchestration.
+  \EvidenceLink{https://github.com/BarkBarkBarkBarkBarkBarkBark/dhn_client/tree/main/src/darkhorse_neuralynx/dhn_client}
+\item
+  Developed an NRD-to-UDP replay prototype for DHN-AQ ingestion.
+  \EvidenceLink{https://github.com/BarkBarkBarkBarkBarkBarkBark/dhn_client/blob/main/src/darkhorse_neuralynx/pegasus_bridge/nrd_stream.py}
+\end{itemize}
+
+\emph{Status: Prototype implemented; hardware reception and recording
+validation remain in progress.}
+
+\href{https://github.com/BarkBarkBarkBarkBarkBarkBark/dhn_client}{Acquisition
+implementation}
+
+\section{Education}\label{education}
+
+\textbf{M.S. Biomedical Engineering}, University of California, Davis
+--- Fall 2026 - Present
+
+\textbf{Python for Data Science, Professional Concentration}, UC Davis
+Continuing and Professional Education --- 2025
+
+\textbf{M.S. Psychology}, Arizona State University --- 2023
+
+\textbf{B.S. Neuroscience, Physiology, and Behavior}, University of
+California, Davis --- 2017
+
+\section{Technical Skills}\label{technical-skills}
+
+\textbf{Neural Data \& Signal Processing}
+
+\begin{itemize}
+\item
+  \EvidenceLink{https://github.com/BarkBarkBarkBarkBarkBarkBark/spike_discrim/blob/main/docs/clustering_results.md}
+  Waveform features, spike-vs-noise evaluation, and afferent clustering
+\item
+  \EvidenceLink{https://github.com/BarkBarkBarkBarkBarkBarkBark/zlab_sorting_script/blob/main/readme.md}
+  SpikeInterface preprocessing, Kilosort4, and manual unit curation
+  workflows
+\end{itemize}
+
+\textbf{Neural Acquisition \& Tooling}
+
+\begin{itemize}
+\item
+  \EvidenceLink{https://github.com/BarkBarkBarkBarkBarkBarkBark/zlab_sorting_script/blob/main/notebooks/sort_intan.ipynb}
+  Intan RHD loading and probe-aware sorting workflows
+\item
+  \EvidenceLink{https://github.com/BarkBarkBarkBarkBarkBarkBark/dhn_client/tree/main/src/darkhorse_neuralynx}
+  DHN-AQ RC/CS configuration, SSH orchestration, and NRD replay
+  prototypes
+\end{itemize}
+
+\textbf{Machine Learning \& Data Science}
+
+\begin{itemize}
+\item
+  Python (NumPy, Pandas, scikit-learn, PyTorch, Numba); MATLAB
+\item
+  \EvidenceLink{https://github.com/BarkBarkBarkBarkBarkBarkBark/semantic_neuron/blob/main/neuronlib.py}
+  Sentence embeddings and seeded NEURON simulation prototypes
+\end{itemize}
+
+\textbf{General Technical}
+
+\begin{itemize}
+\item
+  Git, Linux, SSH, shell scripting, Docker, and AWS GPU workflows
+\item
+  Microsoft 365 administration; SQL and PostgreSQL
+\end{itemize}
+
+\section{Additional Professional
+Experience}\label{additional-professional-experience}
+
+\textbf{IT Administrator}, First Step Communities --- Jul 2021 - Present
+
+\begin{itemize}
+\tightlist
+\item
+  Managed Microsoft 365 IT infrastructure across 4 shelter sites,
+  including user provisioning, device management, and systems
+  coordination.
+\end{itemize}
+
+\textbf{Analyst}, Eurofins Test America --- Oct 2019 - Jun 2021
+
+\begin{itemize}
+\tightlist
+\item
+  Maintained high-accuracy data entry and review in a regulated
+  laboratory environment; supported QA documentation and adherence to
+  standard operating procedures.
+\end{itemize}
+
+\section{Certifications}\label{certifications}
+
+\begin{itemize}
+\tightlist
+\item
+  \href{https://www.credly.com/badges/505ef11c-58b4-48bd-aa9e-5a21f0247d46/public_url}{Data
+  Analysis with Matplotlib, Pandas, and Scikit-Learn Python Libraries}
+  --- UC Davis Continuing and Professional Education (2025-09-18)
+\item
+  Biomedical Research; Research Administration; GCP Social and
+  Behavioral Research --- CITI Program
+\end{itemize}
+
+\end{document}

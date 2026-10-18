@@ -1,6 +1,6 @@
 \documentclass[11pt]{article}
-% Publication-grade, restrained arXiv-like resume template
-% Designed for use with XeLaTeX for high-quality fonts (fontspec required)
+% Publication-quality resume template (LuaLaTeX + latexmk recommended)
+% US Letter, single-column, restrained typography
 
 \usepackage{ifxetex}
 \usepackage{ifluatex}
@@ -10,65 +10,75 @@
 \else
   \usepackage{fontspec}
   \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
-  % Serif body font and a clean sans for headings
-  \setmainfont{TeX Gyre Termes}
-  \setsansfont{TeX Gyre Heros}
-  \setmonofont{TeX Gyre Cursor}
+  % Prefer TeX Gyre fonts when available; fall back to Latin Modern when not installed
+  \IfFontExistsTF{TeX Gyre Termes}{\setmainfont{TeX Gyre Termes}}{\setmainfont{Latin Modern Roman}}
+  \IfFontExistsTF{TeX Gyre Heros}{\setsansfont{TeX Gyre Heros}}{\setsansfont{Latin Modern Sans}}
+  \IfFontExistsTF{TeX Gyre Cursor}{\setmonofont{TeX Gyre Cursor}}{\setmonofont{Latin Modern Mono}}
 \fi
 
 \usepackage{microtype}
-\usepackage{geometry}
-\geometry{left=0.9in,right=0.9in,top=0.9in,bottom=0.9in}
+\usepackage[letterpaper,margin=0.7in]{geometry}
+\setcounter{secnumdepth}{0} % disable section numbering
 \usepackage{parskip}
 \usepackage[hidelinks]{hyperref}
+\usepackage{xurl}
+\urlstyle{same}
 \usepackage{xcolor}
 \usepackage{enumitem}
-\setlist[itemize]{noitemsep, topsep=0pt, leftmargin=*, label=\textbullet}
+\setlist[itemize]{topsep=2pt, parsep=0pt, itemsep=2pt, leftmargin=*, label=\textbullet}
 \usepackage{ragged2e}
+\usepackage{graphicx}
+\usepackage{needspace}
+\setlength{\parskip}{4pt}
 
-% Title styling inspired by arXiv: large title, compact metadata
-\usepackage{titling}
-\pretitle{\begin{center}\Huge\bfseries}
-\posttitle{\par\end{center}\vskip 0.1em}
-\preauthor{}
-\postauthor{}
-\predate{}
-\postdate{}
+% Centralized typographic sizes
+\newcommand{\namefontsize}{25pt}
+\newcommand{\bodyfontsize}{11pt}
+\newcommand{\sectionfontsize}{12pt}
+\newcommand{\contactfontsize}{10pt}
+\renewcommand{\baselinestretch}{1} % explicit 13pt leading is set below
+\makeatletter
+\ifx\@setfontsize\undefined\else\fi
+\makeatother
 
-% A small command to render an emblem + label
-\newcommand{\emblem}[2]{\textbf{#1}\,\texttt{#2}}
+% Pandoc macro definitions
+\providecommand{\tightlist}{\setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+
+% Header layout commands
+\newcommand{\ResumeName}[1]{\vspace*{-0.5em}\noindent{\sffamily\bfseries\fontsize{23pt}{27pt}\selectfont #1}\vspace{0.2em}\\}
+\newcommand{\ContactLine}[1]{\noindent{\normalfont\fontsize{10pt}{12pt}\selectfont #1}\vspace{0.1em}\\}
+% Header profile link: small logo at left, proportional escaped display text at right, both clickable
+\renewcommand{\ContactLine}[1]{\par\noindent{\normalfont\fontsize{10pt}{12pt}\selectfont #1}\par}
+\providecommand{\HeaderProfileLink}[2]{%
+  \par\noindent{\fontsize{10pt}{12pt}\selectfont
+  \href{#2}{\raisebox{-0.15\height}{\includegraphics[height=10pt]{icons/#1}}}\,
+  \href{#2}{\nolinkurl{#2}}}\par
+}
+\newcommand{\EvidenceLink}[1]{%
+  \href{#1}{\raisebox{-0.12\height}{\includegraphics[height=8pt]{icons/github.png}}}\hspace{0.2em}%
+}
+
+% Section heading (avoid sectsty dependency; use simple unnumbered section formatting)
+\renewcommand{\section}[1]{\par\Needspace{4\baselineskip}\vspace{7pt}\noindent{\sffamily\bfseries\fontsize{\sectionfontsize}{14pt}\selectfont #1}\par\smallskip}
+\renewcommand{\subsection}[1]{\par\Needspace{5\baselineskip}\vspace{4pt}\noindent{\sffamily\bfseries\fontsize{11pt}{13pt}\selectfont #1}\par\smallskip}
+
+% Ensure hyphenation and ragged-right for better extraction
+\raggedright
 
 \begin{document}
+\pagestyle{plain}
 
-% Title block: favor explicit title metadata, otherwise first-level heading is used
-$if(title)$
-  \begin{center}
-    {\LARGE\bfseries $title$}\\[0.6em]
-    $if(personal.name)$ {\large $personal.name$}\\[0.4em] $endif$
-    % Python emblem (simple inline emoji placeholder)
-    $if(personal.contact.python_emblem)$
-      $personal.contact.python_emblem$\\[0.4em]
-    $else$
-      \textnormal{\small 🐍 Python}\\[0.4em]
-    $endif$
+% PDF metadata (from Pandoc top-level title/author set by the build script)
+\hypersetup{
+  pdftitle={$title$},
+  pdfauthor={$author$},
+  pdfcreator={LuaLaTeX + latexmk}
+}
 
-    % Contact list: one per line, minimalist styling
-    {\small\begin{tabular}{@{}l@{}}%
-      $if(personal.contact.email)$ \emblem{✉️}{Email: }\href{mailto:$personal.contact.email$}{$personal.contact.email$}\\ $endif$
-      $if(personal.contact.github)$ \emblem{✨}{GitHub: }\href{$personal.contact.github$}{$personal.contact.github$}\\ $endif$
-      $if(personal.contact.linkedin)$ \emblem{🔗}{LinkedIn: }\href{$personal.contact.linkedin$}{$personal.contact.linkedin$}\\ $endif$
-      $if(personal.contact.orcid)$ \emblem{🔬}{ORCID: }\href{$personal.contact.orcid$}{$personal.contact.orcid$}\\ $endif$
-      $if(personal.contact.website)$ \emblem{🌐}{Website: }\href{$personal.contact.website$}{$personal.contact.website$}\\ $endif$
-      $if(personal.contact.location)$ \emblem{📍}{Location: }$personal.contact.location$\\ $endif$
-    \end{tabular}}
+% Set consistent body font size
+\fontsize{11pt}{13pt}\selectfont
 
-  \end{center}
-  \vspace{0.8em}
-$else$
-  % If no explicit title, let pandoc body contain the top-level heading
-$endif$
-
-% Main body from pandoc (sections rendered from Markdown)
+% Main body from pandoc
 $body$
 
 \end{document}

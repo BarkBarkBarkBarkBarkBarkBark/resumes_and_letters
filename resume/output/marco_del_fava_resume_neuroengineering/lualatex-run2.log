@@ -1,0 +1,42 @@
+This is LuaHBTeX, Version 1.24.0 (TeX Live 2026) 
+ restricted system commands enabled.
+
+(./resume/output/marco_del_fava_resume_neuroengineering/marco_del_fava_resume_n
+euroengineering.tex
+LaTeX2e <2025-11-01>
+L3 programming layer <2026-01-19>
+ (/usr/local/texlive/2026basic/texmf-dist/tex/latex/base/article.cls
+Document Class: article 2025/01/22 v1.4n Standard LaTeX document class
+(/usr/local/texlive/2026basic/texmf-dist/tex/latex/base/size11.clo))
+(/usr/local/texlive/2026basic/texmf-dist/tex/generic/iftex/ifxetex.sty
+(/usr/local/texlive/2026basic/texmf-dist/tex/generic/iftex/iftex.sty))
+(/usr/local/texlive/2026basic/texmf-dist/tex/generic/iftex/ifluatex.sty)
+(/usr/local/texlive/2026basic/texmf-dist/tex/latex/fontspec/fontspec.sty
+(/usr/local/texlive/2026basic/texmf-dist/tex/latex/l3packages/xparse/xparse.sty
+(/usr/local/texlive/2026basic/texmf-dist/tex/latex/l3kernel/expl3.sty
+(/usr/local/texlive/2026basic/texmf-dist/tex/latex/l3backend/l3backend-luatex.d
+ef)))
+(/usr/local/texlive/2026basic/texmf-dist/tex/latex/fontspec/fontspec-luatex.sty
+(/usr/local/texlive/2026basic/texmf-dist/tex/latex/base/fontenc.sty)
+(/usr/local/texlive/2026basic/texmf-dist/tex/latex/fontspec/fontspec.cfg)))
+luaotfload | db : Reload initiated (formats: otf,ttf,ttc); reason: Font "TeX Gyre Termes" not found.
+
+! Package fontspec Error: 
+(fontspec)                The font "TeX Gyre Termes" cannot be found; this
+(fontspec)                may be but usually is not a fontspec bug. Either
+(fontspec)                there is a typo in the font name/file, the font is
+(fontspec)                not installed (correctly), or there is a bug in
+(fontspec)                the underlying font loading engine
+(fontspec)                (XeTeX/luaotfload).
+
+For immediate help type H <return>.
+ ...                                              
+                                                  
+l.15   \setsansfont
+                   {TeX Gyre Heros}
+ 377 words of node memory still in use:
+   2 hlist, 1 rule, 1 dir, 3 kern, 1 glyph, 3 attribute, 48 glue_spec, 3 attrib
+ute_list, 1 if_stack, 1 write nodes
+   avail lists: 2:12,3:2,4:1,5:2,7:2,9:3
+!  ==> Fatal error occurred, no output PDF file produced!
+Transcript written on marco_del_fava_resume_neuroengineering.log.

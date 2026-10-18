@@ -63,7 +63,8 @@ skills:
   - category: Neural Data & Signal Processing
     items:
       - Human intracranial recordings and Behnke-Fried microwire data
-      - Spike sorting (SpikeInterface, MountainSort5, Kilosort4, O-Sort)
+      - text: Spike sorting (SpikeInterface, MountainSort5, Kilosort4, O-Sort)
+        evidence: https://github.com/BarkBarkBarkBarkBarkBarkBark/spike_discrim
       - Preprocessing and waveform analysis
       - Event alignment and peri-stimulus time histograms (PSTHs)
     tags: [neuroengineering, research, technical]
@@ -72,7 +73,8 @@ skills:
     items:
       - Intan RHX and 128-channel DeepArray bench testing
       - Neuralynx CSC/NEV data and Pegasus/NetCom workflows
-      - Dark Horse Neuro acquisition and MED conversion workflows
+      - text: Dark Horse Neuro acquisition and MED conversion workflows
+        evidence: https://github.com/BarkBarkBarkBarkBarkBarkBark/dhn_client
       - PsychoPy/TCP event integration and Cedrus C-Pod TTL markers
       - Channel mapping, grounding, and signal-quality troubleshooting
     tags: [neuroengineering, research, technical, data_acquisition, compression]

@@ -1,0 +1,254 @@
+\documentclass[11pt]{article}
+% Publication-quality resume template (LuaLaTeX + latexmk recommended)
+% US Letter, single-column, restrained typography
+
+\usepackage{ifxetex}
+\usepackage{ifluatex}
+\ifnum\ifxetex 1\fi\ifluatex 1\fi=0
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+\else
+  \usepackage{fontspec}
+  \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
+  % Prefer TeX Gyre fonts when available; fall back to Latin Modern when not installed
+  \IfFontExistsTF{TeX Gyre Termes}{\setmainfont{TeX Gyre Termes}}{\setmainfont{Latin Modern Roman}}
+  \IfFontExistsTF{TeX Gyre Heros}{\setsansfont{TeX Gyre Heros}}{\setsansfont{Latin Modern Sans}}
+  \IfFontExistsTF{TeX Gyre Cursor}{\setmonofont{TeX Gyre Cursor}}{\setmonofont{Latin Modern Mono}}
+\fi
+
+\usepackage{microtype}
+\usepackage[letterpaper,margin=0.7in]{geometry}
+\setcounter{secnumdepth}{0} % disable section numbering
+\usepackage{parskip}
+\usepackage[hidelinks]{hyperref}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\setlist[itemize]{noitemsep, topsep=2pt, parsep=0pt, itemsep=2pt, leftmargin=*, label=\textbullet}
+\usepackage{ragged2e}
+% Optional TikZ emblems (kept minimal; not used for core text)
+\usepackage{tikz}
+\usepackage{graphicx}
+\IfFileExists{icons/emblems.tex}{\input{icons/emblems.tex}}{}
+
+% Centralized typographic sizes
+\newcommand{\namefontsize}{25pt}
+\newcommand{\bodyfontsize}{11pt}
+\newcommand{\sectionfontsize}{12pt}
+\newcommand{\contactfontsize}{10pt}
+\renewcommand{\baselinestretch}{1.18} % roughly 13pt leading for 11pt body
+\makeatletter
+\ifx\@setfontsize\undefined\else\fi
+\makeatother
+
+% Pandoc macro definitions
+\providecommand{\tightlist}{\setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+
+% Header layout commands
+\newcommand{\ResumeName}[1]{\vspace*{-0.5em}\noindent{\sffamily\bfseries\fontsize{23pt}{27pt}\selectfont #1}\vspace{0.2em}\\}
+\newcommand{\ContactLine}[1]{\noindent{\normalfont\fontsize{10pt}{12pt}\selectfont #1}\vspace{0.1em}\\}
+
+% Section heading (avoid sectsty dependency; use simple unnumbered section formatting)
+\renewcommand{\section}[1]{\par\bigskip\noindent{\sffamily\bfseries\fontsize{\sectionfontsize}{0}\selectfont #1}\par\smallskip}
+\renewcommand{\subsection}[1]{\par\medskip\noindent{\sffamily\bfseries\fontsize{11pt}{0}\selectfont #1}\par\smallskip}
+
+% Ensure hyphenation and ragged-right for better extraction
+\raggedright
+
+\begin{document}
+\pagestyle{plain}
+
+% PDF metadata (from Pandoc top-level title/author set by the build script)
+\hypersetup{
+  pdftitle={Marco Del Fava},
+  pdfauthor={Marco Del Fava},
+  pdfcreator={LuaLaTeX + latexmk}
+}
+
+% Title block: prefer top-level title for the printed name
+  \ResumeName{Marco Del Fava}
+  % Show brand marks if available
+  \begin{center}
+    \IfFileExists{icons/GitHub_Lockup_Black.png}{\includegraphics[height=8mm]{icons/GitHub_Lockup_Black.png}\hspace{4mm}}{}
+    \IfFileExists{icons/LI-Logo.png}{\includegraphics[height=8mm]{icons/LI-Logo.png}\hspace{4mm}}{}
+    \IfFileExists{icons/data-analysis-with-matplotlib-pandas-and-scikit-learn-python-libraries-2.png}{\includegraphics[height=12mm]{icons/data-analysis-with-matplotlib-pandas-and-scikit-learn-python-libraries-2.png}}{}
+  \end{center}
+      \ContactLine{\texttt{mdelfava@ucdavis.edu} \quad 707-637-6544}
+    \ContactLine{\texttt{github: }\nolinkurl{https://github.com/BarkBarkBarkBarkBarkBarkBark}}
+    \ContactLine{\texttt{linkedin: }\nolinkurl{https://www.linkedin.com/in/marc-del-fava}}
+  
+% Set consistent body font size
+\fontsize{11pt}{13pt}\selectfont
+
+% Main body from pandoc
+\subsection{Summary}\label{summary}
+
+Recently admitted to the UC Davis M.S. in Biomedical Engineering (Fall
+2026) and active neuroscience researcher working at the intersection of
+human intracranial electrophysiology, single-unit digital signal
+processing, and neurotechnology tooling. Experience includes spike
+sorting with Kilosort4, O-Sort, and SpikeInterface; building
+GPU-accelerated pipelines on AWS; and implementing Dark Horse Neuro /
+Neuralynx acquisition workflows for replay, compression-aware MED
+recording, and large-scale neural data handling. I look forward to a
+career in neural signal processing, neural acquisition systems, and
+BCI-related infrastructure.
+
+github: https://github.com/BarkBarkBarkBarkBarkBarkBark linkedin:
+www.linkedin.com/in/marc-del-fava email: mdelfava@ucdavis.edu phone:
+707-637-6544
+
+\subsection{Selected Technical
+Projects}\label{selected-technical-projects}
+
+\subsubsection{Dark Horse Neuro / Neuralynx acquisition pipeline ---
+2026}\label{dark-horse-neuro-neuralynx-acquisition-pipeline-2026}
+
+github: https://github.com/BarkBarkBarkBarkBarkBarkBark/dhn\_client
+docs: https://barkbarkbarkbarkbarkbarkbark.github.io/dhn\_client/
+
+\begin{itemize}
+\tightlist
+\item
+  Built a Python orchestration layer to launch DHN-AQ headlessly over
+  SSH, generate RC/CS session files, and coordinate Pegasus / NetCom
+  replay workflows for human intracranial recordings.
+\item
+  Implemented an NRD replay bridge that re-broadcasts ATLAS-format UDP
+  packets so archived Neuralynx sessions can be ingested by DHN-AQ as if
+  hardware were live.
+\item
+  Automated compression-aware MED recording setup for 512-channel macro
+  / micro configurations, including decimation, lossless/lossy options,
+  and pre-flight network diagnostics.
+\end{itemize}
+
+\subsubsection{spike\_discrim single-unit DSP workbench ---
+2026}\label{spike_discrim-single-unit-dsp-workbench-2026}
+
+github: https://github.com/BarkBarkBarkBarkBarkBarkBark/spike\_discrim
+
+\begin{itemize}
+\tightlist
+\item
+  Benchmarked low-latency waveform representations for real-time
+  single-unit discrimination using curated OSort snippets, synthetic
+  data, AUC, balanced accuracy, mutual information, and KNN purity.
+\item
+  Built a Numba-accelerated WeightBank population code to score
+  spike-likeness and project waveforms into afferent activation space
+  for clustering and unit-separation analysis.
+\end{itemize}
+
+\subsubsection{SNN Agent real-time spike sorting ---
+2026}\label{snn-agent-real-time-spike-sorting-2026}
+
+github: https://github.com/BarkBarkBarkBarkBarkBarkBark/SNNeuro
+
+\begin{itemize}
+\tightlist
+\item
+  Developed a streaming spiking neural network with bandpass filtering,
+  Kalman noise gating, competitive STDP, and browser-based monitoring
+  for live spike detection and sorting.
+\item
+  Evaluated 20 kHz real-time pipeline behavior across synthetic, .ncs,
+  UDP, and LSL inputs with online decoding for closed-loop neurotech use
+  cases.
+\end{itemize}
+
+\subsection{Education}\label{education}
+
+\textbf{M.S. Biomedical Engineering}, University of California, Davis
+--- Davis, CA --- Beginning Fall 2026 Recently admitted; incoming
+first-year master's student
+
+\textbf{Python for Data Science, Professional Concentration}, UC Davis
+Continuing and Professional Education --- Davis, CA --- 2025
+
+\textbf{M.S. Psychology}, Arizona State University --- Tempe, AZ ---
+2023
+
+\textbf{B.S. Neuroscience, Physiology, and Behavior}, University of
+California, Davis --- Davis, CA --- 2017
+
+\subsection{Professional Experience}\label{professional-experience}
+
+\textbf{Operations Specialist}, First Step Communities --- Sacramento,
+CA Jul 2021 --- Present
+
+\begin{itemize}
+\tightlist
+\item
+  Analyzed program and partner datasets using Python, SPSS, and Excel to
+  identify predictors of successful exits and service effectiveness.
+\item
+  Coordinated data collection from clinical partners including UC Davis
+  Health and Kaiser Permanente to support integrated care outcome
+  analyses.
+\item
+  Identified an association between on-site clinical engagement and
+  permanent housing outcomes; supported leadership in scaling integrated
+  clinical services across sites.
+\item
+  Developed 40+ standardized data collection forms and automated
+  reporting workflows using Microsoft Power Automate.
+\end{itemize}
+
+\textbf{Analyst}, Eurofins Test America --- West Sacramento, CA Oct 2019
+--- Jun 2021
+
+\begin{itemize}
+\tightlist
+\item
+  Maintained high-accuracy data entry and review in a regulated
+  laboratory environment; supported QA documentation and adherence to
+  standard operating procedures.
+\item
+  Performed solvent extraction of organic compounds from soil and water
+  samples in a high-throughput production setting.
+\item
+  Coordinated daily scheduling and backlog management to meet turnaround
+  targets across teams.
+\end{itemize}
+
+\subsection{Skills \& Training}\label{skills-training}
+
+\textbf{Neural Data \& Signal Processing:} Single-unit DSP and waveform
+feature extraction, Spike sorting (Kilosort4, O-Sort, SpikeInterface),
+Neural data processing (filtering, PCA, template matching, clustering),
+Intracranial electrophysiology (microwire, LFP, iEEG)
+
+\textbf{Neural Acquisition \& Tooling:} Neuralynx Pegasus / ATLAS /
+NetCom workflows, Dark Horse Neuro DHN-AQ RC/CS configuration, NRD
+replay, UDP relay, and MED archive generation, Linux, SSH automation,
+xvfb, and acquisition diagnostics
+
+\textbf{Machine Learning \& Data Science:} Python (NumPy, Pandas,
+scikit-learn, PyTorch, Numba), Statistical analysis (SPSS), SQL and
+database engineering (PostgreSQL, PGVector), Cloud GPU computing (AWS
+EC2, CUDA, Docker) and MATLAB workflows
+
+\textbf{General Technical:} Git and version control, Linux and shell
+scripting, Web interfaces (Streamlit), Microsoft 365 administration
+
+\textbf{Data Systems \& Reporting:} Dashboards and stakeholder reporting
+(Looker), Workflow automation (Microsoft 365, Power Automate), Survey
+design and focus group facilitation, Equity-informed outcomes
+measurement
+
+\subsection{Certifications}\label{certifications}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Data Analysis with Matplotlib, Pandas, and Scikit-Learn Python
+  Libraries} --- UC Davis Continuing and Professional Education
+  (2025-09-18) ---
+  \href{https://www.credly.com/badges/505ef11c-58b4-48bd-aa9e-5a21f0247d46/public_url}{Badge}-
+  \textbf{CITI --- Biomedical Research} --- CITI Program- \textbf{CITI
+  --- Essentials of Research Administration} --- CITI Program-
+  \textbf{CITI --- GCP Social and Behavioral Research Best Practices}
+  --- CITI Program
+\end{itemize}
+
+\end{document}

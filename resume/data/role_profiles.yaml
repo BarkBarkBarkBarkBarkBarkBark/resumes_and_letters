@@ -6,6 +6,11 @@
 # prefer_tags    — bullets/skills with these tags rank highest
 # deprioritize_tags — bullets with these tags rank lowest
 # max_bullets_per_role — cap bullets shown per job/volunteer entry
+# max_bullets_per_additional_role — separate cap for unrelated employment
+# max_bullets_per_research_role — separate cap for lab experience
+# additional_prefer_tags — prioritize supporting employment independently
+# project_order — explicit project IDs in presentation order
+# page_break_before_project — PDF-only break before the named project ID
 # skill_categories — which skill blocks to include (in order)
 # include_volunteer — whether to render the volunteer section
 # include_coursework — whether to render the coursework section
@@ -14,10 +19,16 @@
 # ============================================================
 
 neuroengineering:
-  name: "Neuroengineering / BCI / Neuroinformatics"
+  name: "Neuroengineering Research CV"
   summary_key: neuroengineering
   include_volunteer: true
-  include_coursework: true
+  include_coursework: false
+  include_supporting_volunteer: false
+  max_bullets_per_additional_role: 1
+  additional_prefer_tags: [it, quality]
+  max_bullets_per_research_role: 2
+  project_order: [intan, sorting, semantic, neuralynx]
+  page_break_before_project: neuralynx
   prefer_tags:
     - neuroengineering
     - research
@@ -36,13 +47,12 @@ neuroengineering:
     - operations
     - equity
   max_bullets_per_role: 4
-  max_bullets_per_project: 3
+  max_bullets_per_project: 2
   skill_categories:
     - Neural Data & Signal Processing
     - Neural Acquisition & Tooling
     - Machine Learning & Data Science
     - General Technical
-    - Data Systems & Reporting
   cover_letter_opener: neuroengineering
 
 data_analytics:

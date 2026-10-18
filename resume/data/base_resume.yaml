@@ -3,9 +3,7 @@
 # This file is the single source of truth for all outputs.
 #
 # Edit here only. Run:
-#   python scripts/build_resume.py
-#   python scripts/build_resume.py --profile neuroengineering
-#   python scripts/build_resume.py --profile data_analytics
+#   python resume/scripts/build_resume.py --profile neuroengineering
 # ============================================================
 
 personal:
@@ -14,21 +12,17 @@ personal:
     email: mdelfava@ucdavis.edu
     phone: "707-637-6544"
     location: Sacramento, CA
-    linkedin: "www.linkedin.com/in/marc-del-fava"      # Add: linkedin.com/in/yourhandle
-    github: "https://github.com/BarkBarkBarkBarkBarkBarkBark"        # Add: github.com/yourhandle
+    linkedin: "https://www.linkedin.com/in/marc-del-fava"
+    github: "https://github.com/BarkBarkBarkBarkBarkBarkBark"
 
 # Multiple summary variants — the active one is selected by role profile.
 summary:
   neuroengineering: >
-    Recently admitted to the UC Davis M.S. in Biomedical Engineering (Fall 2026)
-    and active neuroscience researcher working at the intersection of human
-    intracranial electrophysiology, single-unit digital signal processing, and
-    neurotechnology tooling. Experience includes spike sorting with Kilosort4,
-    O-Sort, and SpikeInterface; building GPU-accelerated pipelines on AWS; and
-    implementing Dark Horse Neuro / Neuralynx acquisition workflows for replay,
-    compression-aware MED recording, and large-scale neural data handling.
-    I look forward to a career in neural signal processing, neural acquisition
-    systems, and BCI-related infrastructure.
+    Biomedical Engineering M.S. student at UC Davis and research volunteer in
+    Dr. Jie Zheng's lab, working on human single-unit electrophysiology.
+    Builds research software for neural acquisition and spike analysis, with
+    interests in Intan acquisition, real-time spike sorting, and semantic
+    selectivity in single-neuron responses.
 
   data_analytics: >
     Evaluation and data systems professional with 5 years supporting 4 shelter sites
@@ -39,63 +33,54 @@ summary:
     Committed to equity-centered learning and improving health and housing outcomes.
 
   default: >
-    Recently admitted to the UC Davis M.S. in Biomedical Engineering (Fall 2026)
-    with a growing research focus in human electrophysiology, single-unit DSP,
-    and neurotechnology engineering. Background spans Python/MATLAB tooling,
-    spike sorting, acquisition workflow automation, clinical data coordination,
-    and scientific communication. I look forward to a career at the intersection
-    of systems neuroscience, neural data infrastructure, and BCI engineering.
+    Biomedical Engineering M.S. student at UC Davis and research volunteer in
+    Dr. Jie Zheng's lab. Background spans human electrophysiology, Python/MATLAB
+    analysis, acquisition tooling, laboratory quality control, and data systems.
 
 # Skills are organized into named categories.
 # The active profile controls which categories appear and in what order.
 skills:
   - category: Neural Data & Signal Processing
     items:
-      - Single-unit DSP and waveform feature extraction
-      - text: Spike sorting (Kilosort4, O-Sort, SpikeInterface)
-        evidence: https://github.com/BarkBarkBarkBarkBarkBarkBark/spike_discrim
-      - Neural data processing (filtering, PCA, template matching, clustering)
-      - Intracranial electrophysiology (microwire, LFP, iEEG)
+      - text: Waveform features, spike-vs-noise evaluation, and afferent clustering
+        evidence: https://github.com/BarkBarkBarkBarkBarkBarkBark/spike_discrim/blob/main/docs/clustering_results.md
+      - text: SpikeInterface preprocessing, Kilosort4, and manual unit curation workflows
+        evidence: https://github.com/BarkBarkBarkBarkBarkBarkBark/zlab_sorting_script/blob/main/readme.md
     tags: [neuroengineering, research, technical]
 
   - category: Neural Acquisition & Tooling
     items:
-      - Neuralynx Pegasus / ATLAS / NetCom workflows
-      - text: Dark Horse Neuro DHN-AQ RC/CS configuration
-        evidence: https://github.com/BarkBarkBarkBarkBarkBarkBark/dhn_client
-      - NRD replay, UDP relay, and MED archive generation
-      - Linux, SSH automation, xvfb, and acquisition diagnostics
+      - text: Intan RHD loading and probe-aware sorting workflows
+        evidence: https://github.com/BarkBarkBarkBarkBarkBarkBark/zlab_sorting_script/blob/main/notebooks/sort_intan.ipynb
+      - text: DHN-AQ RC/CS configuration, SSH orchestration, and NRD replay prototypes
+        evidence: https://github.com/BarkBarkBarkBarkBarkBarkBark/dhn_client/tree/main/src/darkhorse_neuralynx
     tags: [neuroengineering, research, technical, data_acquisition, compression]
 
   - category: Machine Learning & Data Science
     items:
-      - Python (NumPy, Pandas, scikit-learn, PyTorch, Numba)
-      - Statistical analysis (SPSS)
-      - SQL and database engineering (PostgreSQL, PGVector)
-      - Cloud GPU computing (AWS EC2, CUDA, Docker) and MATLAB workflows
+      - text: Python (NumPy, Pandas, scikit-learn, PyTorch, Numba); MATLAB
+      - text: Sentence embeddings and seeded NEURON simulation prototypes
+        evidence: https://github.com/BarkBarkBarkBarkBarkBarkBark/semantic_neuron/blob/main/neuronlib.py
     tags: [neuroengineering, analytics, technical]
 
   - category: Data Systems & Reporting
     items:
-      - Dashboards and stakeholder reporting (Looker)
-      - Workflow automation (Microsoft 365, Power Automate)
-      - Survey design and focus group facilitation
-      - Equity-informed outcomes measurement
+      - text: Dashboards and stakeholder reporting (Looker)
+      - text: Workflow automation (Microsoft 365, Power Automate)
+      - text: Survey design, focus groups, and outcomes measurement
     tags: [analytics, evaluation, management]
 
   - category: General Technical
     items:
-      - Git and version control
-      - Linux and shell scripting
-      - Web interfaces (Streamlit)
-      - Microsoft 365 administration
+      - text: Git, Linux, SSH, shell scripting, Docker, and AWS GPU workflows
+      - text: Microsoft 365 administration; SQL and PostgreSQL
     tags: [technical, it]
 
 # Each bullet has a text field and tags for role-profile filtering.
 # The build script scores bullets by tag overlap with the active profile,
 # sorts them by score, and takes the top N per role.
 experience:
-  - role: "IT Administrator for First Step Communities"
+  - role: IT Administrator
     organization: First Step Communities
     org_type: Homeless Shelter Operator
     location: Sacramento, CA
@@ -138,7 +123,7 @@ experience:
       - text: >
           Managed Microsoft 365 IT infrastructure across 4 shelter sites, including
           user provisioning, device management, and systems coordination.
-        tags: [technical, it, management]
+        tags: [technical, it]
 
       - text: >
           Coordinated data collection from clinical partners including UC Davis Health
@@ -172,32 +157,20 @@ experience:
 volunteer:
   - role: Research Volunteer
     organization: "UC Davis Health — Z-Lab (Dr. Jie Zheng)"
+    section: research
     location: Sacramento, CA
     start_date: "2025-07"
     end_date: present
     bullets:
       - text: >
-          Sort single-unit activity from human Phase II epilepsy microwire
-          recordings using MATLAB (O-Sort) and Python (SpikeInterface), with an
-          emphasis on preserving unit-specific waveform structure for downstream
-          analysis.
+          Analyze human epilepsy microwire recordings using O-Sort and
+          SpikeInterface, with attention to waveform structure and unit curation.
         tags: [neuroengineering, research, technical, spike_sorting, signal_processing]
 
       - text: >
-          Build a GPU-accelerated spike sorting pipeline for dense microelectrode
-          arrays using Kilosort4 on AWS EC2 instances to support reproducible,
-          high-throughput reprocessing of human intracranial recordings.
+          Develop research workflows connecting acquisition, spike processing,
+          and downstream single-neuron response analysis.
         tags: [neuroengineering, research, technical, cloud, ml, signal_processing]
-
-      - text: >
-          Curated a dataset of approximately 2 million hand-labeled waveforms for
-          spike-vs-noise modeling and benchmarking.
-        tags: [neuroengineering, research, data, ml, signal_processing]
-
-      - text: >
-          Trained neural network models to classify putative single units versus
-          noise, improving manual curation efficiency for human recordings.
-        tags: [neuroengineering, research, ml, technical, signal_processing]
 
   - role: Research Volunteer
     organization: "UC Davis Health — Neuroscience Unit E5"
@@ -235,9 +208,9 @@ education:
   - degree: M.S. Biomedical Engineering
     institution: University of California, Davis
     location: Davis, CA
-    graduation_date: "Beginning Fall 2026"
+    graduation_date: "Fall 2026 - Present"
     gpa: ""
-    notes: "Recently admitted; incoming first-year master's student"
+    notes: ""
 
   - degree: Python for Data Science, Professional Concentration
     institution: UC Davis Continuing and Professional Education
@@ -274,89 +247,86 @@ certifications:
     badge_url: assets/ucdavis_python_badge.png
     credly_url: "https://www.credly.com/badges/505ef11c-58b4-48bd-aa9e-5a21f0247d46/public_url"
 
-  - name: CITI — Biomedical Research
-    issuer: CITI Program
-    date: ""
-
-  - name: CITI — Essentials of Research Administration
-    issuer: CITI Program
-    date: ""
-
-  - name: CITI — GCP Social and Behavioral Research Best Practices
+  - name: Biomedical Research; Research Administration; GCP Social and Behavioral Research
     issuer: CITI Program
     date: ""
 
 # Standalone projects separate from work/volunteer roles.
 # Add entries here as the pipeline grows.
 projects:
-  - name: Dark Horse Neuro / Neuralynx acquisition pipeline
+  - id: intan
+    name: Intan acquisition and experiment synchronization
     dates: 2026
+    problem: Connect neural recordings to reproducible processing and experiment timing.
     bullets:
-      - Built a Python orchestration layer to launch DHN-AQ headlessly over SSH,
-        generate RC/CS session files, and coordinate Pegasus / NetCom replay
-        workflows for human intracranial recordings.
-      - Implemented an NRD replay bridge that re-broadcasts ATLAS-format UDP
-        packets so archived Neuralynx sessions can be ingested by DHN-AQ as if
-        hardware were live.
-      - Automated compression-aware MED recording setup for 512-channel macro /
-        micro configurations, including decimation, lossless/lossy options, and
-        pre-flight network diagnostics.
+      - text: Implemented Intan RHD loading, probe configuration, and SpikeInterface/Kilosort4 processing in zlab_sorting_script.
+        evidence: https://github.com/BarkBarkBarkBarkBarkBarkBark/zlab_sorting_script/blob/main/notebooks/sort_intan.ipynb
+      - text: Developing Intan RHX/DeepArray acquisition and event-synchronization integration; hardware bench validation remains pending.
+    status: File-processing workflow implemented; live acquisition and timing integration in progress.
     links:
-      - label: GitHub
+      - label: Intan workflow
+        url: https://github.com/BarkBarkBarkBarkBarkBarkBark/zlab_sorting_script/blob/main/readme.md
+    tags: [neuroengineering, data_acquisition]
+
+  - id: sorting
+    name: Waveform discrimination and online sorting research
+    dates: 2026
+    problem: Preserve unit-specific waveform information while investigating streaming analysis.
+    bullets:
+      - text: Implemented WeightBank waveform representations in spike_discrim; evaluated post-hoc clustering against putative O-Sort unit labels.
+        evidence: https://github.com/BarkBarkBarkBarkBarkBarkBark/spike_discrim/blob/main/docs/clustering_results.md
+      - text: Developed synthetic streaming/detection infrastructure in realtime-sorter-mvp and experimental competitive-learning sorting in SNNeuro.
+        evidence: https://github.com/BarkBarkBarkBarkBarkBarkBark/SNNeuro/blob/main/src/snn_agent/core/pipeline.py
+    status: Discrimination evaluated offline; online unit sorting remains experimental, without validated end-to-end latency.
+    links:
+      - label: Discrimination results
+        url: https://github.com/BarkBarkBarkBarkBarkBarkBark/spike_discrim/blob/main/docs/clustering_results.md
+      - label: Streaming, not unit sorting
+        url: https://github.com/BarkBarkBarkBarkBarkBarkBark/realtime-sorter-mvp
+      - label: Experimental sorter
+        url: https://github.com/BarkBarkBarkBarkBarkBarkBark/SNNeuro/blob/main/src/snn_agent/core/dec_layer.py
+    tags: [neuroengineering, spike_sorting]
+
+  - id: semantic
+    name: Single-neuron response analysis and semantic tuning
+    dates: 2026
+    problem: Investigate relationships between stimulus meaning and single-neuron responses.
+    bullets:
+      - text: Implemented a seeded NEURON prototype mapping sentence similarity to stochastic input rates, with fixed synaptic weights.
+        evidence: https://github.com/BarkBarkBarkBarkBarkBarkBark/semantic_neuron/blob/main/neuronlib.py
+      - text: Developed semantic-trajectory tooling in ZEmbeddings; exploring stimulus-aligned response analysis and adaptive stimulus selection.
+        evidence: https://github.com/BarkBarkBarkBarkBarkBarkBark/ZEmbeddings/tree/main/src/zembeddings
+    status: Simulation and text analysis implemented; adaptive experiments proposed, not demonstrated human concept selectivity or causality.
+    links:
+      - label: Simulation and limitations
+        url: https://github.com/BarkBarkBarkBarkBarkBarkBark/semantic_neuron#limitations
+      - label: Semantic text analysis
+        url: https://github.com/BarkBarkBarkBarkBarkBarkBark/ZEmbeddings
+    tags: [neuroengineering, semantic]
+
+  - id: neuralynx
+    name: Supporting acquisition work - Neuralynx / Dark Horse Neuro
+    dates: 2026
+    problem: Configure acquisition sessions and replay archived Neuralynx recordings.
+    bullets:
+      - text: Implemented DHN-AQ RC/CS configuration writers and SSH launch orchestration.
+        evidence: https://github.com/BarkBarkBarkBarkBarkBarkBark/dhn_client/tree/main/src/darkhorse_neuralynx/dhn_client
+      - text: Developed an NRD-to-UDP replay prototype for DHN-AQ ingestion.
+        evidence: https://github.com/BarkBarkBarkBarkBarkBarkBark/dhn_client/blob/main/src/darkhorse_neuralynx/pegasus_bridge/nrd_stream.py
+    status: Prototype implemented; hardware reception and recording validation remain in progress.
+    links:
+      - label: Acquisition implementation
         url: https://github.com/BarkBarkBarkBarkBarkBarkBark/dhn_client
-      - label: Docs
-        url: https://barkbarkbarkbarkbarkbarkbark.github.io/dhn_client/
-    tags: [neuroengineering, research, technical, data_acquisition, compression, signal_processing, python]
-
-  - name: spike_discrim single-unit DSP workbench
-    dates: 2026
-    bullets:
-      - Benchmarked low-latency waveform representations for real-time single-unit
-        discrimination using curated OSort snippets, synthetic data, AUC,
-        balanced accuracy, mutual information, and KNN purity.
-      - Built a Numba-accelerated WeightBank population code to score
-        spike-likeness and project waveforms into afferent activation space for
-        clustering and unit-separation analysis.
-    links:
-      - label: GitHub
-        url: https://github.com/BarkBarkBarkBarkBarkBarkBark/spike_discrim
-    tags: [neuroengineering, research, technical, spike_sorting, signal_processing, ml, realtime]
-
-  - name: SNN Agent real-time spike sorting
-    dates: 2026
-    bullets:
-      - Developed a streaming spiking neural network with bandpass filtering,
-        Kalman noise gating, competitive STDP, and browser-based monitoring for
-        live spike detection and sorting.
-      - Evaluated 20 kHz real-time pipeline behavior across synthetic, .ncs,
-        UDP, and LSL inputs with online decoding for closed-loop neurotech use
-        cases.
-    links:
-      - label: GitHub
-        url: https://github.com/BarkBarkBarkBarkBarkBarkBark/SNNeuro
-    tags: [neuroengineering, research, technical, spike_sorting, signal_processing, ml, realtime]
+    tags: [neuroengineering, data_acquisition]
 
 site:
-  intro_title: Building practical neurotech tools
+  intro_title: Neural acquisition, spike processing, and single-neuron response analysis
   intro_blurb: >
-    I am a recently admitted UC Davis Biomedical Engineering M.S. student with a
-    background in neuroscience, data systems, and hands-on neural signal
-    processing. I am especially interested in single-unit DSP, human
-    intracranial recordings, acquisition pipelines, real-time spike sorting,
-    and open-source neurotechnology tooling.
-  seeking: >
-    I look forward to a career in neural signal processing and to continued work
-    on neural data, acquisition systems, and BCI-adjacent analytical tools.
-  interests:
-    - Single-unit signal processing and spike-vs-noise discrimination
-    - Neural acquisition workflows, replay systems, and compression-aware archives
-    - Human intracranial electrophysiology and microwire recordings
-    - Real-time spike sorting, online decoding, and BCI infrastructure
-    - Open-source Python and MATLAB tooling for neuroscience labs
-  github_projects_intro: >
-    A few representative repositories are listed below. They reflect the kind
-    of work I enjoy most: building usable tools around neural data acquisition,
-    waveform analysis, and real-time neurotech systems.
+    I'm a biomedical engineering master's student at UC Davis working with
+    Dr. Jie Zheng's lab on human single-unit electrophysiology. I build research
+    software for neural acquisition and spike analysis. My current interests
+    center on Intan acquisition, real-time spike sorting, and investigating
+    semantic selectivity in single-neuron responses.
 
 # Controls the default profile used when --profile is not passed.
 target_metadata:
