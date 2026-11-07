@@ -1,0 +1,56 @@
+name: CatalystNeuro CV preview
+
+on:
+  pull_request:
+    paths:
+      - 'resume/data/**'
+      - 'resume/scripts/**'
+      - 'resume/templates/**'
+      - 'resume/tests/**'
+      - '.github/workflows/catalystneuro-preview.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: pip
+          cache-dependency-path: resume/requirements.txt
+      - name: Install dependencies
+        run: |
+          python -m pip install -r resume/requirements.txt
+          sudo apt-get update
+          sudo apt-get install -y pandoc latexmk texlive-luatex texlive-fonts-recommended texlive-latex-extra poppler-utils
+      - name: Run generator tests
+        run: python -m pytest resume/tests --ignore=resume/tests/test_pdf.py -q
+      - name: Build tailored research software CV
+        run: python resume/scripts/build_resume.py --profile catalystneuro --output marco_del_fava_catalystneuro
+      - name: Verify PDF pages, certification link, and text
+        run: |
+          PDF=resume/output/marco_del_fava_catalystneuro/marco_del_fava_catalystneuro.pdf
+          test "$(pdfinfo "$PDF" | awk '/^Pages:/ {print $2}')" = "2"
+          pdftotext -raw "$PDF" - | grep -q 'Scientific AI Workstation'
+          pdftotext -raw "$PDF" - | grep -q 'Data Analysis with Matplotlib'
+          pdfinfo -url "$PDF" | grep -Fq 'https://www.credly.com/go/yumqh3cVExa27s7Nc27v7g'
+          test "$(pdfimages -list "$PDF" | tail -n +3 | wc -l)" -gt 0
+      - name: Build the general site and validate both published CV formats
+        run: |
+          python resume/scripts/build_site.py --profile neuroengineering --output-dir _site
+          PORTFOLIO_DIR=_site python -m pytest resume/tests/test_pdf.py -q
+          pdfinfo -url _site/marco_del_fava_cv.pdf | grep -Fq 'https://www.credly.com/go/yumqh3cVExa27s7Nc27v7g'
+          pdftotext -raw _site/marco_del_fava_cv.pdf - | grep -q 'Data Analysis with Matplotlib'
+      - name: Upload PDF, DOCX and Markdown
+        uses: actions/upload-artifact@v4
+        with:
+          name: catalystneuro-cv-with-ucd-badge
+          path: |
+            resume/output/marco_del_fava_catalystneuro/marco_del_fava_catalystneuro.pdf
+            resume/output/marco_del_fava_catalystneuro/marco_del_fava_catalystneuro.docx
+            resume/output/marco_del_fava_catalystneuro/marco_del_fava_catalystneuro.md

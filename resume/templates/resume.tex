@@ -57,6 +57,10 @@
 \newcommand{\EvidenceLink}[1]{%
   \href{#1}{\raisebox{-0.12\height}{\includegraphics[height=8pt]{icons/github.png}}}\hspace{0.2em}%
 }
+% Small, clickable UC Davis digital credential image alongside certification text.
+\newcommand{\CredentialBadge}[2]{%
+  \href{#1}{\raisebox{-0.18\height}{\includegraphics[height=23pt,keepaspectratio]{icons/#2}}}\hspace{0.45em}%
+}
 \newcommand{\CompactResume}{%
   \fontsize{10.5pt}{12pt}\selectfont
   \setlength{\parskip}{2pt}%

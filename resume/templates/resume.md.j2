@@ -126,7 +126,7 @@
 ## Certifications
 
 {% for cert in resume.certifications %}
-- {% if cert.credly_url %}[{{ cert.name }}]({{ cert.credly_url }}){% else %}{{ cert.name }}{% endif %} — {{ cert.issuer }}{% if cert.date %} ({{ cert.date | fmt_date }}){% endif %}
+- {% if output_format == 'latex' and cert.badge_icon and cert.credly_url %}\CredentialBadge{ {{- cert.credly_url -}} }{ {{- cert.badge_icon -}} } {% endif %}{% if cert.credly_url %}[{{ cert.name }}]({{ cert.credly_url }}){% else %}{{ cert.name }}{% endif %} — {{ cert.issuer }}{% if cert.date %} ({{ cert.date | fmt_date }}){% endif %}
 
 {% endfor %}
 {% endif %}
