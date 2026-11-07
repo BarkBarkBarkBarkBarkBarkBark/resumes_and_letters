@@ -36,6 +36,6 @@ def test_badge_is_embedded_as_clickable_image_in_both_research_cvs():
     assert icon.is_file() and icon.stat().st_size > 10000
     for name in ("catalystneuro", "neuroengineering"):
         latex = render_resume(data, profiles[name], output_format="latex")
-        assert r"\\CredentialBadge{" + CREDLY + r"}{ucd_python_badge.png}" in latex
+        assert r"\CredentialBadge{" + CREDLY + r"}{ucd_python_badge.png}" in latex
         assert "UC Davis Continuing and Professional Education" in latex
-    assert r"\\newcommand{\\CredentialBadge}" in (ROOT / "templates/resume.tex").read_text()
+    assert r"\newcommand{\CredentialBadge}" in (ROOT / "templates/resume.tex").read_text()
