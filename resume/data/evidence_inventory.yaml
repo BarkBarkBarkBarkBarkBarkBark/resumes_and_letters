@@ -186,6 +186,24 @@ records:
     verified_result: Clock-alignment implementation verified by inspection; supplied recording-level measurements not independently verified.
     limitations: No event logs, timestamp records, saved plots, or bench-test channel-quality report in the inspected revision. No timing or channel-yield numbers approved for publication in this update. Not physical onset jitter, TTL validation, or closed-loop latency.
 
+  saw-agent-workflow:
+    repository: BarkBarkBarkBarkBarkBarkBark/Scientific-A.I.-Workstation
+    revision: c1cc2c5ae9d3c86a3479b89a03b53234060b5f7b
+    sources:
+      - path: services/saw_api/app/agent_runtime/core.py
+        location: Tool-calling agent loop and human write approval
+      - path: services/saw_api/app/agent_runtime/tools.py
+        location: Read/write tools and patch-engine requests
+      - path: services/patch_engine/app/main.py
+        location: Capability enforcement and validation/recovery pathways
+    public: true
+    maturity: Prototype
+    verification: Public code and README inspected; runtime, performance, and security not independently tested.
+    measurement_definition: Software implementation only; no benchmark or product-readiness metric.
+    test_conditions: Local-first Python service and React interface with approval-gated file edits.
+    verified_result: Source implements agent tool-calling, explicit write approval, capability controls, and validation/recovery pathways.
+    limitations: Does not demonstrate production safety, runtime reliability, or a specific caught AI-generated error.
+
   legacy-professional:
     repository: BarkBarkBarkBarkBarkBarkBark/resumes_and_letters
     revision: f98d69e5f38f80ad83a700143c02d837b9832652

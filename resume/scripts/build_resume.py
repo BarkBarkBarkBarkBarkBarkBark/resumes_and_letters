@@ -143,6 +143,10 @@ def apply_profile(data: dict, profile: dict) -> dict:
             normalized.sort(key=lambda item: _score_bullet(item, priorities, deprioritize), reverse=True)
         return normalized[:limit]
 
+    # Role-specific headline; retain the general CV headline unchanged.
+    if profile.get("headline"):
+        result["personal"]["headline"] = str(profile["headline"])
+
     summaries = result.get("summary", {})
     result["summary_text"] = (
         summaries.get(profile.get("summary_key", "default")) or summaries.get("default", "")
@@ -183,6 +187,12 @@ def apply_profile(data: dict, profile: dict) -> dict:
         result["coursework"] = []
     if not profile.get("include_certifications", True):
         result["certifications"] = []
+    elif profile.get("certification_names"):
+        allowed = set(profile["certification_names"])
+        result["certifications"] = [
+            cert for cert in result.get("certifications", [])
+            if cert.get("name") in allowed
+        ]
 
     for project in result.get("projects", []):
         project["bullets"] = bullets(
@@ -328,7 +338,7 @@ def build_resume(data: dict, profile: dict, stem: str, output_dir: Path = OUTPUT
     if not md_only:
         icons = folder / "icons"
         icons.mkdir(exist_ok=True)
-        for name in ("github.png", "linkedin.png"):
+        for name in ("github.png", "linkedin.png", "ucd_python_badge.png"):
             shutil.copy2(TEMPLATES_DIR / "icons" / name, icons / name)
         if not to_docx(md_path, folder / f"{stem}.docx"):
             raise RuntimeError("DOCX build failed.")

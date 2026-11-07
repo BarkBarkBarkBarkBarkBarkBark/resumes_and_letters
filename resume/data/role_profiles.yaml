@@ -18,6 +18,32 @@
 # cover_letter_opener — which opener snippet to pull from cover_letter_snippets.yaml
 # ============================================================
 
+catalystneuro:
+  name: "CatalystNeuro Research Software Engineer Application CV"
+  engineering_focus: true
+  headline: "Research Software Engineering | Neuroscience Data Pipelines"
+  summary_key: catalystneuro
+  include_volunteer: true
+  include_supporting_volunteer: false
+  include_coursework: false
+  include_certifications: true
+  certification_names:
+    - "Data Analysis with Matplotlib, Pandas, and Scikit-Learn Python Libraries"
+  max_bullets_per_role: 2
+  max_bullets_per_additional_role: 1
+  additional_prefer_tags: [engineering_support]
+  max_bullets_per_research_role: 2
+  max_bullets_per_project: 2
+  project_order: [intan, compression, saw, sorting]
+  prefer_tags: [research, technical, python, agentic, software_engineering, data_acquisition, compression, signal_processing]
+  deprioritize_tags: [management, operations, equity]
+  skill_categories:
+    - Scientific Software & Coding Agents
+    - Neural Acquisition & Tooling
+    - Neural Data & Signal Processing
+    - General Technical
+  cover_letter_opener: neuroengineering
+
 neuroengineering:
   name: "Neuroengineering Research CV"
   engineering_focus: true

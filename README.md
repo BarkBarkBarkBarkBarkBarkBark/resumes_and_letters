@@ -99,6 +99,28 @@ readable URLs. Skill evidence is a small linked GitHub emblem with an accessible
 label; skill text remains selectable. The PDF has selectable text and clickable
 evidence links; it is not a tagged/PDF-UA document.
 
+### Targeted CatalystNeuro CV and verified UC Davis badge
+
+Build a separate job-specific research-software-engineering CV without
+overwriting the general CV or published portfolio:
+
+```bash
+python resume/scripts/build_resume.py --profile catalystneuro --output marco_del_fava_catalystneuro
+python -m pytest resume/tests --ignore=resume/tests/test_pdf.py -q
+```
+
+The resulting PDF and DOCX live under
+`resume/output/marco_del_fava_catalystneuro/`. The CatalystNeuro profile
+emphasizes Intan/Neuralynx handling, sample-level validation, synchronization,
+Python, and a source-inspected coding-agent workbench. It does **not** claim
+NWB/DANDI experience or independent production validation of prototypes.
+
+Both the tailored and full research CV PDFs show a small, clickable
+**UC Davis Python Data Analysis Skills** badge beside the credential entry.
+The image is reused from `resume/templates/icons/ucd_python_badge.png`;
+the link is the credential-specific Credly address supplied by the candidate.
+The compact one-page engineering resume continues to omit certifications.
+
 ### Content and evidence schema
 
 Skills and contribution bullets use mappings:
