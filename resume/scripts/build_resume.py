@@ -136,6 +136,10 @@ def apply_profile(data: dict, profile: dict) -> dict:
             normalized.sort(key=lambda item: _score_bullet(item, priorities, deprioritize), reverse=True)
         return normalized[:limit]
 
+    # Role-specific headline; retain the general CV headline unchanged.
+    if profile.get("headline"):
+        result["personal"]["headline"] = str(profile["headline"])
+
     summaries = result.get("summary", {})
     result["summary_text"] = (
         summaries.get(profile.get("summary_key", "default")) or summaries.get("default", "")
@@ -177,6 +181,12 @@ def apply_profile(data: dict, profile: dict) -> dict:
     if not profile.get("include_certifications", True):
         result["certifications"] = []
         result["professional_development"] = []
+    elif profile.get("certification_names"):
+        allowed = set(profile["certification_names"])
+        result["certifications"] = [
+            cert for cert in result.get("certifications", [])
+            if cert.get("name") in allowed
+        ]
 
     for project in result.get("projects", []):
         project["bullets"] = bullets(

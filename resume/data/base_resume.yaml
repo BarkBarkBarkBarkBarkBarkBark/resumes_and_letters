@@ -32,6 +32,14 @@ summary:
     I build Python acquisition and data-integrity workflows and use coding agents
     with profiling, debugging, and regression tests.
 
+  catalystneuro: >
+    Biomedical engineering graduate researcher developing Python tools for
+    human intracranial electrophysiology, with experience in Intan and Neuralynx
+    vendor formats, SpikeInterface, event-clock synchronization, and sample-level
+    data-integrity validation. Builds agent-assisted scientific software
+    prototypes with explicit approval and validation controls; prioritizes
+    reproducibility and transparent limitations.
+
   data_analytics: >
     Evaluation and data systems professional with 5 years supporting 4 shelter sites
     serving 400+ people/month and their integrated clinical partnerships. Led mixed
@@ -69,6 +77,13 @@ skills:
       - text: Sentence embeddings and seeded NEURON simulation prototypes
         evidence: https://github.com/BarkBarkBarkBarkBarkBarkBark/semantic_neuron/blob/349fe4be084a5b49b4b2037995a137ee6f83994b/neuronlib.py
     tags: [neuroengineering, analytics, technical]
+
+  - category: Scientific Software & Coding Agents
+    items:
+      - text: Python (NumPy, SciPy, Pandas), pytest, Git/GitHub, Linux; scientific data processing and testing
+      - text: OpenAI/Copilot tool-calling agent integration; approval-gated writes, file capabilities, validation hooks
+        evidence: https://github.com/BarkBarkBarkBarkBarkBarkBark/Scientific-A.I.-Workstation/blob/c1cc2c5ae9d3c86a3479b89a03b53234060b5f7b/services/saw_api/app/agent_runtime/core.py
+    tags: [technical, research, python, agentic, software_engineering]
 
   - category: Data Systems & Reporting
     items:
@@ -273,7 +288,8 @@ certifications:
     issuer: UC Davis Continuing and Professional Education
     date: "2025-09-18"
     badge_url: assets/ucdavis_python_badge.png
-    credly_url: "https://www.credly.com/badges/505ef11c-58b4-48bd-aa9e-5a21f0247d46/public_url"
+    badge_icon: ucd_python_badge.png
+    credly_url: "https://www.credly.com/go/yumqh3cVExa27s7Nc27v7g"
 
   - name: Biomedical Research; Research Administration; GCP Social and Behavioral Research
     issuer: CITI Program
@@ -331,6 +347,25 @@ projects:
       - label: Reader implementation and comparison details
         url: https://barkbarkbarkbarkbarkbarkbark.github.io/resumes_and_letters/evidence.html#med-adapter
     tags: [neuroengineering, compression, signal_processing]
+
+  - id: saw
+    name: Scientific AI Workstation - Agent-Assisted Scientific Software
+    headline_result: Approval-gated agent edits and validation-oriented tooling
+    dates: 2026
+    problem: Give coding agents controlled access to inspect and modify research software.
+    tested: Public implementation inspected; no independent runtime, security, or performance evaluation.
+    bullets:
+      - text: Developed a local-first scientific workflow workbench combining Python APIs, React/TypeScript, and tool-calling coding-agent integration.
+        evidence: https://github.com/BarkBarkBarkBarkBarkBarkBark/Scientific-A.I.-Workstation/blob/c1cc2c5ae9d3c86a3479b89a03b53234060b5f7b/services/saw_api/app/agent_runtime/core.py
+      - text: Implemented approval-gated edits, configurable file capabilities, and validation/rollback pathways through a separate patch-engine service.
+        evidence: https://github.com/BarkBarkBarkBarkBarkBarkBark/Scientific-A.I.-Workstation/blob/c1cc2c5ae9d3c86a3479b89a03b53234060b5f7b/services/patch_engine/app/main.py
+    maturity: Prototype
+    status: Local-first development prototype; runtime reliability and security not independently validated.
+    evidence_ids: [saw-agent-workflow]
+    links:
+      - label: Scientific AI Workstation source
+        url: https://github.com/BarkBarkBarkBarkBarkBarkBark/Scientific-A.I.-Workstation
+    tags: [technical, python, agentic, software_engineering]
 
   - id: sorting
     name: Waveform Analysis and Spike Sorting

@@ -2,6 +2,7 @@
 output/*.md
 output/*.docx
 output/*.pdf
+output/marco_del_fava_catalystneuro/
 output/*/*.aux
 output/*/*.fdb_latexmk
 output/*/*.fls

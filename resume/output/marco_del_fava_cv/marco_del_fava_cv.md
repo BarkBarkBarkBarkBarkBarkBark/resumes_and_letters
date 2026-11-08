@@ -113,5 +113,5 @@ Biomedical engineering graduate student at UC Davis developing Python software f
 **Python for Data Science, Professional Concentration**, UC Davis Continuing and Professional Education — 2025
 
 
-- [Data Analysis with Matplotlib, Pandas, and Scikit-Learn Python Libraries](https://www.credly.com/badges/505ef11c-58b4-48bd-aa9e-5a21f0247d46/public_url) — UC Davis Continuing and Professional Education (2025-09-18)
+- [Data Analysis with Matplotlib, Pandas, and Scikit-Learn Python Libraries](https://www.credly.com/go/yumqh3cVExa27s7Nc27v7g) — UC Davis Continuing and Professional Education (2025-09-18)
 - Biomedical Research; Research Administration; GCP Social and Behavioral Research — CITI Program

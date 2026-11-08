@@ -101,6 +101,26 @@ After a layout change, inspect actual desktop/mobile HTML and the first and last
 pages of both PDFs. Tests check page counts, reading order, margins, links,
 provenance, and factual scope; they do not replace visual review.
 
+## Additional CatalystNeuro profile
+
+The remote changes also provide a separate job-specific CV, without
+overwriting the current public portfolio or full research CV:
+
+```bash
+python resume/scripts/build_resume.py --profile catalystneuro --output marco_del_fava_catalystneuro
+python -m pytest resume/tests --ignore=resume/tests/test_pdf.py -q
+```
+
+The resulting PDF and DOCX live under
+`resume/output/marco_del_fava_catalystneuro/`. This profile includes
+Scientific AI Workstation alongside acquisition, data integrity, and waveform
+analysis. The primary `neuroengineering` profile retains the current
+four-project selection, including Hosaka.
+
+Both full CVs keep the small UC Davis badge in the header, not inside a
+certification bullet. The updated Credly shortcut resolves to the same
+credential. The one-page engineering resume continues to omit the badge.
+
 ## Evidence and publication
 
 Skills and bullets accept `text`, optional HTTPS `evidence`, and optional `tags`.
