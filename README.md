@@ -43,7 +43,7 @@ The one-page resume uses a shorter summary and selects formats, acquisition,
 and agent-assisted debugging rather than compressing the full CV verbatim.
 
 The homepage uses plain project sections: purpose, contribution, result, tools,
-and one source or technical-details link. There are no project diagrams or
+and an optional source or technical-details link. There are no project diagrams or
 maturity badges. Measurement tables and the controlled spike-frame comparison
 remain on the evidence page. The full CV has a small Credly-linked UC Davis
 badge in its header; the certification section is text-only, and the compact
@@ -129,6 +129,7 @@ Legacy strings are normalized at the input boundary. Projects use `id`, `name`,
 records for each output.
 Links can set `icon: github` to retain the icon when pointing to technical evidence,
 as with the Hosaka debugging account.
+Use `hide_on_site: true` to hide a project link on the homepage while retaining its PDF reference.
 
 Only explicitly public inventory records can enter the evidence page, filtered
 JSON, or public manifest. Repository evidence requires exact source locations

@@ -211,14 +211,17 @@ def test_figures_have_provenance_and_detail_page_preserves_scope(content):
     assert "evidence_manifest.json" in html
 
 
-def test_each_project_has_one_link_and_brief_selectable_prose(content):
+def test_project_links_respect_site_visibility_and_keep_brief_prose(content):
     html = render_site(content)
     for project in apply_profile(*content)["projects"]:
         article = html.split(f'id="{project["id"]}">')[1].split("</article>")[0]
-        assert article.count("<a ") == 1
+        hidden = project["links"][0].get("hide_on_site", False)
+        assert article.count("<a ") == (0 if hidden else 1)
         assert len(article.split()) < 150
         assert project["tools"] in article
     assert "35,587" not in html
+    assert "Reader implementation and comparison details" not in html
+    assert 'href="evidence.html#med-adapter"' not in html
 
 
 def test_second_pdf_failure_does_not_publish(content, tmp_path, monkeypatch):

@@ -93,7 +93,7 @@
       <h3>Neural Data Formats and Integrity</h3>
       <p>Make vendor recordings readable and check what changes during conversion.</p>
       <p>Adapted a Neo-backed MED reader to skip corrupt parity channels whose metadata caused standard readers to abort, allowing processing without modifying source recordings. Developed validation and repair utilities for Neuralynx recordings with sample-count inconsistencies and missing recording-end metadata that prevented downstream conversion. Evaluated signal fidelity across 20 million samples on one channel (32 kHz; 625 s), comparing original CSC and compressed MED recordings. Measured a maximum amplitude difference of 0.5 uV, with exact agreement after whole-microvolt source rounding.</p>
-<p class="meta">Python, NumPy, Neo, SpikeInterface, Neuralynx CSC, DarkHorse MED</p><a href="evidence.html#med-adapter">Reader implementation and comparison details</a>    </article>
+<p class="meta">Python, NumPy, Neo, SpikeInterface, Neuralynx CSC, DarkHorse MED</p>    </article>
     <article class="project" id="intan">
       <h3>Neural Acquisition and Experimental Synchronization</h3>
       <p>Connect neural recordings to the experimental events needed to interpret them.</p>

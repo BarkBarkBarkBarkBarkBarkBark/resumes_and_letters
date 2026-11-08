@@ -345,6 +345,7 @@ projects:
     evidence_ids: [med-adapter, neuralynx-repair, dhn-fidelity, dhn-spike-control]
     links:
       - label: Reader implementation and comparison details
+        hide_on_site: true
         url: https://barkbarkbarkbarkbarkbarkbark.github.io/resumes_and_letters/evidence.html#med-adapter
     tags: [neuroengineering, compression, signal_processing]
 

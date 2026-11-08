@@ -106,7 +106,7 @@
       <p>{{ project.problem }}</p>
       <p>{% for bullet in project.bullets %}{{ bullet.text }}{% if not loop.last %} {% endif %}{% endfor %}</p>
       {% if project.tools %}<p class="meta">{{ project.tools }}</p>{% endif %}
-      {% if project.links %}<a{% if project.links[0].url.startswith('https://github.com/') or project.links[0].icon == 'github' %} class="icon-link"{% endif %} href="{{ project.links[0].url | replace('https://barkbarkbarkbarkbarkbarkbark.github.io/resumes_and_letters/', '') }}">{% if project.links[0].url.startswith('https://github.com/') or project.links[0].icon == 'github' %}<img class="link-icon" src="assets/github.png" alt="" width="16" height="16">{% endif %}{{ project.links[0].label }}</a>{% endif %}
+      {% if project.links and not project.links[0].hide_on_site %}<a{% if project.links[0].url.startswith('https://github.com/') or project.links[0].icon == 'github' %} class="icon-link"{% endif %} href="{{ project.links[0].url | replace('https://barkbarkbarkbarkbarkbarkbark.github.io/resumes_and_letters/', '') }}">{% if project.links[0].url.startswith('https://github.com/') or project.links[0].icon == 'github' %}<img class="link-icon" src="assets/github.png" alt="" width="16" height="16">{% endif %}{{ project.links[0].label }}</a>{% endif %}
     </article>
     {% endfor %}
   </section>
