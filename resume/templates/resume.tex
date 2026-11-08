@@ -17,6 +17,7 @@
 \fi
 
 \usepackage{microtype}
+\microtypesetup{protrusion=false}
 \usepackage[letterpaper,margin=0.7in]{geometry}
 \setcounter{secnumdepth}{0} % disable section numbering
 \usepackage{parskip}
@@ -26,39 +27,29 @@
 \usepackage{xcolor}
 \usepackage{enumitem}
 \setlist[itemize]{topsep=2pt, parsep=0pt, itemsep=2pt, leftmargin=*, label=\textbullet}
-\usepackage{ragged2e}
 \usepackage{graphicx}
 \usepackage{needspace}
-\setlength{\parskip}{3pt}
+\setlength{\parskip}{5pt}
 
 % Centralized typographic sizes
-\newcommand{\namefontsize}{25pt}
-\newcommand{\bodyfontsize}{11pt}
 \newcommand{\sectionfontsize}{12pt}
-\newcommand{\contactfontsize}{10pt}
 \renewcommand{\baselinestretch}{1} % explicit 13pt leading is set below
-\makeatletter
-\ifx\@setfontsize\undefined\else\fi
-\makeatother
 
 % Pandoc macro definitions
 \providecommand{\tightlist}{\setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
 
 % Header layout commands
-\newcommand{\ResumeName}[1]{\vspace*{-0.5em}\noindent{\sffamily\bfseries\fontsize{23pt}{27pt}\selectfont #1}\vspace{0.2em}\\}
-\newcommand{\ContactLine}[1]{\noindent{\normalfont\fontsize{10pt}{12pt}\selectfont #1}\vspace{0.1em}\\}
-% Header profile link: small logo at left, proportional escaped display text at right, both clickable
-\renewcommand{\ContactLine}[1]{\par\noindent{\normalfont\fontsize{10pt}{12pt}\selectfont #1}\par}
-\providecommand{\HeaderProfileLink}[2]{%
-  \par\noindent{\fontsize{10pt}{12pt}\selectfont
-  \href{#2}{\raisebox{-0.15\height}{\includegraphics[height=10pt]{icons/#1}}}\,
-  \href{#2}{\nolinkurl{#2}}}\par
+\newcommand{\ResumeName}[1]{\par\noindent{\sffamily\bfseries\fontsize{23pt}{27pt}\selectfont #1}\par}
+\newcommand{\BeginResumeHeader}[2]{%
+  \noindent\begin{minipage}[t]{0.08\linewidth}\vspace{0pt}%
+  \href{#1}{\includegraphics[width=0.85\linewidth]{icons/#2}}%
+  \end{minipage}\hfill\begin{minipage}[t]{0.90\linewidth}\vspace{0pt}%
 }
-\newcommand{\EvidenceLink}[1]{%
-  \href{#1}{\raisebox{-0.12\height}{\includegraphics[height=8pt]{icons/github.png}}}\hspace{0.2em}%
-}
+\newcommand{\EndResumeHeader}{\end{minipage}\par}
+\newcommand{\ContactLine}[1]{\par\noindent{\normalfont\fontsize{10pt}{12pt}\selectfont #1}\par}
 \newcommand{\CompactResume}{%
   \fontsize{10.5pt}{12pt}\selectfont
+  \vspace*{0pt}%
   \setlength{\parskip}{2pt}%
   \setlist[itemize]{topsep=1pt,parsep=0pt,itemsep=1pt}%
   \renewcommand{\section}[1]{\par\Needspace{3\baselineskip}\vspace{4pt}\noindent{\sffamily\bfseries\fontsize{11pt}{13pt}\selectfont ##1}\par}%

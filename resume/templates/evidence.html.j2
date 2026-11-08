@@ -22,23 +22,15 @@
   <a href="index.html">Back to portfolio</a>
   <h1>Engineering evidence &amp; measurement definitions</h1>
   <p><a href="evidence_manifest.json" download>Download public evidence manifest (JSON)</a></p>
-  <p>Implementation and archived-result review, not a new experiment or independent raw-data rerun.
-    Only approved public implementation references and aggregate results are included.
-    No raw recordings, waveform snippets, patient identifiers, or private lab artifacts are hosted here.</p>
-  <p><strong>Validated</strong> denotes an evaluation with inspectable saved results;
-    <strong>Implemented</strong> denotes source-inspected software;
-    <strong>Prototype</strong> does not imply validated acquisition or real-time performance.
-    Owner-reported methods are explicitly distinguished from commit-pinned public evidence.</p>
-  <p><strong>Withheld figures:</strong> A1/A2 require matched event logs, a documented clock fit, and interruption records.
-    D1/D2 require permission-safe spikes and verified stimulus events. No physical onset accuracy,
-    validated 128-channel quality, or closed-loop latency is established here.
-    Offline sorting is evaluated retrospectively; streaming detection remains a prototype and
-    identity estimation or closed-loop control is not validated.</p>
+  <p>Methods, test conditions, and source references for the selected projects.
+    Commit-pinned code and archived results are distinguished from owner-reported
+    work below. This review did not include an independent raw-data rerun;
+    only approved descriptions and aggregate results are published.</p>
   {% for key, record in records.items() %}
   <article id="{{ key }}">
     <h2>{{ key | replace('-', ' ') | title }}</h2>
     {% if record.source_type == 'owner-report' %}
-    <p><strong>{{ record.maturity }} methods &middot; Owner-reported</strong><br>Publication approved: {{ record.confirmed_on }}. No public source commit.</p>
+    <p><strong>{{ record.maturity }} &middot; Owner-reported</strong><br>Publication approved: {{ record.confirmed_on }}. No public source commit.</p>
     {% else %}
     <p><strong>{{ record.maturity }}</strong> &middot; {{ record.repository }}<br>Revision: <code>{{ record.revision }}</code></p>
     {% endif %}

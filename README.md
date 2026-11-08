@@ -1,244 +1,132 @@
 # Marco Del Fava
 
-**[Public portfolio and CV](https://barkbarkbarkbarkbarkbarkbark.github.io/resumes_and_letters/)**
+**[Engineering portfolio and CV](https://barkbarkbarkbarkbarkbarkbark.github.io/resumes_and_letters/)**
 
-## Neural Signal Processing & Acquisition
+## Research Software & Neural Data
 
-**Biomedical Engineering M.S. | UC Davis | Human Intracranial Electrophysiology**
+Biomedical Engineering M.S. student at UC Davis, working with human intracranial
+electrophysiology in UC Davis Health's Z-Lab. I build Python software for
+acquisition formats, data-integrity checks, spike processing, and experimental
+synchronization.
 
-I develop neural acquisition and signal-processing software, characterize system
-behavior, and validate processing against recorded electrophysiology. Featured
-work leads with Intan acquisition/timing software, independent DarkHorse Neuro
-compression evaluation, and offline waveform processing.
+Selected work includes a Neo-backed MED reader for SpikeInterface, Neuralynx
+metadata validation and repair, Intan processing and event alignment, waveform
+feature evaluation, and debugging agent-generated software.
 
-The compression evaluation compared 20 million samples on one 32 kHz channel
-(625 seconds): maximum source-to-MED difference was 0.5 uV, with exact agreement
-after rounding the source to whole microvolts. A controlled MountainSort5
-comparison of equal rounded inputs preserved 35,587 spike frames for the compared
-unit. These are archived single-channel results, not a fresh raw-data rerun or a
-claim that I implemented the compression algorithm.
+A DarkHorse MED comparison covered 20 million samples from one channel at
+32 kHz: maximum amplitude difference was 0.5 uV, with exact agreement after
+whole-microvolt source rounding. Methods, measurement definitions, and source
+references are on the [technical evidence page](https://barkbarkbarkbarkbarkbarkbark.github.io/resumes_and_letters/evidence.html).
 
-## Resume and portfolio generator
+## Canonical content and templates
 
-Canonical content lives in [base_resume.yaml](resume/data/base_resume.yaml).
-Filtering, ordering, bullet limits, and compact layout selection are configured in
-[role_profiles.yaml](resume/data/role_profiles.yaml). Do not edit generated files
-or copy older templates from the historical `documents/` snapshot into the
-active generator.
+Edit sources, not generated HTML, Markdown, or PDFs:
 
-### Install
+- [base_resume.yaml](resume/data/base_resume.yaml): accomplishments, skills,
+  projects, education, and contact details.
+- [role_profiles.yaml](resume/data/role_profiles.yaml): summary selection,
+  project order, skill categories, bullet limits, and compact layout.
+- [evidence_inventory.yaml](resume/data/evidence_inventory.yaml): source
+  references, measurement definitions, test conditions, results, and limitations.
+- [cover_letter_snippets.yaml](resume/data/cover_letter_snippets.yaml): reusable
+  application paragraphs, kept out of the public site.
+- [resume/templates/](resume/templates/): Jinja HTML/Markdown templates and the
+  Pandoc LaTeX template.
 
-Run all commands below **from the repository root**. Python 3.9+, Pandoc,
-LuaLaTeX, and latexmk are required for the complete publication build.
+The `neuroengineering` profile emphasizes research software and scientific data
+for CatalystNeuro; `engineering` is its one-page resume. Analytics, clinical
+research, and general profiles retain their own summaries and selections.
+The full CV leads with the Z-Lab research role and three consolidated skill
+lines, then the flagship formats/integrity and acquisition projects. Its remaining projects,
+professional experience, education, and credentials continue on page two.
+The one-page resume uses a shorter summary and selects formats, acquisition,
+and agent-assisted debugging rather than compressing the full CV verbatim.
+
+The homepage uses plain project sections: purpose, contribution, result, tools,
+and one source or technical-details link. There are no project diagrams or
+maturity badges. Measurement tables and the controlled spike-frame comparison
+remain on the evidence page. The full CV has a small Credly-linked UC Davis
+badge in its header; the certification section is text-only, and the compact
+resume omits the badge. Academic degrees are separate from the Python
+professional concentration. PDF project references are readable "Source" links,
+not icons attached to skills and bullets.
+
+## Build and validate
+
+Run commands from the repository root. The full build needs Python 3.9+, Pandoc,
+LuaLaTeX, and latexmk. PDF integration tests use Poppler.
 
 ```bash
 python3 -m venv .venv
 source .venv/bin/activate
 python -m pip install -r resume/requirements.txt
 
-# macOS: install Pandoc and a TeX distribution with LuaLaTeX/latexmk.
-brew install pandoc
+# macOS system tools:
+brew install pandoc poppler
 brew install --cask mactex-no-gui
 
 # Ubuntu alternative:
 # sudo apt-get install pandoc latexmk texlive-luatex \
-#   texlive-fonts-recommended texlive-latex-extra
-```
+#   texlive-fonts-recommended texlive-latex-extra poppler-utils
 
-The LaTeX template preserves 11-point body text, 13-point leading, 0.7-inch
-margins, microtype, and TeX Gyre fonts with Latin Modern fallbacks. There is no
-automatic PDF-engine substitution; a missing engine or failed PDF is a build
-error, not a successful publication.
-Full-CV paragraph spacing is 3 points to keep the expanded methods and systems
-experience on two pages without shrinking body text or margins.
-
-### Build and preview
-
-```bash
-# Website, full research CV, and one-page engineering resume:
+python -m pytest resume/tests --ignore=resume/tests/test_pdf.py -q
 python resume/scripts/build_site.py --profile neuroengineering
+python -m pytest resume/tests/test_pdf.py -q
 
-# Serve the generated site; open http://localhost:8000/
+# Local preview:
 python -m http.server 8000 --directory resume/docs
 
-# Exact, stable output name (no timestamp added to --output):
+# Standalone documents, with stable output names:
 python resume/scripts/build_resume.py --profile neuroengineering --output marco_del_fava_cv
 python resume/scripts/build_resume.py --profile engineering --output marco_del_fava_engineering
 
-# Markdown and JSON only; no Pandoc or TeX required:
+# Markdown/JSON only, without Pandoc or TeX:
 python resume/scripts/build_resume.py --profile neuroengineering --md-only
-
 python resume/scripts/build_resume.py --list-profiles
-python -m pytest resume/tests -q
 ```
 
-PDF integration checks also use Poppler (`brew install poppler` on macOS,
-`sudo apt-get install poppler-utils` on Ubuntu). After a site build, these check
-the actual one-page engineering resume and two-page research CV, selectable
-section order, body margins, and evidence annotations. CI runs generator tests
-first, then the PDF checks against its freshly built publication directory.
+Standalone builds write Markdown, JSON, DOCX, LaTeX, and PDF under
+`resume/output/<stem>/`. Omit `--output` for a timestamped stem. Build
+intermediates are ignored; historical originals are retained.
 
-Standalone CV outputs go into `resume/output/<stem>/`: Markdown, JSON,
-DOCX, LaTeX, and PDF. Without `--output`, the standalone CLI retains timestamped
-output names. The website builder always uses `marco_del_fava_cv` and copies
-that exact PDF to `resume/docs/marco_del_fava_cv.pdf`. It also builds the
-`engineering` profile into `marco_del_fava_engineering.pdf` and generates
-`evidence.html` from explicitly public inventory records. Neither PDF is
-published if either build fails. A custom publication directory can be selected
-with `--output-dir`.
+The site builder generates both exact PDF names, `index.html`, `evidence.html`,
+and `evidence_manifest.json` into `resume/docs` or `--output-dir`. It does not
+discover files by modification time or copy application letters. A failed
+document build prevents publication. The full CV uses 11-point text with
+13-point leading; the compact resume uses 10.5/12-point typography. Both use
+0.7-inch margins and selectable text with clickable references.
 
-The homepage uses ordinary hash links and needs no JavaScript. Three featured
-engineering cards precede a prominent human single-neuron methods case study and
-research affiliations. Each separates the problem, technical approach, evaluation
-scope, finding or implementation, and evidence. Visuals are architecture
-schematics and tables redrawn from archived aggregates, not stock images or
-recording-derived waveforms. The download links are the authoritative paginated documents; browser
-printing is a readable portfolio, not a substitute for their page-count checks.
-Header profile links use official GitHub and LinkedIn emblems plus full,
-readable URLs. Skill evidence is a small linked GitHub emblem with an accessible
-label; skill text remains selectable. The PDF has selectable text and clickable
-evidence links; it is not a tagged/PDF-UA document.
+After a layout change, inspect actual desktop/mobile HTML and the first and last
+pages of both PDFs. Tests check page counts, reading order, margins, links,
+provenance, and factual scope; they do not replace visual review.
 
-### Content and evidence schema
+## Evidence and publication
 
-Skills and contribution bullets use mappings:
+Skills and bullets accept `text`, optional HTTPS `evidence`, and optional `tags`.
+Legacy strings are normalized at the input boundary. Projects use `id`, `name`,
+`problem`, `bullets`, `tools`, `evidence_ids`, and `links`; profiles select the
+records for each output.
 
-```yaml
-- text: Describe the implementation or evaluation precisely.
-  evidence: https://github.com/owner/project/blob/main/path/to/implementation.py
-  tags: [technical, research]
-```
+Only explicitly public inventory records can enter the evidence page, filtered
+JSON, or public manifest. Repository evidence requires exact source locations
+and full commit revisions. Owner-reported work requires a publication
+confirmation and cannot masquerade as commit-pinned code. Neuralynx repair and
+Hosaka debugging are approved owner reports. The approximate ten-second,
+seven-record Hosaka listing is an owner-reported pre-fix observation, not a
+publicly rerun benchmark; no post-fix duration or speedup ratio is claimed.
+Private implementations and timing logs are not published.
 
-`evidence` and `tags` are optional. Legacy strings are accepted at the input
-boundary and normalized to `text` mappings for all renderers and the JSON export.
-Invalid or empty items and non-HTTPS evidence links raise errors. Canonical
-skills and project bullets have been migrated to mappings.
+The 35,587-spike comparison is a controlled check of identical rounded input
+arrays. Waveform evidence distinguishes same-label neighbor purity from matched
+clustering agreement and ARI. Timing implementation is described without
+claiming measured physical onset accuracy or latency.
 
-Each selected project has an `id`, `name`, `problem`, two `bullets`, `maturity`,
-`status`, `evidence_ids`, and `links`. Featured projects also have a `tested`
-description. The compact profile selects the same three project records and
-claims as the full CV, without supporting prototypes, repeated project links,
-or certifications. Compact PDF text is 10.5 points with 12-point leading and the
-same 0.7-inch margins; the full CV retains 11/13-point typography.
-The lab affiliation also contains a `case_study` for the portfolio's narrative
-methods presentation. Its methods are summarized in the affiliation bullets for
-both PDFs rather than duplicated as another resume project.
-
-### Evidence inventory and publication boundary
-
-[evidence_inventory.yaml](resume/data/evidence_inventory.yaml) is an internal
-generator input, not a copied public artifact. Keep it safe for source control:
-no credentials, source recordings, patient identifiers, private code excerpts, or
-local laboratory paths. Each record identifies the repository, exact file/cell,
-commit, measurement definition, conditions, reviewed result, verification method,
-and limitations. Projects refer to records by `evidence_ids`. The generator
-rejects missing/unpublished evidence references and public records without
-full-length commit revisions for repository evidence. Explicit `source_type:
-owner-report` records instead require a publication-confirmation date and must
-not claim a source revision or public source files. Only records marked
-`public: true` may enter the site, public evidence report, and filtered JSON.
-
-The site build exports those same approved records to
-[`evidence_manifest.json`](resume/docs/evidence_manifest.json), including
-measurement definitions, scope, source commits/locations, figure IDs, values,
-and limitations. Private inventory records never enter this manifest. CI adds
-the publication source commit through `--source-commit`; a local working-tree
-build leaves it empty rather than claiming uncommitted edits belong to HEAD.
-
-Scientific figures are deterministic HTML generated by the shared
-[`figures.html.j2`](resume/templates/figures.html.j2) macros from inventory values:
-
-- **A3:** all implemented file-processing stages, with an explicitly private,
-  unbenchmarked timing branch.
-- **B1:** nonzero differences and maximum absolute error before/after rounding;
-  aggregate-only, not fabricated traces or a histogram.
-- **B2 (evidence page):** exact event intersection and source-only/MED-only
-  counts, with the identical-rounded-input control stated in the caption.
-- **C3:** separate KNN purity, matched KMeans accuracy, and ARI definitions.
-  The evidence page compares four feature families within each metric; no
-  unlike-score bar heights suggest equivalent performance.
-- **D-methods:** the approved narrative-analysis pipeline, explicitly a schematic
-  rather than a neural response observation.
-
-A1/A2 timing plots, C1 waveform/projection plots, C2 contingency counts, and
-D1/D2 response/significance plots remain withheld without the needed records
-and publication permission. No random data, derived patient imagery, or
-synthetic observations substitute for them. Rebuilding the site reproduces all
-published figures without downloading protected data or adding plotting tools.
-
-Maturity labels describe the scope of the evidence, not deployment readiness:
-
-- **Validated:** an evaluation with inspectable archived results. The report
-  explicitly says when the review did not rerun original recordings.
-- **Implemented:** implemented methods, with public source inspection or explicitly
-  labeled owner-report provenance; no numerical performance implied.
-- **Prototype:** implementation without demonstrated acquisition or online
-  performance.
-
-The DHN fidelity result is **not bit-exact relative to unrounded CSC**. Mean error,
-compression ratio, file-size reduction, and encoder configuration behavior were
-not established by the reviewed outputs and are not claimed. The exact spike
-match is a rounded-input control, not proof that unrounded conversion preserves
-all sorted units.
-
-Waveform-feature results distinguish 95.04% KNN-k5 neighborhood purity from
-54.26% Hungarian-matched KMeans accuracy (ARI 0.3665), on 38,145 snippets with
-10 putative O-Sort labels. These are offline label-agreement metrics, not
-biological ground truth, held-out classification accuracy, or streaming latency.
-
-The private Intan timing implementation was inspected, but the reported
-recording-level measurements and bench-test channel count had no source logs or
-report in the inspected revision. At Marco's direction those numbers are omitted.
-The timing model fits relative RHX sample indices against monotonic flip-callback
-time; signed residuals use the fitted slope, while P95 and maximum use absolute
-residuals. Neither is physical stimulus-onset jitter or closed-loop latency.
-No private repository link, raw timing log, bench recording, or waveform figure
-is exported. Aggregate figures were approved; recording-derived imagery was not.
-
-The owner approved high-level narrative-analysis methods and First Step
-Communities responsibilities on October 18, 2026. Narrative alignment/rate-analysis
-code was inspected locally, but neither that private code nor its recordings
-and outputs are published. Restricted stimulus variation, exploratory interval
-selection, and possible preceding-story baseline contamination are explicit
-limitations; no semantic tuning or response significance is asserted.
-Multi-site networking, routing/VLANs, cloud administration, camera infrastructure,
-troubleshooting, and longitudinal research support now appear in the shared
-professional bullet. Dataset counts, predictive-model results, and causal effects
-remain unpublished. Existing job title and dates are retained candidate reports,
-not independently verified employment records.
-
-Enrollment since Fall 2026 and the research-volunteer affiliation since July 2025
-were confirmed by Marco. No graduation date or formal research appointment is
-inferred. The former unsubstantiated waveform-count and curation-efficiency claims remain
-omitted. The new snippet count is scoped specifically to the public offline
-feature report, not overall data processed or a curation improvement.
-
-### Publishing
+Do not add source recordings, patient identifiers, private code excerpts,
+credentials, or local lab paths. Keep material limitations in technical
+documentation rather than repeating them across every public description.
 
 [The single Pages workflow](.github/workflows/deploy.yml) tests the generator,
-builds the website and both PDFs into `_site` from the checked-out commit, and uploads
-that exact directory using the official Pages artifact/deployment actions.
-Set repository **Settings → Pages → Source → GitHub Actions**. The former
-competing `gh-pages` publisher has been removed. No output is selected by
-modification time, and no shell substitution is passed as an action input.
-Local generation does not deploy the site; review, commit, and push separately.
-GitHub evidence paths were checked at their pinned revisions and Credly returned
-HTTP 200 during this update. LinkedIn returned HTTP 999 to automated requests;
-its profile remains a manual browser verification item.
-
-The active templates are in `resume/templates/`; official raster emblems are
-stored with those templates so both local and CI builds use the same assets.
-Historical exports under `documents/` are archives, not build inputs.
-
-### Private cover letters
-
-The public site has no Letter tab and never discovers or embeds cover letters.
-The standalone generator remains available for deliberate, private use:
-
-```bash
-python resume/scripts/build_cover_letter.py \
-  --company "Example Lab" --role "Research Engineer" --md-only
-```
-
-Review the separate cover-letter snippets before sending them. They are not
-part of the public portfolio build.
+builds into `_site`, checks the freshly built PDFs using `PORTFOLIO_DIR`, and
+publishes that exact directory. CI supplies the source commit; local
+working-tree builds leave it empty. Local generation does not deploy the site.
+Set **Settings > Pages > Source > GitHub Actions** for publication.

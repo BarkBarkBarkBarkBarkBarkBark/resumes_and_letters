@@ -40,7 +40,7 @@ def render_site(content):
     )
 
 
-def test_site_has_real_navigation_and_accessible_evidence(content):
+def test_site_has_real_navigation_and_accessible_badge(content):
     html = render_site(content)
     parser = PageLinks()
     parser.feed(html)
@@ -53,8 +53,8 @@ def test_site_has_real_navigation_and_accessible_evidence(content):
     assert "marco_del_fava_engineering.pdf" in hrefs
     assert "mailto:mdelfava@ucdavis.edu" in hrefs
     assert all("alt" in image for image in parser.images)
-    evidence = [link for link in parser.links if link.get("class") == "evidence"]
-    assert evidence and all(link.get("aria-label", "").startswith("Source evidence:") for link in evidence)
+    badge = [link for link in parser.links if link.get("class") == "badge"]
+    assert len(badge) == 1 and badge[0]["aria-label"] == "UC Davis Python data-analysis certification"
     for forbidden in ("onclick=", "<script", "tab-panel", "Quick snapshot", "Letter</", "{'text':"):
         assert forbidden not in html
     assert "@media print" in html
@@ -64,7 +64,8 @@ def test_site_has_real_navigation_and_accessible_evidence(content):
 
 def test_html_escapes_content_and_supports_legacy_strings(content):
     data, profile = content
-    data["skills"][0]["items"] = ["Legacy skill", {"text": "<script>alert('x')</script>"}]
+    data["skills"][0]["items"] = [{"text": "<script>alert('x')</script>"}, "Legacy skill"]
+    profile["max_skills_per_category"] = 2
     html = render_site((data, profile))
     assert "Legacy skill" in html
     assert "<script>alert" not in html
@@ -98,7 +99,10 @@ def test_publication_copies_exact_pdf_and_never_discovers_letters(content, tmp_p
         ".nojekyll", "assets", "evidence.html", "evidence_manifest.json", "index.html",
         f"{site.CV_STEM}.pdf", f"{site.ENGINEERING_STEM}.pdf",
     ]
-    assert sorted(path.name for path in (output / "assets").iterdir()) == ["github.png", "linkedin.png"]
+    assert sorted(path.name for path in (output / "assets").iterdir()) == ["ucdavis_python_badge.png"]
+    assert (output / "assets/ucdavis_python_badge.png").read_bytes() == (
+        site.TEMPLATES_DIR / "icons/ucd_python_badge.png"
+    ).read_bytes()
     manifest = json.loads((output / "evidence_manifest.json").read_text())
     assert manifest["source_commit"] == "abc123"
     assert manifest["records"] == apply_profile(data, profile)["evidence_records"]
@@ -127,26 +131,29 @@ def test_only_one_pages_workflow_and_no_mtime_selection():
     assert "$(" not in workflow and "ls -1t" not in workflow
 
 
-def test_featured_projects_precede_affiliation_and_have_four_answers(content):
+def test_research_context_precedes_four_simple_projects(content):
     html = render_site(content)
-    assert html.index('id="selected-projects"') < html.index('id="research-title"')
-    assert html.index('id="intan"') < html.index('id="compression"') < html.index('id="sorting"')
-    assert html.count("<dt>Technical approach</dt>") == 4
-    assert html.count("<dt>Evaluation scope</dt>") == 4
-    assert html.count("<dt>Finding / implementation</dt>") == 4
-    assert html.count('class="project-visual"') == 4
-    assert "19,951,989" in html
-    assert "95.04%" in html and "54.26%" in html
-    assert "0.3665" in html
-    assert 'id="figure-B2"' not in html
-    assert html.index('id="sorting"') < html.index('id="narrative"') < html.index('id="skills-title"')
-    assert "Neural Signal Processing &amp; Acquisition" in html
-    assert "Engineering Resume · 1 page" in html
-    assert "not a latency measurement" in html
+    assert html.index('id="research-title"') < html.index('id="selected-projects"')
+    projects = ["compression", "intan", "sorting", "hosaka"]
+    positions = [html.index(f'id="{key}"') for key in projects]
+    assert positions == sorted(positions)
+    assert html.count('class="project"') == 4
+    assert "<h1>Marco Del Fava</h1>" in html and html.count("<h1>") == 1
+    for removed in ("project-visual", "<figure", "<table", "<dt>", "maturity",
+                    'class="status"', 'id="narrative"', "supporting-projects",
+                    "not independently verified", "unbenchmarked"):
+        assert removed not in html
+    assert "20 million samples on one channel" in html and "0.5 uV" in html
+    assert "95.04%" not in html and "54.26%" not in html
+    assert "local neighbor consistency" in html and "global clustering agreement" in html
+    assert "approximately ten seconds" in html and "seven" in html
+    assert html.index('id="hosaka"') < html.index('id="skills-title"') < html.index('id="professional-title"')
+    assert "Research Software &amp; Neural Data" in html
+    assert "Engineering résumé · 1 page" in html
     parser = PageLinks()
     parser.feed(html)
     # No recording-derived images or external image requests.
-    assert {image["src"] for image in parser.images} <= {"assets/github.png", "assets/linkedin.png"}
+    assert {image["src"] for image in parser.images} == {"assets/ucdavis_python_badge.png"}
 
 
 def test_evidence_page_exports_only_approved_records(content):
@@ -194,6 +201,16 @@ def test_figures_have_provenance_and_detail_page_preserves_scope(content):
         assert claim in html
     assert "semantic tuning" in html
     assert "evidence_manifest.json" in html
+
+
+def test_each_project_has_one_link_and_brief_selectable_prose(content):
+    html = render_site(content)
+    for project in apply_profile(*content)["projects"]:
+        article = html.split(f'id="{project["id"]}">')[1].split("</article>")[0]
+        assert article.count("<a ") == 1
+        assert len(article.split()) < 150
+        assert project["tools"] in article
+    assert "35,587" not in html
 
 
 def test_second_pdf_failure_does_not_publish(content, tmp_path, monkeypatch):

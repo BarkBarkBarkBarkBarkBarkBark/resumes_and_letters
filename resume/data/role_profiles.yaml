@@ -19,16 +19,18 @@
 # ============================================================
 
 neuroengineering:
-  name: "Neuroengineering Research CV"
+  name: "Research Software Engineering CV"
   engineering_focus: true
   summary_key: neuroengineering
   include_volunteer: true
   include_coursework: false
   include_supporting_volunteer: false
-  max_bullets_per_additional_role: 1
+  max_bullets_per_additional_role: 2
   additional_prefer_tags: [engineering_support]
-  max_bullets_per_research_role: 2
-  project_order: [intan, compression, sorting, semantic, neuralynx]
+  max_bullets_per_research_role: 3
+  project_order: [compression, intan, sorting, hosaka]
+  page_break_before_project: sorting
+  max_skills_per_category: 1
   prefer_tags:
     - neuroengineering
     - research
@@ -47,18 +49,17 @@ neuroengineering:
     - operations
     - equity
   max_bullets_per_role: 4
-  max_bullets_per_project: 2
+  max_bullets_per_project: 3
   skill_categories:
-    - Neural Data & Signal Processing
-    - Neural Acquisition & Tooling
-    - Machine Learning & Data Science
-    - General Technical
+    - Scientific Programming
+    - Neural Data & Acquisition
+    - Engineering Methods
   cover_letter_opener: neuroengineering
 
 engineering:
   name: "Neural Engineering Resume (one page)"
   engineering_focus: true
-  summary_key: neuroengineering
+  summary_key: engineering
   compact: true
   include_volunteer: true
   include_supporting_volunteer: false
@@ -67,13 +68,14 @@ engineering:
   max_bullets_per_additional_role: 1
   additional_prefer_tags: [engineering_support]
   max_bullets_per_research_role: 1
+  prefer_tags: [compact]
   max_bullets_per_project: 2
-  project_order: [intan, compression, sorting]
+  project_order: [compression, intan, hosaka]
   max_skills_per_category: 1
   skill_categories:
-    - Neural Data & Signal Processing
-    - Neural Acquisition & Tooling
-    - Machine Learning & Data Science
+    - Scientific Programming
+    - Neural Data & Acquisition
+    - Engineering Methods
   cover_letter_opener: neuroengineering
 
 data_analytics:
@@ -98,7 +100,7 @@ data_analytics:
   max_bullets_per_role: 6
   skill_categories:
     - Data Systems & Reporting
-    - Machine Learning & Data Science
+    - Scientific Programming
     - General Technical
   cover_letter_opener: data_analytics
 
@@ -122,9 +124,9 @@ clinical_research:
     - automation
   max_bullets_per_role: 4
   skill_categories:
-    - Neural Data & Signal Processing
-    - Neural Acquisition & Tooling
-    - Machine Learning & Data Science
+    - Engineering Methods
+    - Neural Data & Acquisition
+    - Scientific Programming
     - Data Systems & Reporting
   cover_letter_opener: clinical_research
 
@@ -138,9 +140,9 @@ default:
   max_bullets_per_role: 5
   max_bullets_per_project: 3
   skill_categories:
-    - Neural Data & Signal Processing
-    - Neural Acquisition & Tooling
-    - Machine Learning & Data Science
+    - Engineering Methods
+    - Neural Data & Acquisition
+    - Scientific Programming
     - Data Systems & Reporting
     - General Technical
   cover_letter_opener: neuroengineering

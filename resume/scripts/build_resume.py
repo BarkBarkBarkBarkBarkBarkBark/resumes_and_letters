@@ -119,13 +119,6 @@ def public_evidence(projects: list) -> dict:
                     f"https://github.com/{record['repository']}/"
                     f"{source.get('kind', 'blob')}/{record['revision']}/{source['path']}"
                 )
-            visual = record.get("visual", {})
-            if visual.get("kind") == "bars":
-                maximum = visual["maximum"]
-                if maximum <= 0 or any(
-                    not 0 <= bar["value"] <= maximum for bar in visual["bars"]
-                ):
-                    raise ValueError(f"Evidence chart values are out of range: {key}")
             selected[key] = record
     return selected
 
@@ -183,6 +176,7 @@ def apply_profile(data: dict, profile: dict) -> dict:
         result["coursework"] = []
     if not profile.get("include_certifications", True):
         result["certifications"] = []
+        result["professional_development"] = []
 
     for project in result.get("projects", []):
         project["bullets"] = bullets(
@@ -328,8 +322,8 @@ def build_resume(data: dict, profile: dict, stem: str, output_dir: Path = OUTPUT
     if not md_only:
         icons = folder / "icons"
         icons.mkdir(exist_ok=True)
-        for name in ("github.png", "linkedin.png"):
-            shutil.copy2(TEMPLATES_DIR / "icons" / name, icons / name)
+        if any(cert.get("badge_url") for cert in filtered["certifications"]):
+            shutil.copy2(TEMPLATES_DIR / "icons" / "ucd_python_badge.png", icons / "ucd_python_badge.png")
         if not to_docx(md_path, folder / f"{stem}.docx"):
             raise RuntimeError("DOCX build failed.")
         pdf_source = folder / f"{stem}.pdf.md"

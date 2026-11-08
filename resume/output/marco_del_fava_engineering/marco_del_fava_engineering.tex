@@ -17,6 +17,7 @@
 \fi
 
 \usepackage{microtype}
+\microtypesetup{protrusion=false}
 \usepackage[letterpaper,margin=0.7in]{geometry}
 \setcounter{secnumdepth}{0} % disable section numbering
 \usepackage{parskip}
@@ -26,39 +27,29 @@
 \usepackage{xcolor}
 \usepackage{enumitem}
 \setlist[itemize]{topsep=2pt, parsep=0pt, itemsep=2pt, leftmargin=*, label=\textbullet}
-\usepackage{ragged2e}
 \usepackage{graphicx}
 \usepackage{needspace}
-\setlength{\parskip}{3pt}
+\setlength{\parskip}{5pt}
 
 % Centralized typographic sizes
-\newcommand{\namefontsize}{25pt}
-\newcommand{\bodyfontsize}{11pt}
 \newcommand{\sectionfontsize}{12pt}
-\newcommand{\contactfontsize}{10pt}
 \renewcommand{\baselinestretch}{1} % explicit 13pt leading is set below
-\makeatletter
-\ifx\@setfontsize\undefined\else\fi
-\makeatother
 
 % Pandoc macro definitions
 \providecommand{\tightlist}{\setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
 
 % Header layout commands
-\newcommand{\ResumeName}[1]{\vspace*{-0.5em}\noindent{\sffamily\bfseries\fontsize{23pt}{27pt}\selectfont #1}\vspace{0.2em}\\}
-\newcommand{\ContactLine}[1]{\noindent{\normalfont\fontsize{10pt}{12pt}\selectfont #1}\vspace{0.1em}\\}
-% Header profile link: small logo at left, proportional escaped display text at right, both clickable
-\renewcommand{\ContactLine}[1]{\par\noindent{\normalfont\fontsize{10pt}{12pt}\selectfont #1}\par}
-\providecommand{\HeaderProfileLink}[2]{%
-  \par\noindent{\fontsize{10pt}{12pt}\selectfont
-  \href{#2}{\raisebox{-0.15\height}{\includegraphics[height=10pt]{icons/#1}}}\,
-  \href{#2}{\nolinkurl{#2}}}\par
+\newcommand{\ResumeName}[1]{\par\noindent{\sffamily\bfseries\fontsize{23pt}{27pt}\selectfont #1}\par}
+\newcommand{\BeginResumeHeader}[2]{%
+  \noindent\begin{minipage}[t]{0.08\linewidth}\vspace{0pt}%
+  \href{#1}{\includegraphics[width=0.85\linewidth]{icons/#2}}%
+  \end{minipage}\hfill\begin{minipage}[t]{0.90\linewidth}\vspace{0pt}%
 }
-\newcommand{\EvidenceLink}[1]{%
-  \href{#1}{\raisebox{-0.12\height}{\includegraphics[height=8pt]{icons/github.png}}}\hspace{0.2em}%
-}
+\newcommand{\EndResumeHeader}{\end{minipage}\par}
+\newcommand{\ContactLine}[1]{\par\noindent{\normalfont\fontsize{10pt}{12pt}\selectfont #1}\par}
 \newcommand{\CompactResume}{%
   \fontsize{10.5pt}{12pt}\selectfont
+  \vspace*{0pt}%
   \setlength{\parskip}{2pt}%
   \setlist[itemize]{topsep=1pt,parsep=0pt,itemsep=1pt}%
   \renewcommand{\section}[1]{\par\Needspace{3\baselineskip}\vspace{4pt}\noindent{\sffamily\bfseries\fontsize{11pt}{13pt}\selectfont ##1}\par}%
@@ -88,8 +79,8 @@
 % Main body from pandoc
 \CompactResume
 \ResumeName{Marco Del Fava}
-\ContactLine{Neural Signal Processing \& Acquisition}
-\ContactLine{Biomedical Engineering M.S. | UC Davis | Human Intracranial Electrophysiology}
+\ContactLine{Research Software \& Neural Data}
+\ContactLine{M.S. Biomedical Engineering student | UC Davis | Human intracranial electrophysiology}
 \ContactLine{mdelfava@ucdavis.edu | 707-637-6544 | Sacramento, CA}
 
 \href{https://github.com/BarkBarkBarkBarkBarkBarkBark}{GitHub} ·
@@ -98,73 +89,21 @@
 
 \section{Engineering Summary}\label{engineering-summary}
 
-Developing and validating software for human intracranial
-electrophysiology, including multichannel neural acquisition, signal
-processing, spike sorting, and experimental synchronization. Experienced
-in Python-based neural data pipelines, acquisition hardware integration,
-and quantitative evaluation against recorded data.
+Biomedical Engineering M.S. student and neuroscience researcher at UC
+Davis. I build Python acquisition and data-integrity workflows and use
+coding agents with profiling, debugging, and regression tests.
 
 \section{Technical Skills}\label{technical-skills}
 
-\textbf{Neural Data \& Signal Processing:} SpikeInterface, Kilosort4,
-MountainSort5; waveform features and unit matching
-\EvidenceLink{https://github.com/BarkBarkBarkBarkBarkBarkBark/DHN_validation/blob/496c2326f000037698f7b92b4b3a4139c3a70d13/sort_med/evidence/Strict_Comparison_of_Sorted_Spikes.ipynb}
+\textbf{Scientific Programming:} Python, NumPy, Pandas, scikit-learn,
+pytest, Git, Linux, Docker; MATLAB
 
-\textbf{Neural Acquisition \& Tooling:} Intan RHD, Neuralynx CSC, MED;
-probe mapping and acquisition configuration
-\EvidenceLink{https://github.com/BarkBarkBarkBarkBarkBarkBark/zlab_sorting_script/blob/3ff216ac593166687ae2260ccb705ea1322cf9f1/notebooks/sort_intan.ipynb}
+\textbf{Neural Data \& Acquisition:} Neuralynx, Intan RHD, DarkHorse
+MED, Neo, SpikeInterface, Kilosort4, MountainSort5
 
-\textbf{Machine Learning \& Data Science:} Python (NumPy, Pandas,
-scikit-learn, PyTorch, Numba); MATLAB
-
-\section{Selected Engineering
-Projects}\label{selected-engineering-projects}
-
-\subsection{Neural Acquisition and Synchronization ---
-Implemented}\label{neural-acquisition-and-synchronization-implemented}
-
-\begin{itemize}
-\item
-  Built Intan RHD ingestion, probe/channel checks, and
-  SpikeInterface/Kilosort4 processing with waveform and quality-metric
-  extraction.
-  \EvidenceLink{https://github.com/BarkBarkBarkBarkBarkBarkBark/zlab_sorting_script/blob/3ff216ac593166687ae2260ccb705ea1322cf9f1/notebooks/sort_intan.ipynb}
-\item
-  Implemented queued PsychoPy/RHX event synchronization, exact-label
-  joins, and affine clock fitting to analyze clock drift and alignment
-  residuals.
-\end{itemize}
-
-\subsection{Neural Signal Fidelity and Processing Validation ---
-Validated}\label{neural-signal-fidelity-and-processing-validation-validated}
-
-\begin{itemize}
-\item
-  Evaluated DarkHorse Neuro compression on 20 million samples (one
-  channel, 32 kHz; 625 s); maximum source-to-MED difference was 0.5 uV,
-  with zero mismatches after rounding source values to whole microvolts.
-  \EvidenceLink{https://github.com/BarkBarkBarkBarkBarkBarkBark/DHN_validation/blob/496c2326f000037698f7b92b4b3a4139c3a70d13/sort_med/evidence/8_7_filetype_comparison.ipynb}
-\item
-  Controlled MountainSort5 comparison of rounded inputs preserved all
-  35,587 spike frames for the compared unit (exact Jaccard 1.0).
-  \EvidenceLink{https://github.com/BarkBarkBarkBarkBarkBarkBark/DHN_validation/blob/496c2326f000037698f7b92b4b3a4139c3a70d13/sort_med/evidence/Strict_Comparison_of_Sorted_Spikes.ipynb}
-\end{itemize}
-
-\subsection{Spike Sorting and Waveform Discrimination ---
-Validated}\label{spike-sorting-and-waveform-discrimination-validated}
-
-\begin{itemize}
-\item
-  Implemented waveform-feature evaluation across 38,145 spike snippets
-  and 10 putative O-Sort unit labels; event-family KNN purity at k=5 was
-  95.04\%.
-  \EvidenceLink{https://github.com/BarkBarkBarkBarkBarkBarkBark/spike_discrim/blob/a697e68898c688ccc5dfe23ced78dbc6494ca1c1/docs/clustering_results.md}
-\item
-  Measured 54.26\% Hungarian-matched KMeans accuracy (ARI 0.3665) for
-  that feature family; neighborhood purity is not sorter accuracy or
-  biological ground truth.
-  \EvidenceLink{https://github.com/BarkBarkBarkBarkBarkBarkBark/spike_discrim/blob/a697e68898c688ccc5dfe23ced78dbc6494ca1c1/src/spike_discrim/benchmarking/afferent_clustering.py}
-\end{itemize}
+\textbf{Engineering Methods:} Scientific data parsing, metadata
+validation and repair, waveform analysis, experimental synchronization,
+profiling, regression tests
 
 \section{Research Experience}\label{research-experience}
 
@@ -174,23 +113,58 @@ Validated}\label{spike-sorting-and-waveform-discrimination-validated}
 \begin{itemize}
 \tightlist
 \item
-  Analyze human intracranial single units with O-Sort/SpikeInterface;
-  develop narrative-aligned rasters and peri-stimulus firing-rate
-  workflows.
+  Work with human intracranial electrophysiology recordings, developing
+  Python workflows to prepare, process, and analyze single-neuron data.
 \end{itemize}
 
-\section{Education}\label{education}
+\section{Selected Engineering
+Projects}\label{selected-engineering-projects}
 
-\textbf{M.S. Biomedical Engineering}, University of California, Davis
---- Fall 2026 - Present
+\subsection{Neural Data Formats and
+Integrity}\label{neural-data-formats-and-integrity}
 
-\textbf{Python for Data Science, Professional Concentration}, UC Davis
-Continuing and Professional Education --- 2025
+\begin{itemize}
+\item
+  Adapted a Neo-backed MED reader to skip corrupt parity channels whose
+  metadata caused standard readers to abort, allowing processing without
+  modifying source recordings.
+\item
+  Evaluated signal fidelity across 20 million samples on one channel (32
+  kHz; 625 s), comparing original CSC and compressed MED recordings.
+  Measured a maximum amplitude difference of 0.5 uV, with exact
+  agreement after whole-microvolt source rounding.
+  \href{https://barkbarkbarkbarkbarkbarkbark.github.io/resumes_and_letters/evidence.html\#med-adapter}{Source}
+\end{itemize}
 
-\textbf{M.S. Psychology}, Arizona State University --- 2023
+\subsection{Neural Acquisition and Experimental
+Synchronization}\label{neural-acquisition-and-experimental-synchronization}
 
-\textbf{B.S. Neuroscience, Physiology, and Behavior}, University of
-California, Davis --- 2017
+\begin{itemize}
+\item
+  Built Python workflows for processing Intan recordings through
+  SpikeInterface, including probe mapping, channel checks, spike
+  sorting, waveform extraction, and quality metrics.
+\item
+  Developed synchronization software to align PsychoPy behavioral events
+  with RHX recordings, using matched event labels and affine clock
+  fitting to characterize drift between recording systems.
+  \href{https://github.com/BarkBarkBarkBarkBarkBarkBark/zlab_sorting_script/blob/3ff216ac593166687ae2260ccb705ea1322cf9f1/notebooks/sort_intan.ipynb}{Source}
+\end{itemize}
+
+\subsection{Debugging Agent-Generated
+Software}\label{debugging-agent-generated-software}
+
+\begin{itemize}
+\item
+  Investigated a performance regression in Hosaka, a command-line
+  software platform, where agent-generated schema validation made
+  listing seven records take approximately ten seconds.
+\item
+  Used execution timing logs to identify repeated validation as the
+  bottleneck, then introduced content-based caching and regression tests
+  to preserve checks for changed or invalid schemas.
+  \href{https://barkbarkbarkbarkbarkbarkbark.github.io/resumes_and_letters/evidence.html\#hosaka-debugging}{Source}
+\end{itemize}
 
 \section{Additional Professional
 Experience}\label{additional-professional-experience}
@@ -200,10 +174,9 @@ Experience}\label{additional-professional-experience}
 \begin{itemize}
 \tightlist
 \item
-  Administer multi-site networks, routing/VLAN segmentation, Microsoft
-  365/Exchange Online, and camera/recording systems; troubleshoot
-  infrastructure and support longitudinal service-utilization and
-  housing-outcome research.
+  Maintain network and IT infrastructure across multiple shelter sites,
+  including routing/VLAN segmentation, Microsoft 365 administration, and
+  troubleshooting.
 \end{itemize}
 
 \textbf{Analyst}, Eurofins Test America --- Oct 2019 - Jun 2021
@@ -211,8 +184,19 @@ Experience}\label{additional-professional-experience}
 \begin{itemize}
 \tightlist
 \item
-  Supported analytical laboratory QA, data review, and standard
-  operating procedures.
+  Prepared soil and water samples using solvent extraction in a
+  high-throughput environmental testing laboratory, following
+  established quality assurance procedures.
 \end{itemize}
+
+\section{Education}\label{education}
+
+\textbf{M.S. Biomedical Engineering}, University of California, Davis
+--- 2026--Present
+
+\textbf{M.S. Psychology}, Arizona State University --- 2023
+
+\textbf{B.S. Neuroscience, Physiology, and Behavior}, University of
+California, Davis --- 2017
 
 \end{document}

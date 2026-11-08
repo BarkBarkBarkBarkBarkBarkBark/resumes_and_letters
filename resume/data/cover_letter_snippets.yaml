@@ -10,70 +10,53 @@
 # One opener per role profile. Selected via profile.cover_letter_opener.
 opener:
   neuroengineering: >
-    I am sharing this note as a concise introduction to my work
-    in neural signal processing and neurotechnology. I was recently admitted to
-    the UC Davis M.S. in Biomedical Engineering, and my current work sits at the
-    intersection of human intracranial electrophysiology, single-unit digital
-    signal processing, and practical tooling for neural data acquisition.
+    I am applying for the {role} position at {company}. I am a Biomedical
+    Engineering M.S. student at UC Davis and build Python software for
+    human intracranial electrophysiology in Dr. Jie Zheng's lab at UC Davis Health.
 
   data_analytics: >
-    I am writing to apply for the {role} position at {company}. With five years of
-    experience building outcomes measurement infrastructure for homeless services
-    programs, and strong technical skills in Python, SQL, and statistical analysis,
-    I am prepared to contribute immediately to your data and evaluation work.
+    I am applying for the {role} position at {company}. At First Step
+    Communities, I build reporting workflows and analyze service outcomes
+    using Python, SQL, and statistical tools.
 
   clinical_research: >
-    I am writing to apply for the {role} position at {company}. With clinical
-    volunteer experience in neurophysiology and epilepsy monitoring units, CITI
-    research certifications, and five years working alongside people experiencing
-    severe mental illness and housing instability, I bring both technical and
-    human-centered skills to clinical research teams.
+    I am applying for the {role} position at {company}. My background includes
+    neurophysiology research, epilepsy-monitoring volunteer work, and coordinating
+    clinical-partner data for homeless-services programs.
 
 # ── Background paragraphs ────────────────────────────────────────────────────
 # These are included as body paragraphs in the cover letter template.
 # Set a field to "" to suppress it for a given build.
 
 research_background: >
-  In Dr. Jie Zheng's lab at UC Davis Health, I work with human Phase II epilepsy
-  recordings, sorting single-unit activity from microwire data with O-Sort,
-  SpikeInterface, and Kilosort4. I build GPU-enabled pipelines on AWS, curate
-  large waveform datasets, and train classifiers that separate putative single
-  units from noise. This work has strengthened my interest in robust
-  single-unit DSP for human recordings, where signal quality, curation burden,
-  and reproducibility are central analytical considerations.
+  I work with Neuralynx and Intan recordings, where file metadata, channel
+  mapping, and experimental timing affect downstream analysis. I develop
+  SpikeInterface processing workflows and align single-unit timestamps with
+  narrative events to produce rasters and firing-rate analyses.
 
 projects_background: >
-  In parallel, I have been implementing a Python-based Neuralynx ↔ Dark Horse
-  Neuro acquisition pipeline that launches DHN-AQ headlessly, generates RC/CS
-  configuration files, relays NRD replay data as ATLAS-format UDP, and supports
-  compression-aware MED recording for long-duration sessions. I have also been
-  building open-source tooling to benchmark waveform representations for
-  real-time spike discrimination and to explore streaming spiking neural
-  networks for online sorting and control.
+  I built a Neo-backed adapter that makes MED recordings readable in
+  SpikeInterface despite malformed channel metadata. In a one-channel comparison
+  of 20 million samples, the maximum source-to-MED difference was 0.5 uV,
+  with exact agreement after whole-microvolt rounding. During Codex-assisted
+  development of Hosaka, I traced a slow CLI operation to repeated schema
+  validations, then added content-based caching and regression checks.
 
 data_systems_background: >
-  As operations specialist and data analyst for First Step Communities, I built
-  analytical pipelines to evaluate housing and health outcomes across 4 shelter
-  sites serving 400+ people/month. I coordinated data collection from clinical
-  partners, disaggregated outcomes by demographic characteristics to surface
-  equity-relevant findings, and produced evidence that informed partnerships with
-  UC Davis, Kaiser, and other healthcare providers.
+  As IT Administrator at First Step Communities, I maintain multi-site
+  infrastructure and reporting workflows. I also coordinate clinical-partner
+  data collection and explain analytical findings to operational teams.
 
 lab_background: >
-  Earlier work in a high-throughput environmental toxicology laboratory trained me
-  in reproducibility, documentation, and quality control — values I carry into all
-  scientific and analytical work.
+  Earlier work in an environmental chemistry laboratory involved analytical
+  quality control, data review, and documented procedures.
 
 # ── Closers ───────────────────────────────────────────────────────────────────
 closer:
   default: >
-    I would be honored to contribute my skills to your team and look forward to the
-    opportunity to discuss how my background can support your work. Thank you for
-    your consideration.
+    I would be glad to discuss the role and share examples of my work.
+    Thank you for your consideration.
 
   research: >
-    If you are working on neural acquisition, spike sorting, BCI systems, or
-    adjacent neurotech infrastructure, I would be glad to connect. I look
-    forward to a career contributing rigorous Python/MATLAB engineering,
-    careful experimental practice, and tools that make neural data more usable.
-    Thank you for your time.
+    I would be glad to discuss your data workflows and walk through the code
+    and measurements behind these projects. Thank you for your time.

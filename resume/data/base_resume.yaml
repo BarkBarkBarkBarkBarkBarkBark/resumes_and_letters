@@ -8,8 +8,8 @@
 
 personal:
   name: Marco Del Fava
-  headline: Neural Signal Processing & Acquisition
-  supporting_line: "Biomedical Engineering M.S. | UC Davis | Human Intracranial Electrophysiology"
+  headline: Research Software & Neural Data
+  supporting_line: "M.S. Biomedical Engineering student | UC Davis | Human intracranial electrophysiology"
   contact:
     email: mdelfava@ucdavis.edu
     phone: "707-637-6544"
@@ -20,11 +20,17 @@ personal:
 # Multiple summary variants — the active one is selected by role profile.
 summary:
   neuroengineering: >
-    Developing and validating software for human intracranial electrophysiology,
-    including multichannel neural acquisition, signal processing, spike sorting,
-    and experimental synchronization. Experienced in Python-based neural data
-    pipelines, acquisition hardware integration, and quantitative evaluation
-    against recorded data.
+    Biomedical engineering graduate student at UC Davis developing Python software
+    for human intracranial electrophysiology. My work includes adapting readers
+    for proprietary recording formats, repairing acquisition metadata, building
+    neural processing pipelines, and validating data integrity. I use coding
+    agents extensively, with profiling, debugging, and automated tests to
+    evaluate their implementations.
+
+  engineering: >
+    Biomedical Engineering M.S. student and neuroscience researcher at UC Davis.
+    I build Python acquisition and data-integrity workflows and use coding agents
+    with profiling, debugging, and regression tests.
 
   data_analytics: >
     Evaluation and data systems professional with 5 years supporting 4 shelter sites
@@ -42,25 +48,24 @@ summary:
 # Skills are organized into named categories.
 # The active profile controls which categories appear and in what order.
 skills:
-  - category: Neural Data & Signal Processing
+  - category: Engineering Methods
     items:
-      - text: SpikeInterface, Kilosort4, MountainSort5; waveform features and unit matching
-        evidence: https://github.com/BarkBarkBarkBarkBarkBarkBark/DHN_validation/blob/496c2326f000037698f7b92b4b3a4139c3a70d13/sort_med/evidence/Strict_Comparison_of_Sorted_Spikes.ipynb
+      - text: Scientific data parsing, metadata validation and repair, waveform analysis, experimental synchronization, profiling, regression tests
       - text: Offline waveform discrimination and afferent clustering
         evidence: https://github.com/BarkBarkBarkBarkBarkBarkBark/spike_discrim/blob/a697e68898c688ccc5dfe23ced78dbc6494ca1c1/docs/clustering_results.md
     tags: [neuroengineering, research, technical]
 
-  - category: Neural Acquisition & Tooling
+  - category: Neural Data & Acquisition
     items:
-      - text: Intan RHD, Neuralynx CSC, MED; probe mapping and acquisition configuration
-        evidence: https://github.com/BarkBarkBarkBarkBarkBarkBark/zlab_sorting_script/blob/3ff216ac593166687ae2260ccb705ea1322cf9f1/notebooks/sort_intan.ipynb
+      - text: Neuralynx, Intan RHD, DarkHorse MED, Neo, SpikeInterface, Kilosort4, MountainSort5
+        evidence: https://github.com/BarkBarkBarkBarkBarkBarkBark/DHN_validation/blob/496c2326f000037698f7b92b4b3a4139c3a70d13/sort_med/sorting_tools/med_utils.py
       - text: DHN-AQ RC/CS configuration, SSH orchestration, and NRD replay prototypes
         evidence: https://github.com/BarkBarkBarkBarkBarkBarkBark/dhn_client/tree/c4b0420a2f43aaca2367a7034a5deef7019528ee/src/darkhorse_neuralynx
     tags: [neuroengineering, research, technical, data_acquisition, compression]
 
-  - category: Machine Learning & Data Science
+  - category: Scientific Programming
     items:
-      - text: Python (NumPy, Pandas, scikit-learn, PyTorch, Numba); MATLAB
+      - text: Python, NumPy, Pandas, scikit-learn, pytest, Git, Linux, Docker; MATLAB
       - text: Sentence embeddings and seeded NEURON simulation prototypes
         evidence: https://github.com/BarkBarkBarkBarkBarkBarkBark/semantic_neuron/blob/349fe4be084a5b49b4b2037995a137ee6f83994b/neuronlib.py
     tags: [neuroengineering, analytics, technical]
@@ -74,7 +79,7 @@ skills:
 
   - category: General Technical
     items:
-      - text: Git, Linux, SSH, shell scripting, Docker, and AWS GPU workflows
+      - text: Git, Linux, Docker, AWS; Codex-assisted development, profiling, regression tests
       - text: Microsoft 365 administration; SQL and PostgreSQL
     tags: [technical, it]
 
@@ -129,9 +134,12 @@ experience:
         tags: [technical, it]
 
       - text: >
-          Administer multi-site networks, routing/VLAN segmentation, Microsoft 365/Exchange
-          Online, and camera/recording systems; troubleshoot infrastructure and support
-          longitudinal service-utilization and housing-outcome research.
+          Maintain network and IT infrastructure across multiple shelter sites,
+          including routing/VLAN segmentation, Microsoft 365 administration, and troubleshooting.
+        tags: [engineering_support]
+      - text: >
+          Support longitudinal data collection and analysis of service utilization
+          and housing outcomes, translating operational data into research and reporting workflows.
         tags: [engineering_support]
       - text: >
           Coordinated data collection from clinical partners including UC Davis Health
@@ -151,7 +159,10 @@ experience:
           operating procedures.
         tags: [data, quality, research]
 
-      - text: Supported analytical laboratory QA, data review, and standard operating procedures.
+      - text: >
+          Prepared soil and water samples using solvent extraction in a
+          high-throughput environmental testing laboratory, following established
+          quality assurance procedures.
         tags: [engineering_support]
       - text: >
           Performed solvent extraction of organic compounds from soil and water
@@ -172,32 +183,23 @@ volunteer:
     start_date: "2025-07"
     end_date: present
     evidence_ids: [narrative-methods]
-    case_study:
-      id: narrative
-      name: Human Single-Neuron Stimulus-Response Analysis
-      headline_result: Event-aligned rasters and peri-stimulus firing rates
-      problem: Investigate repeatability of single-unit responses during repeated spoken narratives.
-      tested: Inspected local alignment and rate-analysis code; no protected recordings or response outputs reviewed for publication.
-      bullets:
-        - text: Developed Python workflows aligning Neuralynx events and sorted single-unit timestamps with repeated narratives, generating rasters and peri-stimulus firing-rate analyses.
-        - text: Investigated stimulus-associated responses and recognized that restricted stimulus variation cannot establish graded semantic tuning.
-      maturity: Implemented
-      status: Owner-reported research methods, supported by local source inspection. No public neural observations or significance claims; adaptive stimulus selection remains proposed.
-      evidence_ids: [narrative-methods]
-      links:
-        - label: Methods and publication boundary
-          url: https://barkbarkbarkbarkbarkbarkbark.github.io/resumes_and_letters/evidence.html#narrative-methods
     bullets:
       - text: >
-          Analyze human intracranial single units with O-Sort/SpikeInterface;
-          develop narrative-aligned rasters and peri-stimulus firing-rate workflows.
-        tags: [neuroengineering, research, technical, spike_sorting, signal_processing]
+          Work with human intracranial electrophysiology recordings, developing
+          Python workflows to prepare, process, and analyze single-neuron data.
+        tags: [neuroengineering, research, technical, compact]
 
       - text: >
-          Develop acquisition and spike-processing workflows with probe mapping,
-          waveform extraction, quality metrics, and experimental clock alignment;
-          distinguish exploratory stimulus responses from semantic tuning.
-        tags: [neuroengineering, research, technical, cloud, ml, signal_processing]
+          Develop event-aligned analyses of responses to repeated spoken narratives,
+          combining sorted spike timestamps, experimental markers, rasters, and
+          peri-stimulus firing rates.
+        tags: [neuroengineering, research, technical]
+
+      - text: >
+          Support acquisition and spike-processing workflows across recording
+          systems, including channel mapping, signal quality assessment, and
+          synchronization with behavioral experiments.
+        tags: [neuroengineering, research, technical]
 
   - role: Research Volunteer
     organization: "UC Davis Health — Neuroscience Unit E5"
@@ -235,15 +237,8 @@ education:
   - degree: M.S. Biomedical Engineering
     institution: University of California, Davis
     location: Davis, CA
-    graduation_date: "Fall 2026 - Present"
+    graduation_date: "2026–Present"
     gpa: ""
-    notes: ""
-
-  - degree: Python for Data Science, Professional Concentration
-    institution: UC Davis Continuing and Professional Education
-    location: Davis, CA
-    graduation_date: "2025"
-    gpa: "4.0"
     notes: ""
 
   - degree: M.S. Psychology
@@ -267,6 +262,12 @@ coursework:
   - Quantitative Analysis — Arizona State University
   - Research Methods — Arizona State University
 
+professional_development:
+  - name: Python for Data Science, Professional Concentration
+    institution: UC Davis Continuing and Professional Education
+    year: "2025"
+    gpa: "4.0"
+
 certifications:
   - name: "Data Analysis with Matplotlib, Pandas, and Scikit-Learn Python Libraries"
     issuer: UC Davis Continuing and Professional Education
@@ -282,17 +283,20 @@ certifications:
 # Add entries here as the pipeline grows.
 projects:
   - id: intan
-    name: Neural Acquisition and Synchronization
-    headline_result: Intan RHD to waveform QA
+    name: Neural Acquisition and Experimental Synchronization
     dates: 2026
-    problem: Connect acquisition files and behavioral event clocks to neural processing.
-    tested: Reviewed probe/channel checks and the affine clock-fit implementation; timing logs and bench reports were unavailable.
+    problem: Connect neural recordings to the experimental events needed to interpret them.
+    tools: Python, Intan RHD/RHX, PsychoPy, SpikeInterface, Kilosort4
     bullets:
-      - text: Built Intan RHD ingestion, probe/channel checks, and SpikeInterface/Kilosort4 processing with waveform and quality-metric extraction.
+      - text: >
+          Built Python workflows for processing Intan recordings through
+          SpikeInterface, including probe mapping, channel checks, spike sorting,
+          waveform extraction, and quality metrics.
         evidence: https://github.com/BarkBarkBarkBarkBarkBarkBark/zlab_sorting_script/blob/3ff216ac593166687ae2260ccb705ea1322cf9f1/notebooks/sort_intan.ipynb
-      - text: Implemented queued PsychoPy/RHX event synchronization, exact-label joins, and affine clock fitting to analyze clock drift and alignment residuals.
-    maturity: Implemented
-    status: Acquisition workflow and clock-alignment software implemented; timing performance not independently verified.
+      - text: >
+          Developed synchronization software to align PsychoPy behavioral events
+          with RHX recordings, using matched event labels and affine clock fitting
+          to characterize drift between recording systems.
     evidence_ids: [intan-workflow]
     links:
       - label: Intan processing notebook
@@ -300,48 +304,75 @@ projects:
     tags: [neuroengineering, data_acquisition]
 
   - id: compression
-    name: Neural Signal Fidelity and Processing Validation
-    headline_result: 0.5 uV max difference across 20 million samples
+    name: Neural Data Formats and Integrity
     dates: 2026
-    problem: Evaluate an existing DarkHorse Neuro conversion, not implement its compression algorithm.
-    tested: Compared source CSC and reconstructed MED in physical units, then controlled for whole-microvolt rounding before identical offline sorting.
+    problem: Make vendor recordings readable and check what changes during conversion.
+    tools: Python, NumPy, Neo, SpikeInterface, Neuralynx CSC, DarkHorse MED
     bullets:
-      - text: Evaluated DarkHorse Neuro compression on 20 million samples (one channel, 32 kHz; 625 s); maximum source-to-MED difference was 0.5 uV, with zero mismatches after rounding source values to whole microvolts.
+      - text: >
+          Adapted a Neo-backed MED reader to skip corrupt parity channels whose
+          metadata caused standard readers to abort, allowing processing without
+          modifying source recordings.
+        evidence: https://github.com/BarkBarkBarkBarkBarkBarkBark/DHN_validation/blob/496c2326f000037698f7b92b4b3a4139c3a70d13/sort_med/sorting_tools/med_utils.py
+        tags: [compact]
+      - text: >
+          Developed validation and repair utilities for Neuralynx recordings with
+          sample-count inconsistencies and missing recording-end metadata that
+          prevented downstream conversion.
+      - text: >
+          Evaluated signal fidelity across 20 million samples on one channel
+          (32 kHz; 625 s), comparing original CSC and compressed MED recordings.
+          Measured a maximum amplitude difference of 0.5 uV, with exact agreement
+          after whole-microvolt source rounding.
         evidence: https://github.com/BarkBarkBarkBarkBarkBarkBark/DHN_validation/blob/496c2326f000037698f7b92b4b3a4139c3a70d13/sort_med/evidence/8_7_filetype_comparison.ipynb
-      - text: Controlled MountainSort5 comparison of rounded inputs preserved all 35,587 spike frames for the compared unit (exact Jaccard 1.0).
-        evidence: https://github.com/BarkBarkBarkBarkBarkBarkBark/DHN_validation/blob/496c2326f000037698f7b92b4b3a4139c3a70d13/sort_med/evidence/Strict_Comparison_of_Sorted_Spikes.ipynb
-    maturity: Validated
-    status: Offline validation on a bounded single-channel slice; archived outputs reviewed, not a new raw-data rerun.
-    evidence_ids: [dhn-fidelity, dhn-spike-control]
+        tags: [compact]
+    evidence_ids: [med-adapter, neuralynx-repair, dhn-fidelity, dhn-spike-control]
     links:
-      - label: Waveform fidelity evidence
-        url: https://github.com/BarkBarkBarkBarkBarkBarkBark/DHN_validation/blob/496c2326f000037698f7b92b4b3a4139c3a70d13/sort_med/evidence/8_7_filetype_comparison.ipynb
-      - label: Controlled spike comparison
-        url: https://github.com/BarkBarkBarkBarkBarkBarkBark/DHN_validation/blob/496c2326f000037698f7b92b4b3a4139c3a70d13/sort_med/evidence/Strict_Comparison_of_Sorted_Spikes.ipynb
+      - label: Reader implementation and comparison details
+        url: https://barkbarkbarkbarkbarkbarkbark.github.io/resumes_and_letters/evidence.html#med-adapter
     tags: [neuroengineering, compression, signal_processing]
 
   - id: sorting
-    name: Spike Sorting and Waveform Discrimination
-    headline_result: 38,145 snippets across 10 putative unit labels
+    name: Waveform Analysis and Spike Sorting
     dates: 2026
-    problem: Quantify waveform-feature behavior against reference unit assignments.
-    tested: Evaluated event-family WeightBank activations with nearest-neighbor purity and KMeans label matching on curated snippets.
+    problem: Compare waveform representations for separating putative neural units.
+    tools: Python, NumPy, scikit-learn, O-Sort
     bullets:
-      - text: Implemented waveform-feature evaluation across 38,145 spike snippets and 10 putative O-Sort unit labels; event-family KNN purity at k=5 was 95.04%.
+      - text: >
+          Evaluated waveform representations across 38,145 spike snippets and
+          10 putative O-Sort unit labels, comparing how well different features
+          preserved local waveform structure and supported clustering.
         evidence: https://github.com/BarkBarkBarkBarkBarkBarkBark/spike_discrim/blob/a697e68898c688ccc5dfe23ced78dbc6494ca1c1/docs/clustering_results.md
-      - text: Measured 54.26% Hungarian-matched KMeans accuracy (ARI 0.3665) for that feature family; neighborhood purity is not sorter accuracy or biological ground truth.
+      - text: >
+          Found that strong local neighbor consistency did not translate into
+          equivalent global clustering agreement, distinguishing local waveform-feature
+          consistency from whole-dataset clustering behavior.
         evidence: https://github.com/BarkBarkBarkBarkBarkBarkBark/spike_discrim/blob/a697e68898c688ccc5dfe23ced78dbc6494ca1c1/src/spike_discrim/benchmarking/afferent_clustering.py
-    maturity: Validated
-    status: Offline feature validation; streaming detection and competitive-learning sorting in SNNeuro remain prototypes.
     evidence_ids: [waveform-features]
     links:
       - label: Discrimination results
         url: https://github.com/BarkBarkBarkBarkBarkBarkBark/spike_discrim/blob/a697e68898c688ccc5dfe23ced78dbc6494ca1c1/docs/clustering_results.md
-      - label: O-Sort membership comparison
-        url: https://github.com/BarkBarkBarkBarkBarkBarkBark/osort_medd_comparison/blob/4d5e94e7c3a637e9efdda8e35d7a8c0494f20a1d/codes/compare_osort_membership.m
-      - label: Streaming prototype
-        url: https://github.com/BarkBarkBarkBarkBarkBarkBark/SNNeuro/blob/c2eecb76d4d47ad4966ee117e10fd9585e0f48a8/src/snn_agent/core/pipeline.py
     tags: [neuroengineering, spike_sorting]
+
+  - id: hosaka
+    name: Debugging Agent-Generated Software
+    dates: 2026
+    problem: Find and fix a slow CLI operation introduced during Codex-assisted development.
+    tools: Python, Codex, timing instrumentation, content-based caching, regression tests
+    bullets:
+      - text: >
+          Investigated a performance regression in Hosaka, a command-line software
+          platform, where agent-generated schema validation made listing seven
+          records take approximately ten seconds.
+      - text: >
+          Used execution timing logs to identify repeated validation as the
+          bottleneck, then introduced content-based caching and regression tests
+          to preserve checks for changed or invalid schemas.
+    evidence_ids: [hosaka-debugging]
+    links:
+      - label: Debugging approach and test design
+        url: https://barkbarkbarkbarkbarkbarkbark.github.io/resumes_and_letters/evidence.html#hosaka-debugging
+    tags: [technical, python, debugging]
 
   - id: semantic
     name: Single-neuron analysis and adaptive-search development
@@ -352,8 +383,6 @@ projects:
         evidence: https://github.com/BarkBarkBarkBarkBarkBarkBark/semantic_neuron/blob/349fe4be084a5b49b4b2037995a137ee6f83994b/neuronlib.py
       - text: Added seeded stimulus windows, presynaptic event recording, voltage traces, and output spike times for reproducible simulated response analysis.
         evidence: https://github.com/BarkBarkBarkBarkBarkBarkBark/semantic_neuron/blob/349fe4be084a5b49b4b2037995a137ee6f83994b/neuronlib.py
-    maturity: Prototype
-    status: Simulation implemented; adaptive human stimulus selection and semantic selectivity are not validated.
     evidence_ids: [semantic-simulation]
     links:
       - label: Simulation implementation
@@ -369,8 +398,6 @@ projects:
         evidence: https://github.com/BarkBarkBarkBarkBarkBarkBark/dhn_client/tree/c4b0420a2f43aaca2367a7034a5deef7019528ee/src/darkhorse_neuralynx/dhn_client
       - text: Developed an NRD-to-UDP replay prototype for DHN-AQ ingestion.
         evidence: https://github.com/BarkBarkBarkBarkBarkBarkBark/dhn_client/blob/c4b0420a2f43aaca2367a7034a5deef7019528ee/src/darkhorse_neuralynx/pegasus_bridge/nrd_stream.py
-    maturity: Prototype
-    status: Prototype implemented; hardware reception and recording validation remain in progress.
     evidence_ids: [dhn-acquisition]
     links:
       - label: Acquisition implementation
@@ -379,10 +406,11 @@ projects:
 
 site:
   intro_blurb: >
-    I develop neural acquisition and signal-processing software, characterize
-    system behavior, and validate processing against recorded electrophysiology.
-    Selected work spans Intan acquisition, experimental synchronization,
-    compression fidelity, and spike sorting.
+    I build Python software that makes neuroscience recordings usable:
+    reading acquisition formats, checking data integrity, processing spikes,
+    and aligning experimental events. I am a Biomedical Engineering M.S.
+    student at UC Davis and work with human intracranial electrophysiology
+    in UC Davis Health's Z-Lab.
 
 # Controls the default profile used when --profile is not passed.
 target_metadata:

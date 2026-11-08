@@ -212,8 +212,9 @@ def test_section_order_and_research_not_duplicated(resume_data, profiles):
     md = render_resume(resume_data, profiles["neuroengineering"])
     headings = [
         "# Marco Del Fava", "## Research Profile", "## Technical Skills",
-        "## Selected Engineering Projects", "## Research Experience", "## Education",
-        "## Additional Professional Experience", "## Certifications",
+        "## Research Experience", "## Selected Engineering Projects",
+        "## Additional Professional Experience", "## Education",
+        "## Professional Development & Certifications",
     ]
     positions = [md.index(heading) for heading in headings]
     assert positions == sorted(positions)
@@ -235,16 +236,18 @@ def test_all_profiles_render_normalized_content(resume_data, profiles, profile_k
 
 
 def test_legacy_skill_and_project_items_normalized(resume_data, profiles):
+    profile = dict(profiles["neuroengineering"], max_skills_per_category=3)
     resume_data["skills"][0]["items"] = [
         "Legacy skill", {"text": "Current skill"}, {
             "text": "Evidenced skill", "evidence": "github.com/owner/repo",
         },
     ]
     resume_data["projects"][0]["bullets"] = ["Legacy contribution"]
-    filtered = apply_profile(resume_data, profiles["neuroengineering"])
-    assert filtered["skills"][0]["items"][0] == {"text": "Legacy skill"}
-    assert filtered["skills"][0]["items"][2]["evidence"] == "https://github.com/owner/repo"
-    md = render_resume(resume_data, profiles["neuroengineering"])
+    filtered = apply_profile(resume_data, profile)
+    group = next(group for group in filtered["skills"] if group["category"] == resume_data["skills"][0]["category"])
+    assert group["items"][0] == {"text": "Legacy skill"}
+    assert group["items"][2]["evidence"] == "https://github.com/owner/repo"
+    md = render_resume(resume_data, profile)
     assert "Legacy skill" in md and "Current skill" in md and "Legacy contribution" in md
     assert "{'text':" not in md
 
@@ -269,7 +272,7 @@ def test_invalid_skill_items_raise(resume_data, profiles, item):
 
 def test_confirmed_dates_and_defensible_claims(resume_data, profiles):
     filtered = apply_profile(resume_data, profiles["neuroengineering"])
-    assert filtered["education"][0]["graduation_date"] == "Fall 2026 - Present"
+    assert filtered["education"][0]["graduation_date"] == "2026–Present"
     assert filtered["research"][0]["start_date"] == "2025-07"
     md = render_resume(resume_data, profiles["neuroengineering"])
     for unsupported in [
@@ -278,30 +281,35 @@ def test_confirmed_dates_and_defensible_claims(resume_data, profiles):
     ]:
         assert unsupported.lower() not in md.lower()
     assert "putative O-Sort unit labels" in md
-    assert "timing performance not independently verified" in md
-    assert "adaptive human stimulus selection and semantic selectivity are not validated" in md
+    assert "affine clock fitting" in md
+    assert "Neo-backed MED reader" in md
+    assert "content-based caching" in md
+    for redundant in ("not independently verified", "not validated", "Work in progress"):
+        assert redundant not in md
     for withheld in ("121", "19,991.371", "19,997.824", "22.29 ms", "76.42 ms"):
         assert withheld not in md
 
 
-def test_projects_have_problem_two_bullets_status_and_sources(resume_data, profiles):
+def test_projects_have_concise_contributions_and_sources(resume_data, profiles):
     filtered = apply_profile(resume_data, profiles["neuroengineering"])
     assert [project["id"] for project in filtered["projects"]] == [
-        "intan", "compression", "sorting", "semantic", "neuralynx",
+        "compression", "intan", "sorting", "hosaka",
     ]
     for project in filtered["projects"]:
-        assert project["problem"] and project["status"] and project["links"]
-        assert project["maturity"] in ("Implemented", "Validated", "Prototype")
+        assert project["problem"] and project["tools"]
+        assert len(project["links"]) == 1
+        assert "status" not in project and "maturity" not in project
         assert project["evidence_ids"]
-        assert len(project["bullets"]) == 2
+        assert len(project["bullets"]) == (3 if project["id"] == "compression" else 2)
 
 
 def test_latex_preserves_header_typography_and_evidence(resume_data, profiles):
     md = render_resume(resume_data, profiles["neuroengineering"], output_format="latex")
     assert r"\ResumeName{Marco Del Fava}" in md
-    assert r"\HeaderProfileLink{linkedin.png}{https://www.linkedin.com/in/marc-del-fava}" in md
-    assert r"\EvidenceLink{https://github.com/" in md
-    assert r"\newpage" not in md
+    assert "[LinkedIn](https://www.linkedin.com/in/marc-del-fava)" in md
+    assert r"\EvidenceLink" not in md and r"\HeaderProfileLink" not in md
+    assert md.count("[Source](") == 4
+    assert r"\newpage" in md
     assert r"\newpage" not in render_resume(resume_data, profiles["neuroengineering"])
     tex = (ROOT / "templates/resume.tex").read_text()
     assert r"\fontsize{11pt}{13pt}" in tex
@@ -324,22 +332,29 @@ def test_engineering_profile_is_compact_without_changing_claims(resume_data, pro
     compact = apply_profile(resume_data, profiles["engineering"])
     full = apply_profile(resume_data, profiles["neuroengineering"])
     assert compact["compact"] and not full["compact"]
-    assert compact["summary_text"] == full["summary_text"]
-    assert compact["projects"] == full["projects"][:3]
+    assert len(compact["summary_text"].split()) < len(full["summary_text"].split())
+    assert [project["id"] for project in compact["projects"]] == ["compression", "intan", "hosaka"]
+    assert len(full["research"][0]["bullets"]) == 3
+    assert len(compact["research"][0]["bullets"]) == 1
+    full_projects = {project["id"]: project for project in full["projects"]}
+    for project in compact["projects"]:
+        assert all(bullet in full_projects[project["id"]]["bullets"] for bullet in project["bullets"])
+    assert len(compact["projects"][0]["bullets"]) == 2
+    assert "0.5 uV" in compact["projects"][0]["bullets"][1]["text"]
     assert compact["certifications"] == []
     assert len(compact["research"]) == 1
     assert all(len(group["items"]) == 1 for group in compact["skills"])
     md = render_resume(resume_data, profiles["engineering"])
     headings = [
         "# Marco Del Fava", "## Engineering Summary", "## Technical Skills",
-        "## Selected Engineering Projects", "## Research Experience",
-        "## Education", "## Additional Professional Experience",
+        "## Research Experience", "## Selected Engineering Projects",
+        "## Additional Professional Experience", "## Education",
     ]
     positions = [md.index(heading) for heading in headings]
     assert positions == sorted(positions)
-    assert "Neural Signal Processing & Acquisition" in md
-    assert "Fall 2026 - Present" in md
-    assert "## Certifications" not in md
+    assert "Research Software & Neural Data" in md
+    assert "2026–Present" in md
+    assert "## Professional Development & Certifications" not in md
 
 
 def test_engineering_metrics_match_inventory(resume_data, profiles):
@@ -370,12 +385,20 @@ def test_engineering_metrics_match_inventory(resume_data, profiles):
     ]
     for key in ("engineering", "neuroengineering"):
         md = render_resume(resume_data, profiles[key])
-        for metric in ("20 million", "32 kHz", "625 s", "0.5 uV", "35,587", "1.0",
-                       "38,145", "10 putative", "95.04%", "54.26%", "0.3665"):
+        for metric in ("20 million", "one channel", "32 kHz", "625 s", "0.5 uV"):
             assert metric in md
-        assert "rounding source values to whole microvolts" in md
-        assert "for the compared unit" in md
-        assert "not sorter accuracy or biological ground truth" in md
+        assert "whole-microvolt source rounding" in md
+        assert "95.04%" not in md and "54.26%" not in md
+        if key == "neuroengineering":
+            assert "38,145" in md and "10 putative" in md
+            assert "local neighbor consistency" in md and "global clustering agreement" in md
+        assert "35,587" not in md
+        records = apply_profile(resume_data, profiles[key])["evidence_records"]
+        assert records["dhn-spike-control"]["values"] == control
+        assert "canonical arrays asserted equal" in records["dhn-spike-control"]["test_conditions"]
+        assert "not proof of unrounded fidelity" in records["dhn-spike-control"]["limitations"]
+        if key == "neuroengineering":
+            assert records["waveform-features"]["values"]["ari"] == 0.3665
 
 
 @pytest.mark.parametrize("evidence_id", ["intan-timing-withheld", "legacy-professional", "missing"])
@@ -390,7 +413,6 @@ def test_unpublished_evidence_cannot_enter_public_profile(resume_data, profiles,
     ("sources", [], "exact sources"),
     ("maturity", "Production-ready", "invalid maturity"),
     ("measurement_definition", "", "missing measurement_definition"),
-    ("visual", {"kind": "bars", "maximum": 100, "bars": [{"value": 101}]}, "out of range"),
 ])
 def test_invalid_public_evidence_fails_explicitly(resume_data, profiles, monkeypatch, field, value, message):
     from scripts import build_resume as builder
@@ -404,9 +426,11 @@ def test_invalid_public_evidence_fails_explicitly(resume_data, profiles, monkeyp
 @pytest.mark.parametrize("profile_key", ["engineering", "neuroengineering"])
 def test_approved_methods_propagate_without_private_data(resume_data, profiles, profile_key):
     md = render_resume(resume_data, profiles[profile_key])
-    assert "narrative-aligned rasters" in md
+    assert "human intracranial electrophysiology recordings" in md
     assert "routing/VLAN segmentation" in md
-    assert "housing-outcome research" in md
+    if profile_key == "neuroengineering":
+        assert "repeated spoken narratives" in md
+        assert "housing outcomes" in md
     assert "500,000" not in md
     assert "6,000" not in md
     records = apply_profile(resume_data, profiles[profile_key])["evidence_records"]
@@ -422,3 +446,57 @@ def test_owner_report_cannot_masquerade_as_pinned_source(resume_data, profiles, 
     monkeypatch.setattr(builder, "load_yaml", lambda path: inventory)
     with pytest.raises(ValueError, match="Owner-reported evidence"):
         apply_profile(resume_data, profiles["neuroengineering"])
+
+
+def test_badge_is_in_full_header_not_certification_bullets(resume_data, profiles):
+    full = render_resume(resume_data, profiles["neuroengineering"], output_format="latex")
+    assert full.index(r"\BeginResumeHeader") < full.index(r"\ResumeName")
+    assert full.index(r"\ResumeName") < full.index(r"\EndResumeHeader") < full.index("## Research Profile")
+    assert "ucd_python_badge.png" not in full.split("## Professional Development & Certifications")[1]
+    compact = render_resume(resume_data, profiles["engineering"], output_format="latex")
+    assert r"\BeginResumeHeader" not in compact
+
+
+def test_new_owner_reports_and_adapter_keep_distinct_provenance(resume_data, profiles):
+    records = apply_profile(resume_data, profiles["neuroengineering"])["evidence_records"]
+    adapter = records["med-adapter"]
+    assert adapter["revision"] == "496c2326f000037698f7b92b4b3a4139c3a70d13"
+    assert adapter["sources"][0]["path"] == "sort_med/sorting_tools/med_utils.py"
+    for key in ("hosaka-debugging", "neuralynx-repair"):
+        assert records[key]["source_type"] == "owner-report"
+        assert records[key]["confirmed_on"] == "2026-11-08"
+        assert not records[key].get("revision") and not records[key].get("sources")
+    assert "No before/after speedup ratio claimed" in records["hosaka-debugging"]["measurement_definition"]
+    assert "seven-record" in records["hosaka-debugging"]["test_conditions"]
+    assert "approximately ten seconds" in records["hosaka-debugging"]["test_conditions"]
+    assert "owner-reported" in records["hosaka-debugging"]["limitations"]
+
+
+def test_professional_development_is_not_an_academic_degree(resume_data, profiles):
+    full = apply_profile(resume_data, profiles["neuroengineering"])
+    assert len(full["education"]) == 3
+    assert all("Python" not in degree["degree"] for degree in full["education"])
+    assert full["professional_development"][0]["name"] == "Python for Data Science, Professional Concentration"
+    assert apply_profile(resume_data, profiles["engineering"])["professional_development"] == []
+
+
+@pytest.mark.parametrize("profile_key", ["neuroengineering", "engineering", "data_analytics", "clinical_research", "default"])
+def test_reusable_letter_variants_render_without_stale_claims(resume_data, profiles, profile_key, tmp_path, monkeypatch):
+    from scripts import build_cover_letter as letters
+    monkeypatch.setattr(letters, "OUTPUT_DIR", tmp_path)
+    monkeypatch.setattr(letters, "ROOT", tmp_path)
+    monkeypatch.setattr("sys.argv", [
+        "build_cover_letter.py", "--company", "Example Lab", "--role", "Research Engineer",
+        "--profile", profile_key, "--output", "letter", "--md-only",
+    ])
+    letters.main()
+    text = (tmp_path / "letter.md").read_text()
+    assert "Research Engineer position at Example Lab" in text
+    for stale in ("recently admitted", "train classifiers", "real-time spike discrimination",
+                  "would be honored", "{role}", "{company}"):
+        assert stale not in text
+    if profile_key in ("neuroengineering", "engineering"):
+        assert "Hosaka" in text and "one-channel comparison" in text
+        assert len(text.split()) < 250
+    if profile_key == "data_analytics":
+        assert "Hosaka" not in text and "MED" not in text

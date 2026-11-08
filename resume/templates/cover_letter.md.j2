@@ -11,11 +11,7 @@
 
 {{ contact.email }} | {{ contact.phone }} | {{ contact.location }}{% if contact.github %} | {{ contact.github }}{% endif %}
 
----
-
-Re: {{ role }} — {{ company }}
-
----
+Application: {{ role }} — {{ company }}
 
 {{ opener | trim }}
 
@@ -27,11 +23,11 @@ Re: {{ role }} — {{ company }}
 {{ projects_background | trim }}
 
 {% endif %}
-{% if lab_background | trim %}
+{% if profile_key not in ('neuroengineering', 'engineering') and lab_background | trim %}
 {{ lab_background | trim }}
 
 {% endif %}
-{% if data_systems_background | trim %}
+{% if profile_key not in ('neuroengineering', 'engineering') and data_systems_background | trim %}
 {{ data_systems_background | trim }}
 
 {% endif %}

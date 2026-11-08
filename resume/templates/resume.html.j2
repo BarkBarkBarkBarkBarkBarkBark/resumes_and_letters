@@ -1,42 +1,8 @@
-{% import 'figures.html.j2' as figures %}
-{% macro evidence(item) -%}
-{% if item.evidence %}<a class="evidence" href="{{ item.evidence }}" aria-label="Source evidence: {{ item.text }}"><img src="assets/github.png" alt="" width="16" height="16"></a>{% endif %}
-{%- endmacro %}
 {% macro entry(job) -%}
 <article class="entry">
-  <h3>{{ job.role }} <span class="organization">— {{ job.organization }}</span></h3>
+  <h3>{{ job.role }} <span>— {{ job.organization }}</span></h3>
   <p class="meta">{{ job.start_date | fmt_date }} – {{ job.end_date | fmt_date }}{% if job.location %} · {{ job.location }}{% endif %}</p>
-  <ul>{% for bullet in job.bullets %}<li>{{ bullet.text }} {{ evidence(bullet) }}</li>{% endfor %}</ul>
-  {% for key in job.evidence_ids | default([]) %}<p class="meta"><a href="evidence.html#{{ key }}">Methods &amp; publication boundary</a></p>{% endfor %}
-</article>
-{%- endmacro %}
-{% macro project_card(project, featured=false) -%}
-<article class="project{% if featured %} featured{% endif %}" id="{{ project.id }}">
-  <p class="maturity">{{ project.maturity }}</p>
-  <h3>{{ project.name }}</h3>
-  {% if project.headline_result %}<p class="result-key">{{ project.headline_result }}</p>{% endif %}
-  <p class="project-purpose">{{ project.problem }}</p>
-  {% for key in project.evidence_ids | default([]) %}
-  {% set record = resume.evidence_records[key] %}
-  {% if record.visual and not record.visual.secondary %}
-  {{ figures.figure(record) }}
-  {% endif %}
-  {% endfor %}
-  {% if featured %}
-  <dl class="project-facts">
-    <dt>Technical approach</dt><dd>{{ project.bullets[0].text }} {{ evidence(project.bullets[0]) }}</dd>
-    <dt>Evaluation scope</dt><dd>{{ project.tested }}</dd>
-    <dt>Finding / implementation</dt><dd>{{ project.bullets[1].text }} {{ evidence(project.bullets[1]) }}</dd>
-  </dl>
-  {% else %}
-  <ul>{% for bullet in project.bullets %}<li>{{ bullet.text }} {{ evidence(bullet) }}</li>{% endfor %}</ul>
-  {% endif %}
-  <p class="status">{{ project.status }}</p>
-  <p class="evidence-label">Evidence</p>
-  <div class="project-links">
-    {% for link in project.links %}<a href="{{ link.url }}">{{ link.label }}</a>{% endfor %}
-    {% if project.evidence_ids %}<a href="evidence.html#{{ project.evidence_ids[0] }}">Methods &amp; limitations</a>{% endif %}
-  </div>
+  <ul>{% for bullet in job.bullets %}<li>{{ bullet.text }}</li>{% endfor %}</ul>
 </article>
 {%- endmacro %}
 <!DOCTYPE html>
@@ -47,148 +13,81 @@
   <title>{{ resume.personal.name }} — {{ resume.personal.headline }}</title>
   <meta name="description" content="{{ resume.site.intro_blurb | trim }}">
   <style>
-    :root { color-scheme: light; --ink:#182833; --muted:#4b5d68; --accent:#14546b; --rule:#ccd8db; }
+    :root { color-scheme:light; --ink:#202b32; --muted:#52616a; --accent:#17576b; --rule:#dce2e4; }
     * { box-sizing:border-box; }
-    html { scroll-behavior:smooth; scroll-padding-top:1rem; }
-    body { margin:0; background:#f1f4f3; color:var(--ink); font:16px/1.65 system-ui,-apple-system,"Segoe UI",sans-serif; }
+    body { margin:0; background:white; color:var(--ink); font:16px/1.6 system-ui,-apple-system,"Segoe UI",sans-serif; }
+    main { max-width:860px; margin:0 auto; padding:3rem 1.5rem; }
     a { color:var(--accent); text-underline-offset:.2em; overflow-wrap:anywhere; }
     a:hover { text-decoration-thickness:2px; }
-    a:focus-visible { outline:3px solid #9b4d16; outline-offset:4px; border-radius:2px; }
+    a:focus-visible { outline:3px solid #9b4d16; outline-offset:4px; }
     .skip-link { position:absolute; top:-5rem; left:1rem; background:white; padding:.5rem; }
     .skip-link:focus { top:1rem; }
-    .sheet { max-width:1240px; margin:2.5rem auto; background:#fff; border:1px solid var(--rule); padding:2.5rem; }
-    .eyebrow { font-size:.85rem; font-weight:650; color:var(--muted); letter-spacing:.06em; text-transform:uppercase; margin:0 0 .5rem; }
-    h1 { margin:0 0 .65rem; font-size:clamp(1.85rem,4vw,3rem); letter-spacing:-.035em; line-height:1.18; }
-    h2 { font-size:1.4rem; line-height:1.3; margin:0 0 1.2rem; padding-bottom:.5rem; border-bottom:1px solid var(--rule); }
-    h3 { font-size:1.06rem; line-height:1.4; margin:0 0 .35rem; }
-    p { margin:0 0 .8rem; }
-    .intro { max-width:75ch; font-size:1.05rem; }
-    .supporting-line { font-weight:600; color:var(--accent); margin-bottom:.8rem; }
-    .print-only { display:none; }
-    .actions { display:flex; flex-wrap:wrap; gap:.65rem; margin:1.5rem 0; }
-    .actions a { display:inline-flex; min-height:44px; align-items:center; padding:.55rem 1rem; border:1px solid var(--accent); border-radius:4px; text-decoration:none; font-weight:650; }
-    .actions a:first-child { background:var(--accent); color:white; }
-    .profiles { display:flex; flex-wrap:wrap; gap:.35rem 1.2rem; font-size:.88rem; }
-    .profiles a { display:flex; align-items:baseline; gap:.5rem; width:fit-content; max-width:100%; }
-    .profiles img { width:19px; height:19px; object-fit:contain; align-self:center; flex-shrink:0; }
-    .profiles span { min-width:0; overflow-wrap:anywhere; }
-    section { margin-top:2.6rem; }
-    .project-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:1rem; }
-    .project { padding:1.25rem; border:1px solid var(--rule); border-radius:6px; break-inside:avoid; }
-    .supporting-projects { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:1rem; }
-    .maturity { display:inline-block; margin:0 0 .65rem; padding:.15rem .55rem; background:#e7f1ed; color:#18503c; font-size:.75rem; font-weight:750; letter-spacing:.05em; text-transform:uppercase; }
-    .project h3 { font-size:1.18rem; }
-    .project-purpose { font-size:.9rem; color:var(--muted); }
-    .result-key { font-size:.95rem; font-weight:750; color:var(--accent); line-height:1.5; margin:.65rem 0; }
-    .project-facts { font-size:.9rem; }
-    .project-facts dt, .evidence-label { font-size:.77rem; text-transform:uppercase; letter-spacing:.04em; font-weight:750; margin:1rem 0 .2rem; }
-    .project-facts dd { margin:0; }
-    {{ figures.styles() }}
-    .status { font-size:.9rem; color:var(--muted); }
-    .project-links { display:flex; flex-wrap:wrap; gap:.4rem 1.2rem; font-size:.9rem; }
-    ul { margin:.5rem 0 .8rem; padding-left:1.3rem; }
-    li { padding-left:.15rem; margin:.25rem 0; }
-    .evidence { display:inline-flex; vertical-align:middle; padding:3px; margin-left:2px; line-height:1; }
-    .evidence img { object-fit:contain; }
-    .entry { margin:0 0 1.25rem; break-inside:avoid; }
-    .organization { font-weight:450; }
-    .meta { font-size:.88rem; color:var(--muted); margin:0 0 .4rem; }
-    .cv-section { margin-top:1.8rem; }
-    .skills { display:grid; grid-template-columns:1fr 1fr; gap:.5rem 1.8rem; }
-    .skills h3 { font-size:1rem; }
-    footer { font-size:.8rem; color:var(--muted); margin-top:2rem; border-top:1px solid var(--rule); padding-top:1rem; }
-    @media (max-width:960px) {
-      .project-grid, .supporting-projects { grid-template-columns:1fr; }
+    h1 { font-size:2rem; line-height:1.2; letter-spacing:-.025em; margin:0 0 .35rem; }
+    h2 { font-size:1.25rem; line-height:1.3; margin:0 0 1.2rem; padding-bottom:.5rem; border-bottom:1px solid var(--rule); }
+    h3 { font-size:1.05rem; line-height:1.4; margin:0 0 .35rem; }
+    p { margin:0 0 .7rem; }
+    .identity { display:flex; align-items:flex-start; gap:1rem; margin-bottom:1rem; }
+    .badge { display:block; width:52px; flex-shrink:0; }
+    .badge img { display:block; width:100%; height:auto; }
+    .focus { font-weight:600; margin-bottom:.2rem; }
+    .meta { color:var(--muted); font-size:.88rem; }
+    nav { display:flex; flex-wrap:wrap; gap:.4rem 1.2rem; margin-top:1rem; }
+    nav a { padding:.3rem 0; }
+    section { margin-top:2.4rem; }
+    .project, .entry { margin-bottom:1.6rem; }
+    .project:last-child, .entry:last-child { margin-bottom:0; }
+    .project .meta { margin-top:.6rem; }
+    .entry h3 span { font-weight:400; }
+    ul { margin:.4rem 0 .7rem; padding-left:1.25rem; }
+    li { margin:.2rem 0; }
+    .skills p { margin-bottom:.65rem; }
+    footer { margin-top:2rem; padding-top:1rem; border-top:1px solid var(--rule); font-size:.8rem; color:var(--muted); }
+    @media (max-width:600px) {
+      main { padding:1.8rem 1.15rem; }
+      h1 { font-size:1.75rem; }
+      .identity { gap:.75rem; }
+      .badge { width:40px; }
+      section { margin-top:2rem; }
     }
-    @media (max-width:640px) {
-      .sheet { margin:0; border:0; padding:1.7rem 1.2rem; }
-      h1 { font-size:1.85rem; }
-      .skills { grid-template-columns:1fr; }
-      .actions a { flex-grow:1; justify-content:center; }
-    }
-    @media (prefers-reduced-motion:reduce) { html { scroll-behavior:auto; } }
     @page { size:letter; margin:.7in; }
     @media print {
-      body { background:white; font:11pt/13pt "Times New Roman",Times,serif; }
-      .sheet { border:0; margin:0; padding:0; max-width:none; }
-      .screen-only, .skip-link, footer { display:none !important; }
-      .print-only { display:block; }
+      body { font:11pt/1.35 "Times New Roman",Times,serif; }
+      main { padding:0; max-width:none; }
+      nav, .skip-link, footer { display:none; }
+      section { margin-top:14pt; }
       h1 { font-size:22pt; }
-      h1 { margin:0 0 6pt; }
-      h2 { font-size:12pt; margin:0 0 5pt; padding:0 0 3pt; break-after:avoid; }
-      h3, .project h3 { font-size:11pt; margin:0 0 3pt; break-after:avoid; }
-      p { margin:0 0 4pt; }
-      section, .cv-section { margin-top:9pt; }
-      .project { padding:6pt 0; border:0; }
-      .project-grid, .supporting-projects { display:block; }
-      .project-visual { display:none; }
-      .entry { margin-bottom:7pt; }
-      ul { margin:3pt 0 5pt; }
-      li { margin:2pt 0; }
-      .status, .project-links, .meta { font-size:10pt; }
-      .project-links { gap:0 10pt; }
-      .evidence { padding:0; }
-      .evidence img { width:10pt; height:10pt; }
+      h2 { font-size:12pt; }
+      h3 { font-size:11pt; }
+      h2, h3 { break-after:avoid; }
+      .project, .entry { break-inside:avoid; margin-bottom:10pt; }
       a { color:inherit; }
-      .profiles { font-size:10pt; }
-      .skills { display:block; }
-      .skills > div { break-inside:avoid; }
-      .skills h3 { font-size:11pt; }
     }
   </style>
 </head>
 <body>
 <a class="skip-link" href="#selected-projects">Skip to selected projects</a>
-<main class="sheet">
+<main>
   {% set c = resume.personal.contact %}
   <header>
-    <p class="eyebrow screen-only">{{ resume.personal.name }}</p>
-    <h1 class="screen-only">{{ resume.personal.headline }}</h1>
-    <h1 class="print-only">{{ resume.personal.name }}</h1>
-    <p class="supporting-line">{{ resume.personal.supporting_line }}</p>
-    <p class="intro screen-only">{{ resume.site.intro_blurb | trim }}</p>
-    <nav class="actions screen-only" aria-label="Primary actions">
-      <a href="{{ engineering_pdf_url | default('marco_del_fava_engineering.pdf') }}" download>Engineering Resume · 1 page</a>
-      <a href="{{ pdf_url }}" download>Full Research CV (PDF)</a>
-      <a href="#selected-projects">Engineering Projects</a>
+    <div class="identity">
+      {% for cert in resume.certifications if cert.badge_url and cert.credly_url %}
+      <a class="badge" href="{{ cert.credly_url }}" aria-label="UC Davis Python data-analysis certification"><img src="{{ cert.badge_url }}" alt="UC Davis Python data-analysis certification" width="52" height="52"></a>
+      {% endfor %}
+      <div>
+        <h1>{{ resume.personal.name }}</h1>
+        <p class="focus">{{ resume.personal.headline }}</p>
+        <p class="meta">{{ resume.personal.supporting_line }}</p>
+      </div>
+    </div>
+    <p>{{ resume.site.intro_blurb | trim }}</p>
+    <nav aria-label="Contact and documents">
+      <a href="{{ engineering_pdf_url | default('marco_del_fava_engineering.pdf') }}" download>Engineering résumé · 1 page</a>
+      <a href="{{ pdf_url }}" download>Full research CV (PDF)</a>
+      {% if c.github %}<a href="{{ c.github }}">GitHub</a>{% endif %}
+      {% if c.linkedin %}<a href="{{ c.linkedin }}">LinkedIn</a>{% endif %}
       <a href="mailto:{{ c.email }}">Email</a>
     </nav>
-    <div class="profiles">
-      {% if c.github %}<a href="{{ c.github }}"><img src="assets/github.png" alt="GitHub" width="19" height="19"><span>{{ c.github }}</span></a>{% endif %}
-      {% if c.linkedin %}<a href="{{ c.linkedin }}"><img src="assets/linkedin.png" alt="LinkedIn" width="19" height="19"><span>{{ c.linkedin }}</span></a>{% endif %}
-    </div>
   </header>
-
-  <section class="print-only" aria-labelledby="profile-title">
-    <h2 id="profile-title">Research Profile</h2>
-    <p>{{ resume.summary_text | trim }}</p>
-    <p class="meta">{{ c.location }} · <a href="mailto:{{ c.email }}">{{ c.email }}</a>{% if c.phone %} · {{ c.phone }}{% endif %}</p>
-  </section>
-
-  <section id="selected-projects" aria-labelledby="projects-title">
-    <h2 id="projects-title">Selected Engineering Projects</h2>
-    <div class="project-grid">
-      {% for project in resume.projects[:3] %}{{ project_card(project, project.tested is defined) }}{% endfor %}
-    </div>
-  </section>
-
-  {% for job in resume.research if job.case_study %}
-  <section aria-labelledby="narrative-title">
-    <h2 id="narrative-title">Human Single-Neuron Research</h2>
-    {{ project_card(job.case_study, true) }}
-  </section>
-  {% endfor %}
-
-  <section aria-labelledby="skills-title">
-    <h2 id="skills-title">Technical Skills</h2>
-    <div class="skills">
-    {% for group in resume.skills %}
-    <div><h3>{{ group.category }}</h3>
-      <ul>{% for item in group['items'] %}<li>{{ item.text }} {{ evidence(item) }}</li>{% endfor %}</ul>
-    </div>
-    {% endfor %}
-    </div>
-  </section>
 
   {% if resume.research %}
   <section aria-labelledby="research-title">
@@ -197,23 +96,23 @@
   </section>
   {% endif %}
 
-  {% if resume.projects | length > 3 %}
-  <section aria-labelledby="supporting-title">
-    <h2 id="supporting-title">Supporting Software &amp; Prototypes</h2>
-    <div class="supporting-projects">
-      {% for project in resume.projects[3:] %}{{ project_card(project) }}{% endfor %}
-    </div>
-  </section>
-  {% endif %}
-
-  <section class="education" aria-labelledby="education-title">
-    <h2 id="education-title">Education</h2>
-    {% for edu in resume.education %}
-    <article class="entry">
-      <h3>{{ edu.degree }}</h3>
-      <p>{{ edu.institution }} · {{ edu.graduation_date }}</p>
-      {% if edu.notes %}<p>{{ edu.notes }}</p>{% endif %}
+  <section id="selected-projects" aria-labelledby="projects-title">
+    <h2 id="projects-title">Selected Engineering Projects</h2>
+    {% for project in resume.projects %}
+    <article class="project" id="{{ project.id }}">
+      <h3>{{ project.name }}</h3>
+      <p>{{ project.problem }}</p>
+      <p>{% for bullet in project.bullets %}{{ bullet.text }}{% if not loop.last %} {% endif %}{% endfor %}</p>
+      {% if project.tools %}<p class="meta">{{ project.tools }}</p>{% endif %}
+      {% if project.links %}<a href="{{ project.links[0].url | replace('https://barkbarkbarkbarkbarkbarkbark.github.io/resumes_and_letters/', '') }}">{{ project.links[0].label }}</a>{% endif %}
     </article>
+    {% endfor %}
+  </section>
+
+  <section class="skills" aria-labelledby="skills-title">
+    <h2 id="skills-title">Technical Skills &amp; Engineering Practices</h2>
+    {% for group in resume.skills %}
+    <p><strong>{{ group.category }}:</strong> {% for item in group['items'] %}{{ item.text }}{% if not loop.last %}; {% endif %}{% endfor %}</p>
     {% endfor %}
   </section>
 
@@ -222,13 +121,24 @@
     {% for job in resume.experience + resume.volunteer %}{{ entry(job) }}{% endfor %}
   </section>
 
-  {% if resume.certifications %}
+  <section aria-labelledby="education-title">
+    <h2 id="education-title">Education</h2>
+    {% for edu in resume.education %}
+    <p><strong>{{ edu.degree }}</strong><br>{{ edu.institution }} · {{ edu.graduation_date }}</p>
+    {% endfor %}
+  </section>
+  {% if resume.professional_development or resume.certifications %}
   <section aria-labelledby="certifications-title">
-    <h2 id="certifications-title">Certifications</h2>
-    <ul>{% for cert in resume.certifications %}<li>{% if cert.credly_url %}<a href="{{ cert.credly_url }}">{{ cert.name }}</a>{% else %}{{ cert.name }}{% endif %} — {{ cert.issuer }}{% if cert.date %} ({{ cert.date | fmt_date }}){% endif %}</li>{% endfor %}</ul>
+    <h2 id="certifications-title">Professional Development &amp; Certifications</h2>
+    {% for course in resume.professional_development %}
+    <p><strong>{{ course.name }}</strong><br>{{ course.institution }} · {{ course.year }}</p>
+    {% endfor %}
+    {% if resume.certifications %}
+    <ul>{% for cert in resume.certifications %}<li>{% if cert.credly_url %}<a href="{{ cert.credly_url }}">{{ cert.name }}</a>{% else %}{{ cert.name }}{% endif %} — {{ cert.issuer }}</li>{% endfor %}</ul>
+    {% endif %}
   </section>
   {% endif %}
-  <footer>Portfolio and CV generated from the same canonical content.{% if source_commit %} Source revision: {{ source_commit }}.{% endif %}</footer>
+  <footer><a href="evidence.html">Technical evidence: methods, measurements, and source references</a>{% if source_commit %}<br>Source revision: {{ source_commit }}{% endif %}</footer>
 </main>
 </body>
 </html>

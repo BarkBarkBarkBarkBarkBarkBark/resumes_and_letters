@@ -1,44 +1,35 @@
 {
   "source_commit": "",
-  "reviewed_on": "2026-10-18",
+  "reviewed_on": "2026-11-08",
   "records": {
-    "intan-workflow": {
-      "repository": "BarkBarkBarkBarkBarkBarkBark/zlab_sorting_script",
-      "revision": "3ff216ac593166687ae2260ccb705ea1322cf9f1",
+    "med-adapter": {
+      "repository": "BarkBarkBarkBarkBarkBarkBark/DHN_validation",
+      "revision": "496c2326f000037698f7b92b4b3a4139c3a70d13",
       "sources": [
         {
-          "path": "notebooks/sort_intan.ipynb",
-          "location": "Code cells 6, 7, 10, 11 (zero-based)",
-          "url": "https://github.com/BarkBarkBarkBarkBarkBarkBark/zlab_sorting_script/blob/3ff216ac593166687ae2260ccb705ea1322cf9f1/notebooks/sort_intan.ipynb"
-        },
-        {
-          "path": "readme.md",
-          "location": "Acquisition-to-curation workflow",
-          "url": "https://github.com/BarkBarkBarkBarkBarkBarkBark/zlab_sorting_script/blob/3ff216ac593166687ae2260ccb705ea1322cf9f1/readme.md"
+          "path": "sort_med/sorting_tools/med_utils.py",
+          "location": "_is_corrupt, _filtered_med_session_class, CleanMedRawIO, MedRecordingExtractor, read_med_recording",
+          "url": "https://github.com/BarkBarkBarkBarkBarkBarkBark/DHN_validation/blob/496c2326f000037698f7b92b4b3a4139c3a70d13/sort_med/sorting_tools/med_utils.py"
         }
       ],
       "public": true,
       "maturity": "Implemented",
-      "verification": "Source inspected; acquisition hardware and source recordings not rerun.",
-      "measurement_definition": "Implementation evidence, not a timing or channel-yield measurement.",
-      "test_conditions": "Intan RHD input; explicit probe/contact-count guard; SpikeInterface and Kilosort4.",
-      "verified_result": "Reader, probe mapping, filtering, sorting, waveform extraction, and quality-metric computation are implemented.",
-      "limitations": "Public evidence covers file processing. The timing implementation is private; no public timing logs or bench-quality report were available.",
-      "visual": {
-        "kind": "flow",
-        "figure_id": "A3",
-        "title": "Implemented file-processing path",
-        "steps": [
-          "Intan RHD",
-          "Channel / probe mapping",
-          "Filtering",
-          "SpikeInterface / Kilosort4",
-          "Waveform extraction",
-          "Quality metrics"
-        ],
-        "parallel_branch": "PsychoPy event markers -> queued RHX markers -> exact-label joins -> affine clock alignment",
-        "caption": "Public file-processing schematic, not a latency measurement. Parallel timing software is source-inspected but private; no measured timing figure or completed DeepArray integration is implied."
-      }
+      "verification": "Commit-pinned source inspected; no recording or hardware rerun.",
+      "measurement_definition": "Reader implementation and metadata handling, not a throughput or fidelity benchmark.",
+      "test_conditions": "MED sessions with channel-name/directory mismatches; Neo MedRawIO and SpikeInterface NeoBaseRecordingExtractor.",
+      "verified_result": "Adapter deactivates malformed channels before header parsing, exposes a serializable recording, selects sampling-rate streams, and preserves channel gains.",
+      "limitations": "Source describes malformed parity-channel metadata causing native reader aborts. This is an adapter around an existing MED reader, not a compression implementation. No independent session-level test was run in this review."
+    },
+    "neuralynx-repair": {
+      "source_type": "owner-report",
+      "confirmed_on": "2026-11-08",
+      "public": true,
+      "maturity": "Implemented",
+      "verification": "Owner approved the high-level implementation description; public source and repair outputs were not supplied.",
+      "measurement_definition": "Validation and repair functionality, not a count of repaired files or a completeness benchmark.",
+      "test_conditions": "Neuralynx recordings rejected by downstream readers because of sample-count inconsistencies or missing recording-end metadata.",
+      "verified_result": "Owner developed validation and repair utilities for metadata problems that prevented downstream conversion.",
+      "limitations": "Implementation is owner-reported. No private code, recordings, repair logs, or inferred changes to signal samples are published."
     },
     "dhn-fidelity": {
       "repository": "BarkBarkBarkBarkBarkBarkBark/DHN_validation",
@@ -101,9 +92,31 @@
         "kind": "event-match",
         "figure_id": "B2",
         "title": "Exact spike-frame intersection",
-        "secondary": true,
         "caption": "One compared unit, zero-frame tolerance. Identically rounded input arrays establish controlled sorting consistency, not fidelity of unrounded recordings or all-unit conservation."
       }
+    },
+    "intan-workflow": {
+      "repository": "BarkBarkBarkBarkBarkBarkBark/zlab_sorting_script",
+      "revision": "3ff216ac593166687ae2260ccb705ea1322cf9f1",
+      "sources": [
+        {
+          "path": "notebooks/sort_intan.ipynb",
+          "location": "Code cells 6, 7, 10, 11 (zero-based)",
+          "url": "https://github.com/BarkBarkBarkBarkBarkBarkBark/zlab_sorting_script/blob/3ff216ac593166687ae2260ccb705ea1322cf9f1/notebooks/sort_intan.ipynb"
+        },
+        {
+          "path": "readme.md",
+          "location": "Acquisition-to-curation workflow",
+          "url": "https://github.com/BarkBarkBarkBarkBarkBarkBark/zlab_sorting_script/blob/3ff216ac593166687ae2260ccb705ea1322cf9f1/readme.md"
+        }
+      ],
+      "public": true,
+      "maturity": "Implemented",
+      "verification": "Source inspected; acquisition hardware and source recordings not rerun.",
+      "measurement_definition": "Implementation evidence, not a timing or channel-yield measurement.",
+      "test_conditions": "Intan RHD input; explicit probe/contact-count guard; SpikeInterface and Kilosort4.",
+      "verified_result": "Reader, probe mapping, filtering, sorting, waveform extraction, and quality-metric computation are implemented.",
+      "limitations": "Public evidence covers file processing. The timing implementation is private; no public timing logs or bench-quality report were available."
     },
     "waveform-features": {
       "repository": "BarkBarkBarkBarkBarkBarkBark/spike_discrim",
@@ -175,47 +188,16 @@
         "evidence_gap": "Assignment counts and permission-safe waveform/features were not available for this publication. C1 waveform/projection and C2 contingency figures are withheld, not reconstructed from aggregate scores."
       }
     },
-    "semantic-simulation": {
-      "repository": "BarkBarkBarkBarkBarkBarkBark/semantic_neuron",
-      "revision": "349fe4be084a5b49b4b2037995a137ee6f83994b",
-      "sources": [
-        {
-          "path": "neuronlib.py",
-          "location": "NeuronSimulator.input_rate, _make_inputs, simulate, plot_response",
-          "url": "https://github.com/BarkBarkBarkBarkBarkBarkBark/semantic_neuron/blob/349fe4be084a5b49b4b2037995a137ee6f83994b/neuronlib.py"
-        }
-      ],
+    "hosaka-debugging": {
+      "source_type": "owner-report",
+      "confirmed_on": "2026-11-08",
       "public": true,
-      "maturity": "Prototype",
-      "verification": "Source and limitations inspected; NEURON simulation not rerun.",
-      "measurement_definition": "Software capability only; no measured human-neuron or adaptive-experiment outcome.",
-      "test_conditions": "Seeded stochastic presynaptic inputs, sentence embeddings, single-compartment NEURON simulation, fixed synaptic weights.",
-      "verified_result": "Stimulus-bounded simulation returns presynaptic events, voltage traces, spike times, similarity, and firing rates.",
-      "limitations": "Adaptive semantic search and stimulus-aligned human analysis are development directions, not validated capabilities of this repository."
-    },
-    "dhn-acquisition": {
-      "repository": "BarkBarkBarkBarkBarkBarkBark/dhn_client",
-      "revision": "c4b0420a2f43aaca2367a7034a5deef7019528ee",
-      "sources": [
-        {
-          "path": "src/darkhorse_neuralynx/dhn_client",
-          "kind": "tree",
-          "location": "Configuration and orchestration implementation",
-          "url": "https://github.com/BarkBarkBarkBarkBarkBarkBark/dhn_client/tree/c4b0420a2f43aaca2367a7034a5deef7019528ee/src/darkhorse_neuralynx/dhn_client"
-        },
-        {
-          "path": "src/darkhorse_neuralynx/pegasus_bridge/nrd_stream.py",
-          "location": "NRD replay implementation",
-          "url": "https://github.com/BarkBarkBarkBarkBarkBarkBark/dhn_client/blob/c4b0420a2f43aaca2367a7034a5deef7019528ee/src/darkhorse_neuralynx/pegasus_bridge/nrd_stream.py"
-        }
-      ],
-      "public": true,
-      "maturity": "Prototype",
-      "verification": "Source inspected; no hardware reception or replay benchmark rerun.",
-      "measurement_definition": "Implementation evidence only.",
-      "test_conditions": "DHN-AQ configuration files, SSH orchestration, and archived NRD-to-UDP replay.",
-      "verified_result": "Configuration and replay software implemented.",
-      "limitations": "Does not implement the DHN compression algorithm or establish live acquisition performance."
+      "maturity": "Implemented",
+      "verification": "Owner approved the debugging account; private implementation and test output were not independently inspected.",
+      "measurement_definition": "Owner-reported approximate elapsed time for listing seven records before the fix; profiling, caching, and regression-test approach. No before/after speedup ratio claimed.",
+      "test_conditions": "Owner reports a seven-record Hosaka listing took approximately ten seconds during Codex-assisted development; repeated schema validation identified with execution timing logs.",
+      "verified_result": "Owner introduced content-based caching and regression tests to avoid redundant validation while preserving checks for changed or invalid schemas.",
+      "limitations": "Approximate pre-fix timing and test behavior are owner-reported from the supplied revision brief. No public source revision, timing logs, or independently rerun regression results are published; no post-fix duration or measured speedup is inferred."
     },
     "narrative-methods": {
       "source_type": "owner-report",
@@ -226,20 +208,7 @@
       "measurement_definition": "Implementation description only; no participant count, effect size, response significance, or semantic-selectivity measurement.",
       "test_conditions": "Sorted single-unit timestamps aligned to Neuralynx narrative-onset events; per-presentation rasters, binned/smoothed rates, and preceding-interval comparisons.",
       "verified_result": "Python methods implement event alignment and peri-stimulus analysis. Repeatable response observations are owner-reported, not publicly verified findings.",
-      "limitations": "Code and recordings are not published. Exploratory interval selection is not held-out inference; preceding-story activity can contaminate baseline intervals. Restricted narrative vocabulary cannot establish semantic tuning. Adaptive human stimulus selection remains proposed.",
-      "visual": {
-        "kind": "flow",
-        "figure_id": "D-methods",
-        "title": "Narrative-response analysis (methods schematic)",
-        "steps": [
-          "Sorted unit timestamps + narrative events",
-          "Align each presentation to onset",
-          "Per-presentation spike rasters",
-          "Binned / smoothed firing rates",
-          "Exploratory response and baseline comparison"
-        ],
-        "caption": "Methods only, not a raster, PSTH, or simulated observation. D1/D2 response figures are withheld pending permission-safe data and independently verified event timing."
-      }
+      "limitations": "Code and recordings are not published. Exploratory interval selection is not held-out inference; preceding-story activity can contaminate baseline intervals. Restricted narrative vocabulary cannot establish semantic tuning. Adaptive human stimulus selection remains proposed."
     },
     "systems-methods": {
       "source_type": "owner-report",

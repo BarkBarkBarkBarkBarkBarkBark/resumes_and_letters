@@ -6,9 +6,9 @@ lang: en
 
 # Marco Del Fava
 
-**Neural Signal Processing & Acquisition**
+**Research Software & Neural Data**
 
-Biomedical Engineering M.S. | UC Davis | Human Intracranial Electrophysiology
+M.S. Biomedical Engineering student | UC Davis | Human intracranial electrophysiology
 
 mdelfava@ucdavis.edu | 707-637-6544 | Sacramento, CA
 
@@ -17,43 +17,17 @@ mdelfava@ucdavis.edu | 707-637-6544 | Sacramento, CA
 
 ## Engineering Summary
 
-Developing and validating software for human intracranial electrophysiology, including multichannel neural acquisition, signal processing, spike sorting, and experimental synchronization. Experienced in Python-based neural data pipelines, acquisition hardware integration, and quantitative evaluation against recorded data.
+Biomedical Engineering M.S. student and neuroscience researcher at UC Davis. I build Python acquisition and data-integrity workflows and use coding agents with profiling, debugging, and regression tests.
 
 ## Technical Skills
 
-**Neural Data & Signal Processing:** SpikeInterface, Kilosort4, MountainSort5; waveform features and unit matching [Evidence](https://github.com/BarkBarkBarkBarkBarkBarkBark/DHN_validation/blob/496c2326f000037698f7b92b4b3a4139c3a70d13/sort_med/evidence/Strict_Comparison_of_Sorted_Spikes.ipynb)
+**Scientific Programming:** Python, NumPy, Pandas, scikit-learn, pytest, Git, Linux, Docker; MATLAB
 
 
-**Neural Acquisition & Tooling:** Intan RHD, Neuralynx CSC, MED; probe mapping and acquisition configuration [Evidence](https://github.com/BarkBarkBarkBarkBarkBarkBark/zlab_sorting_script/blob/3ff216ac593166687ae2260ccb705ea1322cf9f1/notebooks/sort_intan.ipynb)
+**Neural Data & Acquisition:** Neuralynx, Intan RHD, DarkHorse MED, Neo, SpikeInterface, Kilosort4, MountainSort5
 
 
-**Machine Learning & Data Science:** Python (NumPy, Pandas, scikit-learn, PyTorch, Numba); MATLAB
-
-
-
-## Selected Engineering Projects
-
-### Neural Acquisition and Synchronization — Implemented
-
-- Built Intan RHD ingestion, probe/channel checks, and SpikeInterface/Kilosort4 processing with waveform and quality-metric extraction. [Evidence](https://github.com/BarkBarkBarkBarkBarkBarkBark/zlab_sorting_script/blob/3ff216ac593166687ae2260ccb705ea1322cf9f1/notebooks/sort_intan.ipynb)
-
-- Implemented queued PsychoPy/RHX event synchronization, exact-label joins, and affine clock fitting to analyze clock drift and alignment residuals.
-
-
-
-### Neural Signal Fidelity and Processing Validation — Validated
-
-- Evaluated DarkHorse Neuro compression on 20 million samples (one channel, 32 kHz; 625 s); maximum source-to-MED difference was 0.5 uV, with zero mismatches after rounding source values to whole microvolts. [Evidence](https://github.com/BarkBarkBarkBarkBarkBarkBark/DHN_validation/blob/496c2326f000037698f7b92b4b3a4139c3a70d13/sort_med/evidence/8_7_filetype_comparison.ipynb)
-
-- Controlled MountainSort5 comparison of rounded inputs preserved all 35,587 spike frames for the compared unit (exact Jaccard 1.0). [Evidence](https://github.com/BarkBarkBarkBarkBarkBarkBark/DHN_validation/blob/496c2326f000037698f7b92b4b3a4139c3a70d13/sort_med/evidence/Strict_Comparison_of_Sorted_Spikes.ipynb)
-
-
-
-### Spike Sorting and Waveform Discrimination — Validated
-
-- Implemented waveform-feature evaluation across 38,145 spike snippets and 10 putative O-Sort unit labels; event-family KNN purity at k=5 was 95.04%. [Evidence](https://github.com/BarkBarkBarkBarkBarkBarkBark/spike_discrim/blob/a697e68898c688ccc5dfe23ced78dbc6494ca1c1/docs/clustering_results.md)
-
-- Measured 54.26% Hungarian-matched KMeans accuracy (ARI 0.3665) for that feature family; neighborhood purity is not sorter accuracy or biological ground truth. [Evidence](https://github.com/BarkBarkBarkBarkBarkBarkBark/spike_discrim/blob/a697e68898c688ccc5dfe23ced78dbc6494ca1c1/src/spike_discrim/benchmarking/afferent_clustering.py)
+**Engineering Methods:** Scientific data parsing, metadata validation and repair, waveform analysis, experimental synchronization, profiling, regression tests
 
 
 
@@ -61,26 +35,53 @@ Developing and validating software for human intracranial electrophysiology, inc
 
 **Research Volunteer**, UC Davis Health — Z-Lab (Dr. Jie Zheng) — Jul 2025 - Present
 
-- Analyze human intracranial single units with O-Sort/SpikeInterface; develop narrative-aligned rasters and peri-stimulus firing-rate workflows.
+- Work with human intracranial electrophysiology recordings, developing Python workflows to prepare, process, and analyze single-neuron data.
+
+## Selected Engineering Projects
+
+### Neural Data Formats and Integrity
 
 
-## Education
+- Adapted a Neo-backed MED reader to skip corrupt parity channels whose metadata caused standard readers to abort, allowing processing without modifying source recordings.
 
-**M.S. Biomedical Engineering**, University of California, Davis — Fall 2026 - Present
+- Evaluated signal fidelity across 20 million samples on one channel (32 kHz; 625 s), comparing original CSC and compressed MED recordings. Measured a maximum amplitude difference of 0.5 uV, with exact agreement after whole-microvolt source rounding. [Source](https://barkbarkbarkbarkbarkbarkbark.github.io/resumes_and_letters/evidence.html#med-adapter)
 
-**Python for Data Science, Professional Concentration**, UC Davis Continuing and Professional Education — 2025
 
-**M.S. Psychology**, Arizona State University — 2023
 
-**B.S. Neuroscience, Physiology, and Behavior**, University of California, Davis — 2017
+### Neural Acquisition and Experimental Synchronization
+
+
+- Built Python workflows for processing Intan recordings through SpikeInterface, including probe mapping, channel checks, spike sorting, waveform extraction, and quality metrics.
+
+- Developed synchronization software to align PsychoPy behavioral events with RHX recordings, using matched event labels and affine clock fitting to characterize drift between recording systems. [Source](https://github.com/BarkBarkBarkBarkBarkBarkBark/zlab_sorting_script/blob/3ff216ac593166687ae2260ccb705ea1322cf9f1/notebooks/sort_intan.ipynb)
+
+
+
+### Debugging Agent-Generated Software
+
+
+- Investigated a performance regression in Hosaka, a command-line software platform, where agent-generated schema validation made listing seven records take approximately ten seconds.
+
+- Used execution timing logs to identify repeated validation as the bottleneck, then introduced content-based caching and regression tests to preserve checks for changed or invalid schemas. [Source](https://barkbarkbarkbarkbarkbarkbark.github.io/resumes_and_letters/evidence.html#hosaka-debugging)
+
+
 
 ## Additional Professional Experience
 
 **IT Administrator**, First Step Communities — Jul 2021 - Present
 
-- Administer multi-site networks, routing/VLAN segmentation, Microsoft 365/Exchange Online, and camera/recording systems; troubleshoot infrastructure and support longitudinal service-utilization and housing-outcome research.
+- Maintain network and IT infrastructure across multiple shelter sites, including routing/VLAN segmentation, Microsoft 365 administration, and troubleshooting.
 
 **Analyst**, Eurofins Test America — Oct 2019 - Jun 2021
 
-- Supported analytical laboratory QA, data review, and standard operating procedures.
+- Prepared soil and water samples using solvent extraction in a high-throughput environmental testing laboratory, following established quality assurance procedures.
+
+
+## Education
+
+**M.S. Biomedical Engineering**, University of California, Davis — 2026–Present
+
+**M.S. Psychology**, Arizona State University — 2023
+
+**B.S. Neuroscience, Physiology, and Behavior**, University of California, Davis — 2017
 

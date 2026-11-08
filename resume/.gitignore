@@ -2,6 +2,11 @@
 output/*.md
 output/*.docx
 output/*.pdf
+output/*/*.aux
+output/*/*.fdb_latexmk
+output/*/*.fls
+output/*/*.log
+output/*/*.out
 
 # Python
 __pycache__/

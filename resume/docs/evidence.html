@@ -16,8 +16,6 @@
     .project-visual { margin:1rem 0; padding:.85rem; background:#f1f6f6; border-radius:4px; }
 .project-visual figcaption { font-size:.88rem; font-weight:700; line-height:1.4; }
 .visual-caption { font-size:.8rem; line-height:1.5; color:#4b5d68; margin:.65rem 0 0; }
-.flow { padding-left:1.3rem; margin:.7rem 0; font-size:.85rem; }
-.flow li { padding:.2rem .4rem; background:white; border-left:2px solid #14546b; }
 .figure-table { width:100%; border-collapse:collapse; margin:.8rem 0; font-size:.8rem; line-height:1.5; font-variant-numeric:tabular-nums; }
 .figure-table caption { text-align:left; font-weight:650; margin-bottom:.5rem; }
 .figure-table th, .figure-table td { padding:.45rem .25rem; border-bottom:1px solid #ccd8db; text-align:left; overflow-wrap:normal; }
@@ -33,33 +31,32 @@
   <a href="index.html">Back to portfolio</a>
   <h1>Engineering evidence &amp; measurement definitions</h1>
   <p><a href="evidence_manifest.json" download>Download public evidence manifest (JSON)</a></p>
-  <p>Implementation and archived-result review, not a new experiment or independent raw-data rerun.
-    Only approved public implementation references and aggregate results are included.
-    No raw recordings, waveform snippets, patient identifiers, or private lab artifacts are hosted here.</p>
-  <p><strong>Validated</strong> denotes an evaluation with inspectable saved results;
-    <strong>Implemented</strong> denotes source-inspected software;
-    <strong>Prototype</strong> does not imply validated acquisition or real-time performance.
-    Owner-reported methods are explicitly distinguished from commit-pinned public evidence.</p>
-  <p><strong>Withheld figures:</strong> A1/A2 require matched event logs, a documented clock fit, and interruption records.
-    D1/D2 require permission-safe spikes and verified stimulus events. No physical onset accuracy,
-    validated 128-channel quality, or closed-loop latency is established here.
-    Offline sorting is evaluated retrospectively; streaming detection remains a prototype and
-    identity estimation or closed-loop control is not validated.</p>
-  <article id="intan-workflow">
-    <h2>Intan Workflow</h2>
-    <p><strong>Implemented</strong> &middot; BarkBarkBarkBarkBarkBarkBark/zlab_sorting_script<br>Revision: <code>3ff216ac593166687ae2260ccb705ea1322cf9f1</code></p>
-<figure class="project-visual" id="figure-A3">
-  <figcaption>A3 &mdash; Implemented file-processing path</figcaption>
-  <ol class="flow"><li>Intan RHD</li><li>Channel / probe mapping</li><li>Filtering</li><li>SpikeInterface / Kilosort4</li><li>Waveform extraction</li><li>Quality metrics</li></ol>
-<p class="visual-caption"><strong>Parallel timing branch (implemented, unbenchmarked):</strong> PsychoPy event markers -&gt; queued RHX markers -&gt; exact-label joins -&gt; affine clock alignment</p>  <p class="visual-caption">Public file-processing schematic, not a latency measurement. Parallel timing software is source-inspected but private; no measured timing figure or completed DeepArray integration is implied.</p>
-</figure>    <dl>
-      <dt>What was verified</dt><dd>Source inspected; acquisition hardware and source recordings not rerun.</dd>
-      <dt>Measurement definition</dt><dd>Implementation evidence, not a timing or channel-yield measurement.</dd>
-      <dt>Test conditions</dt><dd>Intan RHD input; explicit probe/contact-count guard; SpikeInterface and Kilosort4.</dd>
-      <dt>Result</dt><dd>Reader, probe mapping, filtering, sorting, waveform extraction, and quality-metric computation are implemented.</dd>
-      <dt>Limitations &amp; applicability</dt><dd>Public evidence covers file processing. The timing implementation is private; no public timing logs or bench-quality report were available.</dd>
+  <p>Methods, test conditions, and source references for the selected projects.
+    Commit-pinned code and archived results are distinguished from owner-reported
+    work below. This review did not include an independent raw-data rerun;
+    only approved descriptions and aggregate results are published.</p>
+  <article id="med-adapter">
+    <h2>Med Adapter</h2>
+    <p><strong>Implemented</strong> &middot; BarkBarkBarkBarkBarkBarkBark/DHN_validation<br>Revision: <code>496c2326f000037698f7b92b4b3a4139c3a70d13</code></p>
+    <dl>
+      <dt>What was verified</dt><dd>Commit-pinned source inspected; no recording or hardware rerun.</dd>
+      <dt>Measurement definition</dt><dd>Reader implementation and metadata handling, not a throughput or fidelity benchmark.</dd>
+      <dt>Test conditions</dt><dd>MED sessions with channel-name/directory mismatches; Neo MedRawIO and SpikeInterface NeoBaseRecordingExtractor.</dd>
+      <dt>Result</dt><dd>Adapter deactivates malformed channels before header parsing, exposes a serializable recording, selects sampling-rate streams, and preserves channel gains.</dd>
+      <dt>Limitations &amp; applicability</dt><dd>Source describes malformed parity-channel metadata causing native reader aborts. This is an adapter around an existing MED reader, not a compression implementation. No independent session-level test was run in this review.</dd>
 <dt>Exact sources</dt>
-      <dd><ul><li><a href="https://github.com/BarkBarkBarkBarkBarkBarkBark/zlab_sorting_script/blob/3ff216ac593166687ae2260ccb705ea1322cf9f1/notebooks/sort_intan.ipynb">notebooks/sort_intan.ipynb</a> &mdash; Code cells 6, 7, 10, 11 (zero-based)</li><li><a href="https://github.com/BarkBarkBarkBarkBarkBarkBark/zlab_sorting_script/blob/3ff216ac593166687ae2260ccb705ea1322cf9f1/readme.md">readme.md</a> &mdash; Acquisition-to-curation workflow</li></ul></dd>
+      <dd><ul><li><a href="https://github.com/BarkBarkBarkBarkBarkBarkBark/DHN_validation/blob/496c2326f000037698f7b92b4b3a4139c3a70d13/sort_med/sorting_tools/med_utils.py">sort_med/sorting_tools/med_utils.py</a> &mdash; _is_corrupt, _filtered_med_session_class, CleanMedRawIO, MedRecordingExtractor, read_med_recording</li></ul></dd>
+    </dl>
+  </article>
+  <article id="neuralynx-repair">
+    <h2>Neuralynx Repair</h2>
+    <p><strong>Implemented &middot; Owner-reported</strong><br>Publication approved: 2026-11-08. No public source commit.</p>
+    <dl>
+      <dt>What was verified</dt><dd>Owner approved the high-level implementation description; public source and repair outputs were not supplied.</dd>
+      <dt>Measurement definition</dt><dd>Validation and repair functionality, not a count of repaired files or a completeness benchmark.</dd>
+      <dt>Test conditions</dt><dd>Neuralynx recordings rejected by downstream readers because of sample-count inconsistencies or missing recording-end metadata.</dd>
+      <dt>Result</dt><dd>Owner developed validation and repair utilities for metadata problems that prevented downstream conversion.</dd>
+      <dt>Limitations &amp; applicability</dt><dd>Implementation is owner-reported. No private code, recordings, repair logs, or inferred changes to signal samples are published.</dd>
     </dl>
   </article>
   <article id="dhn-fidelity">
@@ -108,6 +105,19 @@
       <dd><ul><li><a href="https://github.com/BarkBarkBarkBarkBarkBarkBark/DHN_validation/blob/496c2326f000037698f7b92b4b3a4139c3a70d13/sort_med/evidence/Strict_Comparison_of_Sorted_Spikes.ipynb">sort_med/evidence/Strict_Comparison_of_Sorted_Spikes.ipynb</a> &mdash; Code cells 0-5 (zero-based), especially saved cell 5 output</li></ul></dd>
     </dl>
   </article>
+  <article id="intan-workflow">
+    <h2>Intan Workflow</h2>
+    <p><strong>Implemented</strong> &middot; BarkBarkBarkBarkBarkBarkBark/zlab_sorting_script<br>Revision: <code>3ff216ac593166687ae2260ccb705ea1322cf9f1</code></p>
+    <dl>
+      <dt>What was verified</dt><dd>Source inspected; acquisition hardware and source recordings not rerun.</dd>
+      <dt>Measurement definition</dt><dd>Implementation evidence, not a timing or channel-yield measurement.</dd>
+      <dt>Test conditions</dt><dd>Intan RHD input; explicit probe/contact-count guard; SpikeInterface and Kilosort4.</dd>
+      <dt>Result</dt><dd>Reader, probe mapping, filtering, sorting, waveform extraction, and quality-metric computation are implemented.</dd>
+      <dt>Limitations &amp; applicability</dt><dd>Public evidence covers file processing. The timing implementation is private; no public timing logs or bench-quality report were available.</dd>
+<dt>Exact sources</dt>
+      <dd><ul><li><a href="https://github.com/BarkBarkBarkBarkBarkBarkBark/zlab_sorting_script/blob/3ff216ac593166687ae2260ccb705ea1322cf9f1/notebooks/sort_intan.ipynb">notebooks/sort_intan.ipynb</a> &mdash; Code cells 6, 7, 10, 11 (zero-based)</li><li><a href="https://github.com/BarkBarkBarkBarkBarkBarkBark/zlab_sorting_script/blob/3ff216ac593166687ae2260ccb705ea1322cf9f1/readme.md">readme.md</a> &mdash; Acquisition-to-curation workflow</li></ul></dd>
+    </dl>
+  </article>
   <article id="waveform-features">
     <h2>Waveform Features</h2>
     <p><strong>Validated</strong> &middot; BarkBarkBarkBarkBarkBarkBark/spike_discrim<br>Revision: <code>a697e68898c688ccc5dfe23ced78dbc6494ca1c1</code></p>
@@ -143,40 +153,21 @@
       <dd><ul><li><a href="https://github.com/BarkBarkBarkBarkBarkBarkBark/spike_discrim/blob/a697e68898c688ccc5dfe23ced78dbc6494ca1c1/docs/clustering_results.md">docs/clustering_results.md</a> &mdash; Dataset description, metric definitions, event-family result row</li><li><a href="https://github.com/BarkBarkBarkBarkBarkBarkBark/spike_discrim/blob/a697e68898c688ccc5dfe23ced78dbc6494ca1c1/src/spike_discrim/benchmarking/afferent_clustering.py">src/spike_discrim/benchmarking/afferent_clustering.py</a> &mdash; _cluster_match_accuracy and run_afferent_clustering_benchmark</li><li><a href="https://github.com/BarkBarkBarkBarkBarkBarkBark/spike_discrim/blob/a697e68898c688ccc5dfe23ced78dbc6494ca1c1/src/spike_discrim/metrics/evaluation.py">src/spike_discrim/metrics/evaluation.py</a> &mdash; Nearest-neighbor purity implementation</li></ul></dd>
     </dl>
   </article>
-  <article id="semantic-simulation">
-    <h2>Semantic Simulation</h2>
-    <p><strong>Prototype</strong> &middot; BarkBarkBarkBarkBarkBarkBark/semantic_neuron<br>Revision: <code>349fe4be084a5b49b4b2037995a137ee6f83994b</code></p>
+  <article id="hosaka-debugging">
+    <h2>Hosaka Debugging</h2>
+    <p><strong>Implemented &middot; Owner-reported</strong><br>Publication approved: 2026-11-08. No public source commit.</p>
     <dl>
-      <dt>What was verified</dt><dd>Source and limitations inspected; NEURON simulation not rerun.</dd>
-      <dt>Measurement definition</dt><dd>Software capability only; no measured human-neuron or adaptive-experiment outcome.</dd>
-      <dt>Test conditions</dt><dd>Seeded stochastic presynaptic inputs, sentence embeddings, single-compartment NEURON simulation, fixed synaptic weights.</dd>
-      <dt>Result</dt><dd>Stimulus-bounded simulation returns presynaptic events, voltage traces, spike times, similarity, and firing rates.</dd>
-      <dt>Limitations &amp; applicability</dt><dd>Adaptive semantic search and stimulus-aligned human analysis are development directions, not validated capabilities of this repository.</dd>
-<dt>Exact sources</dt>
-      <dd><ul><li><a href="https://github.com/BarkBarkBarkBarkBarkBarkBark/semantic_neuron/blob/349fe4be084a5b49b4b2037995a137ee6f83994b/neuronlib.py">neuronlib.py</a> &mdash; NeuronSimulator.input_rate, _make_inputs, simulate, plot_response</li></ul></dd>
-    </dl>
-  </article>
-  <article id="dhn-acquisition">
-    <h2>Dhn Acquisition</h2>
-    <p><strong>Prototype</strong> &middot; BarkBarkBarkBarkBarkBarkBark/dhn_client<br>Revision: <code>c4b0420a2f43aaca2367a7034a5deef7019528ee</code></p>
-    <dl>
-      <dt>What was verified</dt><dd>Source inspected; no hardware reception or replay benchmark rerun.</dd>
-      <dt>Measurement definition</dt><dd>Implementation evidence only.</dd>
-      <dt>Test conditions</dt><dd>DHN-AQ configuration files, SSH orchestration, and archived NRD-to-UDP replay.</dd>
-      <dt>Result</dt><dd>Configuration and replay software implemented.</dd>
-      <dt>Limitations &amp; applicability</dt><dd>Does not implement the DHN compression algorithm or establish live acquisition performance.</dd>
-<dt>Exact sources</dt>
-      <dd><ul><li><a href="https://github.com/BarkBarkBarkBarkBarkBarkBark/dhn_client/tree/c4b0420a2f43aaca2367a7034a5deef7019528ee/src/darkhorse_neuralynx/dhn_client">src/darkhorse_neuralynx/dhn_client</a> &mdash; Configuration and orchestration implementation</li><li><a href="https://github.com/BarkBarkBarkBarkBarkBarkBark/dhn_client/blob/c4b0420a2f43aaca2367a7034a5deef7019528ee/src/darkhorse_neuralynx/pegasus_bridge/nrd_stream.py">src/darkhorse_neuralynx/pegasus_bridge/nrd_stream.py</a> &mdash; NRD replay implementation</li></ul></dd>
+      <dt>What was verified</dt><dd>Owner approved the debugging account; private implementation and test output were not independently inspected.</dd>
+      <dt>Measurement definition</dt><dd>Owner-reported approximate elapsed time for listing seven records before the fix; profiling, caching, and regression-test approach. No before/after speedup ratio claimed.</dd>
+      <dt>Test conditions</dt><dd>Owner reports a seven-record Hosaka listing took approximately ten seconds during Codex-assisted development; repeated schema validation identified with execution timing logs.</dd>
+      <dt>Result</dt><dd>Owner introduced content-based caching and regression tests to avoid redundant validation while preserving checks for changed or invalid schemas.</dd>
+      <dt>Limitations &amp; applicability</dt><dd>Approximate pre-fix timing and test behavior are owner-reported from the supplied revision brief. No public source revision, timing logs, or independently rerun regression results are published; no post-fix duration or measured speedup is inferred.</dd>
     </dl>
   </article>
   <article id="narrative-methods">
     <h2>Narrative Methods</h2>
-    <p><strong>Implemented methods &middot; Owner-reported</strong><br>Publication approved: 2026-10-18. No public source commit.</p>
-<figure class="project-visual" id="figure-D-methods">
-  <figcaption>D-methods &mdash; Narrative-response analysis (methods schematic)</figcaption>
-  <ol class="flow"><li>Sorted unit timestamps + narrative events</li><li>Align each presentation to onset</li><li>Per-presentation spike rasters</li><li>Binned / smoothed firing rates</li><li>Exploratory response and baseline comparison</li></ol>
-  <p class="visual-caption">Methods only, not a raster, PSTH, or simulated observation. D1/D2 response figures are withheld pending permission-safe data and independently verified event timing.</p>
-</figure>    <dl>
+    <p><strong>Implemented &middot; Owner-reported</strong><br>Publication approved: 2026-10-18. No public source commit.</p>
+    <dl>
       <dt>What was verified</dt><dd>Owner approved publication of methods only; local alignment, binning, smoothing, and candidate-screening source inspected. No public source revision or recording rerun.</dd>
       <dt>Measurement definition</dt><dd>Implementation description only; no participant count, effect size, response significance, or semantic-selectivity measurement.</dd>
       <dt>Test conditions</dt><dd>Sorted single-unit timestamps aligned to Neuralynx narrative-onset events; per-presentation rasters, binned/smoothed rates, and preceding-interval comparisons.</dd>
@@ -186,7 +177,7 @@
   </article>
   <article id="systems-methods">
     <h2>Systems Methods</h2>
-    <p><strong>Implemented methods &middot; Owner-reported</strong><br>Publication approved: 2026-10-18. No public source commit.</p>
+    <p><strong>Implemented &middot; Owner-reported</strong><br>Publication approved: 2026-10-18. No public source commit.</p>
     <dl>
       <dt>What was verified</dt><dd>Owner approved publication of responsibilities only; organizational records and model results were not supplied.</dd>
       <dt>Measurement definition</dt><dd>Professional responsibilities, not a dataset-size, reliability, prediction, or causal-effect measurement.</dd>
