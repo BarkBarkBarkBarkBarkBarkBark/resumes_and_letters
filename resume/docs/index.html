@@ -64,7 +64,7 @@
 <main>
   <header>
     <div class="identity">
-      <a class="badge" href="https://www.credly.com/go/yumqh3cVExa27s7Nc27v7g" aria-label="UC Davis Python data-analysis certification"><img src="assets/ucdavis_python_badge.png" alt="UC Davis Python data-analysis certification" width="52" height="52"></a>
+      <a class="badge" href="https://www.credly.com/badges/505ef11c-58b4-48bd-aa9e-5a21f0247d46/public_url" aria-label="UC Davis Python data-analysis certification"><img src="assets/ucdavis_python_badge.png" alt="UC Davis Python data-analysis certification" width="52" height="52"></a>
       <div>
         <h1>Marco Del Fava</h1>
         <p class="focus">Research Software &amp; Neural Data</p>
@@ -92,23 +92,23 @@
     <article class="project" id="compression">
       <h3>Neural Data Formats and Integrity</h3>
       <p>Make vendor recordings readable and check what changes during conversion.</p>
-      <p>Adapted a Neo-backed MED reader to skip corrupt parity channels whose metadata caused standard readers to abort, allowing processing without modifying source recordings. Developed validation and repair utilities for Neuralynx recordings with sample-count inconsistencies and missing recording-end metadata that prevented downstream conversion. Evaluated signal fidelity across 20 million samples on one channel (32 kHz; 625 s), comparing original CSC and compressed MED recordings. Measured a maximum amplitude difference of 0.5 uV, with exact agreement after whole-microvolt source rounding.</p>
-<p class="meta">Python, NumPy, Neo, SpikeInterface, Neuralynx CSC, DarkHorse MED</p>    </article>
+      <p>Adapted a Neo-backed MED reader to skip corrupt parity channels whose metadata caused standard readers to abort, allowing processing without modifying source recordings. Developed validation and repair utilities for Neuralynx recordings with sample-count inconsistencies and missing recording-end metadata that prevented downstream conversion. Evaluated signal fidelity across 20 million samples on one channel (32 kHz; 625 s), comparing original CSC and compressed MED recordings. Measured a maximum amplitude difference of 0.5 µV, with exact agreement after whole-microvolt source rounding.</p>
+<p class="meta">Python, NumPy, Neo, SpikeInterface, Neuralynx CSC, DarkHorse MED</p><a class="icon-link" href="https://github.com/BarkBarkBarkBarkBarkBarkBark/DHN_validation/blob/496c2326f000037698f7b92b4b3a4139c3a70d13/sort_med/sorting_tools/med_utils.py"><img class="link-icon" src="assets/github.png" alt="" width="16" height="16">Reader code</a>    </article>
     <article class="project" id="intan">
       <h3>Neural Acquisition and Experimental Synchronization</h3>
       <p>Connect neural recordings to the experimental events needed to interpret them.</p>
       <p>Built Python workflows for processing Intan recordings through SpikeInterface, including probe mapping, channel checks, spike sorting, waveform extraction, and quality metrics. Developed synchronization software to align PsychoPy behavioral events with RHX recordings, using matched event labels and affine clock fitting to characterize drift between recording systems.</p>
-<p class="meta">Python, Intan RHD/RHX, PsychoPy, SpikeInterface, Kilosort4</p><a class="icon-link" href="https://github.com/BarkBarkBarkBarkBarkBarkBark/zlab_sorting_script/blob/3ff216ac593166687ae2260ccb705ea1322cf9f1/notebooks/sort_intan.ipynb"><img class="link-icon" src="assets/github.png" alt="" width="16" height="16">Intan processing notebook</a>    </article>
+<p class="meta">Python, Intan RHD/RHX, PsychoPy, SpikeInterface, Kilosort4</p><a class="icon-link" href="https://github.com/BarkBarkBarkBarkBarkBarkBark/zlab_sorting_script/blob/3ff216ac593166687ae2260ccb705ea1322cf9f1/notebooks/sort_intan.ipynb"><img class="link-icon" src="assets/github.png" alt="" width="16" height="16">Processing notebook</a>    </article>
     <article class="project" id="sorting">
       <h3>Waveform Analysis and Spike Sorting</h3>
       <p>Compare waveform representations for separating putative neural units.</p>
       <p>Evaluated waveform representations across 38,145 spike snippets and 10 putative O-Sort unit labels, comparing how well different features preserved local waveform structure and supported clustering. Found that strong local neighbor consistency did not translate into equivalent global clustering agreement, distinguishing local waveform-feature consistency from whole-dataset clustering behavior.</p>
-<p class="meta">Python, NumPy, scikit-learn, O-Sort</p><a class="icon-link" href="https://github.com/BarkBarkBarkBarkBarkBarkBark/spike_discrim/blob/a697e68898c688ccc5dfe23ced78dbc6494ca1c1/docs/clustering_results.md"><img class="link-icon" src="assets/github.png" alt="" width="16" height="16">Discrimination results</a>    </article>
+<p class="meta">Python, NumPy, scikit-learn, O-Sort</p><a class="icon-link" href="https://github.com/BarkBarkBarkBarkBarkBarkBark/spike_discrim/blob/a697e68898c688ccc5dfe23ced78dbc6494ca1c1/docs/clustering_results.md"><img class="link-icon" src="assets/github.png" alt="" width="16" height="16">Technical report</a>    </article>
     <article class="project" id="hosaka">
       <h3>Debugging Agent-Generated Software</h3>
       <p>Find and fix a slow CLI operation introduced during Codex-assisted development.</p>
       <p>Investigated a performance regression in Hosaka, a command-line software platform, where agent-generated schema validation made listing seven records take approximately ten seconds. Used execution timing logs to identify repeated validation as the bottleneck, then introduced content-based caching and regression tests to preserve checks for changed or invalid schemas.</p>
-<p class="meta">Python, Codex, timing instrumentation, content-based caching, regression tests</p><a class="icon-link" href="evidence.html#hosaka-debugging"><img class="link-icon" src="assets/github.png" alt="" width="16" height="16">Debugging approach and test design</a>    </article>
+<p class="meta">Python, Codex, timing instrumentation, content-based caching, regression tests</p>    </article>
   </section>
 
   <section class="skills" aria-labelledby="skills-title">
@@ -139,7 +139,7 @@
   <section aria-labelledby="certifications-title">
     <h2 id="certifications-title">Professional Development &amp; Certifications</h2>
     <p><strong>Python for Data Science, Professional Concentration</strong><br>UC Davis Continuing and Professional Education · 2025</p>
-    <ul><li><a href="https://www.credly.com/go/yumqh3cVExa27s7Nc27v7g">Data Analysis with Matplotlib, Pandas, and Scikit-Learn Python Libraries</a> — UC Davis Continuing and Professional Education</li><li>Biomedical Research; Research Administration; GCP Social and Behavioral Research — CITI Program</li></ul>
+    <ul><li><a href="https://www.credly.com/badges/505ef11c-58b4-48bd-aa9e-5a21f0247d46/public_url">Data Analysis with Matplotlib, Pandas, and Scikit-Learn Python Libraries</a> — UC Davis Continuing and Professional Education</li><li>Biomedical Research; Research Administration; GCP Social and Behavioral Research — CITI Program</li></ul>
   </section>
   <footer><a href="evidence.html">Technical evidence: methods, measurements, and source references</a></footer>
 </main>

@@ -19,8 +19,8 @@
   <figcaption>{{ visual.figure_id }} &mdash; {{ visual.title }}</figcaption>
   {% if visual.kind == 'fidelity' %}
   <table class="figure-table">
-    <caption>CSC versus MED, before and after whole-uV source rounding</caption>
-    <thead><tr><th scope="col">Comparison</th><th scope="col">Nonzero differences</th><th scope="col">Max |error| (uV)</th></tr></thead>
+    <caption>CSC versus MED, before and after whole-µV source rounding</caption>
+    <thead><tr><th scope="col">Comparison</th><th scope="col">Nonzero differences</th><th scope="col">Max |error| (µV)</th></tr></thead>
     <tbody>
       <tr><th scope="row">Unrounded CSC</th><td>{{ '{:,}'.format(v.nonzero_before_rounding) }}</td><td>{{ v.max_abs_error_uv }}</td></tr>
       <tr><th scope="row">Rounded CSC</th><td>{{ v.nonzero_after_rounding }}</td><td>{{ v.max_abs_error_after_rounding_uv }}</td></tr>

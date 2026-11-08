@@ -17,7 +17,7 @@ mdelfava@ucdavis.edu | 707-637-6544 | Sacramento, CA
 
 ## Research Profile
 
-Biomedical engineering graduate student at UC Davis developing Python software for human intracranial electrophysiology. My work includes adapting readers for proprietary recording formats, repairing acquisition metadata, building neural processing pipelines, and validating data integrity. I use coding agents extensively, with profiling, debugging, and automated tests to evaluate their implementations.
+Biomedical Engineering M.S. student at UC Davis developing Python tools for neuroscience data acquisition, conversion, and validation. I work with human intracranial recordings, including proprietary Neuralynx, Intan, and MED formats. My projects span reader development, metadata repair, signal-integrity testing, and agent-assisted software engineering.
 
 ## Technical Skills
 
@@ -48,11 +48,12 @@ Biomedical engineering graduate student at UC Davis developing Python software f
 
 - Developed validation and repair utilities for Neuralynx recordings with sample-count inconsistencies and missing recording-end metadata that prevented downstream conversion.
 
-- Evaluated signal fidelity across 20 million samples on one channel (32 kHz; 625 s), comparing original CSC and compressed MED recordings. Measured a maximum amplitude difference of 0.5 uV, with exact agreement after whole-microvolt source rounding.
+- Evaluated signal fidelity across 20 million samples on one channel (32 kHz; 625 s), comparing original CSC and compressed MED recordings. Measured a maximum amplitude difference of 0.5 µV, with exact agreement after whole-microvolt source rounding.
 
 
 
-[Source](https://barkbarkbarkbarkbarkbarkbark.github.io/resumes_and_letters/evidence.html#med-adapter)
+[Reader code](https://github.com/BarkBarkBarkBarkBarkBarkBark/DHN_validation/blob/496c2326f000037698f7b92b4b3a4139c3a70d13/sort_med/sorting_tools/med_utils.py) · [Validation notebook](https://github.com/BarkBarkBarkBarkBarkBarkBark/DHN_validation/blob/496c2326f000037698f7b92b4b3a4139c3a70d13/sort_med/evidence/8_7_filetype_comparison.ipynb)
+
 
 ### Neural Acquisition and Experimental Synchronization
 
@@ -63,7 +64,8 @@ Biomedical engineering graduate student at UC Davis developing Python software f
 
 
 
-[Source](https://github.com/BarkBarkBarkBarkBarkBarkBark/zlab_sorting_script/blob/3ff216ac593166687ae2260ccb705ea1322cf9f1/notebooks/sort_intan.ipynb)
+[Processing notebook](https://github.com/BarkBarkBarkBarkBarkBarkBark/zlab_sorting_script/blob/3ff216ac593166687ae2260ccb705ea1322cf9f1/notebooks/sort_intan.ipynb)
+
 
 ### Waveform Analysis and Spike Sorting
 
@@ -74,7 +76,8 @@ Biomedical engineering graduate student at UC Davis developing Python software f
 
 
 
-[Source](https://github.com/BarkBarkBarkBarkBarkBarkBark/spike_discrim/blob/a697e68898c688ccc5dfe23ced78dbc6494ca1c1/docs/clustering_results.md)
+[Technical report](https://github.com/BarkBarkBarkBarkBarkBarkBark/spike_discrim/blob/a697e68898c688ccc5dfe23ced78dbc6494ca1c1/docs/clustering_results.md)
+
 
 ### Debugging Agent-Generated Software
 
@@ -85,7 +88,8 @@ Biomedical engineering graduate student at UC Davis developing Python software f
 
 
 
-[Source](https://barkbarkbarkbarkbarkbarkbark.github.io/resumes_and_letters/evidence.html#hosaka-debugging)
+
+
 
 ## Additional Professional Experience
 
@@ -113,5 +117,5 @@ Biomedical engineering graduate student at UC Davis developing Python software f
 **Python for Data Science, Professional Concentration**, UC Davis Continuing and Professional Education — 2025
 
 
-- [Data Analysis with Matplotlib, Pandas, and Scikit-Learn Python Libraries](https://www.credly.com/go/yumqh3cVExa27s7Nc27v7g) — UC Davis Continuing and Professional Education (2025-09-18)
+- [Data Analysis with Matplotlib, Pandas, and Scikit-Learn Python Libraries](https://www.credly.com/badges/505ef11c-58b4-48bd-aa9e-5a21f0247d46/public_url) — UC Davis Continuing and Professional Education (2025-09-18)
 - Biomedical Research; Research Administration; GCP Social and Behavioral Research — CITI Program

@@ -20,12 +20,11 @@ personal:
 # Multiple summary variants — the active one is selected by role profile.
 summary:
   neuroengineering: >
-    Biomedical engineering graduate student at UC Davis developing Python software
-    for human intracranial electrophysiology. My work includes adapting readers
-    for proprietary recording formats, repairing acquisition metadata, building
-    neural processing pipelines, and validating data integrity. I use coding
-    agents extensively, with profiling, debugging, and automated tests to
-    evaluate their implementations.
+    Biomedical Engineering M.S. student at UC Davis developing Python tools for
+    neuroscience data acquisition, conversion, and validation. I work with human
+    intracranial recordings, including proprietary Neuralynx, Intan, and MED
+    formats. My projects span reader development, metadata repair,
+    signal-integrity testing, and agent-assisted software engineering.
 
   engineering: >
     Biomedical Engineering M.S. student and neuroscience researcher at UC Davis.
@@ -289,7 +288,7 @@ certifications:
     date: "2025-09-18"
     badge_url: assets/ucdavis_python_badge.png
     badge_icon: ucd_python_badge.png
-    credly_url: "https://www.credly.com/go/yumqh3cVExa27s7Nc27v7g"
+    credly_url: "https://www.credly.com/badges/505ef11c-58b4-48bd-aa9e-5a21f0247d46/public_url"
 
   - name: Biomedical Research; Research Administration; GCP Social and Behavioral Research
     issuer: CITI Program
@@ -315,7 +314,7 @@ projects:
           to characterize drift between recording systems.
     evidence_ids: [intan-workflow]
     links:
-      - label: Intan processing notebook
+      - label: Processing notebook
         url: https://github.com/BarkBarkBarkBarkBarkBarkBark/zlab_sorting_script/blob/3ff216ac593166687ae2260ccb705ea1322cf9f1/notebooks/sort_intan.ipynb
     tags: [neuroengineering, data_acquisition]
 
@@ -338,15 +337,16 @@ projects:
       - text: >
           Evaluated signal fidelity across 20 million samples on one channel
           (32 kHz; 625 s), comparing original CSC and compressed MED recordings.
-          Measured a maximum amplitude difference of 0.5 uV, with exact agreement
+          Measured a maximum amplitude difference of 0.5 µV, with exact agreement
           after whole-microvolt source rounding.
         evidence: https://github.com/BarkBarkBarkBarkBarkBarkBark/DHN_validation/blob/496c2326f000037698f7b92b4b3a4139c3a70d13/sort_med/evidence/8_7_filetype_comparison.ipynb
         tags: [compact]
     evidence_ids: [med-adapter, neuralynx-repair, dhn-fidelity, dhn-spike-control]
     links:
-      - label: Reader implementation and comparison details
-        hide_on_site: true
-        url: https://barkbarkbarkbarkbarkbarkbark.github.io/resumes_and_letters/evidence.html#med-adapter
+      - label: Reader code
+        url: https://github.com/BarkBarkBarkBarkBarkBarkBark/DHN_validation/blob/496c2326f000037698f7b92b4b3a4139c3a70d13/sort_med/sorting_tools/med_utils.py
+      - label: Validation notebook
+        url: https://github.com/BarkBarkBarkBarkBarkBarkBark/DHN_validation/blob/496c2326f000037698f7b92b4b3a4139c3a70d13/sort_med/evidence/8_7_filetype_comparison.ipynb
     tags: [neuroengineering, compression, signal_processing]
 
   - id: saw
@@ -386,7 +386,7 @@ projects:
         evidence: https://github.com/BarkBarkBarkBarkBarkBarkBark/spike_discrim/blob/a697e68898c688ccc5dfe23ced78dbc6494ca1c1/src/spike_discrim/benchmarking/afferent_clustering.py
     evidence_ids: [waveform-features]
     links:
-      - label: Discrimination results
+      - label: Technical report
         url: https://github.com/BarkBarkBarkBarkBarkBarkBark/spike_discrim/blob/a697e68898c688ccc5dfe23ced78dbc6494ca1c1/docs/clustering_results.md
     tags: [neuroengineering, spike_sorting]
 
@@ -405,10 +405,7 @@ projects:
           bottleneck, then introduced content-based caching and regression tests
           to preserve checks for changed or invalid schemas.
     evidence_ids: [hosaka-debugging]
-    links:
-      - label: Debugging approach and test design
-        icon: github
-        url: https://barkbarkbarkbarkbarkbarkbark.github.io/resumes_and_letters/evidence.html#hosaka-debugging
+    links: []
     tags: [technical, python, debugging]
 
   - id: semantic

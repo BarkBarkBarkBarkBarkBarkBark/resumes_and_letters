@@ -52,11 +52,12 @@ def test_pdf_has_required_pages_and_selectable_ordered_sections(publication):
     first_page = text.split("\f")[0]
     assert "Research Software & Neural Data" in first_page
     assert "Neural Data Formats and Integrity" in first_page
-    for claim in ("0.5 uV", "20 million", "one channel", "Hosaka", "content-based caching",
+    for claim in ("0.5 µV", "20 million", "one channel", "Hosaka", "content-based caching",
                   "seven records", "approximately ten seconds"):
         assert claim in text
     assert "35,587" not in text
     assert "not independently verified" not in text
+    assert "(continued)" not in text
     if profile == "engineering":
         assert "Neural Acquisition and Experimental Synchronization" in first_page
         assert "First Step Communities" in first_page and "Eurofins" in first_page
@@ -96,11 +97,18 @@ def test_pdf_contains_readable_project_sources_and_contact_links(publication):
     data = load_yaml(DATA_DIR / "base_resume.yaml")
     profile = load_yaml(DATA_DIR / "role_profiles.yaml")[profile_key]
     filtered = apply_profile(data, profile)
-    expected = {project["links"][0]["url"] for project in filtered["projects"] if project["links"]}
+    expected = {link["url"] for project in filtered["projects"] for link in project["links"]}
     expected.update(filtered["personal"]["contact"][key] for key in ("github", "linkedin"))
     expected.update(cert["credly_url"] for cert in filtered["certifications"] if cert.get("credly_url"))
     links = output("pdfinfo", "-url", str(pdf))
     for url in expected:
         assert url in links
     text = output("pdftotext", "-raw", str(pdf), "-")
-    assert text.count("Source") == len(filtered["projects"])
+    for project in filtered["projects"]:
+        for link in project["links"]:
+            assert link["label"] in text
+    assert not re.search(r"^Source$", text, re.MULTILINE)
+    assert "evidence.html#med-adapter" not in links
+    assert "evidence.html#hosaka-debugging" not in links
+    for artifact in ("med_utils.py", "8_7_filetype_comparison.ipynb"):
+        assert artifact in links

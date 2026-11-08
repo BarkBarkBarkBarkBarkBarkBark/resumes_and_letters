@@ -12,7 +12,7 @@
     }
   },
   "summary": {
-    "neuroengineering": "Biomedical engineering graduate student at UC Davis developing Python software for human intracranial electrophysiology. My work includes adapting readers for proprietary recording formats, repairing acquisition metadata, building neural processing pipelines, and validating data integrity. I use coding agents extensively, with profiling, debugging, and automated tests to evaluate their implementations.\n",
+    "neuroengineering": "Biomedical Engineering M.S. student at UC Davis developing Python tools for neuroscience data acquisition, conversion, and validation. I work with human intracranial recordings, including proprietary Neuralynx, Intan, and MED formats. My projects span reader development, metadata repair, signal-integrity testing, and agent-assisted software engineering.\n",
     "engineering": "Biomedical Engineering M.S. student and neuroscience researcher at UC Davis. I build Python acquisition and data-integrity workflows and use coding agents with profiling, debugging, and regression tests.\n",
     "catalystneuro": "Biomedical engineering graduate researcher developing Python tools for human intracranial electrophysiology, with experience in Intan and Neuralynx vendor formats, SpikeInterface, event-clock synchronization, and sample-level data-integrity validation. Builds agent-assisted scientific software prototypes with explicit approval and validation controls; prioritizes reproducibility and transparent limitations.\n",
     "data_analytics": "Evaluation and data systems professional with 5 years supporting 4 shelter sites serving 400+ people/month and their integrated clinical partnerships. Led mixed methods efforts including surveys and focus groups, built reporting workflows, and translated findings into funder-ready narratives and operational decisions. Experienced with Python/SQL, SPSS, dashboards, and Microsoft 365 automation. Committed to equity-centered learning and improving health and housing outcomes.\n",
@@ -156,7 +156,7 @@
       "date": "2025-09-18",
       "badge_url": "assets/ucdavis_python_badge.png",
       "badge_icon": "ucd_python_badge.png",
-      "credly_url": "https://www.credly.com/go/yumqh3cVExa27s7Nc27v7g"
+      "credly_url": "https://www.credly.com/badges/505ef11c-58b4-48bd-aa9e-5a21f0247d46/public_url"
     },
     {
       "name": "Biomedical Research; Research Administration; GCP Social and Behavioral Research",
@@ -183,7 +183,7 @@
           "text": "Developed validation and repair utilities for Neuralynx recordings with sample-count inconsistencies and missing recording-end metadata that prevented downstream conversion."
         },
         {
-          "text": "Evaluated signal fidelity across 20 million samples on one channel (32 kHz; 625 s), comparing original CSC and compressed MED recordings. Measured a maximum amplitude difference of 0.5 uV, with exact agreement after whole-microvolt source rounding.",
+          "text": "Evaluated signal fidelity across 20 million samples on one channel (32 kHz; 625 s), comparing original CSC and compressed MED recordings. Measured a maximum amplitude difference of 0.5 µV, with exact agreement after whole-microvolt source rounding.",
           "evidence": "https://github.com/BarkBarkBarkBarkBarkBarkBark/DHN_validation/blob/496c2326f000037698f7b92b4b3a4139c3a70d13/sort_med/evidence/8_7_filetype_comparison.ipynb",
           "tags": [
             "compact"
@@ -198,9 +198,12 @@
       ],
       "links": [
         {
-          "label": "Reader implementation and comparison details",
-          "hide_on_site": true,
-          "url": "https://barkbarkbarkbarkbarkbarkbark.github.io/resumes_and_letters/evidence.html#med-adapter"
+          "label": "Reader code",
+          "url": "https://github.com/BarkBarkBarkBarkBarkBarkBark/DHN_validation/blob/496c2326f000037698f7b92b4b3a4139c3a70d13/sort_med/sorting_tools/med_utils.py"
+        },
+        {
+          "label": "Validation notebook",
+          "url": "https://github.com/BarkBarkBarkBarkBarkBarkBark/DHN_validation/blob/496c2326f000037698f7b92b4b3a4139c3a70d13/sort_med/evidence/8_7_filetype_comparison.ipynb"
         }
       ],
       "tags": [
@@ -229,7 +232,7 @@
       ],
       "links": [
         {
-          "label": "Intan processing notebook",
+          "label": "Processing notebook",
           "url": "https://github.com/BarkBarkBarkBarkBarkBarkBark/zlab_sorting_script/blob/3ff216ac593166687ae2260ccb705ea1322cf9f1/notebooks/sort_intan.ipynb"
         }
       ],
@@ -259,7 +262,7 @@
       ],
       "links": [
         {
-          "label": "Discrimination results",
+          "label": "Technical report",
           "url": "https://github.com/BarkBarkBarkBarkBarkBarkBark/spike_discrim/blob/a697e68898c688ccc5dfe23ced78dbc6494ca1c1/docs/clustering_results.md"
         }
       ],
@@ -285,13 +288,7 @@
       "evidence_ids": [
         "hosaka-debugging"
       ],
-      "links": [
-        {
-          "label": "Debugging approach and test design",
-          "icon": "github",
-          "url": "https://barkbarkbarkbarkbarkbarkbark.github.io/resumes_and_letters/evidence.html#hosaka-debugging"
-        }
-      ],
+      "links": [],
       "tags": [
         "technical",
         "python",
@@ -305,7 +302,7 @@
   "target_metadata": {
     "default_profile": "neuroengineering"
   },
-  "summary_text": "Biomedical engineering graduate student at UC Davis developing Python software for human intracranial electrophysiology. My work includes adapting readers for proprietary recording formats, repairing acquisition metadata, building neural processing pipelines, and validating data integrity. I use coding agents extensively, with profiling, debugging, and automated tests to evaluate their implementations.\n",
+  "summary_text": "Biomedical Engineering M.S. student at UC Davis developing Python tools for neuroscience data acquisition, conversion, and validation. I work with human intracranial recordings, including proprietary Neuralynx, Intan, and MED formats. My projects span reader development, metadata repair, signal-integrity testing, and agent-assisted software engineering.\n",
   "research": [
     {
       "role": "Research Volunteer",
@@ -393,7 +390,7 @@
       "verification": "Code and archived outputs cross-checked; raw source data unavailable for an independent rerun.",
       "measurement_definition": "Elementwise CSC-minus-MED difference in microvolts; maximum absolute difference and nonzero count, before and after numpy.round of CSC.",
       "test_conditions": "First 20,000,000 frames of one channel at 32,000 samples/s; MED contigua concatenated; physical-unit scaling.",
-      "verified_result": "19,951,989 nonzero differences; maximum absolute error 0.5 uV. After whole-microvolt source rounding: zero mismatches. Compared duration is 625 s, derived as frames / sample rate.",
+      "verified_result": "19,951,989 nonzero differences; maximum absolute error 0.5 µV. After whole-microvolt source rounding: zero mismatches. Compared duration is 625 s, derived as frames / sample rate.",
       "values": {
         "frames": 20000000,
         "channels": 1,
@@ -409,7 +406,7 @@
         "kind": "fidelity",
         "figure_id": "B1",
         "title": "Sample-level fidelity (archived aggregates only)",
-        "caption": "One channel; 20,000,000 samples at 32,000 samples/s (625 s). Whole-uV rounding removes the observed differences; unrounded conversion is not bit-exact. No trace or error distribution is available."
+        "caption": "One channel; 20,000,000 samples at 32,000 samples/s (625 s). Whole-µV rounding removes the observed differences; unrounded conversion is not bit-exact. No trace or error distribution is available."
       }
     },
     "dhn-spike-control": {
@@ -426,7 +423,7 @@
       "maturity": "Validated",
       "verification": "Archived code/output agreement inspected; no raw-data rerun or new sorting performed.",
       "measurement_definition": "Exact intersection of the first sorted unit's spike-frame arrays; Jaccard = intersection / union with zero frame tolerance.",
-      "test_conditions": "Same 20-million-frame single-channel slice; both inputs scaled to uV and rounded to int32; canonical arrays asserted equal. Bandpass 300-6000 Hz; local whitening seed 0; MountainSort5 scheme 2 with internal filter/whiten disabled.",
+      "test_conditions": "Same 20-million-frame single-channel slice; both inputs scaled to µV and rounded to int32; canonical arrays asserted equal. Bandpass 300-6000 Hz; local whitening seed 0; MountainSort5 scheme 2 with internal filter/whiten disabled.",
       "verified_result": "35,587 CSC spikes and 35,587 MED spikes; 35,587 exact frame matches; no source-only events; exact Jaccard 1.0.",
       "values": {
         "csc_spikes": 35587,

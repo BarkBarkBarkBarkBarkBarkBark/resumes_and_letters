@@ -38,13 +38,13 @@ jobs:
           test "$(pdfinfo "$PDF" | awk '/^Pages:/ {print $2}')" = "2"
           pdftotext -raw "$PDF" - | grep -q 'Scientific AI Workstation'
           pdftotext -raw "$PDF" - | grep -q 'Data Analysis with Matplotlib'
-          pdfinfo -url "$PDF" | grep -Fq 'https://www.credly.com/go/yumqh3cVExa27s7Nc27v7g'
+          pdfinfo -url "$PDF" | grep -Fq 'https://www.credly.com/badges/505ef11c-58b4-48bd-aa9e-5a21f0247d46/public_url'
           test "$(pdfimages -list "$PDF" | tail -n +3 | wc -l)" -gt 0
       - name: Build the general site and validate both published CV formats
         run: |
           python resume/scripts/build_site.py --profile neuroengineering --output-dir _site
           PORTFOLIO_DIR=_site python -m pytest resume/tests/test_pdf.py -q
-          pdfinfo -url _site/marco_del_fava_cv.pdf | grep -Fq 'https://www.credly.com/go/yumqh3cVExa27s7Nc27v7g'
+          pdfinfo -url _site/marco_del_fava_cv.pdf | grep -Fq 'https://www.credly.com/badges/505ef11c-58b4-48bd-aa9e-5a21f0247d46/public_url'
           pdftotext -raw _site/marco_del_fava_cv.pdf - | grep -q 'Data Analysis with Matplotlib'
       - name: Upload PDF, DOCX and Markdown
         uses: actions/upload-artifact@v4

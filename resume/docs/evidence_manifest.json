@@ -46,7 +46,7 @@
       "verification": "Code and archived outputs cross-checked; raw source data unavailable for an independent rerun.",
       "measurement_definition": "Elementwise CSC-minus-MED difference in microvolts; maximum absolute difference and nonzero count, before and after numpy.round of CSC.",
       "test_conditions": "First 20,000,000 frames of one channel at 32,000 samples/s; MED contigua concatenated; physical-unit scaling.",
-      "verified_result": "19,951,989 nonzero differences; maximum absolute error 0.5 uV. After whole-microvolt source rounding: zero mismatches. Compared duration is 625 s, derived as frames / sample rate.",
+      "verified_result": "19,951,989 nonzero differences; maximum absolute error 0.5 µV. After whole-microvolt source rounding: zero mismatches. Compared duration is 625 s, derived as frames / sample rate.",
       "values": {
         "frames": 20000000,
         "channels": 1,
@@ -62,7 +62,7 @@
         "kind": "fidelity",
         "figure_id": "B1",
         "title": "Sample-level fidelity (archived aggregates only)",
-        "caption": "One channel; 20,000,000 samples at 32,000 samples/s (625 s). Whole-uV rounding removes the observed differences; unrounded conversion is not bit-exact. No trace or error distribution is available."
+        "caption": "One channel; 20,000,000 samples at 32,000 samples/s (625 s). Whole-µV rounding removes the observed differences; unrounded conversion is not bit-exact. No trace or error distribution is available."
       }
     },
     "dhn-spike-control": {
@@ -79,7 +79,7 @@
       "maturity": "Validated",
       "verification": "Archived code/output agreement inspected; no raw-data rerun or new sorting performed.",
       "measurement_definition": "Exact intersection of the first sorted unit's spike-frame arrays; Jaccard = intersection / union with zero frame tolerance.",
-      "test_conditions": "Same 20-million-frame single-channel slice; both inputs scaled to uV and rounded to int32; canonical arrays asserted equal. Bandpass 300-6000 Hz; local whitening seed 0; MountainSort5 scheme 2 with internal filter/whiten disabled.",
+      "test_conditions": "Same 20-million-frame single-channel slice; both inputs scaled to µV and rounded to int32; canonical arrays asserted equal. Bandpass 300-6000 Hz; local whitening seed 0; MountainSort5 scheme 2 with internal filter/whiten disabled.",
       "verified_result": "35,587 CSC spikes and 35,587 MED spikes; 35,587 exact frame matches; no source-only events; exact Jaccard 1.0.",
       "values": {
         "csc_spikes": 35587,

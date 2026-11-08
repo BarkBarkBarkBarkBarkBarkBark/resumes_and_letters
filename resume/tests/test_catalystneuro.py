@@ -2,11 +2,11 @@
 
 from pathlib import Path
 
-from scripts.build_resume import apply_profile, load_yaml, render_resume
+from scripts.build_resume import apply_profile, latex_escape, load_yaml, render_resume
 
 ROOT = Path(__file__).resolve().parents[1]
 DATA = ROOT / "data"
-CREDLY = "https://www.credly.com/go/yumqh3cVExa27s7Nc27v7g"
+CREDLY = "https://www.credly.com/badges/505ef11c-58b4-48bd-aa9e-5a21f0247d46/public_url"
 
 
 def test_catalystneuro_cv_keeps_general_cv_unchanged():
@@ -37,7 +37,7 @@ def test_badge_is_embedded_as_clickable_image_in_both_research_cvs():
     assert icon.is_file() and icon.stat().st_size > 10000
     for name in ("catalystneuro", "neuroengineering"):
         latex = render_resume(data, profiles[name], output_format="latex")
-        assert r"\BeginResumeHeader{" + CREDLY + r"}{ucd_python_badge.png}" in latex
+        assert r"\BeginResumeHeader{" + latex_escape(CREDLY) + r"}{ucd_python_badge.png}" in latex
         assert r"\CredentialBadge" not in latex
         assert "UC Davis Continuing and Professional Education" in latex
     assert r"\newcommand{\BeginResumeHeader}" in (ROOT / "templates/resume.tex").read_text()

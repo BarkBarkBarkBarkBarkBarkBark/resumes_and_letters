@@ -14,7 +14,7 @@ metadata validation and repair, Intan processing and event alignment, waveform
 feature evaluation, and debugging agent-generated software.
 
 A DarkHorse MED comparison covered 20 million samples from one channel at
-32 kHz: maximum amplitude difference was 0.5 uV, with exact agreement after
+32 kHz: maximum amplitude difference was 0.5 µV, with exact agreement after
 whole-microvolt source rounding. Methods, measurement definitions, and source
 references are on the [technical evidence page](https://barkbarkbarkbarkbarkbarkbark.github.io/resumes_and_letters/evidence.html).
 
@@ -36,6 +36,9 @@ Edit sources, not generated HTML, Markdown, or PDFs:
 The `neuroengineering` profile emphasizes research software and scientific data
 for CatalystNeuro; `engineering` is its one-page resume. Analytics, clinical
 research, and general profiles retain their own summaries and selections.
+Use the two-page Research CV for the CatalystNeuro application: it retains the
+Neuralynx repair work and fuller research methods experience. The one-page
+engineering resume is a selective companion for general applications.
 The full CV leads with the Z-Lab research role and three consolidated skill
 lines, then the flagship formats/integrity and acquisition projects. Its remaining projects,
 professional experience, education, and credentials continue on page two.
@@ -49,8 +52,12 @@ remain on the evidence page. The full CV has a small Credly-linked UC Davis
 badge in its header; the certification section is text-only, and the compact
 resume omits the badge. Academic degrees are separate from the Python
 professional concentration. GitHub and LinkedIn profile links pair the platform
-icons with readable labels. GitHub project references also retain a small icon
-beside their "Source" label; skills and ordinary bullets do not carry icons.
+icons with readable labels. GitHub project references use descriptive labels
+such as "Reader code," "Validation notebook," "Processing notebook," and
+"Technical report," with a small GitHub icon. The formats project links directly
+to both artifacts in PDFs and to the reader code on the homepage. Hosaka retains
+its accomplishment and evidence record without a project link implying public
+implementation access. Skills and ordinary bullets do not carry icons.
 
 ## Build and validate
 
@@ -118,8 +125,9 @@ analysis. The primary `neuroengineering` profile retains the current
 four-project selection, including Hosaka.
 
 Both full CVs keep the small UC Davis badge in the header, not inside a
-certification bullet. The updated Credly shortcut resolves to the same
-credential. The one-page engineering resume continues to omit the badge.
+certification bullet. The public Credly address displays the credential without
+the earner-page sign-in redirect. The one-page engineering resume continues to
+omit the badge.
 
 ## Evidence and publication
 
@@ -127,8 +135,7 @@ Skills and bullets accept `text`, optional HTTPS `evidence`, and optional `tags`
 Legacy strings are normalized at the input boundary. Projects use `id`, `name`,
 `problem`, `bullets`, `tools`, `evidence_ids`, and `links`; profiles select the
 records for each output.
-Links can set `icon: github` to retain the icon when pointing to technical evidence,
-as with the Hosaka debugging account.
+Links can set `icon: github` to retain the icon for a technical-evidence destination.
 Use `hide_on_site: true` to hide a project link on the homepage while retaining its PDF reference.
 
 Only explicitly public inventory records can enter the evidence page, filtered

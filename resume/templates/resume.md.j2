@@ -6,12 +6,15 @@
 {{ '\n\n' }}
 {% endfor %}
 {% endmacro %}
+{% macro project_links(project) -%}
+{% for link in project.links %}{% if output_format == 'latex' and (link.url.startswith('https://github.com/') or link.icon == 'github') %}\ProfileLink{github.png}{ {{- link.url | latex_escape -}} }{ {{- link.label | latex_escape -}} }{% else %}[{{ link.label }}]({{ link.url }}){% endif %}{% if not loop.last %} · {% endif %}{% endfor %}
+{%- endmacro %}
 {% set c = resume.personal.contact %}
 {% if output_format == 'latex' %}
 {% if resume.compact %}\CompactResume
 {% endif %}
 {% for cert in resume.certifications if cert.badge_url and cert.credly_url %}
-\BeginResumeHeader{ {{- cert.credly_url -}} }{ucd_python_badge.png}
+\BeginResumeHeader{ {{- cert.credly_url | latex_escape -}} }{ucd_python_badge.png}
 {% endfor %}
 \ResumeName{ {{- resume.personal.name | latex_escape -}} }
 {% if resume.engineering_focus %}
@@ -64,19 +67,19 @@
 {% if output_format == 'latex' and resume.page_break_before_project == project.id %}
 \newpage
 
-## Selected Engineering Projects (continued)
-
 {% endif %}
 ### {{ project.name }}
 {{ '\n' }}
 {% for bullet in project.bullets %}
-- {{ bullet.text }}{% if resume.compact and loop.last and project.links %} {% if output_format == 'latex' and (project.links[0].url.startswith('https://github.com/') or project.links[0].icon == 'github') %}\ProfileLink{github.png}{ {{- project.links[0].url | latex_escape -}} }{Source}{% else %}[Source]({{ project.links[0].url }}){% endif %}{% endif %}
+- {{ bullet.text }}{% if resume.compact and loop.last and project.links %} {{ project_links(project) }}{% endif %}
 {{ '\n' }}
 {% endfor %}
 {{ '\n' }}
 {% if not resume.compact %}
-{% if project.links %}{% if output_format == 'latex' and (project.links[0].url.startswith('https://github.com/') or project.links[0].icon == 'github') %}\ProfileLink{github.png}{ {{- project.links[0].url | latex_escape -}} }{Source}{% else %}[Source]({{ project.links[0].url }}){% endif %}{% endif %}
+{{ project_links(project) }}
 {{ '\n' }}
+{% if output_format == 'latex' %}\vspace{6pt}
+{% endif %}
 {% endif %}
 {% endfor %}
 {% endif %}

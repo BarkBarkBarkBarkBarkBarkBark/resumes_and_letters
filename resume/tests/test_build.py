@@ -297,7 +297,8 @@ def test_projects_have_concise_contributions_and_sources(resume_data, profiles):
     ]
     for project in filtered["projects"]:
         assert project["problem"] and project["tools"]
-        assert len(project["links"]) == 1
+        expected_links = {"compression": 2, "intan": 1, "sorting": 1, "hosaka": 0}
+        assert len(project["links"]) == expected_links[project["id"]]
         assert "status" not in project and "maturity" not in project
         assert project["evidence_ids"]
         assert len(project["bullets"]) == (3 if project["id"] == "compression" else 2)
@@ -309,7 +310,10 @@ def test_latex_preserves_header_typography_and_evidence(resume_data, profiles):
     assert r"\ProfileLink{github.png}{https://github.com/" in md
     assert r"\ProfileLink{linkedin.png}{https://www.linkedin.com/in/marc-del-fava}{LinkedIn}" in md
     assert r"\EvidenceLink" not in md and r"\HeaderProfileLink" not in md
-    assert md.count("[Source](") + md.count("}{Source}") == 4
+    for label in ("Reader code", "Validation notebook", "Processing notebook", "Technical report"):
+        assert f"}}{{{label}}}" in md
+    assert "}{Source}" not in md and "[Source](" not in md
+    assert "(continued)" not in md
     assert r"\newpage" in md
     assert r"\newpage" not in render_resume(resume_data, profiles["neuroengineering"])
     tex = (ROOT / "templates/resume.tex").read_text()
@@ -318,12 +322,25 @@ def test_latex_preserves_header_typography_and_evidence(resume_data, profiles):
 
 
 @pytest.mark.parametrize("profile_key", ["neuroengineering", "engineering"])
-def test_hosaka_source_icon_preserves_evidence_destination(resume_data, profiles, profile_key):
+def test_hosaka_accomplishment_remains_without_a_source_link(resume_data, profiles, profile_key):
     md = render_resume(resume_data, profiles[profile_key], output_format="latex")
-    assert (
-        r"\ProfileLink{github.png}{https://barkbarkbarkbarkbarkbarkbark.github.io/"
-        r"resumes\_and\_letters/evidence.html\#hosaka-debugging}{Source}"
-    ) in md
+    hosaka = md.split("### Debugging Agent-Generated Software")[1].split("## Additional Professional Experience")[0]
+    assert "seven records take approximately ten seconds" in hosaka
+    assert "content-based caching" in hosaka
+    assert r"\ProfileLink" not in hosaka
+    assert "hosaka-debugging" not in md
+    filtered = apply_profile(resume_data, profiles[profile_key])
+    assert filtered["evidence_records"]["hosaka-debugging"]["source_type"] == "owner-report"
+
+
+def test_artifact_urls_and_labels_are_escaped_only_in_latex(resume_data, profiles):
+    link = resume_data["projects"][0]["links"][0]
+    link["url"] = "https://github.com/owner/repo/blob/main/file_name.py?view=1&mode=raw#example"
+    link["label"] = "Code & tests"
+    latex = render_resume(resume_data, profiles["neuroengineering"], output_format="latex")
+    assert r"file\_name.py?view=1\&mode=raw\#example}{Code \& tests}" in latex
+    markdown = render_resume(resume_data, profiles["neuroengineering"])
+    assert f"[Code & tests]({link['url']})" in markdown
 
 
 def test_explicit_output_name_stable_and_failure_not_success(resume_data, profiles, tmp_path, monkeypatch):
@@ -350,7 +367,7 @@ def test_engineering_profile_is_compact_without_changing_claims(resume_data, pro
     for project in compact["projects"]:
         assert all(bullet in full_projects[project["id"]]["bullets"] for bullet in project["bullets"])
     assert len(compact["projects"][0]["bullets"]) == 2
-    assert "0.5 uV" in compact["projects"][0]["bullets"][1]["text"]
+    assert "0.5 µV" in compact["projects"][0]["bullets"][1]["text"]
     assert compact["certifications"] == []
     assert len(compact["research"]) == 1
     assert all(len(group["items"]) == 1 for group in compact["skills"])
@@ -395,7 +412,7 @@ def test_engineering_metrics_match_inventory(resume_data, profiles):
     ]
     for key in ("engineering", "neuroengineering"):
         md = render_resume(resume_data, profiles[key])
-        for metric in ("20 million", "one channel", "32 kHz", "625 s", "0.5 uV"):
+        for metric in ("20 million", "one channel", "32 kHz", "625 s", "0.5 µV"):
             assert metric in md
         assert "whole-microvolt source rounding" in md
         assert "95.04%" not in md and "54.26%" not in md

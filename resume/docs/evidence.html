@@ -65,19 +65,19 @@
 <figure class="project-visual" id="figure-B1">
   <figcaption>B1 &mdash; Sample-level fidelity (archived aggregates only)</figcaption>
   <table class="figure-table">
-    <caption>CSC versus MED, before and after whole-uV source rounding</caption>
-    <thead><tr><th scope="col">Comparison</th><th scope="col">Nonzero differences</th><th scope="col">Max |error| (uV)</th></tr></thead>
+    <caption>CSC versus MED, before and after whole-µV source rounding</caption>
+    <thead><tr><th scope="col">Comparison</th><th scope="col">Nonzero differences</th><th scope="col">Max |error| (µV)</th></tr></thead>
     <tbody>
       <tr><th scope="row">Unrounded CSC</th><td>19,951,989</td><td>0.5</td></tr>
       <tr><th scope="row">Rounded CSC</th><td>0</td><td>0</td></tr>
     </tbody>
   </table>
-  <p class="visual-caption">One channel; 20,000,000 samples at 32,000 samples/s (625 s). Whole-uV rounding removes the observed differences; unrounded conversion is not bit-exact. No trace or error distribution is available.</p>
+  <p class="visual-caption">One channel; 20,000,000 samples at 32,000 samples/s (625 s). Whole-µV rounding removes the observed differences; unrounded conversion is not bit-exact. No trace or error distribution is available.</p>
 </figure>    <dl>
       <dt>What was verified</dt><dd>Code and archived outputs cross-checked; raw source data unavailable for an independent rerun.</dd>
       <dt>Measurement definition</dt><dd>Elementwise CSC-minus-MED difference in microvolts; maximum absolute difference and nonzero count, before and after numpy.round of CSC.</dd>
       <dt>Test conditions</dt><dd>First 20,000,000 frames of one channel at 32,000 samples/s; MED contigua concatenated; physical-unit scaling.</dd>
-      <dt>Result</dt><dd>19,951,989 nonzero differences; maximum absolute error 0.5 uV. After whole-microvolt source rounding: zero mismatches. Compared duration is 625 s, derived as frames / sample rate.</dd>
+      <dt>Result</dt><dd>19,951,989 nonzero differences; maximum absolute error 0.5 µV. After whole-microvolt source rounding: zero mismatches. Compared duration is 625 s, derived as frames / sample rate.</dd>
       <dt>Limitations &amp; applicability</dt><dd>Not bit-exact relative to unrounded source. Mean error, compression ratio, file-size reduction, and encoder lossless/lossy settings are not established by these outputs. Do not generalize to complete sessions or other configurations.</dd>
 <dt>Exact sources</dt>
       <dd><ul><li><a href="https://github.com/BarkBarkBarkBarkBarkBarkBark/DHN_validation/blob/496c2326f000037698f7b92b4b3a4139c3a70d13/sort_med/evidence/8_7_filetype_comparison.ipynb">sort_med/evidence/8_7_filetype_comparison.ipynb</a> &mdash; Code cells 0-2 (zero-based), including saved stdout and execute_result</li></ul></dd>
@@ -98,7 +98,7 @@
 </figure>    <dl>
       <dt>What was verified</dt><dd>Archived code/output agreement inspected; no raw-data rerun or new sorting performed.</dd>
       <dt>Measurement definition</dt><dd>Exact intersection of the first sorted unit&#39;s spike-frame arrays; Jaccard = intersection / union with zero frame tolerance.</dd>
-      <dt>Test conditions</dt><dd>Same 20-million-frame single-channel slice; both inputs scaled to uV and rounded to int32; canonical arrays asserted equal. Bandpass 300-6000 Hz; local whitening seed 0; MountainSort5 scheme 2 with internal filter/whiten disabled.</dd>
+      <dt>Test conditions</dt><dd>Same 20-million-frame single-channel slice; both inputs scaled to µV and rounded to int32; canonical arrays asserted equal. Bandpass 300-6000 Hz; local whitening seed 0; MountainSort5 scheme 2 with internal filter/whiten disabled.</dd>
       <dt>Result</dt><dd>35,587 CSC spikes and 35,587 MED spikes; 35,587 exact frame matches; no source-only events; exact Jaccard 1.0.</dd>
       <dt>Limitations &amp; applicability</dt><dd>Controlled consistency of equal rounded inputs, not proof of unrounded fidelity, biological unit correctness, all-unit conservation, real-time performance, or algorithm authorship.</dd>
 <dt>Exact sources</dt>

@@ -149,7 +149,7 @@ def test_research_context_precedes_four_simple_projects(content):
                     'class="status"', 'id="narrative"', "supporting-projects",
                     "not independently verified", "unbenchmarked"):
         assert removed not in html
-    assert "20 million samples on one channel" in html and "0.5 uV" in html
+    assert "20 million samples on one channel" in html and "0.5 µV" in html
     assert "95.04%" not in html and "54.26%" not in html
     assert "local neighbor consistency" in html and "global clustering agreement" in html
     assert "approximately ten seconds" in html and "seven" in html
@@ -215,13 +215,26 @@ def test_project_links_respect_site_visibility_and_keep_brief_prose(content):
     html = render_site(content)
     for project in apply_profile(*content)["projects"]:
         article = html.split(f'id="{project["id"]}">')[1].split("</article>")[0]
-        hidden = project["links"][0].get("hide_on_site", False)
-        assert article.count("<a ") == (0 if hidden else 1)
+        visible = bool(project["links"]) and not project["links"][0].get("hide_on_site", False)
+        assert article.count("<a ") == (1 if visible else 0)
         assert len(article.split()) < 150
         assert project["tools"] in article
     assert "35,587" not in html
     assert "Reader implementation and comparison details" not in html
     assert 'href="evidence.html#med-adapter"' not in html
+    assert "Reader code</a>" in html
+    assert "sort_med/sorting_tools/med_utils.py" in html
+    hosaka = html.split('id="hosaka">')[1].split("</article>")[0]
+    assert "approximately ten seconds" in hosaka
+    assert "<a " not in hosaka and "<img " not in hosaka
+
+
+def test_hidden_site_link_does_not_reappear(content):
+    data, profile = content
+    project = next(project for project in data["projects"] if project["id"] == "compression")
+    project["links"][0]["hide_on_site"] = True
+    html = render_site((data, profile))
+    assert "Reader code</a>" not in html
 
 
 def test_second_pdf_failure_does_not_publish(content, tmp_path, monkeypatch):
