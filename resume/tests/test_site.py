@@ -55,6 +55,10 @@ def test_site_has_real_navigation_and_accessible_badge(content):
     assert all("alt" in image for image in parser.images)
     badge = [link for link in parser.links if link.get("class") == "badge"]
     assert len(badge) == 1 and badge[0]["aria-label"] == "UC Davis Python data-analysis certification"
+    nav = html.split('<nav aria-label="Contact and documents">')[1].split("</nav>")[0]
+    for platform in ("github", "linkedin"):
+        assert f'src="assets/{platform}.png" alt=""' in nav
+    assert len([link for link in parser.links if link.get("class") == "icon-link"]) == 5
     for forbidden in ("onclick=", "<script", "tab-panel", "Quick snapshot", "Letter</", "{'text':"):
         assert forbidden not in html
     assert "@media print" in html
@@ -99,7 +103,9 @@ def test_publication_copies_exact_pdf_and_never_discovers_letters(content, tmp_p
         ".nojekyll", "assets", "evidence.html", "evidence_manifest.json", "index.html",
         f"{site.CV_STEM}.pdf", f"{site.ENGINEERING_STEM}.pdf",
     ]
-    assert sorted(path.name for path in (output / "assets").iterdir()) == ["ucdavis_python_badge.png"]
+    assert sorted(path.name for path in (output / "assets").iterdir()) == [
+        "github.png", "linkedin.png", "ucdavis_python_badge.png",
+    ]
     assert (output / "assets/ucdavis_python_badge.png").read_bytes() == (
         site.TEMPLATES_DIR / "icons/ucd_python_badge.png"
     ).read_bytes()
@@ -153,7 +159,9 @@ def test_research_context_precedes_four_simple_projects(content):
     parser = PageLinks()
     parser.feed(html)
     # No recording-derived images or external image requests.
-    assert {image["src"] for image in parser.images} == {"assets/ucdavis_python_badge.png"}
+    assert {image["src"] for image in parser.images} == {
+        "assets/ucdavis_python_badge.png", "assets/github.png", "assets/linkedin.png",
+    }
 
 
 def test_evidence_page_exports_only_approved_records(content):

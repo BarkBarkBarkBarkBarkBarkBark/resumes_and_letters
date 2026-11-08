@@ -48,8 +48,9 @@ maturity badges. Measurement tables and the controlled spike-frame comparison
 remain on the evidence page. The full CV has a small Credly-linked UC Davis
 badge in its header; the certification section is text-only, and the compact
 resume omits the badge. Academic degrees are separate from the Python
-professional concentration. PDF project references are readable "Source" links,
-not icons attached to skills and bullets.
+professional concentration. GitHub and LinkedIn profile links pair the platform
+icons with readable labels. GitHub project references also retain a small icon
+beside their "Source" label; skills and ordinary bullets do not carry icons.
 
 ## Build and validate
 
@@ -106,6 +107,8 @@ Skills and bullets accept `text`, optional HTTPS `evidence`, and optional `tags`
 Legacy strings are normalized at the input boundary. Projects use `id`, `name`,
 `problem`, `bullets`, `tools`, `evidence_ids`, and `links`; profiles select the
 records for each output.
+Links can set `icon: github` to retain the icon when pointing to technical evidence,
+as with the Hosaka debugging account.
 
 Only explicitly public inventory records can enter the evidence page, filtered
 JSON, or public manifest. Repository evidence requires exact source locations

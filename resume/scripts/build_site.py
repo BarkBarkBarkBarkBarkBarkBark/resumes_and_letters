@@ -48,6 +48,8 @@ def build_site(data: dict, profile: dict, docs_dir: Path = DOCS_DIR,
     docs_dir.mkdir(parents=True, exist_ok=True)
     assets = docs_dir / "assets"
     assets.mkdir(exist_ok=True)
+    for name in ("github.png", "linkedin.png"):
+        shutil.copy2(TEMPLATES_DIR / "icons" / name, assets / name)
     for cert in filtered["certifications"]:
         if cert.get("badge_url"):
             shutil.copy2(TEMPLATES_DIR / "icons" / "ucd_python_badge.png", docs_dir / cert["badge_url"])

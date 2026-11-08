@@ -47,6 +47,9 @@
 }
 \newcommand{\EndResumeHeader}{\end{minipage}\par}
 \newcommand{\ContactLine}[1]{\par\noindent{\normalfont\fontsize{10pt}{12pt}\selectfont #1}\par}
+\newcommand{\ProfileLink}[3]{%
+  \href{#2}{\raisebox{-0.15\height}{\includegraphics[height=9pt]{icons/#1}}\,#3}%
+}
 \newcommand{\CompactResume}{%
   \fontsize{10.5pt}{12pt}\selectfont
   \vspace*{0pt}%

@@ -47,6 +47,9 @@
 }
 \newcommand{\EndResumeHeader}{\end{minipage}\par}
 \newcommand{\ContactLine}[1]{\par\noindent{\normalfont\fontsize{10pt}{12pt}\selectfont #1}\par}
+\newcommand{\ProfileLink}[3]{%
+  \href{#2}{\raisebox{-0.15\height}{\includegraphics[height=9pt]{icons/#1}}\,#3}%
+}
 \newcommand{\CompactResume}{%
   \fontsize{10.5pt}{12pt}\selectfont
   \vspace*{0pt}%
@@ -83,8 +86,10 @@
 \ContactLine{M.S. Biomedical Engineering student | UC Davis | Human intracranial electrophysiology}
 \ContactLine{mdelfava@ucdavis.edu | 707-637-6544 | Sacramento, CA}
 
-\href{https://github.com/BarkBarkBarkBarkBarkBarkBark}{GitHub} ·
-\href{https://www.linkedin.com/in/marc-del-fava}{LinkedIn} ·
+\ProfileLink{github.png}{https://github.com/BarkBarkBarkBarkBarkBarkBark}{GitHub}
+·
+\ProfileLink{linkedin.png}{https://www.linkedin.com/in/marc-del-fava}{LinkedIn}
+·
 \href{https://barkbarkbarkbarkbarkbarkbark.github.io/resumes_and_letters/}{Portfolio}
 \EndResumeHeader
 
@@ -168,7 +173,7 @@ Synchronization}\label{neural-acquisition-and-experimental-synchronization}
   fitting to characterize drift between recording systems.
 \end{itemize}
 
-\href{https://github.com/BarkBarkBarkBarkBarkBarkBark/zlab_sorting_script/blob/3ff216ac593166687ae2260ccb705ea1322cf9f1/notebooks/sort_intan.ipynb}{Source}
+\ProfileLink{github.png}{https://github.com/BarkBarkBarkBarkBarkBarkBark/zlab\_sorting\_script/blob/3ff216ac593166687ae2260ccb705ea1322cf9f1/notebooks/sort\_intan.ipynb}{Source}
 
 \newpage
 
@@ -189,7 +194,7 @@ Sorting}\label{waveform-analysis-and-spike-sorting}
   waveform-feature consistency from whole-dataset clustering behavior.
 \end{itemize}
 
-\href{https://github.com/BarkBarkBarkBarkBarkBarkBark/spike_discrim/blob/a697e68898c688ccc5dfe23ced78dbc6494ca1c1/docs/clustering_results.md}{Source}
+\ProfileLink{github.png}{https://github.com/BarkBarkBarkBarkBarkBarkBark/spike\_discrim/blob/a697e68898c688ccc5dfe23ced78dbc6494ca1c1/docs/clustering\_results.md}{Source}
 
 \subsection{Debugging Agent-Generated
 Software}\label{debugging-agent-generated-software}
@@ -205,7 +210,7 @@ Software}\label{debugging-agent-generated-software}
   to preserve checks for changed or invalid schemas.
 \end{itemize}
 
-\href{https://barkbarkbarkbarkbarkbarkbark.github.io/resumes_and_letters/evidence.html\#hosaka-debugging}{Source}
+\ProfileLink{github.png}{https://barkbarkbarkbarkbarkbarkbark.github.io/resumes\_and\_letters/evidence.html\#hosaka-debugging}{Source}
 
 \section{Additional Professional
 Experience}\label{additional-professional-experience}

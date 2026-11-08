@@ -371,6 +371,7 @@ projects:
     evidence_ids: [hosaka-debugging]
     links:
       - label: Debugging approach and test design
+        icon: github
         url: https://barkbarkbarkbarkbarkbarkbark.github.io/resumes_and_letters/evidence.html#hosaka-debugging
     tags: [technical, python, debugging]
 

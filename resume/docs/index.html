@@ -26,6 +26,8 @@
     .meta { color:var(--muted); font-size:.88rem; }
     nav { display:flex; flex-wrap:wrap; gap:.4rem 1.2rem; margin-top:1rem; }
     nav a { padding:.3rem 0; }
+    .icon-link { display:inline-flex; align-items:center; gap:.4rem; }
+    .link-icon { width:16px; height:16px; object-fit:contain; flex-shrink:0; }
     section { margin-top:2.4rem; }
     .project, .entry { margin-bottom:1.6rem; }
     .project:last-child, .entry:last-child { margin-bottom:0; }
@@ -73,7 +75,7 @@
     <nav aria-label="Contact and documents">
       <a href="marco_del_fava_engineering.pdf" download>Engineering résumé · 1 page</a>
       <a href="marco_del_fava_cv.pdf" download>Full research CV (PDF)</a>
-<a href="https://github.com/BarkBarkBarkBarkBarkBarkBark">GitHub</a><a href="https://www.linkedin.com/in/marc-del-fava">LinkedIn</a>      <a href="mailto:mdelfava@ucdavis.edu">Email</a>
+<a class="icon-link" href="https://github.com/BarkBarkBarkBarkBarkBarkBark"><img class="link-icon" src="assets/github.png" alt="" width="16" height="16">GitHub</a><a class="icon-link" href="https://www.linkedin.com/in/marc-del-fava"><img class="link-icon" src="assets/linkedin.png" alt="" width="16" height="16">LinkedIn</a>      <a href="mailto:mdelfava@ucdavis.edu">Email</a>
     </nav>
   </header>
 
@@ -96,17 +98,17 @@
       <h3>Neural Acquisition and Experimental Synchronization</h3>
       <p>Connect neural recordings to the experimental events needed to interpret them.</p>
       <p>Built Python workflows for processing Intan recordings through SpikeInterface, including probe mapping, channel checks, spike sorting, waveform extraction, and quality metrics. Developed synchronization software to align PsychoPy behavioral events with RHX recordings, using matched event labels and affine clock fitting to characterize drift between recording systems.</p>
-<p class="meta">Python, Intan RHD/RHX, PsychoPy, SpikeInterface, Kilosort4</p><a href="https://github.com/BarkBarkBarkBarkBarkBarkBark/zlab_sorting_script/blob/3ff216ac593166687ae2260ccb705ea1322cf9f1/notebooks/sort_intan.ipynb">Intan processing notebook</a>    </article>
+<p class="meta">Python, Intan RHD/RHX, PsychoPy, SpikeInterface, Kilosort4</p><a class="icon-link" href="https://github.com/BarkBarkBarkBarkBarkBarkBark/zlab_sorting_script/blob/3ff216ac593166687ae2260ccb705ea1322cf9f1/notebooks/sort_intan.ipynb"><img class="link-icon" src="assets/github.png" alt="" width="16" height="16">Intan processing notebook</a>    </article>
     <article class="project" id="sorting">
       <h3>Waveform Analysis and Spike Sorting</h3>
       <p>Compare waveform representations for separating putative neural units.</p>
       <p>Evaluated waveform representations across 38,145 spike snippets and 10 putative O-Sort unit labels, comparing how well different features preserved local waveform structure and supported clustering. Found that strong local neighbor consistency did not translate into equivalent global clustering agreement, distinguishing local waveform-feature consistency from whole-dataset clustering behavior.</p>
-<p class="meta">Python, NumPy, scikit-learn, O-Sort</p><a href="https://github.com/BarkBarkBarkBarkBarkBarkBark/spike_discrim/blob/a697e68898c688ccc5dfe23ced78dbc6494ca1c1/docs/clustering_results.md">Discrimination results</a>    </article>
+<p class="meta">Python, NumPy, scikit-learn, O-Sort</p><a class="icon-link" href="https://github.com/BarkBarkBarkBarkBarkBarkBark/spike_discrim/blob/a697e68898c688ccc5dfe23ced78dbc6494ca1c1/docs/clustering_results.md"><img class="link-icon" src="assets/github.png" alt="" width="16" height="16">Discrimination results</a>    </article>
     <article class="project" id="hosaka">
       <h3>Debugging Agent-Generated Software</h3>
       <p>Find and fix a slow CLI operation introduced during Codex-assisted development.</p>
       <p>Investigated a performance regression in Hosaka, a command-line software platform, where agent-generated schema validation made listing seven records take approximately ten seconds. Used execution timing logs to identify repeated validation as the bottleneck, then introduced content-based caching and regression tests to preserve checks for changed or invalid schemas.</p>
-<p class="meta">Python, Codex, timing instrumentation, content-based caching, regression tests</p><a href="evidence.html#hosaka-debugging">Debugging approach and test design</a>    </article>
+<p class="meta">Python, Codex, timing instrumentation, content-based caching, regression tests</p><a class="icon-link" href="evidence.html#hosaka-debugging"><img class="link-icon" src="assets/github.png" alt="" width="16" height="16">Debugging approach and test design</a>    </article>
   </section>
 
   <section class="skills" aria-labelledby="skills-title">

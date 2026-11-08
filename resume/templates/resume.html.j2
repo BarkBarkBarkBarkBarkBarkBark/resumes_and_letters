@@ -33,6 +33,8 @@
     .meta { color:var(--muted); font-size:.88rem; }
     nav { display:flex; flex-wrap:wrap; gap:.4rem 1.2rem; margin-top:1rem; }
     nav a { padding:.3rem 0; }
+    .icon-link { display:inline-flex; align-items:center; gap:.4rem; }
+    .link-icon { width:16px; height:16px; object-fit:contain; flex-shrink:0; }
     section { margin-top:2.4rem; }
     .project, .entry { margin-bottom:1.6rem; }
     .project:last-child, .entry:last-child { margin-bottom:0; }
@@ -83,8 +85,8 @@
     <nav aria-label="Contact and documents">
       <a href="{{ engineering_pdf_url | default('marco_del_fava_engineering.pdf') }}" download>Engineering résumé · 1 page</a>
       <a href="{{ pdf_url }}" download>Full research CV (PDF)</a>
-      {% if c.github %}<a href="{{ c.github }}">GitHub</a>{% endif %}
-      {% if c.linkedin %}<a href="{{ c.linkedin }}">LinkedIn</a>{% endif %}
+      {% if c.github %}<a class="icon-link" href="{{ c.github }}"><img class="link-icon" src="assets/github.png" alt="" width="16" height="16">GitHub</a>{% endif %}
+      {% if c.linkedin %}<a class="icon-link" href="{{ c.linkedin }}"><img class="link-icon" src="assets/linkedin.png" alt="" width="16" height="16">LinkedIn</a>{% endif %}
       <a href="mailto:{{ c.email }}">Email</a>
     </nav>
   </header>
@@ -104,7 +106,7 @@
       <p>{{ project.problem }}</p>
       <p>{% for bullet in project.bullets %}{{ bullet.text }}{% if not loop.last %} {% endif %}{% endfor %}</p>
       {% if project.tools %}<p class="meta">{{ project.tools }}</p>{% endif %}
-      {% if project.links %}<a href="{{ project.links[0].url | replace('https://barkbarkbarkbarkbarkbarkbark.github.io/resumes_and_letters/', '') }}">{{ project.links[0].label }}</a>{% endif %}
+      {% if project.links %}<a{% if project.links[0].url.startswith('https://github.com/') or project.links[0].icon == 'github' %} class="icon-link"{% endif %} href="{{ project.links[0].url | replace('https://barkbarkbarkbarkbarkbarkbark.github.io/resumes_and_letters/', '') }}">{% if project.links[0].url.startswith('https://github.com/') or project.links[0].icon == 'github' %}<img class="link-icon" src="assets/github.png" alt="" width="16" height="16">{% endif %}{{ project.links[0].label }}</a>{% endif %}
     </article>
     {% endfor %}
   </section>

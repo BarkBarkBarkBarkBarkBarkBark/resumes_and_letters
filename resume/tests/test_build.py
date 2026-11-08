@@ -306,14 +306,24 @@ def test_projects_have_concise_contributions_and_sources(resume_data, profiles):
 def test_latex_preserves_header_typography_and_evidence(resume_data, profiles):
     md = render_resume(resume_data, profiles["neuroengineering"], output_format="latex")
     assert r"\ResumeName{Marco Del Fava}" in md
-    assert "[LinkedIn](https://www.linkedin.com/in/marc-del-fava)" in md
+    assert r"\ProfileLink{github.png}{https://github.com/" in md
+    assert r"\ProfileLink{linkedin.png}{https://www.linkedin.com/in/marc-del-fava}{LinkedIn}" in md
     assert r"\EvidenceLink" not in md and r"\HeaderProfileLink" not in md
-    assert md.count("[Source](") == 4
+    assert md.count("[Source](") + md.count("}{Source}") == 4
     assert r"\newpage" in md
     assert r"\newpage" not in render_resume(resume_data, profiles["neuroengineering"])
     tex = (ROOT / "templates/resume.tex").read_text()
     assert r"\fontsize{11pt}{13pt}" in tex
     assert "margin=0.7in" in tex and r"\usepackage{microtype}" in tex
+
+
+@pytest.mark.parametrize("profile_key", ["neuroengineering", "engineering"])
+def test_hosaka_source_icon_preserves_evidence_destination(resume_data, profiles, profile_key):
+    md = render_resume(resume_data, profiles[profile_key], output_format="latex")
+    assert (
+        r"\ProfileLink{github.png}{https://barkbarkbarkbarkbarkbarkbark.github.io/"
+        r"resumes\_and\_letters/evidence.html\#hosaka-debugging}{Source}"
+    ) in md
 
 
 def test_explicit_output_name_stable_and_failure_not_success(resume_data, profiles, tmp_path, monkeypatch):

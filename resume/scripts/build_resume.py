@@ -322,6 +322,8 @@ def build_resume(data: dict, profile: dict, stem: str, output_dir: Path = OUTPUT
     if not md_only:
         icons = folder / "icons"
         icons.mkdir(exist_ok=True)
+        for name in ("github.png", "linkedin.png"):
+            shutil.copy2(TEMPLATES_DIR / "icons" / name, icons / name)
         if any(cert.get("badge_url") for cert in filtered["certifications"]):
             shutil.copy2(TEMPLATES_DIR / "icons" / "ucd_python_badge.png", icons / "ucd_python_badge.png")
         if not to_docx(md_path, folder / f"{stem}.docx"):

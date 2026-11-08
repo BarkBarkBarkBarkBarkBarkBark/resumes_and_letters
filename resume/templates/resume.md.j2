@@ -19,7 +19,7 @@
 \ContactLine{ {{- resume.personal.supporting_line | latex_escape -}} }
 {% endif %}
 \ContactLine{ {{- c.email | latex_escape }} | {{ c.phone | default('') | latex_escape }} | {{ c.location | default('') | latex_escape -}} }
-[GitHub]({{ c.github }}) · [LinkedIn]({{ c.linkedin }}) · [Portfolio](https://barkbarkbarkbarkbarkbarkbark.github.io/resumes_and_letters/)
+{% if c.github %}\ProfileLink{github.png}{ {{- c.github | latex_escape -}} }{GitHub} · {% endif %}{% if c.linkedin %}\ProfileLink{linkedin.png}{ {{- c.linkedin | latex_escape -}} }{LinkedIn} · {% endif %}[Portfolio](https://barkbarkbarkbarkbarkbarkbark.github.io/resumes_and_letters/)
 {% for cert in resume.certifications if cert.badge_url and cert.credly_url %}
 \EndResumeHeader
 {% endfor %}
@@ -70,12 +70,12 @@
 ### {{ project.name }}
 {{ '\n' }}
 {% for bullet in project.bullets %}
-- {{ bullet.text }}{% if resume.compact and loop.last and project.links %} [Source]({{ project.links[0].url }}){% endif %}
+- {{ bullet.text }}{% if resume.compact and loop.last and project.links %} {% if output_format == 'latex' and (project.links[0].url.startswith('https://github.com/') or project.links[0].icon == 'github') %}\ProfileLink{github.png}{ {{- project.links[0].url | latex_escape -}} }{Source}{% else %}[Source]({{ project.links[0].url }}){% endif %}{% endif %}
 {{ '\n' }}
 {% endfor %}
 {{ '\n' }}
 {% if not resume.compact %}
-{% if project.links %}[Source]({{ project.links[0].url }}){% endif %}
+{% if project.links %}{% if output_format == 'latex' and (project.links[0].url.startswith('https://github.com/') or project.links[0].icon == 'github') %}\ProfileLink{github.png}{ {{- project.links[0].url | latex_escape -}} }{Source}{% else %}[Source]({{ project.links[0].url }}){% endif %}{% endif %}
 {{ '\n' }}
 {% endif %}
 {% endfor %}
