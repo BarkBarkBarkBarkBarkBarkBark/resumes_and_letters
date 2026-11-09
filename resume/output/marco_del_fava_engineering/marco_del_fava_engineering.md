@@ -10,7 +10,7 @@ lang: en
 
 M.S. Biomedical Engineering student | UC Davis | Human intracranial electrophysiology
 
-mdelfava@ucdavis.edu | 707-637-6544 | Sacramento, CA
+[mdelfava@ucdavis.edu](mailto:mdelfava@ucdavis.edu) | 707-637-6544 | Sacramento, CA
 
 [GitHub](https://github.com/BarkBarkBarkBarkBarkBarkBark)
 [LinkedIn](https://www.linkedin.com/in/marc-del-fava)

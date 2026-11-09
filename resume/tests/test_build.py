@@ -345,6 +345,15 @@ def test_profile_urls_are_escaped_only_in_latex(resume_data, profiles):
 
 
 @pytest.mark.parametrize("profile_key", ["neuroengineering", "engineering", "catalystneuro"])
+def test_email_is_clickable_in_document_headers(resume_data, profiles, profile_key):
+    email = resume_data["personal"]["contact"]["email"]
+    markdown = render_resume(resume_data, profiles[profile_key])
+    assert f"[{email}](mailto:{email})" in markdown
+    latex = render_resume(resume_data, profiles[profile_key], output_format="latex")
+    assert rf"\href{{mailto:{email}}}{{{email}}}" in latex
+
+
+@pytest.mark.parametrize("profile_key", ["neuroengineering", "engineering", "catalystneuro"])
 def test_documents_keep_project_text_without_project_links(resume_data, profiles, profile_key):
     filtered = apply_profile(resume_data, profiles[profile_key])
     for output_format in ("markdown", "latex"):

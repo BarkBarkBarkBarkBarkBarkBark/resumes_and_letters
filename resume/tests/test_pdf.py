@@ -100,12 +100,13 @@ def test_pdf_keeps_header_links_without_repository_specific_links(publication):
     profile = load_yaml(DATA_DIR / "role_profiles.yaml")[profile_key]
     filtered = apply_profile(data, profile)
     expected = {filtered["personal"]["contact"][key] for key in ("github", "linkedin")}
+    expected.add(f"mailto:{filtered['personal']['contact']['email']}")
     expected.add("https://barkbarkbarkbarkbarkbarkbark.github.io/resumes_and_letters/")
     expected.update(cert["credly_url"] for cert in filtered["certifications"] if cert.get("credly_url"))
     links = output("pdfinfo", "-url", str(pdf))
     for url in expected:
         assert url in links
-    urls = set(re.findall(r"https://\S+", links))
+    urls = set(re.findall(r"(?:https://|mailto:)\S+", links))
     assert urls == expected
     for project in filtered["projects"]:
         for link in project["links"]:

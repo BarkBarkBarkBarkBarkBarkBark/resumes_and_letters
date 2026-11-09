@@ -54,6 +54,7 @@ resume omits the badge. Academic degrees are separate from the Python
 professional concentration. GitHub and LinkedIn profile links pair the platform
 icons with readable labels. Generated resumes and CVs retain header/profile and
 credential links, but do not render project-specific repository links.
+The email address in each document header is a clickable mailto link.
 Project descriptions and accomplishments remain intact. The homepage and
 technical evidence page retain the relevant code and report references.
 Skills and ordinary document bullets do not carry icons.

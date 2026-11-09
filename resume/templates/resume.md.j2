@@ -18,7 +18,7 @@
 \ContactLine{ {{- resume.personal.headline | latex_escape -}} }
 \ContactLine{ {{- resume.personal.supporting_line | latex_escape -}} }
 {% endif %}
-\ContactLine{ {{- c.email | latex_escape }} | {{ c.phone | default('') | latex_escape }} | {{ c.location | default('') | latex_escape -}} }
+\ContactLine{\href{mailto:{{ c.email | latex_escape }}}{ {{- c.email | latex_escape -}} } | {{ c.phone | default('') | latex_escape }} | {{ c.location | default('') | latex_escape -}} }
 {% if c.github %}\ProfileLink{github.png}{ {{- c.github | latex_escape -}} }{GitHub} · {% endif %}{% if c.linkedin %}\ProfileLink{linkedin.png}{ {{- c.linkedin | latex_escape -}} }{LinkedIn} · {% endif %}[Portfolio](https://barkbarkbarkbarkbarkbarkbark.github.io/resumes_and_letters/)
 {% for cert in resume.certifications if cert.badge_url and cert.credly_url %}
 \EndResumeHeader
@@ -32,7 +32,7 @@
 {{ resume.personal.supporting_line }}
 
 {% endif %}
-{{ c.email }} | {{ c.phone }} | {{ c.location }}
+[{{ c.email }}](mailto:{{ c.email }}) | {{ c.phone }} | {{ c.location }}
 
 {% if c.github %}[GitHub]({{ c.github }})
 {% endif %}
