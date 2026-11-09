@@ -52,12 +52,11 @@ remain on the evidence page. The full CV has a small Credly-linked UC Davis
 badge in its header; the certification section is text-only, and the compact
 resume omits the badge. Academic degrees are separate from the Python
 professional concentration. GitHub and LinkedIn profile links pair the platform
-icons with readable labels. GitHub project references use descriptive labels
-such as "Reader code," "Validation notebook," "Processing notebook," and
-"Technical report," with a small GitHub icon. The formats project links directly
-to both artifacts in PDFs and to the reader code on the homepage. Hosaka retains
-its accomplishment and evidence record without a project link implying public
-implementation access. Skills and ordinary bullets do not carry icons.
+icons with readable labels. Generated resumes and CVs retain header/profile and
+credential links, but do not render project-specific repository links.
+Project descriptions and accomplishments remain intact. The homepage and
+technical evidence page retain the relevant code and report references.
+Skills and ordinary document bullets do not carry icons.
 
 ## Build and validate
 
@@ -136,7 +135,7 @@ Legacy strings are normalized at the input boundary. Projects use `id`, `name`,
 `problem`, `bullets`, `tools`, `evidence_ids`, and `links`; profiles select the
 records for each output.
 Links can set `icon: github` to retain the icon for a technical-evidence destination.
-Use `hide_on_site: true` to hide a project link on the homepage while retaining its PDF reference.
+Use `hide_on_site: true` to hide a homepage project link while retaining its provenance in canonical data.
 
 Only explicitly public inventory records can enter the evidence page, filtered
 JSON, or public manifest. Repository evidence requires exact source locations

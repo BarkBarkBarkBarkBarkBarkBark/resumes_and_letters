@@ -48,7 +48,7 @@ summary:
     Committed to equity-centered learning and improving health and housing outcomes.
 
   default: >
-    Biomedical Engineering M.S. student at UC Davis and research volunteer in
+    Biomedical Engineering M.S. student at UC Davis working in
     Dr. Jie Zheng's lab. Background spans human electrophysiology, Python/MATLAB
     analysis, acquisition tooling, laboratory quality control, and data systems.
 
@@ -190,7 +190,7 @@ experience:
 
 # Volunteer and research experience — included or excluded per role profile.
 volunteer:
-  - role: Research Volunteer
+  - role: Graduate Student
     organization: "UC Davis Health — Z-Lab (Dr. Jie Zheng)"
     section: research
     location: Sacramento, CA

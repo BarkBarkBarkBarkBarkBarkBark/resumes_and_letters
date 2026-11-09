@@ -6,9 +6,6 @@
 {{ '\n\n' }}
 {% endfor %}
 {% endmacro %}
-{% macro project_links(project) -%}
-{% for link in project.links %}{% if output_format == 'latex' and (link.url.startswith('https://github.com/') or link.icon == 'github') %}\ProfileLink{github.png}{ {{- link.url | latex_escape -}} }{ {{- link.label | latex_escape -}} }{% else %}[{{ link.label }}]({{ link.url }}){% endif %}{% if not loop.last %} · {% endif %}{% endfor %}
-{%- endmacro %}
 {% set c = resume.personal.contact %}
 {% if output_format == 'latex' %}
 {% if resume.compact %}\CompactResume
@@ -71,15 +68,11 @@
 ### {{ project.name }}
 {{ '\n' }}
 {% for bullet in project.bullets %}
-- {{ bullet.text }}{% if resume.compact and loop.last and project.links %} {{ project_links(project) }}{% endif %}
+- {{ bullet.text }}
 {{ '\n' }}
 {% endfor %}
 {{ '\n' }}
-{% if not resume.compact %}
-{{ project_links(project) }}
-{{ '\n' }}
-{% if output_format == 'latex' %}\vspace{6pt}
-{% endif %}
+{% if not resume.compact and output_format == 'latex' %}\vspace{6pt}
 {% endif %}
 {% endfor %}
 {% endif %}

@@ -70,6 +70,8 @@ def test_pdf_has_required_pages_and_selectable_ordered_sections(publication):
         assert "Waveform Analysis and Spike Sorting" in text.split("\f")[1]
         assert text.index("Education") < text.index("Python for Data Science")
     assert "routing/VLAN segmentation" in text
+    assert "Graduate Student" in text
+    assert "Research Volunteer" not in text
 
 
 def test_pdf_body_within_margins(publication):
@@ -92,23 +94,25 @@ def test_pdf_body_within_margins(publication):
                 assert float(word.attrib["yMax"]) <= 742.6
 
 
-def test_pdf_contains_readable_project_sources_and_contact_links(publication):
+def test_pdf_keeps_header_links_without_repository_specific_links(publication):
     pdf, profile_key, _ = publication
     data = load_yaml(DATA_DIR / "base_resume.yaml")
     profile = load_yaml(DATA_DIR / "role_profiles.yaml")[profile_key]
     filtered = apply_profile(data, profile)
-    expected = {link["url"] for project in filtered["projects"] for link in project["links"]}
-    expected.update(filtered["personal"]["contact"][key] for key in ("github", "linkedin"))
+    expected = {filtered["personal"]["contact"][key] for key in ("github", "linkedin")}
+    expected.add("https://barkbarkbarkbarkbarkbarkbark.github.io/resumes_and_letters/")
     expected.update(cert["credly_url"] for cert in filtered["certifications"] if cert.get("credly_url"))
     links = output("pdfinfo", "-url", str(pdf))
     for url in expected:
         assert url in links
-    text = output("pdftotext", "-raw", str(pdf), "-")
+    urls = set(re.findall(r"https://\S+", links))
+    assert urls == expected
     for project in filtered["projects"]:
         for link in project["links"]:
-            assert link["label"] in text
+            assert link["url"] not in urls
+    text = output("pdftotext", "-raw", str(pdf), "-")
     assert not re.search(r"^Source$", text, re.MULTILINE)
     assert "evidence.html#med-adapter" not in links
     assert "evidence.html#hosaka-debugging" not in links
     for artifact in ("med_utils.py", "8_7_filetype_comparison.ipynb"):
-        assert artifact in links
+        assert artifact not in links

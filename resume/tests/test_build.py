@@ -310,8 +310,10 @@ def test_latex_preserves_header_typography_and_evidence(resume_data, profiles):
     assert r"\ProfileLink{github.png}{https://github.com/" in md
     assert r"\ProfileLink{linkedin.png}{https://www.linkedin.com/in/marc-del-fava}{LinkedIn}" in md
     assert r"\EvidenceLink" not in md and r"\HeaderProfileLink" not in md
+    projects = md.split("## Selected Engineering Projects")[1]
+    assert r"\ProfileLink" not in projects
     for label in ("Reader code", "Validation notebook", "Processing notebook", "Technical report"):
-        assert f"}}{{{label}}}" in md
+        assert label not in md
     assert "}{Source}" not in md and "[Source](" not in md
     assert "(continued)" not in md
     assert r"\newpage" in md
@@ -333,14 +335,35 @@ def test_hosaka_accomplishment_remains_without_a_source_link(resume_data, profil
     assert filtered["evidence_records"]["hosaka-debugging"]["source_type"] == "owner-report"
 
 
-def test_artifact_urls_and_labels_are_escaped_only_in_latex(resume_data, profiles):
-    link = resume_data["projects"][0]["links"][0]
-    link["url"] = "https://github.com/owner/repo/blob/main/file_name.py?view=1&mode=raw#example"
-    link["label"] = "Code & tests"
+def test_profile_urls_are_escaped_only_in_latex(resume_data, profiles):
+    url = "https://github.com/owner_name?view=1&mode=raw#profile"
+    resume_data["personal"]["contact"]["github"] = url
     latex = render_resume(resume_data, profiles["neuroengineering"], output_format="latex")
-    assert r"file\_name.py?view=1\&mode=raw\#example}{Code \& tests}" in latex
+    assert r"owner\_name?view=1\&mode=raw\#profile}{GitHub}" in latex
     markdown = render_resume(resume_data, profiles["neuroengineering"])
-    assert f"[Code & tests]({link['url']})" in markdown
+    assert f"[GitHub]({url})" in markdown
+
+
+@pytest.mark.parametrize("profile_key", ["neuroengineering", "engineering", "catalystneuro"])
+def test_documents_keep_project_text_without_project_links(resume_data, profiles, profile_key):
+    filtered = apply_profile(resume_data, profiles[profile_key])
+    for output_format in ("markdown", "latex"):
+        text = render_resume(resume_data, profiles[profile_key], output_format=output_format)
+        for project in filtered["projects"]:
+            assert project["name"] in text
+            for bullet in project["bullets"]:
+                assert bullet["text"] in text
+            for link in project["links"]:
+                assert link["url"] not in text
+                assert link["label"] not in text
+
+
+def test_graduate_student_title_is_scoped_to_zlab(resume_data, profiles):
+    research = apply_profile(resume_data, profiles["neuroengineering"])["research"]
+    assert research[0]["role"] == "Graduate Student"
+    assert research[0]["start_date"] == "2025-07"
+    e5 = next(role for role in resume_data["volunteer"] if "Neuroscience Unit E5" in role["organization"])
+    assert e5["role"] == "Research Volunteer"
 
 
 def test_explicit_output_name_stable_and_failure_not_success(resume_data, profiles, tmp_path, monkeypatch):

@@ -33,7 +33,7 @@ Biomedical Engineering M.S. student and neuroscience researcher at UC Davis. I b
 
 ## Research Experience
 
-**Research Volunteer**, UC Davis Health — Z-Lab (Dr. Jie Zheng) — Jul 2025 - Present
+**Graduate Student**, UC Davis Health — Z-Lab (Dr. Jie Zheng) — Jul 2025 - Present
 
 - Work with human intracranial electrophysiology recordings, developing Python workflows to prepare, process, and analyze single-neuron data.
 
@@ -44,7 +44,9 @@ Biomedical Engineering M.S. student and neuroscience researcher at UC Davis. I b
 
 - Adapted a Neo-backed MED reader to skip corrupt parity channels whose metadata caused standard readers to abort, allowing processing without modifying source recordings.
 
-- Evaluated signal fidelity across 20 million samples on one channel (32 kHz; 625 s), comparing original CSC and compressed MED recordings. Measured a maximum amplitude difference of 0.5 µV, with exact agreement after whole-microvolt source rounding. [Reader code](https://github.com/BarkBarkBarkBarkBarkBarkBark/DHN_validation/blob/496c2326f000037698f7b92b4b3a4139c3a70d13/sort_med/sorting_tools/med_utils.py) · [Validation notebook](https://github.com/BarkBarkBarkBarkBarkBarkBark/DHN_validation/blob/496c2326f000037698f7b92b4b3a4139c3a70d13/sort_med/evidence/8_7_filetype_comparison.ipynb)
+
+- Evaluated signal fidelity across 20 million samples on one channel (32 kHz; 625 s), comparing original CSC and compressed MED recordings. Measured a maximum amplitude difference of 0.5 µV, with exact agreement after whole-microvolt source rounding.
+
 
 
 
@@ -53,7 +55,9 @@ Biomedical Engineering M.S. student and neuroscience researcher at UC Davis. I b
 
 - Built Python workflows for processing Intan recordings through SpikeInterface, including probe mapping, channel checks, spike sorting, waveform extraction, and quality metrics.
 
-- Developed synchronization software to align PsychoPy behavioral events with RHX recordings, using matched event labels and affine clock fitting to characterize drift between recording systems. [Processing notebook](https://github.com/BarkBarkBarkBarkBarkBarkBark/zlab_sorting_script/blob/3ff216ac593166687ae2260ccb705ea1322cf9f1/notebooks/sort_intan.ipynb)
+
+- Developed synchronization software to align PsychoPy behavioral events with RHX recordings, using matched event labels and affine clock fitting to characterize drift between recording systems.
+
 
 
 
@@ -62,7 +66,9 @@ Biomedical Engineering M.S. student and neuroscience researcher at UC Davis. I b
 
 - Investigated a performance regression in Hosaka, a command-line software platform, where agent-generated schema validation made listing seven records take approximately ten seconds.
 
+
 - Used execution timing logs to identify repeated validation as the bottleneck, then introduced content-based caching and regression tests to preserve checks for changed or invalid schemas.
+
 
 
 

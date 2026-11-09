@@ -16,7 +16,7 @@
     "engineering": "Biomedical Engineering M.S. student and neuroscience researcher at UC Davis. I build Python acquisition and data-integrity workflows and use coding agents with profiling, debugging, and regression tests.\n",
     "catalystneuro": "Biomedical engineering graduate researcher developing Python tools for human intracranial electrophysiology, with experience in Intan and Neuralynx vendor formats, SpikeInterface, event-clock synchronization, and sample-level data-integrity validation. Builds agent-assisted scientific software prototypes with explicit approval and validation controls; prioritizes reproducibility and transparent limitations.\n",
     "data_analytics": "Evaluation and data systems professional with 5 years supporting 4 shelter sites serving 400+ people/month and their integrated clinical partnerships. Led mixed methods efforts including surveys and focus groups, built reporting workflows, and translated findings into funder-ready narratives and operational decisions. Experienced with Python/SQL, SPSS, dashboards, and Microsoft 365 automation. Committed to equity-centered learning and improving health and housing outcomes.\n",
-    "default": "Biomedical Engineering M.S. student at UC Davis and research volunteer in Dr. Jie Zheng's lab. Background spans human electrophysiology, Python/MATLAB analysis, acquisition tooling, laboratory quality control, and data systems.\n"
+    "default": "Biomedical Engineering M.S. student at UC Davis working in Dr. Jie Zheng's lab. Background spans human electrophysiology, Python/MATLAB analysis, acquisition tooling, laboratory quality control, and data systems.\n"
   },
   "skills": [
     {
@@ -237,7 +237,7 @@
   "summary_text": "Biomedical Engineering M.S. student and neuroscience researcher at UC Davis. I build Python acquisition and data-integrity workflows and use coding agents with profiling, debugging, and regression tests.\n",
   "research": [
     {
-      "role": "Research Volunteer",
+      "role": "Graduate Student",
       "organization": "UC Davis Health — Z-Lab (Dr. Jie Zheng)",
       "section": "research",
       "location": "Sacramento, CA",

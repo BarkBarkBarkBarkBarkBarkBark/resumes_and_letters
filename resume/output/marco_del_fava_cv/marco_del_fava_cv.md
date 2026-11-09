@@ -33,7 +33,7 @@ Biomedical Engineering M.S. student at UC Davis developing Python tools for neur
 
 ## Research Experience
 
-**Research Volunteer**, UC Davis Health — Z-Lab (Dr. Jie Zheng) — Jul 2025 - Present
+**Graduate Student**, UC Davis Health — Z-Lab (Dr. Jie Zheng) — Jul 2025 - Present
 
 - Work with human intracranial electrophysiology recordings, developing Python workflows to prepare, process, and analyze single-neuron data.
 - Develop event-aligned analyses of responses to repeated spoken narratives, combining sorted spike timestamps, experimental markers, rasters, and peri-stimulus firing rates.
@@ -46,13 +46,13 @@ Biomedical Engineering M.S. student at UC Davis developing Python tools for neur
 
 - Adapted a Neo-backed MED reader to skip corrupt parity channels whose metadata caused standard readers to abort, allowing processing without modifying source recordings.
 
+
 - Developed validation and repair utilities for Neuralynx recordings with sample-count inconsistencies and missing recording-end metadata that prevented downstream conversion.
+
 
 - Evaluated signal fidelity across 20 million samples on one channel (32 kHz; 625 s), comparing original CSC and compressed MED recordings. Measured a maximum amplitude difference of 0.5 µV, with exact agreement after whole-microvolt source rounding.
 
 
-
-[Reader code](https://github.com/BarkBarkBarkBarkBarkBarkBark/DHN_validation/blob/496c2326f000037698f7b92b4b3a4139c3a70d13/sort_med/sorting_tools/med_utils.py) · [Validation notebook](https://github.com/BarkBarkBarkBarkBarkBarkBark/DHN_validation/blob/496c2326f000037698f7b92b4b3a4139c3a70d13/sort_med/evidence/8_7_filetype_comparison.ipynb)
 
 
 ### Neural Acquisition and Experimental Synchronization
@@ -60,11 +60,10 @@ Biomedical Engineering M.S. student at UC Davis developing Python tools for neur
 
 - Built Python workflows for processing Intan recordings through SpikeInterface, including probe mapping, channel checks, spike sorting, waveform extraction, and quality metrics.
 
+
 - Developed synchronization software to align PsychoPy behavioral events with RHX recordings, using matched event labels and affine clock fitting to characterize drift between recording systems.
 
 
-
-[Processing notebook](https://github.com/BarkBarkBarkBarkBarkBarkBark/zlab_sorting_script/blob/3ff216ac593166687ae2260ccb705ea1322cf9f1/notebooks/sort_intan.ipynb)
 
 
 ### Waveform Analysis and Spike Sorting
@@ -72,11 +71,10 @@ Biomedical Engineering M.S. student at UC Davis developing Python tools for neur
 
 - Evaluated waveform representations across 38,145 spike snippets and 10 putative O-Sort unit labels, comparing how well different features preserved local waveform structure and supported clustering.
 
+
 - Found that strong local neighbor consistency did not translate into equivalent global clustering agreement, distinguishing local waveform-feature consistency from whole-dataset clustering behavior.
 
 
-
-[Technical report](https://github.com/BarkBarkBarkBarkBarkBarkBark/spike_discrim/blob/a697e68898c688ccc5dfe23ced78dbc6494ca1c1/docs/clustering_results.md)
 
 
 ### Debugging Agent-Generated Software
@@ -84,9 +82,8 @@ Biomedical Engineering M.S. student at UC Davis developing Python tools for neur
 
 - Investigated a performance regression in Hosaka, a command-line software platform, where agent-generated schema validation made listing seven records take approximately ten seconds.
 
+
 - Used execution timing logs to identify repeated validation as the bottleneck, then introduced content-based caching and regression tests to preserve checks for changed or invalid schemas.
-
-
 
 
 
