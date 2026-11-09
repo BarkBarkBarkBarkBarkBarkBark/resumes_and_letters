@@ -195,7 +195,7 @@
       "maturity": "Implemented",
       "verification": "Owner approved the debugging account; private implementation and test output were not independently inspected.",
       "measurement_definition": "Owner-reported approximate elapsed time for listing seven records before the fix; profiling, caching, and regression-test approach. No before/after speedup ratio claimed.",
-      "test_conditions": "Owner reports a seven-record Hosaka listing took approximately ten seconds during Codex-assisted development; repeated schema validation identified with execution timing logs.",
+      "test_conditions": "Owner reports a seven-record Hosaka listing took approximately 70 seconds during Codex-assisted development; repeated schema validation identified with execution timing logs.",
       "verified_result": "Owner introduced content-based caching and regression tests to avoid redundant validation while preserving checks for changed or invalid schemas.",
       "limitations": "Approximate pre-fix timing and test behavior are owner-reported from the supplied revision brief. No public source revision, timing logs, or independently rerun regression results are published; no post-fix duration or measured speedup is inferred."
     },

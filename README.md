@@ -142,7 +142,7 @@ Only explicitly public inventory records can enter the evidence page, filtered
 JSON, or public manifest. Repository evidence requires exact source locations
 and full commit revisions. Owner-reported work requires a publication
 confirmation and cannot masquerade as commit-pinned code. Neuralynx repair and
-Hosaka debugging are approved owner reports. The approximate ten-second,
+Hosaka debugging are approved owner reports. The approximate 70-second,
 seven-record Hosaka listing is an owner-reported pre-fix observation, not a
 publicly rerun benchmark; no post-fix duration or speedup ratio is claimed.
 Private implementations and timing logs are not published.

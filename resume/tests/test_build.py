@@ -327,7 +327,7 @@ def test_latex_preserves_header_typography_and_evidence(resume_data, profiles):
 def test_hosaka_accomplishment_remains_without_a_source_link(resume_data, profiles, profile_key):
     md = render_resume(resume_data, profiles[profile_key], output_format="latex")
     hosaka = md.split("### Debugging Agent-Generated Software")[1].split("## Additional Professional Experience")[0]
-    assert "seven records take approximately ten seconds" in hosaka
+    assert "seven records take approximately 70 seconds" in hosaka
     assert "content-based caching" in hosaka
     assert r"\ProfileLink" not in hosaka
     assert "hosaka-debugging" not in md
@@ -527,7 +527,7 @@ def test_new_owner_reports_and_adapter_keep_distinct_provenance(resume_data, pro
         assert not records[key].get("revision") and not records[key].get("sources")
     assert "No before/after speedup ratio claimed" in records["hosaka-debugging"]["measurement_definition"]
     assert "seven-record" in records["hosaka-debugging"]["test_conditions"]
-    assert "approximately ten seconds" in records["hosaka-debugging"]["test_conditions"]
+    assert "approximately 70 seconds" in records["hosaka-debugging"]["test_conditions"]
     assert "owner-reported" in records["hosaka-debugging"]["limitations"]
 
 

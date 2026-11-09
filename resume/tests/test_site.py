@@ -152,7 +152,7 @@ def test_research_context_precedes_four_simple_projects(content):
     assert "20 million samples on one channel" in html and "0.5 µV" in html
     assert "95.04%" not in html and "54.26%" not in html
     assert "local neighbor consistency" in html and "global clustering agreement" in html
-    assert "approximately ten seconds" in html and "seven" in html
+    assert "approximately 70 seconds" in html and "seven" in html
     assert html.index('id="hosaka"') < html.index('id="skills-title"') < html.index('id="professional-title"')
     assert "Research Software &amp; Neural Data" in html
     assert "Engineering résumé · 1 page" in html
@@ -225,7 +225,7 @@ def test_project_links_respect_site_visibility_and_keep_brief_prose(content):
     assert "Reader code</a>" in html
     assert "sort_med/sorting_tools/med_utils.py" in html
     hosaka = html.split('id="hosaka">')[1].split("</article>")[0]
-    assert "approximately ten seconds" in hosaka
+    assert "approximately 70 seconds" in hosaka
     assert "<a " not in hosaka and "<img " not in hosaka
 
 

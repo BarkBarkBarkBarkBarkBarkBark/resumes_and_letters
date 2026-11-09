@@ -64,7 +64,7 @@ Biomedical Engineering M.S. student and neuroscience researcher at UC Davis. I b
 ### Debugging Agent-Generated Software
 
 
-- Investigated a performance regression in Hosaka, a command-line software platform, where agent-generated schema validation made listing seven records take approximately ten seconds.
+- Investigated a performance regression in Hosaka, a command-line software platform, where agent-generated schema validation made listing seven records take approximately 70 seconds.
 
 
 - Used execution timing logs to identify repeated validation as the bottleneck, then introduced content-based caching and regression tests to preserve checks for changed or invalid schemas.

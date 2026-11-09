@@ -399,7 +399,7 @@ projects:
       - text: >
           Investigated a performance regression in Hosaka, a command-line software
           platform, where agent-generated schema validation made listing seven
-          records take approximately ten seconds.
+          records take approximately 70 seconds.
       - text: >
           Used execution timing logs to identify repeated validation as the
           bottleneck, then introduced content-based caching and regression tests

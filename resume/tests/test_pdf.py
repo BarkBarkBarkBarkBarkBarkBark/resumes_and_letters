@@ -53,7 +53,7 @@ def test_pdf_has_required_pages_and_selectable_ordered_sections(publication):
     assert "Research Software & Neural Data" in first_page
     assert "Neural Data Formats and Integrity" in first_page
     for claim in ("0.5 µV", "20 million", "one channel", "Hosaka", "content-based caching",
-                  "seven records", "approximately ten seconds"):
+                  "seven records", "approximately 70 seconds"):
         assert claim in text
     assert "35,587" not in text
     assert "not independently verified" not in text
