@@ -1,0 +1,28 @@
+name: Neuralink cover letter PDF
+
+on:
+  pull_request:
+    paths:
+      - 'applications/neuralink_implant/**'
+      - '.github/workflows/neuralink-cover-letter.yml'
+  workflow_dispatch:
+
+jobs:
+  build-cover-letter:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install PDF dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y pandoc texlive-latex-base texlive-latex-recommended
+      - name: Run application tests
+        run: python -m unittest discover -s applications/neuralink_implant -p 'test_*.py' -v
+      - name: Generate and verify PDF
+        run: python applications/neuralink_implant/export_pdf.py
+      - name: Upload PDF
+        uses: actions/upload-artifact@v4
+        with:
+          name: neuralink-implant-cover-letter
+          path: applications/neuralink_implant/dist/neuralink_implant_cover_letter.pdf
+          if-no-files-found: error
